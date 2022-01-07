@@ -28,6 +28,8 @@ import {MatSelectModule} from '@angular/material/select';
 
 // module
 import {PagesRoutingModule} from './pages-routing.module';
+import { HelpChooseEquipmentComponent } from './ahri-matchups/help-choose-equipment/help-choose-equipment.component';
+import { KnowModelNrComponent } from './ahri-matchups/know-model-nr/know-model-nr.component';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import {PagesRoutingModule} from './pages-routing.module';
     PartialSupplementalHPRebateComponent,
     HomeComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    HelpChooseEquipmentComponent,
+    KnowModelNrComponent
   ],
   imports: [
     CommonModule,
