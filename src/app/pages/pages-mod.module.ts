@@ -11,6 +11,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSortModule} from '@angular/material/sort';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTableModule} from '@angular/material/table';
 
 // components
 import { PagesComponent } from './pages.component';
@@ -20,6 +21,9 @@ import { PartialSupplementalHPRebateComponent } from './partial-supplemental-hp-
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from '../shared/footer/footer.component';
 import { HeaderComponent } from '../shared/header/header.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
 
 
 // module
@@ -49,7 +53,11 @@ import {PagesRoutingModule} from './pages-routing.module';
     MatGridListModule,
     MatSortModule,
     MatStepperModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatRadioModule,
+    MatSelectModule
   ],
   exports:[
     // angular Material
@@ -59,7 +67,11 @@ import {PagesRoutingModule} from './pages-routing.module';
     MatIconModule,
     MatGridListModule,
     MatSortModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatRadioModule,
+    MatSelectModule
   ]
 })
 export class PagesModModule { }

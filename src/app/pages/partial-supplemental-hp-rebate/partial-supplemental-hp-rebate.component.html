@@ -1,1 +1,165 @@
-<p>partial-supplemental-hp-rebate works!</p>
+
+<form>
+    <mat-stepper #stepper >
+      <!-- paso 1 -->
+      <mat-step  errorMessage="Name is required." >
+  
+  
+          <!-- nombre del paso -->
+          <ng-template matStepLabel>Equipment Size</ng-template>
+  
+          <!-- input -->
+          <mat-form-field appearance="fill">
+            <mat-label>Cooling tons</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label> Heating BTUH</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
+  
+          <!-- button -->
+          <div>
+            <button type="button"  mat-button matStepperNext>Continue</button>
+          </div>
+  
+        
+      </mat-step>
+      <!-- paso 1 end  -->
+  
+      <!-- paso 2 -->
+      <mat-step  errorMessage="Address is required."  >
+  
+  
+           <!-- nombre del paso -->
+          <ng-template matStepLabel>Energy Distrubution</ng-template>
+  
+          <!-- radio button -->
+          <mat-label>Energy Distrubution Method</mat-label>
+          <br>
+          <mat-radio-button value="1">Mini - Split</mat-radio-button>
+          <br>
+          <mat-radio-button value="2">Tradicional Ducted</mat-radio-button>
+          <br>
+         
+          <!-- button -->
+          <div>
+            <button type="button" mat-button matStepperPrevious>Back</button>
+            <button type="button" type="submit" mat-button matStepperNext>Continue</button>
+          </div>
+        
+      </mat-step>
+      <!-- paso 2 end -->
+
+      <!-- paso 3 -->
+      <mat-step  errorMessage="Address is required."  >
+  
+  
+        <!-- nombre del paso -->
+       <ng-template matStepLabel>Furnace</ng-template>
+
+       <!-- radio button -->
+       <mat-label>Furnace Fuel</mat-label>
+       <br>
+       <mat-radio-button value="1">Gas</mat-radio-button>
+       <br>
+       <mat-radio-button value="2">Oli</mat-radio-button>
+       <br>
+       <mat-radio-button value="2">None</mat-radio-button>
+       <br>
+      
+       <!-- button -->
+       <div>
+         <button type="button" mat-button matStepperPrevious>Back</button>
+         <button type="button"  mat-button matStepperNext>Continue</button>
+       </div>
+     
+   </mat-step>
+   <!-- paso 3 end -->
+
+    <!-- paso 4 -->
+    <mat-step  errorMessage="Name is required." >
+  
+  
+        <!-- nombre del paso -->
+        <ng-template matStepLabel>Eligibility Details</ng-template>
+
+        <!-- input -->
+        <mat-form-field appearance="fill">
+        <mat-label>Gas / Oil Utility</mat-label>
+          <mat-select [(ngModel)]="selectedValue" name="food">
+            <mat-option *ngFor="let food of foods" [value]="food.value">
+              {{food.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        
+        <!-- radio button -->
+        <mat-label> Existing furnace type?</mat-label>
+        <br>
+        <mat-radio-button value="1">Condensing</mat-radio-button>
+        <br>
+        <mat-radio-button value="2">None - condensing</mat-radio-button>
+        <br>
+
+
+        <!-- button -->
+        <!-- button -->
+       <div>
+        <button type="button" mat-button matStepperPrevious>Back</button>
+        <button type="button" type="submit" mat-button matStepperNext>Continue</button>
+      </div>
+    </mat-step>
+    <!-- paso 4 end  -->
+  
+
+  
+      <!-- paso 5 -->
+      <mat-step>
+        <ng-template matStepLabel>AHRI Combinations</ng-template>
+         <!-- table -->
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+          
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+              </ng-container>
+          
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+              </ng-container>
+          
+              <!-- Weight Column -->
+              <ng-container matColumnDef="weight">
+                <th mat-header-cell *matHeaderCellDef> Weight </th>
+                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+              </ng-container>
+          
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+              </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons 
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+        </div>
+            <!-- table end  -->
+      </mat-step>
+      <!-- paso 5 end -->
+  
+    </mat-stepper>
+    
+  </form>
