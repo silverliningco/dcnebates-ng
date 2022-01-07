@@ -1,0 +1,122 @@
+
+<form>
+  <mat-stepper #stepper >
+    <!-- paso 1 -->
+    <mat-step  errorMessage="Name is required." >
+
+
+        <!-- nombre del paso -->
+        <ng-template matStepLabel>Fill out your name</ng-template>
+
+        <!-- input -->
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput placeholder="Last name, First name" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Apellido paterno</mat-label>
+          <input matInput placeholder="Last name, First name"required>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Apellido materno</mat-label>
+          <input matInput placeholder="Last name, First name"  required>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>DNI</mat-label>
+          <input matInput placeholder="Last name, First name"  required>
+        </mat-form-field>
+
+        <!-- button -->
+        <div>
+          <p>Go to a different step to see the error state</p>
+          <button type="button"  mat-button matStepperNext>Next</button>
+        </div>
+
+      
+    </mat-step>
+    <!-- paso 1 end  -->
+
+    <!-- paso 2 -->
+    <mat-step  errorMessage="Address is required."  >
+
+
+         <!-- nombre del paso -->
+        <ng-template matStepLabel>Dirrecion de entrega</ng-template>
+
+        <!-- input -->
+        <mat-form-field appearance="fill">
+          <mat-label>Region</mat-label>
+          <input matInput placeholder="Ex. 1 Main St, New York, NY" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Provincia</mat-label>
+          <input matInput placeholder="Last name, First name"  required>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Distrito</mat-label>
+          <input matInput placeholder="Last name, First name"  required>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Dirreccion</mat-label>
+          <input matInput placeholder="Last name, First name" required>
+        </mat-form-field>
+
+        <!-- button -->
+        <div>
+          <p>Go to a different step to see the error state</p>
+          <button type="button" mat-button matStepperPrevious>Back</button>
+          <button type="button" mat-button matStepperNext>Next</button>
+        </div>
+      
+    </mat-step>
+    <!-- paso 2 end -->
+
+    <!-- paso 3 -->
+    <mat-step  errorMessage="Address is required." >
+
+
+         <!-- nombre del paso -->
+        <ng-template matStepLabel>Pay your order</ng-template>
+
+        <!-- input -->
+        <mat-form-field appearance="fill">
+          <mat-label>numero de targeta de credito</mat-label>
+          <input matInput placeholder="Ex. 1 Main St, New York, NY" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>numero de seguridad </mat-label>
+          <input matInput placeholder="Ex. 1 Main St, New York, NY" required>
+        </mat-form-field>
+
+        <!-- button -->
+        <div>
+          <p>Go to a different step to see the error state</p>
+          <button type="button" mat-button matStepperPrevious>Back</button>
+          <button type="button" mat-button matStepperNext>pagar</button>
+        </div>
+      
+    </mat-step>
+    <!-- paso 3 end -->
+
+    <!-- paso 4 -->
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>su compra fue exitosa</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button  type="submit" >Done</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+    <!-- paso 4 end -->
+
+  </mat-stepper>
+  
+</form>
