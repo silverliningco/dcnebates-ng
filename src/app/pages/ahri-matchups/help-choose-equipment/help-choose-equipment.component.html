@@ -10,11 +10,14 @@
   
           <!-- input -->
           <mat-form-field appearance="fill">
-            <mat-label>Manual J Heating BTUH</mat-label>
+            <mat-label>Cooling tons</mat-label>
             <input matInput placeholder="Last name, First name" required>
           </mat-form-field>
           <br>
-          
+          <mat-form-field appearance="fill">
+            <mat-label> Heating BTUH</mat-label>
+            <input matInput placeholder="Last name, First name" required>
+          </mat-form-field>
   
           <!-- button -->
           <div>
@@ -32,7 +35,7 @@
            <!-- nombre del paso -->
           <ng-template matStepLabel>Energy Distrubution</ng-template>
   
-          <!-- input -->
+          <!-- radio button -->
           <mat-label>Energy Distrubution Method</mat-label>
           <br>
           <mat-radio-button value="1">Mini - Split</mat-radio-button>
@@ -48,10 +51,98 @@
         
       </mat-step>
       <!-- paso 2 end -->
+
+      <!-- paso 3 -->
+      <mat-step  errorMessage="Address is required."  >
+  
+  
+        <!-- nombre del paso -->
+       <ng-template matStepLabel>Furnace</ng-template>
+
+       <!-- radio button -->
+       <mat-label>Furnace Fuel</mat-label>
+       <br>
+       <mat-radio-button value="1">Gas</mat-radio-button>
+       <br>
+       <mat-radio-button value="2">Oli</mat-radio-button>
+       <br>
+       <mat-radio-button value="2">None</mat-radio-button>
+       <br>
+      
+       <!-- button -->
+       <div>
+         <button type="button" mat-button matStepperPrevious>Back</button>
+         <button type="button"  mat-button matStepperNext>Continue</button>
+       </div>
+     
+   </mat-step>
+   <!-- paso 3 end -->
+
+    <!-- paso 4 -->
+    <mat-step  errorMessage="Name is required." >
+  
+  
+        <!-- nombre del paso -->
+        <ng-template matStepLabel>Eligibility Details</ng-template>
+
+        <!-- select -->
+        <mat-form-field appearance="fill">
+            <mat-label>State</mat-label>
+            <mat-select [(ngModel)]="selectedValue" name="food">
+                <mat-option *ngFor="let food of foods" [value]="food.value">
+                {{food.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Selectric Utility Provider</mat-label>
+            <mat-select [(ngModel)]="selectedValue" name="food">
+                <mat-option *ngFor="let food of foods" [value]="food.value">
+                {{food.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Gas / Oil Utility</mat-label>
+            <mat-select [(ngModel)]="selectedValue" name="food">
+                <mat-option *ngFor="let food of foods" [value]="food.value">
+                {{food.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        
+        <!-- radio button -->
+        <mat-label> Existing furnace type?</mat-label>
+        <br>
+        <mat-radio-button value="1">Condensing</mat-radio-button>
+        <br>
+        <mat-radio-button value="2">None - condensing</mat-radio-button>
+        <br>
+        <br>
+        <br>
+        <mat-label> HP System is the sole source of heat?</mat-label>
+        <br>
+        <mat-radio-button value="1">Yes</mat-radio-button>
+        <br>
+        <mat-radio-button value="2">No</mat-radio-button>
+        <br>
+
+
+        <!-- button -->
+        <!-- button -->
+       <div>
+        <button type="button" mat-button matStepperPrevious>Back</button>
+        <button type="button" type="submit" mat-button matStepperNext>Continue</button>
+      </div>
+    </mat-step>
+    <!-- paso 4 end  -->
   
 
   
-      <!-- paso 3 -->
+      <!-- paso 5 -->
       <mat-step>
         <ng-template matStepLabel>AHRI Combinations</ng-template>
          <!-- table -->
@@ -93,7 +184,7 @@
         </div>
             <!-- table end  -->
       </mat-step>
-      <!-- paso 3 end -->
+      <!-- paso 5 end -->
   
     </mat-stepper>
     

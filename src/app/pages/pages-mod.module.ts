@@ -12,7 +12,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
-
+import {MatTableModule} from '@angular/material/table';
 // components
 import { PagesComponent } from './pages.component';
 import { AHRIMatchupsComponent } from './ahri-matchups/ahri-matchups.component';
@@ -21,10 +21,15 @@ import { PartialSupplementalHPRebateComponent } from './partial-supplemental-hp-
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from '../shared/footer/footer.component';
 import { HeaderComponent } from '../shared/header/header.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
 
 
 // module
 import {PagesRoutingModule} from './pages-routing.module';
+import { HelpChooseEquipmentComponent } from './ahri-matchups/help-choose-equipment/help-choose-equipment.component';
+import { KnowModelNrComponent } from './ahri-matchups/know-model-nr/know-model-nr.component';
 
 
 @NgModule({
@@ -35,7 +40,9 @@ import {PagesRoutingModule} from './pages-routing.module';
     PartialSupplementalHPRebateComponent,
     HomeComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    HelpChooseEquipmentComponent,
+    KnowModelNrComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +58,11 @@ import {PagesRoutingModule} from './pages-routing.module';
     MatSortModule,
     MatStepperModule,
     MatFormFieldModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatRadioModule,
+    MatSelectModule
   ],
   exports:[
     // angular Material
@@ -62,7 +73,11 @@ import {PagesRoutingModule} from './pages-routing.module';
     MatGridListModule,
     MatSortModule,
     MatFormFieldModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatRadioModule,
+    MatSelectModule
   ]
 })
 export class PagesModModule { }

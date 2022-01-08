@@ -1,30 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@angular/forms';
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-
 
 
 import {AfterViewInit,  ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 
-
 @Component({
-  selector: 'app-whole-house-hp-rebate',
-  templateUrl: './whole-house-hp-rebate.component.html',
-  styleUrls: ['./whole-house-hp-rebate.component.css'], 
-  providers: [
-    {
-      provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: {showError: true},
-    },
-  ]
+  selector: 'app-help-choose-equipment',
+  templateUrl: './help-choose-equipment.component.html',
+  styleUrls: ['./help-choose-equipment.component.css']
 })
+export class HelpChooseEquipmentComponent implements OnInit {
 
-
-
-export class WholeHouseHPRebateComponent implements OnInit {
-
+  // table
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
@@ -34,12 +22,25 @@ export class WholeHouseHPRebateComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  // select
+
+  selectedValue!: string;
+
+  foods: Food[] = [
+    {value: 'steak-0', viewValue: 'Steak'},
+    {value: 'pizza-1', viewValue: 'Pizza'},
+    {value: 'tacos-2', viewValue: 'Tacos'},
+  ];
+
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
 }
+
+
 
 const ELEMENT_DATA: PeriodicElement[] = [
   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
@@ -70,3 +71,11 @@ export interface PeriodicElement {
   weight: number;
   symbol: string;
 }
+
+//select 
+interface Food {
+  value: string;
+  viewValue: string;
+}
+
+
