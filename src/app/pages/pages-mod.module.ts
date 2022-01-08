@@ -11,6 +11,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSortModule} from '@angular/material/sort';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCardModule} from '@angular/material/card';
 
 // components
 import { PagesComponent } from './pages.component';
@@ -49,7 +50,8 @@ import {PagesRoutingModule} from './pages-routing.module';
     MatGridListModule,
     MatSortModule,
     MatStepperModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatCardModule
   ],
   exports:[
     // angular Material
@@ -59,7 +61,8 @@ import {PagesRoutingModule} from './pages-routing.module';
     MatIconModule,
     MatGridListModule,
     MatSortModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatCardModule
   ]
 })
 export class PagesModModule { }
