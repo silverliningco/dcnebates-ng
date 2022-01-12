@@ -17,15 +17,15 @@ const routes: Routes =[
     component: PagesComponent,
     children: [
       {path: '', redirectTo: '/home', pathMatch: 'full' },
-      {path: 'home', component: HomeComponent},
+      {path: 'home', component: HomeComponent, data: {breadcrumbs: ['home']}},
 
-      {path: 'AHRIMatchups', component: AHRIMatchupsComponent },
-      {path: 'AHRIMatchups/HelpChoose', component: HelpChooseEquipmentComponent },
-      {path: 'AHRIMatchups/KnowModel', component: KnowModelNrComponent },
+      {path: 'AHRIMatchups', component: AHRIMatchupsComponent, data: {breadcrumbs: ['AHRI Matchups']} },
+      {path: 'AHRIMatchups/HelpChoose', component: HelpChooseEquipmentComponent, data: {breadcrumbs: ['AHRI Matchups', 'Help Choose']} },
+      {path: 'AHRIMatchups/KnowModel', component: KnowModelNrComponent, data: {breadcrumbs: ['AHRI Matchups', 'Know Model']} },
 
-      {path: 'WholeHouseHP', component: WholeHouseHPRebateComponent },
+      {path: 'WholeHouseHP', component: WholeHouseHPRebateComponent, data: {breadcrumbs: ['Whole House HP']} },
 
-      {path: 'PartialSupplementalHP', component: PartialSupplementalHPRebateComponent }
+      {path: 'PartialSupplementalHP', component: PartialSupplementalHPRebateComponent, data: {breadcrumbs: ['Partial Supplemental HP']} }
     ]
   }
 ]

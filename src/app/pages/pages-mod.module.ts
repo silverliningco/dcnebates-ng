@@ -19,8 +19,6 @@ import { AHRIMatchupsComponent } from './ahri-matchups/ahri-matchups.component';
 import { WholeHouseHPRebateComponent } from './whole-house-hp-rebate/whole-house-hp-rebate.component';
 import { PartialSupplementalHPRebateComponent } from './partial-supplemental-hp-rebate/partial-supplemental-hp-rebate.component';
 import { HomeComponent } from './home/home.component';
-import { FooterComponent } from '../shared/footer/footer.component';
-import { HeaderComponent } from '../shared/header/header.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
@@ -30,6 +28,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {PagesRoutingModule} from './pages-routing.module';
 import { HelpChooseEquipmentComponent } from './ahri-matchups/help-choose-equipment/help-choose-equipment.component';
 import { KnowModelNrComponent } from './ahri-matchups/know-model-nr/know-model-nr.component';
+import { SharedModModule } from '../shared/shared-mod.module';
 
 
 @NgModule({
@@ -39,8 +38,6 @@ import { KnowModelNrComponent } from './ahri-matchups/know-model-nr/know-model-n
     WholeHouseHPRebateComponent,
     PartialSupplementalHPRebateComponent,
     HomeComponent,
-    FooterComponent,
-    HeaderComponent,
     HelpChooseEquipmentComponent,
     KnowModelNrComponent
   ],
@@ -49,6 +46,7 @@ import { KnowModelNrComponent } from './ahri-matchups/know-model-nr/know-model-n
     FormsModule,
     ReactiveFormsModule,
     PagesRoutingModule,
+    SharedModModule,
     // angular Material
     MatInputModule,
     MatToolbarModule,
