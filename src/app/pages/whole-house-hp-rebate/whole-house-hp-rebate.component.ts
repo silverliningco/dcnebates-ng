@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
-
-
+// temporal
 import {AfterViewInit,  ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
@@ -25,6 +24,13 @@ import {MatTableDataSource} from '@angular/material/table';
 
 export class WholeHouseHPRebateComponent implements OnInit {
 
+  // arrayform - control - group 
+    
+  formGroup !: FormGroup ;  
+  
+ // arrayform - control - group  end
+
+
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
@@ -34,10 +40,41 @@ export class WholeHouseHPRebateComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor() { }
+  constructor(
+    private _formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
+    this.formGroup = this._formBuilder.group({
+      
+        equipment_size: this._formBuilder.group({
+          manualj_heating_btuhCtrl: ['', Validators.required],
+        }),
+
+        energy_distribution: this._formBuilder.group({
+          methodCtrl: ['', Validators.required],
+        }),      
+     
+    });
   }
+
+  // arrayform - control - group 
+    
+  get formArray(): AbstractControl | null { 
+    return this.formGroup.get('formArray'); 
+  } 
+
+  submit(f: FormGroup) {
+    if (f.invalid) {
+      return;
+    }
+    // tranformandolo a json
+    let jsonPay = JSON.stringify(f);
+    
+    console.log(jsonPay);
+  }
+
+// arrayform - control - group  end
 
 }
 

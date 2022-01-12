@@ -1,120 +1,118 @@
 
-<form>
+<form [formGroup]="formGroup" (ngSubmit)="submit(formGroup.value)">
     <mat-stepper #stepper >
       <!-- paso 1 -->
-      <mat-step  errorMessage="Name is required." >
-  
-  
+      <mat-step  errorMessage="Equipment Size is required" formGroupName="equipment_size" [stepControl]="formGroup?.get('equipment_size')!">
+        
           <!-- nombre del paso -->
           <ng-template matStepLabel>Equipment Size</ng-template>
-  
+
           <!-- input -->
           <mat-form-field appearance="fill">
             <mat-label>Cooling tons</mat-label>
-            <input matInput placeholder="Last name, First name" required>
+            <input matInput placeholder="Cooling tons" required  formControlName="cooling_tomsCtrl" >
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
             <mat-label> Heating BTUH</mat-label>
-            <input matInput placeholder="Last name, First name" required>
+            <input matInput placeholder="Heating BTUH" required formControlName="heating_btuhCtrl" >
           </mat-form-field>
-  
+
           <!-- button -->
           <div>
             <button type="button"  mat-button matStepperNext>Continue</button>
           </div>
-  
-        
+
       </mat-step>
       <!-- paso 1 end  -->
-  
-      <!-- paso 2 -->
-      <mat-step  errorMessage="Address is required."  >
-  
-  
-           <!-- nombre del paso -->
-          <ng-template matStepLabel>Energy Distrubution</ng-template>
-  
-          <!-- radio button -->
-          <mat-label>Energy Distrubution Method</mat-label>
-          <br>
-          <mat-radio-button value="1">Mini - Split</mat-radio-button>
-          <br>
-          <mat-radio-button value="2">Tradicional Ducted</mat-radio-button>
-          <br>
-         
-          <!-- button -->
-          <div>
-            <button type="button" mat-button matStepperPrevious>Back</button>
-            <button type="button" type="submit" mat-button matStepperNext>Continue</button>
-          </div>
         
+      <!-- paso 2 -->
+      <mat-step  errorMessage="Energy Distrubution is required."  formGroupName="energy_distribution" [stepControl]="formGroup?.get('energy_distribution')!">
+        
+        <!-- nombre del paso -->
+        <ng-template matStepLabel>Energy Distrubution</ng-template>
+
+        <!-- radio button -->
+        <mat-label>Energy Distrubution Method</mat-label>
+        <br>
+        <mat-radio-group #rGroup formControlName="methodCtrl" >
+          <mat-radio-button [value]="'Central heat pumps'" radioGroup="rGroup">Central heat pumps</mat-radio-button>  <br>
+          <mat-radio-button [value]="'Mini-split ducted & Multi splits'" radioGroup="rGroup">Mini-split ducted & Multi splits</mat-radio-button>  <br>
+          <mat-radio-button [value]="'Mini-split heat pumps'" radioGroup="rGroup">Mini-split heat pumps</mat-radio-button>
+        </mat-radio-group>
+        
+        <br>
+
+        <!-- button -->
+        <div>
+          <button type="button" mat-button matStepperPrevious>Back</button>
+          <button type="button"  mat-button matStepperNext>Continue</button>
+        </div>
+
       </mat-step>
       <!-- paso 2 end -->
 
       <!-- paso 3 -->
-      <mat-step  errorMessage="Address is required."  >
-  
-  
+      <mat-step  errorMessage="Furnace is required."  formGroupName="furnace" [stepControl]="formGroup?.get('furnace')!">
+        
         <!-- nombre del paso -->
-       <ng-template matStepLabel>Furnace</ng-template>
+        <ng-template matStepLabel>Furnace</ng-template>
 
-       <!-- radio button -->
-       <mat-label>Furnace Fuel</mat-label>
-       <br>
-       <mat-radio-button value="1">Gas</mat-radio-button>
-       <br>
-       <mat-radio-button value="2">Oli</mat-radio-button>
-       <br>
-       <mat-radio-button value="2">None</mat-radio-button>
-       <br>
-      
-       <!-- button -->
-       <div>
-         <button type="button" mat-button matStepperPrevious>Back</button>
-         <button type="button"  mat-button matStepperNext>Continue</button>
-       </div>
-     
-   </mat-step>
-   <!-- paso 3 end -->
+        <!-- radio button -->
+        <mat-label>Furnace Fuel</mat-label>
+        <br>
+        <mat-radio-group #rGroup formControlName="fuelCtrl" >
+          <mat-radio-button [value]="'gas'" radioGroup="rGroup">Gas</mat-radio-button>  <br>
+          <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>  <br>
+          <mat-radio-button [value]="'none'" radioGroup="rGroup">None</mat-radio-button>
+        </mat-radio-group>
+        <br>
+
+        <!-- button -->
+        <div>
+          <button type="button" mat-button matStepperPrevious>Back</button>
+          <button type="button"  mat-button matStepperNext>Continue</button>
+        </div>
+
+      </mat-step>
+      <!-- paso 3 end -->
 
     <!-- paso 4 -->
-    <mat-step  errorMessage="Name is required." >
-  
-  
-        <!-- nombre del paso -->
-        <ng-template matStepLabel>Eligibility Details</ng-template>
+    <mat-step  errorMessage="Eligibility Detail is required." formGroupName="eligibility_detail" [stepControl]="formGroup?.get('eligibility_detail')!">
+    
+      <!-- nombre del paso -->
+      <ng-template matStepLabel>Eligibility Details</ng-template>
 
-        <!-- input -->
-        <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill"  >
         <mat-label>Gas / Oil Utility</mat-label>
-          <mat-select [(ngModel)]="selectedValue" name="food">
-            <mat-option *ngFor="let food of foods" [value]="food.value">
-              {{food.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <br>
-        
-        <!-- radio button -->
-        <mat-label> Existing furnace type?</mat-label>
-        <br>
-        <mat-radio-button value="1">Condensing</mat-radio-button>
-        <br>
-        <mat-radio-button value="2">None - condensing</mat-radio-button>
-        <br>
+        <mat-select  #sGroup formControlName="gas_oil_utilityCtrl">
+            <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
+            <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
+            <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
+            <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
+        </mat-select>
+      </mat-form-field>
 
+      <br>
+      
+      <!-- radio buttons -->
+      <mat-label> Existing furnace type?</mat-label>
+      <br>
+      <mat-radio-group #rGroup formControlName="existen_furnace_typeCtrl" >
+        <mat-radio-button [value]="'condensing'" radioGroup="rGroup">Condensing</mat-radio-button>  <br>
+        <mat-radio-button [value]="'none - condensing'" radioGroup="rGroup">None - condensing</mat-radio-button>
+      </mat-radio-group>
 
-        <!-- button -->
-        <!-- button -->
-       <div>
-        <button type="button" mat-button matStepperPrevious>Back</button>
-        <button type="button" type="submit" mat-button matStepperNext>Continue</button>
-      </div>
+      <br> 
+
+      <!-- button -->
+      <!-- button -->
+    <div>
+      <button type="button" mat-button matStepperPrevious>Back</button>
+      <button type="button" type="submit" mat-button matStepperNext>Continue</button>
+    </div>
     </mat-step>
     <!-- paso 4 end  -->
-  
-
   
       <!-- paso 5 -->
       <mat-step>

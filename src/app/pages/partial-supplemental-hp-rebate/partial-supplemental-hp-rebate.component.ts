@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@angular/forms';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
+// temporal
 import {AfterViewInit,  ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
@@ -11,6 +14,12 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./partial-supplemental-hp-rebate.component.css']
 })
 export class PartialSupplementalHPRebateComponent implements OnInit {
+
+  // arrayform - control - group 
+    
+  formGroup !: FormGroup ;  
+  
+ // arrayform - control - group  end
 
   // table
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
@@ -33,10 +42,53 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   ];
 
 
-  constructor() { }
+  constructor(
+    private _formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
+    this.formGroup = this._formBuilder.group({
+      
+        equipment_size: this._formBuilder.group({
+          cooling_tomsCtrl: ['', Validators.required],
+          heating_btuhCtrl: ['', Validators.required],
+        }),
+
+        energy_distribution: this._formBuilder.group({
+          methodCtrl: ['', Validators.required],
+        }),
+
+        furnace: this._formBuilder.group({
+          fuelCtrl: ['', Validators.required],
+        }),
+
+        eligibility_detail: this._formBuilder.group({
+          gas_oil_utilityCtrl: ['', Validators.required],
+          existen_furnace_typeCtrl: ['', Validators.required],
+        }),
+      
+     
+    });
   }
+
+
+  // arrayform - control - group 
+    
+  get formArray(): AbstractControl | null { 
+    return this.formGroup.get('formArray'); 
+  } 
+
+  submit(f: FormGroup) {
+    if (f.invalid) {
+      return;
+    }
+    // tranformandolo a json
+    let jsonPay = JSON.stringify(f);
+    
+    console.log(jsonPay);
+  }
+
+// arrayform - control - group  end
 
 }
 
