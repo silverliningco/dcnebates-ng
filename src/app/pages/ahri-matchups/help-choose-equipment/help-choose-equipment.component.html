@@ -22,7 +22,7 @@
 
               <!-- button -->
               <div>
-                <button type="button"  mat-raised-button matStepperNext>Continue</button>
+                <button type="button"  mat-raised-button matStepperNext color="primary">Continue</button>
               </div>
             </div>
           </div>
@@ -40,15 +40,15 @@
               <!-- radio button -->
               <mat-label>Energy Distrubution Method</mat-label>
               <br>
-              <mat-radio-group #rGroup formControlName="methodCtrl" >
-                <mat-radio-button [value]="'Central heat pumps'" radioGroup="rGroup">Central heat pumps</mat-radio-button>  <br>
-                <mat-radio-button [value]="'Mini-split ducted & Multi splits'" radioGroup="rGroup">Mini-split ducted & Multi splits</mat-radio-button>  <br>
+              <mat-radio-group #rGroup formControlName="methodCtrl" class="radio-group">
+                <mat-radio-button [value]="'Central heat pumps'" radioGroup="rGroup">Central heat pumps</mat-radio-button>
+                <mat-radio-button [value]="'Mini-split ducted & Multi splits'" radioGroup="rGroup">Mini-split ducted & Multi splits</mat-radio-button>
                 <mat-radio-button [value]="'Mini-split heat pumps'" radioGroup="rGroup">Mini-split heat pumps</mat-radio-button>
               </mat-radio-group>
               <!-- button -->
               <div class="rc-control-button">
                 <button type="button" mat-button matStepperPrevious>Back</button>
-                <button type="button"  mat-raised-button matStepperNext>Continue</button>
+                <button type="button"  mat-raised-button matStepperNext color="primary">Continue</button>
               </div>
             </div>
           </div>
@@ -66,9 +66,9 @@
           <!-- radio button -->
           <mat-label>Furnace Fuel</mat-label>
           <br>
-          <mat-radio-group #rGroup formControlName="fuelCtrl" >
-            <mat-radio-button [value]="'gas'" radioGroup="rGroup">Gas</mat-radio-button>  <br>
-            <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>  <br>
+          <mat-radio-group #rGroup formControlName="fuelCtrl" class="radio-group">
+            <mat-radio-button [value]="'gas'" radioGroup="rGroup">Gas</mat-radio-button>
+            <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>
             <mat-radio-button [value]="'none'" radioGroup="rGroup">None</mat-radio-button>
           </mat-radio-group>
           <br>
@@ -76,7 +76,7 @@
           <!-- button -->
           <div class="rc-control-button">
             <button type="button" mat-button matStepperPrevious>Back</button>
-            <button type="button"  mat-raised-button matStepperNext>Continue</button>
+            <button type="button"  mat-raised-button matStepperNext color="primary">Continue</button>
           </div>
         </div>
        </div>
@@ -133,8 +133,8 @@
               <!-- radio buttons -->
               <mat-label> Existing furnace type?</mat-label>
               <br>
-              <mat-radio-group #rGroup formControlName="existen_furnace_typeCtrl" >
-                <mat-radio-button [value]="'condensing'" radioGroup="rGroup">Condensing</mat-radio-button>  <br>
+              <mat-radio-group #rGroup formControlName="existen_furnace_typeCtrl" class="radio-group">
+                <mat-radio-button [value]="'condensing'" radioGroup="rGroup">Condensing</mat-radio-button>
                 <mat-radio-button [value]="'none - condensing'" radioGroup="rGroup">None - condensing</mat-radio-button>
               </mat-radio-group>
 
@@ -142,15 +142,15 @@
 
               <mat-label> HP System is the sole source of heat?</mat-label>
               <br>
-              <mat-radio-group #rGroup formControlName="hpS_source_headCtrl" >
-                <mat-radio-button [value]="'yes'" radioGroup="rGroup">Yes</mat-radio-button>  <br>
+              <mat-radio-group #rGroup formControlName="hpS_source_headCtrl" class="radio-group">
+                <mat-radio-button [value]="'yes'" radioGroup="rGroup">Yes</mat-radio-button>
                 <mat-radio-button [value]="'no'" radioGroup="rGroup">No</mat-radio-button>
               </mat-radio-group>
 
           <!-- button -->
         <div class="rc-control-button">
           <button type="button" mat-button matStepperPrevious>Back</button>
-          <button type="button" type="submit" mat-raised-button matStepperNext>Continue</button>
+          <button type="button" type="submit" mat-raised-button matStepperNext color="primary">Continue</button>
         </div>
             </div>
           </div>
