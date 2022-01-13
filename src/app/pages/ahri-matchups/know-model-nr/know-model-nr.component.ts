@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@angular/forms';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+
+// tempotal
 import {AfterViewInit,  ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
@@ -10,6 +14,12 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./know-model-nr.component.css']
 })
 export class KnowModelNrComponent implements OnInit {
+
+  // arrayform - control - group 
+    
+  formGroup !: FormGroup ;  
+  
+ // arrayform - control - group  end
 
   // table
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
@@ -31,10 +41,52 @@ export class KnowModelNrComponent implements OnInit {
     {value: 'tacos-2', viewValue: 'Tacos'},
   ];
 
-  constructor() { }
+  constructor(
+    private _formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
+    this.formGroup = this._formBuilder.group({
+      
+        model_numbers: this._formBuilder.group({
+          outdoor_unitCtrl: ['', Validators.required],
+          indoor_unitCtrl: ['', Validators.required],
+          replace_displace_fuelCtrl: ['', Validators.required],
+          // no se considero el campo que esta en duda
+          furnaceCtrl: ['', Validators.required],
+          fuelCtrl: ['', Validators.required],
+        }),
+
+        eligibility_detail: this._formBuilder.group({
+          stateCtrl: ['', Validators.required],
+          electric_utitlity_providerCtrl: ['', Validators.required],
+          gas_oil_utilityCtrl: ['', Validators.required],
+          existen_furnace_typeCtrl: ['', Validators.required],
+          hpS_source_headCtrl: ['', Validators.required]
+        }),
+      
+     
+    });
   }
+
+  // arrayform - control - group 
+    
+  get formArray(): AbstractControl | null { 
+    return this.formGroup.get('formArray'); 
+  } 
+
+  submit(f: FormGroup) {
+    if (f.invalid) {
+      return;
+    }
+    // tranformandolo a json
+    let jsonPay = JSON.stringify(f);
+    
+    console.log(jsonPay);
+  }
+
+// arrayform - control - group  end
+
 
 }
 

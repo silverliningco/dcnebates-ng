@@ -1,142 +1,152 @@
 
-<form>
+<form [formGroup]="formGroup" (ngSubmit)="submit(formGroup.value)">
     <mat-stepper #stepper >
 
-        <!-- paso 1 -->
-    <mat-step  errorMessage="Name is required." >
-  
-  
-        <!-- nombre del paso -->
-        <ng-template matStepLabel>Model Numbers</ng-template>
+      <!-- paso 1 -->
+      <mat-step  errorMessage="Model Numbers is required." formGroupName="model_numbers" [stepControl]="formGroup?.get('model_numbers')!">
+    
+    
+          <!-- nombre del paso -->
+          <ng-template matStepLabel>Model Numbers</ng-template>
 
-        <!-- select -->
-        <mat-form-field appearance="fill">
+          <!-- selects -->
+          <mat-form-field appearance="fill"  >
             <mat-label>Outdoor unit</mat-label>
-            <mat-select [(ngModel)]="selectedValue" name="food">
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
-                </mat-option>
+            <mat-select  #sGroup formControlName="outdoor_unitCtrl">
+                <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
+                <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
+                <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
+                <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
             </mat-select>
-        </mat-form-field>
-        <br>
-        <mat-form-field appearance="fill">
+          </mat-form-field>
+
+          <br>
+
+          <mat-form-field appearance="fill"  >
             <mat-label>Inddor Unit</mat-label>
-            <mat-select [(ngModel)]="selectedValue" name="food">
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
-                </mat-option>
+            <mat-select  #sGroup formControlName="indoor_unitCtrl">
+                <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
+                <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
+                <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
+                <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
             </mat-select>
-        </mat-form-field>
-        <br>
-        <br>
-         <!-- radio button -->
-         <mat-label>Replace / Displace fuel</mat-label>
-         <br>
-         <mat-radio-button value="1">Oil</mat-radio-button>
-         <br>
-         <mat-radio-button value="2">Propane</mat-radio-button>
-         <br>
-         <mat-radio-button value="2">Electric Heat</mat-radio-button>
-         <br>
-         <mat-radio-button value="2">Existing or N/A</mat-radio-button>
-         <br>
-         <br>
-        <mat-form-field appearance="fill">
+          </mat-form-field>
+
+          <br>
+          
+          <!-- radio button -->
+          <mat-label>Replace / Displace fuel</mat-label>
+          <br>
+          <mat-radio-group #rGroup formControlName="replace_displace_fuelCtrl" >
+            <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>  <br>
+            <mat-radio-button [value]="'propane'" radioGroup="rGroup">propane</mat-radio-button> <br>
+            <mat-radio-button [value]="'electric heat'" radioGroup="rGroup">Electric Heat</mat-radio-button>  <br>
+            <mat-radio-button [value]="'existing or n/a'" radioGroup="rGroup">Existing or N/A</mat-radio-button>
+          </mat-radio-group>
+
+          <br><br>
+
+          <!-- selects -->
+          <mat-form-field appearance="fill"  >
             <mat-label>Furnace</mat-label>
-            <mat-select [(ngModel)]="selectedValue" name="food">
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
-                </mat-option>
+            <mat-select  #sGroup formControlName="furnaceCtrl">
+                <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
+                <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
+                <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
+                <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
             </mat-select>
-        </mat-form-field>
-        <br>
-        <mat-radio-button value="1">Existing or Non-ECM</mat-radio-button>
-        <br>
-        
-        <!-- radio button -->
-        <br>
-        <mat-label>Fuel (If applicable)</mat-label>
-        <br>
-        <mat-radio-button value="1">Natural Gas</mat-radio-button>
-        <br>
-        <mat-radio-button value="2">Propane</mat-radio-button>
-        <br>
-        <mat-radio-button value="2">Oil</mat-radio-button>
-        <br>
+          </mat-form-field>
+      
+          <br> <br>
+          
+          <mat-radio-button value="1">Existing or Non-ECM</mat-radio-button>
+          
+          <br> <br>
 
-        <!-- button -->
-       <div>
-        <button type="button" mat-button matStepperPrevious>Back</button>
-        <button type="button" type="submit" mat-button matStepperNext>Continue</button>
-      </div>
-    </mat-step>
-    <!-- paso 1 end  -->
+          <!-- radio button -->
+          <mat-label>Fuel (If applicable)</mat-label>
+          <br>
+          <mat-radio-group #rGroup formControlName="fuelCtrl" >
+            <mat-radio-button [value]="'natural gas'" radioGroup="rGroup">Natural Gas</mat-radio-button>  <br>
+            <mat-radio-button [value]="'propane'" radioGroup="rGroup">propane</mat-radio-button> <br>
+            <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>
+          </mat-radio-group>
 
+          <!-- button -->
+        <div>
+          <button type="button" mat-button matStepperPrevious>Back</button>
+          <button type="button" type="submit" mat-button matStepperNext>Continue</button>
+        </div>
+      </mat-step>
+      <!-- paso 1 end  -->
 
-
-    <!-- paso 2 -->
-    <mat-step  errorMessage="Name is required." >
-  
+      <!-- paso 2 -->
+      <mat-step  errorMessage="Eligibility Detail is required." formGroupName="eligibility_detail" [stepControl]="formGroup?.get('eligibility_detail')!">
   
         <!-- nombre del paso -->
         <ng-template matStepLabel>Eligibility Details</ng-template>
 
-        <!-- select -->
-        <mat-form-field appearance="fill">
-            <mat-label>State</mat-label>
-            <mat-select [(ngModel)]="selectedValue" name="food">
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
-                </mat-option>
-            </mat-select>
+        <!-- selects -->
+        <mat-form-field appearance="fill"  >
+          <mat-label>State</mat-label>
+          <mat-select  #sGroup formControlName="stateCtrl">
+              <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
+              <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
+              <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
+              <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
+          </mat-select>
         </mat-form-field>
+
         <br>
-        <mat-form-field appearance="fill">
-            <mat-label>Selectric Utility Provider</mat-label>
-            <mat-select [(ngModel)]="selectedValue" name="food">
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
-                </mat-option>
-            </mat-select>
+
+        <mat-form-field appearance="fill"  >
+          <mat-label>Electric Utility Provider</mat-label>
+          <mat-select  #sGroup formControlName="electric_utitlity_providerCtrl">
+              <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
+              <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
+              <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
+              <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
+          </mat-select>
         </mat-form-field>
+
         <br>
-        <mat-form-field appearance="fill">
-            <mat-label>Gas / Oil Utility</mat-label>
-            <mat-select [(ngModel)]="selectedValue" name="food">
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
-                </mat-option>
-            </mat-select>
+
+        <mat-form-field appearance="fill"  >
+          <mat-label>Gas / Oil Utility</mat-label>
+          <mat-select  #sGroup formControlName="gas_oil_utilityCtrl">
+              <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
+              <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
+              <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
+              <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
+          </mat-select>
         </mat-form-field>
+
         <br>
         
-        <!-- radio button -->
+        <!-- radio buttons -->
         <mat-label> Existing furnace type?</mat-label>
         <br>
-        <mat-radio-button value="1">Condensing</mat-radio-button>
-        <br>
-        <mat-radio-button value="2">Non - condensing</mat-radio-button>
-        <br>
-        <br>
-        <br>
+        <mat-radio-group #rGroup formControlName="existen_furnace_typeCtrl" >
+          <mat-radio-button [value]="'condensing'" radioGroup="rGroup">Condensing</mat-radio-button>  <br>
+          <mat-radio-button [value]="'none - condensing'" radioGroup="rGroup">None - condensing</mat-radio-button>
+        </mat-radio-group>
+
+        <br> <br>
+
         <mat-label> HP System is the sole source of heat?</mat-label>
         <br>
-        <mat-radio-button value="1">Yes</mat-radio-button>
-        <br>
-        <mat-radio-button value="2">No</mat-radio-button>
-        <br>
-
+        <mat-radio-group #rGroup formControlName="hpS_source_headCtrl" >
+          <mat-radio-button [value]="'yes'" radioGroup="rGroup">Yes</mat-radio-button>  <br>
+          <mat-radio-button [value]="'no'" radioGroup="rGroup">No</mat-radio-button>
+        </mat-radio-group>
 
         <!-- button -->
-        <!-- button -->
-       <div>
-        <button type="button" mat-button matStepperPrevious>Back</button>
-        <button type="button" type="submit" mat-button matStepperNext>Continue</button>
-      </div>
-    </mat-step>
-    <!-- paso 2 end  -->
-  
-
+        <div>
+          <button type="button" mat-button matStepperPrevious>Back</button>
+          <button type="button" type="submit" mat-button matStepperNext>Continue</button>
+        </div>
+      </mat-step>
+      <!-- paso 2 end  -->
   
       <!-- paso 3 -->
       <mat-step>
