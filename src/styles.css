@@ -13,6 +13,7 @@ body { margin: 0; font-family: 'Nunito', sans-serif; }
 .rc-container {
   width: 100%;
   margin: 0 auto;
+  margin-bottom: 52px;
 }
 
 /* Medium */
@@ -35,7 +36,72 @@ body { margin: 0; font-family: 'Nunito', sans-serif; }
     width: 1140px;
   }
 }
+ /*End container page*/
 
+/*Customizing Stepper */
+.mat-horizontal-stepper-header-container {
+  margin: 1.5rem 0;
+}
+@media (max-width: 767px) {
+  .mat-step-header .mat-step-label {
+    display: none;
+  }
+}
+/*End Customizing Stepper */
 
+/*Main title of page*/
+.rc-main-title{
+  text-align: center;
+  font-size: 1.75rem;
+  text-transform: uppercase;
+  color: var(--rc-primary-color);
+}
+/*End Main title of page*/
 
+/*general styles of each view*/
+.rc-step-title {
+  text-align: center;
+  font-size: 1.75rem;
+  text-transform: uppercase;
+  color: var(--rc-primary-color);
+}
 
+.rc-step-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.radio-group > mat-radio-button {
+  margin: 5px;
+}
+
+.table-container {
+  overflow: auto;
+}
+
+th.mat-header-cell{
+  padding: 0 .5rem;
+}
+
+table {
+  width: 100%;
+}
+
+.rc-row:hover {
+  background-color: #E4D340;
+}
+
+.rc-control-button {
+	display: flex;
+	justify-content: space-between;
+	margin: 2rem 0;
+}
+
+/*End general styles of each view*/

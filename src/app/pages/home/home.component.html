@@ -1,8 +1,8 @@
-<div class="home">
-  <h1 class="main-title">Select rebate</h1>
-  <div class="content-card">
-    <mat-card class="card">
-      <img mat-card-image src="./assets/img/whole-house.svg" alt="icon Mass Save whole house HP rebate" class="card-img">
+<h1 class="rc-main-title">Select one rebate</h1>
+<div class="rc-content-card">
+  <mat-card class="rc-card">
+    <img mat-card-image src="./assets/img/whole-house.svg" alt="icon Mass Save whole house HP rebate" class="rc-card-img">
+    <div class="rc-card-text">
       <mat-card-title>Mass Save whole house HP rebate</mat-card-title>
       <mat-card-content>
         <p>
@@ -10,11 +10,13 @@
         </p>
       </mat-card-content>
       <mat-card-actions>
-        <button routerLink="/WholeHouseHP" mat-button>Find AHRI combinations</button>
+        <button routerLink="/WholeHouseHP" mat-raised-button color="primary">Find AHRI combinations</button>
       </mat-card-actions>
-    </mat-card>
-    <mat-card class="card">
-      <img mat-card-image src="./assets/img/partial-home.svg" alt="Icon Mass Save partial home / supplemental HP rebate" class="card-img">
+    </div>
+  </mat-card>
+  <mat-card class="rc-card">
+    <img mat-card-image src="./assets/img/partial-home.svg" alt="Icon Mass Save partial home / supplemental HP rebate" class="rc-card-img">
+    <div class="rc-card-text">
       <mat-card-title>Mass Save partial home / supplemental HP rebate</mat-card-title>
       <mat-card-content>
         <p>
@@ -22,20 +24,24 @@
         </p>
       </mat-card-content>
       <mat-card-actions>
-        <button routerLink="/PartialSupplementalHP" mat-button>Find AHRI combinations</button>
+        <button routerLink="/PartialSupplementalHP" mat-raised-button color="primary">Find AHRI combinations</button>
       </mat-card-actions>
-    </mat-card>
-    <mat-card class="card">
-      <img mat-card-image src="./assets/img/AHRI-matchups.svg" alt="Icon AHRI matchups" class="card-img">
+    </div>
+  </mat-card>
+  <mat-card class="rc-card">
+    <img mat-card-image src="./assets/img/AHRI-matchups.svg" alt="Icon AHRI matchups" class="rc-card-img">
+    <div class="rc-card-text">
       <mat-card-title>AHRI matchups</mat-card-title>
+      <br>
       <mat-card-content>
         <p>
           AHRI matchups and rebates other than Mass Save HP.
         </p>
       </mat-card-content>
       <mat-card-actions>
-        <button routerLink="/AHRIMatchups" mat-button>Find AHRI combinations</button>
+        <button routerLink="/AHRIMatchups" mat-raised-button color="primary">Find AHRI combinations</button>
       </mat-card-actions>
-    </mat-card>
-  </div>
+    </div>
+  </mat-card>
 </div>
+
