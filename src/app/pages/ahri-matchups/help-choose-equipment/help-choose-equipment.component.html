@@ -1,191 +1,232 @@
-
+<div class="rc-container">
 <form>
     <mat-stepper #stepper >
       <!-- paso 1 -->
-      <mat-step  errorMessage="Name is required." >
-  
-  
+      <mat-step  errorMessage="Name is required.">
+
+
           <!-- nombre del paso -->
-          <ng-template matStepLabel>Equipment Size</ng-template>
-  
-          <!-- input -->
-          <mat-form-field appearance="fill">
-            <mat-label>Cooling tons</mat-label>
-            <input matInput placeholder="Last name, First name" required>
-          </mat-form-field>
-          <br>
-          <mat-form-field appearance="fill">
-            <mat-label> Heating BTUH</mat-label>
-            <input matInput placeholder="Last name, First name" required>
-          </mat-form-field>
-  
-          <!-- button -->
-          <div>
-            <button type="button"  mat-button matStepperNext>Continue</button>
+          <ng-template matStepLabel class="maday">Equipment Size</ng-template>
+
+          <div class="rc-step-content">
+            <h2 class="rc-step-title">Equipment Size</h2>
+			<div>
+				<!-- input -->
+				<mat-form-field appearance="fill">
+				<mat-label>Cooling tons</mat-label>
+				<input type="number" matInput placeholder="Last name, First name" required>
+				</mat-form-field>
+				<br>
+				<mat-form-field appearance="fill">
+				<mat-label> Heating BTUH</mat-label>
+				<input type="number" matInput placeholder="Last name, First name" required>
+				</mat-form-field>
+
+				<!-- button -->
+				<div>
+					<button type="button"  mat-raised-button matStepperNext color="primary">Continue</button>
+				</div>
+			</div>
           </div>
-  
-        
+
       </mat-step>
       <!-- paso 1 end  -->
-  
+
       <!-- paso 2 -->
       <mat-step  errorMessage="Address is required."  >
-  
-  
+
+
            <!-- nombre del paso -->
           <ng-template matStepLabel>Energy Distrubution</ng-template>
-  
-          <!-- radio button -->
-          <mat-label>Energy Distrubution Method</mat-label>
-          <br>
-          <mat-radio-button value="1">Mini - Split</mat-radio-button>
-          <br>
-          <mat-radio-button value="2">Tradicional Ducted</mat-radio-button>
-          <br>
-         
-          <!-- button -->
-          <div>
-            <button type="button" mat-button matStepperPrevious>Back</button>
-            <button type="button" type="submit" mat-button matStepperNext>Continue</button>
+
+          <div class="rc-step-content">
+            <h2 class="rc-step-title">Energy Distrubution</h2>
+			<div>
+              <label>Energy Distrubution Method</label>
+              <mat-radio-group
+                aria-labelledby="radio-group-label"
+                class="radio-group">
+                <mat-radio-button class="radio-button" value="1">Central heat pumps</mat-radio-button>
+                <mat-radio-button class="radio-button" value="2">Mini-split ducted & Multi splits</mat-radio-button>
+                <mat-radio-button class="radio-button" value="3">Mini-split heat pumps</mat-radio-button>
+              </mat-radio-group>
+              <div class="rc-control-button">
+                <button type="button" mat-button matStepperPrevious>Back</button>
+                <button type="button" mat-raised-button matStepperNext  color="primary">Continue</button>
+              </div>
+            </div>
           </div>
-        
       </mat-step>
       <!-- paso 2 end -->
 
-      <!-- paso 3 -->
-      <mat-step  errorMessage="Address is required."  >
-  
-  
+	<!-- paso 3 -->
+	<mat-step  errorMessage="Address is required."  >
         <!-- nombre del paso -->
-       <ng-template matStepLabel>Furnace</ng-template>
+        <ng-template matStepLabel>Furnace</ng-template>
 
-       <!-- radio button -->
-       <mat-label>Furnace Fuel</mat-label>
-       <br>
-       <mat-radio-button value="1">Gas</mat-radio-button>
-       <br>
-       <mat-radio-button value="2">Oli</mat-radio-button>
-       <br>
-       <mat-radio-button value="2">None</mat-radio-button>
-       <br>
-      
-       <!-- button -->
-       <div>
-         <button type="button" mat-button matStepperPrevious>Back</button>
-         <button type="button"  mat-button matStepperNext>Continue</button>
-       </div>
-     
+        <div class="rc-step-content">
+			<h2 class="rc-step-title">Furnace</h2>
+			<div>
+				<!-- radio button -->
+				<label id="">Furnace Fuel</label>
+				<mat-radio-group
+					aria-labelledby="radio-group-label"
+					class="radio-group">
+					<mat-radio-button class="radio-button" value="1">Gas</mat-radio-button>
+					<mat-radio-button class="radio-button" value="2">Oli</mat-radio-button>
+					<mat-radio-button class="radio-button" value="3">None</mat-radio-button>
+				</mat-radio-group>
+
+				<!-- button -->
+				<div class="rc-control-button">
+					<button type="button" mat-button matStepperPrevious>Back</button>
+					<button type="button" mat-raised-button matStepperNext  color="primary">Continue</button>
+				</div>
+			</div>
+	   </div>
    </mat-step>
    <!-- paso 3 end -->
 
     <!-- paso 4 -->
     <mat-step  errorMessage="Name is required." >
-  
-  
+
+
         <!-- nombre del paso -->
         <ng-template matStepLabel>Eligibility Details</ng-template>
 
-        <!-- select -->
-        <mat-form-field appearance="fill">
-            <mat-label>State</mat-label>
-            <mat-select [(ngModel)]="selectedValue" name="food">
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <br>
-        <mat-form-field appearance="fill">
-            <mat-label>Selectric Utility Provider</mat-label>
-            <mat-select [(ngModel)]="selectedValue" name="food">
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <br>
-        <mat-form-field appearance="fill">
-            <mat-label>Gas / Oil Utility</mat-label>
-            <mat-select [(ngModel)]="selectedValue" name="food">
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <br>
-        
-        <!-- radio button -->
-        <mat-label> Existing furnace type?</mat-label>
-        <br>
-        <mat-radio-button value="1">Condensing</mat-radio-button>
-        <br>
-        <mat-radio-button value="2">None - condensing</mat-radio-button>
-        <br>
-        <br>
-        <br>
-        <mat-label> HP System is the sole source of heat?</mat-label>
-        <br>
-        <mat-radio-button value="1">Yes</mat-radio-button>
-        <br>
-        <mat-radio-button value="2">No</mat-radio-button>
-        <br>
+		<div class="rc-step-content">
+			<h2 class="rc-step-title">Eligibility Details</h2>
+			<div>
 
+				<!-- select -->
+				<mat-form-field appearance="fill">
+					<mat-label>State</mat-label>
+					<mat-select [(ngModel)]="selectedValue" name="food">
+						<mat-option *ngFor="let food of foods" [value]="food.value">
+						{{food.viewValue}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<br>
+				<mat-form-field appearance="fill">
+					<mat-label>Selectric Utility Provider</mat-label>
+					<mat-select [(ngModel)]="selectedValue" name="food">
+						<mat-option *ngFor="let food of foods" [value]="food.value">
+						{{food.viewValue}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<br>
+				<mat-form-field appearance="fill">
+					<mat-label>Gas / Oil Utility</mat-label>
+					<mat-select [(ngModel)]="selectedValue" name="food">
+						<mat-option *ngFor="let food of foods" [value]="food.value">
+						{{food.viewValue}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<br>
 
-        <!-- button -->
-        <!-- button -->
-       <div>
-        <button type="button" mat-button matStepperPrevious>Back</button>
-        <button type="button" type="submit" mat-button matStepperNext>Continue</button>
-      </div>
+				<!-- radio button -->
+				<label id="">Existing furnace type?</label>
+				<mat-radio-group
+					aria-labelledby="radio-group-label"
+					class="radio-group">
+					<mat-radio-button class="radio-button" value="1">Condensing</mat-radio-button>
+					<mat-radio-button class="radio-button" value="2">None - condensing</mat-radio-button>
+				</mat-radio-group>
+
+				<label id="">HP System is the sole source of heat?</label>
+				<mat-radio-group
+					aria-labelledby="radio-group-label"
+					class="radio-group">
+					<mat-radio-button class="radio-button" value="1">Yes</mat-radio-button>
+					<mat-radio-button class="radio-button" value="2">No</mat-radio-button>
+				</mat-radio-group>
+				<!-- button -->
+				<div class="rc-control-button">
+					<button type="button" mat-button matStepperPrevious>Back</button>
+					<button type="submit" mat-raised-button matStepperNext  color="primary">Continue</button>
+				</div>
+			</div>
+		</div>
     </mat-step>
     <!-- paso 4 end  -->
-  
 
-  
+
+
       <!-- paso 5 -->
       <mat-step>
         <ng-template matStepLabel>AHRI Combinations</ng-template>
+
+		<h2 class="rc-step-title">Eligibility Details</h2>
          <!-- table -->
         <div class="mat-elevation-z8">
+          <div class="table-container">
             <table mat-table [dataSource]="dataSource">
-          
-              <!-- Position Column -->
-              <ng-container matColumnDef="position">
-                <th mat-header-cell *matHeaderCellDef> No. </th>
-                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+
+              <!-- Outdoor unit Column -->
+              <ng-container matColumnDef="outdoorUnit">
+                <th mat-header-cell *matHeaderCellDef> Outdoor unit </th>
+                <td mat-cell *matCellDef="let element"> {{element.outdoorUnit}} </td>
               </ng-container>
-          
-              <!-- Name Column -->
-              <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef> Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+
+              <!-- Indoor unit Column -->
+              <ng-container matColumnDef="indoorUnit">
+                <th mat-header-cell *matHeaderCellDef> Indoor unit </th>
+                <td mat-cell *matCellDef="let element"> {{element.indoorUnit}} </td>
               </ng-container>
-          
-              <!-- Weight Column -->
-              <ng-container matColumnDef="weight">
-                <th mat-header-cell *matHeaderCellDef> Weight </th>
-                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+
+              <!-- Furnace Column -->
+              <ng-container matColumnDef="furnace">
+                <th mat-header-cell *matHeaderCellDef> Furnace </th>
+                <td mat-cell *matCellDef="let element"> {{element.furnace}} </td>
               </ng-container>
-          
-              <!-- Symbol Column -->
-              <ng-container matColumnDef="symbol">
-                <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+
+              <!-- SEER Column -->
+              <ng-container matColumnDef="seer">
+                <th mat-header-cell *matHeaderCellDef> SEER </th>
+                <td mat-cell *matCellDef="let element"> {{element.seer}} </td>
               </ng-container>
-          
+
+              <!-- EER Column -->
+              <ng-container matColumnDef="eer">
+                <th mat-header-cell *matHeaderCellDef> EER </th>
+                <td mat-cell *matCellDef="let element"> {{element.eer}} </td>
+              </ng-container>
+
+              <!-- HSPF Column -->
+              <ng-container matColumnDef="hspf">
+                <th mat-header-cell *matHeaderCellDef> HSPF </th>
+                <td mat-cell *matCellDef="let element"> {{element.hspf}} </td>
+              </ng-container>
+
+              <!-- AFUE Column -->
+              <ng-container matColumnDef="afue">
+                <th mat-header-cell *matHeaderCellDef> AFUE </th>
+                <td mat-cell *matCellDef="let element"> {{element.afue}} </td>
+              </ng-container>
+
+              <!-- TOTAL REBATE Column -->
+              <ng-container matColumnDef="totalRebate">
+                <th mat-header-cell *matHeaderCellDef> TOTAL REBATE </th>
+                <td mat-cell *matCellDef="let element"> {{element.totalRebate}} </td>
+              </ng-container>
+
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="rc-row"></tr>
             </table>
-          
+          </div>
             <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                           showFirstLastButtons 
+                           showFirstLastButtons
                            aria-label="Select page of periodic elements">
             </mat-paginator>
         </div>
             <!-- table end  -->
       </mat-step>
       <!-- paso 5 end -->
-  
+
     </mat-stepper>
-    
+
   </form>
+</div>

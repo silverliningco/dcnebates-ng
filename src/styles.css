@@ -1,4 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --rc-primary-color: #073c78;
+  --rc-accent-color: #E4D340;
+  --rc-warn-color: #c70000;
+}
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: 'Nunito', sans-serif; }
+
+/*Container page*/
+/* Small */
+.rc-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Medium */
+@media (min-width: 768px) and (max-width: 991px){
+  .rc-container {
+    width: 720px;
+  }
+}
+
+/* Large */
+@media (min-width: 992px) and (max-width: 1199px){
+  .rc-container {
+    width: 960px;
+  }
+}
+
+/* Extra large  */
+@media (min-width: 1200px) {
+  .rc-container {
+    width: 1140px;
+  }
+}
+
+
+
+
