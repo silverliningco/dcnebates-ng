@@ -23,6 +23,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 
+import { DetailAhriComponent } from './ahri-matchups/help-choose-equipment/detail-ahri.component';
+import { DetailParComponent } from './partial-supplemental-hp-rebate/detail-par.component';
+import { DetailWhoComponent } from './whole-house-hp-rebate/detail-who.component';
+
 
 // module
 import {PagesRoutingModule} from './pages-routing.module';
@@ -39,7 +43,10 @@ import { SharedModModule } from '../shared/shared-mod.module';
     PartialSupplementalHPRebateComponent,
     HomeComponent,
     HelpChooseEquipmentComponent,
-    KnowModelNrComponent
+    KnowModelNrComponent,
+    DetailAhriComponent,
+    DetailParComponent,
+    DetailWhoComponent
   ],
   imports: [
     CommonModule,
