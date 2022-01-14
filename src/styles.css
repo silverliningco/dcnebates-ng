@@ -49,6 +49,12 @@ body { margin: 0; font-family: 'Nunito', sans-serif; }
 }
 /*End Customizing Stepper */
 
+/*Customizing form*/
+.mat-form-field {
+  width: 327px;
+}
+/*End customizing form*/
+
 /*Main title of page*/
 .rc-main-title{
   text-align: center;
@@ -69,13 +75,14 @@ body { margin: 0; font-family: 'Nunito', sans-serif; }
 .rc-step-content {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
 .radio-group {
   display: flex;
   flex-direction: column;
-  margin: 15px 0;
+  margin: 1rem 0;
 }
 
 .radio-group > mat-radio-button {
@@ -102,6 +109,14 @@ table {
 	display: flex;
 	justify-content: space-between;
 	margin: 2rem 0;
+  min-width: 200px;
 }
 
+.rc-center {
+  text-align: center;
+}
 /*End general styles of each view*/
+
+ /* * {
+  outline: solid 1px red;
+} */

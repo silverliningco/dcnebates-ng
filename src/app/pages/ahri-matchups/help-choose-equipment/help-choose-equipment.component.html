@@ -18,9 +18,8 @@
                 <mat-label> Heating BTUH</mat-label>
                 <input type="number" matInput placeholder="Heating BTUH" required formControlName="heating_btuhCtrl" >
               </mat-form-field>
-
               <!-- button -->
-              <div>
+              <div class="rc-center">
                 <button type="button"  mat-raised-button matStepperNext color="primary">Continue</button>
               </div>
             </div>
@@ -70,7 +69,6 @@
             <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>
             <mat-radio-button [value]="'none'" radioGroup="rGroup">None</mat-radio-button>
           </mat-radio-group>
-          <br>
 
           <!-- button -->
           <div class="rc-control-button">
