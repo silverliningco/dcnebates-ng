@@ -3,12 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 
 // components
 import { PagesComponent } from './pages.component';
+
 import { AHRIMatchupsComponent } from './ahri-matchups/ahri-matchups.component';
 import { HelpChooseEquipmentComponent } from './ahri-matchups/help-choose-equipment/help-choose-equipment.component';
+import { DetailAhriComponent } from './ahri-matchups/help-choose-equipment/detail-ahri.component';
 import { KnowModelNrComponent } from './ahri-matchups/know-model-nr/know-model-nr.component';
+
 import { WholeHouseHPRebateComponent } from './whole-house-hp-rebate/whole-house-hp-rebate.component';
+import { DetailWhoComponent } from './whole-house-hp-rebate/detail-who.component';
+
 import { PartialSupplementalHPRebateComponent } from './partial-supplemental-hp-rebate/partial-supplemental-hp-rebate.component';
+import { DetailParComponent } from './partial-supplemental-hp-rebate/detail-par.component';
+
 import { HomeComponent } from './home/home.component';
+
 
 
 const routes: Routes =[
@@ -19,13 +27,16 @@ const routes: Routes =[
       {path: '', redirectTo: '/home', pathMatch: 'full' },
       {path: 'home', component: HomeComponent, data: {breadcrumbs: ['home']}},
 
-      {path: 'AHRIMatchups', component: AHRIMatchupsComponent, data: {breadcrumbs: ['AHRI Matchups']} },
-      {path: 'AHRIMatchups/HelpChoose', component: HelpChooseEquipmentComponent, data: {breadcrumbs: ['AHRI Matchups', 'Help Choose']} },
-      {path: 'AHRIMatchups/KnowModel', component: KnowModelNrComponent, data: {breadcrumbs: ['AHRI Matchups', 'Know Model']} },
+      {path: 'AHRIMatchups', component: AHRIMatchupsComponent, data: {breadcrumbs: ['home','AHRI Matchups']} },
+      {path: 'AHRIMatchups/HelpChoose', component: HelpChooseEquipmentComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'Help Choose']} },
+      {path: 'AHRIMatchups/HelpChoose/:id', component: DetailAhriComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'detail']} },
+      {path: 'AHRIMatchups/KnowModel', component: KnowModelNrComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'Know Model']} },
 
-      {path: 'WholeHouseHP', component: WholeHouseHPRebateComponent, data: {breadcrumbs: ['Whole House HP']} },
+      {path: 'WholeHouseHP', component: WholeHouseHPRebateComponent, data: {breadcrumbs: ['home','Whole House HP']} },
+      {path: 'WholeHouseHP/:id', component: DetailWhoComponent, data: {breadcrumbs: ['home','Whole House HP', 'detail']} },
 
-      {path: 'PartialSupplementalHP', component: PartialSupplementalHPRebateComponent, data: {breadcrumbs: ['Partial Supplemental HP']} }
+      {path: 'PartialSupplementalHP', component: PartialSupplementalHPRebateComponent, data: {breadcrumbs: ['home','Partial Supplemental HP']} },
+      {path: 'PartialSupplementalHP/:id', component: DetailParComponent, data: {breadcrumbs: ['home', 'Partial Supplemental HP', 'detail']} }
     ]
   }
 ]
