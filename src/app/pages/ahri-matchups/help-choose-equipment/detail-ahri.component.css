@@ -1,0 +1,29 @@
+/* se queda aqui */
+.rc-card.rc-selected-hvac-system {
+  height: 300px;
+}
+.rc-detail-view {
+  display: flex;
+  justify-content: center;
+}
+
+.rc-card-title {
+  text-transform: uppercase;
+  text-align: center;
+  border-bottom: solid 1px #DCDCDC;
+  padding: 1rem;
+  color: var(--rc-primary-color);
+}
+
+
+.rc-card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rc-card-row .rc-description {
+  text-align: justify;
+  width: 40%;
+
+}
