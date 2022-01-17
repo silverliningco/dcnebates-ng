@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
+import {AHRIMatchupsService} from '../../../services/AHRIMatchups.service';
+
 // temporal
 import {AfterViewInit,  ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
@@ -33,17 +35,21 @@ export class HelpChooseEquipmentComponent implements OnInit {
   }
 
   // select
-
-  selectedValue!: string;
-
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
+  State: Array<any> = [
+    { name: 'MA', electric: ['Cape Light Compact', 'Eversource', 'National Grid', 'Unitil', 'Marblehead Municipal Light Department', 'Other'], gas: ['Berkshire Gas', 'Eversource', 'Liberty', 'National Grid', 'Unitil', 'Other'] },
+    { name: 'ME', electric: ['aaaaaaa', 'bbbbbbb'], gas: ['aaaaaa', 'bbbbbbb'] },
+    { name: 'NH', electric: ['11111', '222222'], gas: ['1111', '22222'] },
+    { name: 'RI', electric: ['National Grid'], gas: ['National Grid']  },
   ];
+  electric:  Array<any> = [];
+  gas:  Array<any> = [];
+
+  // select end
+
 
 
   constructor(
+    //public _arhiMatchupsService: AHRIMatchupsService,
     private _formBuilder: FormBuilder
   ) { }
 
@@ -76,11 +82,11 @@ export class HelpChooseEquipmentComponent implements OnInit {
   }
 
 
-  // arrayform - control - group 
+  // control - group 
     
-  get formArray(): AbstractControl | null { 
+ /*  get formArray(): AbstractControl | null { 
     return this.formGroup.get('formArray'); 
-  } 
+  }  */
 
   submit(f: FormGroup) {
     if (f.invalid) {
@@ -90,10 +96,29 @@ export class HelpChooseEquipmentComponent implements OnInit {
     let jsonPay = JSON.stringify(f);
     
     console.log(jsonPay);
+
+    //this._arhiMatchupsService.save(jsonPay);
+          /* .subscribe( ahri => {
+            console .log('componente: ' + ahri);
+          }); */
+
   }
 
-// arrayform - control - group  end
+// control - group  end
 
+
+
+// select 
+changeState_electric(count: any) {
+  //console.log(count);
+  this.electric = this.State.find((con: any) => con.name == count.value).electric;
+}
+
+changeState_gas(count: any) {
+  //console.log(count);
+  this.gas = this.State.find((con: any) => con.name == count.value).gas;
+}
+//select end
 }
 
 
