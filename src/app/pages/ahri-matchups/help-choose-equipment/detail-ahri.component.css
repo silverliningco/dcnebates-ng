@@ -1,29 +1,19 @@
-/* se queda aqui */
-.rc-card.rc-selected-hvac-system {
+.illustration-2 {
   height: 300px;
 }
-.rc-detail-view {
+
+.rc-content-flex {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-}
-
-.rc-card-title {
-  text-transform: uppercase;
-  text-align: center;
-  border-bottom: solid 1px #DCDCDC;
-  padding: 1rem;
-  color: var(--rc-primary-color);
-}
-
-
-.rc-card-row {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
-.rc-card-row .rc-description {
-  text-align: justify;
-  width: 40%;
-
+.rc-card-rebate {
+  width: 300px;
+  margin: .5rem;
 }
+
+
+
