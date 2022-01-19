@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs/operators'; 
+
+import {URL_SERVICIOS}  from '../config/config';
 
 @Injectable({
     providedIn: 'root'
@@ -16,16 +18,25 @@ import { map } from 'rxjs/operators';
   
   save (a: any){
 
-    let url = 'pay';
+    let url = URL_SERVICIOS;
 
-    return this.http.post(url, a)
+    /* return this.http.get(url, a)
             .pipe(
                 map((resp: any) => {
-
+                  
                     console.log(resp);
-                    return ;//resp.a;
+                    return resp;
                 })
-            )
+            ) */
+    
+    return this.http.get(url, {params: {a}})
+    .pipe(
+        map((resp: any) => {
+          
+            console.log(resp);
+            return resp;
+        })
+    )
   }
 
 }

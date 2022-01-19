@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'; 
+
 
 // angular material
 import { MatInputModule } from '@angular/material/input';
@@ -54,6 +56,7 @@ import { SharedModModule } from '../shared/shared-mod.module';
     ReactiveFormsModule,
     PagesRoutingModule,
     SharedModModule,
+    HttpClientModule,
     // angular Material
     MatInputModule,
     MatToolbarModule,

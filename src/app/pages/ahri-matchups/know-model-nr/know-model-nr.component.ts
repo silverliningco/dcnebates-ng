@@ -8,6 +8,9 @@ import {AfterViewInit,  ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 
+// services
+import {AHRIMatchupsService} from '../../../services/AHRIMatchups.service';
+
 @Component({
   selector: 'app-know-model-nr',
   templateUrl: './know-model-nr.component.html',
@@ -20,6 +23,19 @@ export class KnowModelNrComponent implements OnInit {
   formGroup !: FormGroup ;  
   
  // arrayform - control - group  end
+
+ // select
+  State: Array<any> = [
+    { name: 'MA', electric: ['Cape Light Compact', 'Eversource', 'National Grid', 'Unitil', 'Marblehead Municipal Light Department', 'Other'], gas: ['Berkshire Gas', 'Eversource', 'Liberty', 'National Grid', 'Unitil', 'Other'] },
+    { name: 'ME', electric: ['aaaaaaa', 'bbbbbbb'], gas: ['aaaaaa', 'bbbbbbb'] },
+    { name: 'NH', electric: ['11111', '222222'], gas: ['1111', '22222'] },
+    { name: 'RI', electric: ['National Grid'], gas: ['National Grid']  },
+  ];
+  electric:  Array<any> = [];
+  gas:  Array<any> = [];
+
+// select end
+ 
 
   // table
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
@@ -42,6 +58,7 @@ export class KnowModelNrComponent implements OnInit {
   ];
 
   constructor(
+    public _AHRIMatchupsService: AHRIMatchupsService,
     private _formBuilder: FormBuilder
   ) { }
 
@@ -69,7 +86,7 @@ export class KnowModelNrComponent implements OnInit {
     });
   }
 
-  // arrayform - control - group 
+  //  control - group 
     
   get formArray(): AbstractControl | null { 
     return this.formGroup.get('formArray'); 
@@ -82,10 +99,27 @@ export class KnowModelNrComponent implements OnInit {
     // tranformandolo a json
     let jsonPay = JSON.stringify(f);
     
-    console.log(jsonPay);
+    //console.log(jsonPay);
+
+    this._AHRIMatchupsService.save(jsonPay)
+          .subscribe( a => {
+            //console.log(a);
+          });
   }
 
-// arrayform - control - group  end
+  // control - group  end
+
+  // select 
+  changeState_electric(count: any) {
+    //console.log(count);
+    this.electric = this.State.find((con: any) => con.name == count.value).electric;
+  }
+
+  changeState_gas(count: any) {
+    //console.log(count);
+    this.gas = this.State.find((con: any) => con.name == count.value).gas;
+  }
+  //select end
 
 
 }
