@@ -1,8 +1,9 @@
-.illustration-2 {
+/* .illustration-2 {
   height: 300px;
-}
+} */
 
-.rc-card-rebate {
+.rc-card-rebate,
+.rc-card-selected-hvac {
   width: 300px;
   margin: .5rem;
 }
