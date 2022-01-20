@@ -1,8 +1,6 @@
-.illustration-1 {
-  width: 170px;
-  height: auto;
-}
-
-.rc-step-content {
-  /* background-image: url('./assets/img/illustration-1.svg'); */
+/* height: calc(100vh - var(--rc-height-header) - 60px - 36px); */
+.rc-card-ahri-matchup {
+  width: 300px;
+  height: 212px;
+  margin: .5rem;
 }

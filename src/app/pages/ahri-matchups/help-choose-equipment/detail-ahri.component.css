@@ -2,14 +2,6 @@
   height: 300px;
 }
 
-.rc-content-flex {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
 .rc-card-rebate {
   width: 300px;
   margin: .5rem;
