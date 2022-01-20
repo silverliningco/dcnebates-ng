@@ -1,197 +1,181 @@
-
 <form [formGroup]="formGroup" (ngSubmit)="submit(formGroup.value)">
     <mat-stepper #stepper >
-
-      <!-- paso 1 -->
+      <!-- Step 1 -->
       <mat-step  errorMessage="Model Numbers is required." formGroupName="model_numbers" [stepControl]="formGroup?.get('model_numbers')!">
-    
-    
-          <!-- nombre del paso -->
-          <ng-template matStepLabel>Model Numbers</ng-template>
+        <!-- Name of step -->
+        <ng-template matStepLabel>Model Numbers</ng-template>
+        <!-- Content of step -->
+        <div class="rc-content-flex rc-column">
+          <h2 class="rc-main-title">Model Numbers</h2>
+          <!-- User input -->
+          <div class="rc-column">
+            <!-- selects -->
+            <mat-form-field appearance="fill"  >
+              <mat-label>Outdoor unit</mat-label>
+              <mat-select  #sGroup formControlName="outdoor_unitCtrl">
+                  <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
+                  <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
+                  <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
+                  <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <!-- selects -->
-          <mat-form-field appearance="fill"  >
-            <mat-label>Outdoor unit</mat-label>
-            <mat-select  #sGroup formControlName="outdoor_unitCtrl">
-                <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
-                <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
-                <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
-                <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
-            </mat-select>
-          </mat-form-field>
+            <mat-form-field appearance="fill"  >
+              <mat-label>Inddor Unit</mat-label>
+              <mat-select  #sGroup formControlName="indoor_unitCtrl">
+                  <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
+                  <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
+                  <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
+                  <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <br>
+            <!-- radio button -->
+            <mat-label>Replace / Displace fuel</mat-label>
+            <mat-radio-group #rGroup formControlName="replace_displace_fuelCtrl" class="rc-radio-group">
+              <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>  <br>
+              <mat-radio-button [value]="'propane'" radioGroup="rGroup">propane</mat-radio-button> <br>
+              <mat-radio-button [value]="'electric heat'" radioGroup="rGroup">Electric Heat</mat-radio-button>  <br>
+              <mat-radio-button [value]="'existing or n/a'" radioGroup="rGroup">Existing or N/A</mat-radio-button>
+            </mat-radio-group>
 
-          <mat-form-field appearance="fill"  >
-            <mat-label>Inddor Unit</mat-label>
-            <mat-select  #sGroup formControlName="indoor_unitCtrl">
-                <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
-                <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
-                <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
-                <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
-            </mat-select>
-          </mat-form-field>
+            <!-- selects -->
+            <mat-form-field appearance="fill"  >
+              <mat-label>Furnace</mat-label>
+              <mat-select  #sGroup formControlName="furnaceCtrl">
+                  <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
+                  <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
+                  <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
+                  <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- falta renderizar esto
+            <mat-checkbox>Existing or Non-ECM</mat-checkbox> -->
+            <!-- radio button -->
+            <mat-label>Fuel (If applicable)</mat-label>
+            <mat-radio-group #rGroup formControlName="fuelCtrl" class="rc-radio-group">
+              <mat-radio-button [value]="'natural gas'" radioGroup="rGroup">Natural Gas</mat-radio-button>  <br>
+              <mat-radio-button [value]="'propane'" radioGroup="rGroup">propane</mat-radio-button> <br>
+              <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>
+            </mat-radio-group>
 
-          <br>
-          
-          <!-- radio button -->
-          <mat-label>Replace / Displace fuel</mat-label>
-          <br>
-          <mat-radio-group #rGroup formControlName="replace_displace_fuelCtrl" >
-            <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>  <br>
-            <mat-radio-button [value]="'propane'" radioGroup="rGroup">propane</mat-radio-button> <br>
-            <mat-radio-button [value]="'electric heat'" radioGroup="rGroup">Electric Heat</mat-radio-button>  <br>
-            <mat-radio-button [value]="'existing or n/a'" radioGroup="rGroup">Existing or N/A</mat-radio-button>
-          </mat-radio-group>
-
-          <br><br>
-
-          <!-- selects -->
-          <mat-form-field appearance="fill"  >
-            <mat-label>Furnace</mat-label>
-            <mat-select  #sGroup formControlName="furnaceCtrl">
-                <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
-                <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
-                <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
-                <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
-            </mat-select>
-          </mat-form-field>
-      
-          <br> <br>
-          
-          <mat-radio-button value="1">Existing or Non-ECM</mat-radio-button>
-          
-          <br> <br>
-
-          <!-- radio button -->
-          <mat-label>Fuel (If applicable)</mat-label>
-          <br>
-          <mat-radio-group #rGroup formControlName="fuelCtrl" >
-            <mat-radio-button [value]="'natural gas'" radioGroup="rGroup">Natural Gas</mat-radio-button>  <br>
-            <mat-radio-button [value]="'propane'" radioGroup="rGroup">propane</mat-radio-button> <br>
-            <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>
-          </mat-radio-group>
-
-          <!-- button -->
-        <div>
-          <button type="button" mat-button matStepperPrevious>Back</button>
-          <button type="button" type="submit" mat-button matStepperNext>Continue</button>
+            <!-- button -->
+            <div class="nkn-space-between nkn-mt-medium">
+              <button type="button" mat-button matStepperPrevious>Back</button>
+              <button type="button" mat-raised-button matStepperNext color="primary">Continue</button>
+            </div>
+          </div>
         </div>
       </mat-step>
-      <!-- paso 1 end  -->
+      <!-- Step 1 end -->
 
-      <!-- paso 2 -->
+      <!-- Step 2 -->
       <mat-step  errorMessage="Eligibility Detail is required." formGroupName="eligibility_detail" [stepControl]="formGroup?.get('eligibility_detail')!">
-  
-        <!-- nombre del paso -->
+
+        <!-- Name of step -->
         <ng-template matStepLabel>Eligibility Details</ng-template>
+        <!-- Content of step -->
+        <div class="rc-content-flex rc-column">
+          <h2 class="rc-main-title">Eligibility Details</h2>
+          <!-- User input -->
+          <div class="rc-column">
+            <!-- selects -->
+            <mat-form-field appearance="fill"  >
+              <mat-label>State</mat-label>
+              <mat-select  #sGroup formControlName="stateCtrl">
+                  <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
+                  <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
+                  <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
+                  <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-        <!-- selects -->
-        <mat-form-field appearance="fill"  >
-          <mat-label>State</mat-label>
-          <mat-select  #sGroup formControlName="stateCtrl">
-              <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
-              <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
-              <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
-              <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
-          </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="fill"  >
+              <mat-label>Electric Utility Provider</mat-label>
+              <mat-select  #sGroup formControlName="electric_utitlity_providerCtrl">
+                  <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
+                  <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
+                  <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
+                  <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill"  >
+              <mat-label>Gas / Oil Utility</mat-label>
+              <mat-select  #sGroup formControlName="gas_oil_utilityCtrl">
+                  <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
+                  <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
+                  <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
+                  <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- radio buttons -->
+            <mat-label> Existing furnace type?</mat-label>
+            <mat-radio-group #rGroup formControlName="existen_furnace_typeCtrl" class="rc-radio-group">
+              <mat-radio-button [value]="'condensing'" radioGroup="rGroup">Condensing</mat-radio-button>  <br>
+              <mat-radio-button [value]="'none - condensing'" radioGroup="rGroup">None - condensing</mat-radio-button>
+            </mat-radio-group>
 
-        <br>
+            <mat-label> HP System is the sole source of heat?</mat-label>
+            <mat-radio-group #rGroup formControlName="hpS_source_headCtrl" class="rc-radio-group">
+              <mat-radio-button [value]="'yes'" radioGroup="rGroup">Yes</mat-radio-button>  <br>
+              <mat-radio-button [value]="'no'" radioGroup="rGroup">No</mat-radio-button>
+            </mat-radio-group>
 
-        <mat-form-field appearance="fill"  >
-          <mat-label>Electric Utility Provider</mat-label>
-          <mat-select  #sGroup formControlName="electric_utitlity_providerCtrl">
-              <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
-              <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
-              <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
-              <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <br>
-
-        <mat-form-field appearance="fill"  >
-          <mat-label>Gas / Oil Utility</mat-label>
-          <mat-select  #sGroup formControlName="gas_oil_utilityCtrl">
-              <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
-              <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
-              <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
-              <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <br>
-        
-        <!-- radio buttons -->
-        <mat-label> Existing furnace type?</mat-label>
-        <br>
-        <mat-radio-group #rGroup formControlName="existen_furnace_typeCtrl" >
-          <mat-radio-button [value]="'condensing'" radioGroup="rGroup">Condensing</mat-radio-button>  <br>
-          <mat-radio-button [value]="'none - condensing'" radioGroup="rGroup">None - condensing</mat-radio-button>
-        </mat-radio-group>
-
-        <br> <br>
-
-        <mat-label> HP System is the sole source of heat?</mat-label>
-        <br>
-        <mat-radio-group #rGroup formControlName="hpS_source_headCtrl" >
-          <mat-radio-button [value]="'yes'" radioGroup="rGroup">Yes</mat-radio-button>  <br>
-          <mat-radio-button [value]="'no'" radioGroup="rGroup">No</mat-radio-button>
-        </mat-radio-group>
-
-        <!-- button -->
-        <div>
-          <button type="button" mat-button matStepperPrevious>Back</button>
-          <button type="button" type="submit" mat-button matStepperNext>Continue</button>
+            <!-- button -->
+            <div class="nkn-space-between nkn-mt-medium">
+              <button type="button" mat-button matStepperPrevious>Back</button>
+              <button type="submit" mat-raised-button matStepperNext color="primary">Continue</button>
+            </div>
+          </div>
         </div>
       </mat-step>
-      <!-- paso 2 end  -->
-  
-      <!-- paso 3 -->
+      <!-- Step 2 end  -->
+
+      <!-- Step 3 -->
       <mat-step>
         <ng-template matStepLabel>AHRI Combinations</ng-template>
+        <h2 class="rc-main-title">AHRI Combinations</h2>
          <!-- table -->
         <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource">
-          
+
               <!-- Position Column -->
               <ng-container matColumnDef="position">
                 <th mat-header-cell *matHeaderCellDef> No. </th>
                 <td mat-cell *matCellDef="let element"> {{element.position}} </td>
               </ng-container>
-          
+
               <!-- Name Column -->
               <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> Name </th>
                 <td mat-cell *matCellDef="let element"> {{element.name}} </td>
               </ng-container>
-          
+
               <!-- Weight Column -->
               <ng-container matColumnDef="weight">
                 <th mat-header-cell *matHeaderCellDef> Weight </th>
                 <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
               </ng-container>
-          
+
               <!-- Symbol Column -->
               <ng-container matColumnDef="symbol">
                 <th mat-header-cell *matHeaderCellDef> Symbol </th>
                 <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
               </ng-container>
-          
+
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-          
+
             <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                           showFirstLastButtons 
+                           showFirstLastButtons
                            aria-label="Select page of periodic elements">
             </mat-paginator>
         </div>
             <!-- table end  -->
       </mat-step>
-      <!-- paso 3 end -->
-  
+      <!-- Step 3 end -->
+
     </mat-stepper>
-    
+
   </form>
