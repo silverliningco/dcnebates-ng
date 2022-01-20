@@ -1,100 +1,101 @@
-
 <form [formGroup]="formGroup" (ngSubmit)="submit(formGroup.value)">
     <mat-stepper #stepper >
-      <!-- paso 1 -->
+      <!-- Step 1 -->
       <mat-step  errorMessage="Equipment Size is required." formGroupName="equipment_size" [stepControl]="formGroup?.get('equipment_size')!">
-  
-          <!-- nombre del paso -->
-          <ng-template matStepLabel>Equipment Size</ng-template>
-  
-          <!-- input -->
-          <mat-form-field appearance="fill">
-            <mat-label>Manual J Heating BTUH</mat-label>
-            <input matInput placeholder="Manual J Heating BTUH" required formControlName="manualj_heating_btuhCtrl" >
-          </mat-form-field>
+        <!-- Name of step -->
+        <ng-template matStepLabel>Equipment Size</ng-template>
+        <!-- Content of step -->
+        <div class="rc-content-flex rc-column">
+          <h2 class="rc-main-title">Equipment Size</h2>
+          <!-- User input -->
+          <div class="rc-column">
+            <!-- input -->
+            <mat-form-field appearance="fill">
+              <mat-label>Manual J Heating BTUH</mat-label>
+              <input matInput placeholder="Manual J Heating BTUH" required formControlName="manualj_heating_btuhCtrl" >
+            </mat-form-field>
 
-          <br>
-        
-          <!-- button -->
-          <div>
-            <button type="button"  mat-button matStepperNext>Continue</button>
+            <!-- button -->
+            <div class="nkn-center nkn-mt-medium">
+              <button type="button" mat-raised-button matStepperNext color="primary">Continue</button>
+            </div>
           </div>
-  
+        </div>
       </mat-step>
-      <!-- paso 1 end  -->
-  
-      <!-- paso 2 -->
+      <!-- Step 1 end  -->
+
+      <!-- Step 2 -->
       <mat-step  errorMessage="Energy Distrubution is required."  formGroupName="energy_distribution" [stepControl]="formGroup?.get('energy_distribution')!">
-        
-          <!-- nombre del paso -->
-          <ng-template matStepLabel>Energy Distrubution</ng-template>
-
-          <!-- radio button -->
-          <mat-label>Energy Distrubution Method</mat-label>
-          <br>
-          <mat-radio-group #rGroup formControlName="methodCtrl" >
-            <mat-radio-button [value]="'Central heat pumps'" radioGroup="rGroup">Central heat pumps</mat-radio-button>  <br>
-            <mat-radio-button [value]="'Mini-split ducted & Multi splits'" radioGroup="rGroup">Mini-split ducted & Multi splits</mat-radio-button>  <br>
-            <mat-radio-button [value]="'Mini-split heat pumps'" radioGroup="rGroup">Mini-split heat pumps</mat-radio-button>
-          </mat-radio-group>
-
-          <br>
-         
-          <!-- button -->
-          <div>
-            <button type="button" mat-button matStepperPrevious>Back</button>
-            <button type="button" type="submit" mat-button matStepperNext>Continue</button>
+        <!-- Name of step -->
+        <ng-template matStepLabel>Energy Distrubution</ng-template>
+        <!-- Content of step -->
+        <div class="rc-content-flex rc-column">
+          <h2 class="rc-main-title">Energy Distrubution</h2>
+          <!-- User input -->
+          <div class="rc-column">
+            <!-- radio button -->
+            <mat-label>Energy Distrubution Method</mat-label>
+            <mat-radio-group #rGroup formControlName="methodCtrl" class="rc-radio-group">
+              <mat-radio-button [value]="'Central heat pumps'" radioGroup="rGroup">Central heat pumps</mat-radio-button>
+              <mat-radio-button [value]="'Mini-split ducted & Multi splits'" radioGroup="rGroup">Mini-split ducted & Multi splits</mat-radio-button>
+              <mat-radio-button [value]="'Mini-split heat pumps'" radioGroup="rGroup">Mini-split heat pumps</mat-radio-button>
+            </mat-radio-group>
+            <!-- button -->
+            <div class="nkn-space-between nkn-mt-medium">
+              <button type="button" mat-button matStepperPrevious>Back</button>
+              <button type="button" mat-raised-button matStepperNext color="primary">Continue</button>
+            </div>
           </div>
-        
+        </div>
       </mat-step>
-      <!-- paso 2 end -->
-  
+      <!-- Step 2 end -->
 
-  
-      <!-- paso 3 -->
+      <!-- Step 3 -->
       <mat-step>
         <ng-template matStepLabel>AHRI Combinations</ng-template>
+        <h2 class="rc-main-title">AHRI Combinations</h2>
          <!-- table -->
         <div class="mat-elevation-z8">
+          <div class="rc-table-container">
             <table mat-table [dataSource]="dataSource">
-          
+
               <!-- Position Column -->
               <ng-container matColumnDef="position">
                 <th mat-header-cell *matHeaderCellDef> No. </th>
                 <td mat-cell *matCellDef="let element"> {{element.position}} </td>
               </ng-container>
-          
+
               <!-- Name Column -->
               <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> Name </th>
                 <td mat-cell *matCellDef="let element"> {{element.name}} </td>
               </ng-container>
-          
+
               <!-- Weight Column -->
               <ng-container matColumnDef="weight">
                 <th mat-header-cell *matHeaderCellDef> Weight </th>
                 <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
               </ng-container>
-          
+
               <!-- Symbol Column -->
               <ng-container matColumnDef="symbol">
                 <th mat-header-cell *matHeaderCellDef> Symbol </th>
                 <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
               </ng-container>
-          
+
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-          
+          </div>
             <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                           showFirstLastButtons 
+                           showFirstLastButtons
                            aria-label="Select page of periodic elements">
             </mat-paginator>
         </div>
             <!-- table end  -->
       </mat-step>
       <!-- paso 3 end -->
-  
+
     </mat-stepper>
-    
+
   </form>

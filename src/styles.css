@@ -133,7 +133,6 @@ a {
   flex-direction: column;
 }
 
-
 .rc-table-container {
   overflow: auto;
 }
@@ -149,6 +148,13 @@ th.mat-header-cell{
 table .rc-row:hover {
   background-color: #F5F7F9;
 }
+
+.rc-card-rebate,
+.rc-card-selected-hvac {
+  width: 300px;
+  margin: .5rem;
+}
+
 /*End general styles of each view*/
 
 
