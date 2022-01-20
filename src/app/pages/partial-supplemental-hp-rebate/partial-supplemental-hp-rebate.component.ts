@@ -8,6 +8,10 @@ import {AfterViewInit,  ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 
+// services
+import {PartialSupplementalHPService} from '../../services/PartialSupplementalHP.service';
+
+
 @Component({
   selector: 'app-partial-supplemental-hp-rebate',
   templateUrl: './partial-supplemental-hp-rebate.component.html',
@@ -43,6 +47,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
 
 
   constructor(
+    public _partialSupplementalHPService: PartialSupplementalHPService,
     private _formBuilder: FormBuilder
   ) { }
 
@@ -85,7 +90,12 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
     // tranformandolo a json
     let jsonPay = JSON.stringify(f);
     
-    console.log(jsonPay);
+    //console.log(jsonPay);
+
+    this._partialSupplementalHPService.save(jsonPay)
+          .subscribe( a => {
+            //console.log(a);
+          });
   }
 
 // arrayform - control - group  end

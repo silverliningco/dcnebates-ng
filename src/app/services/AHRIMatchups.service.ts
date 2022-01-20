@@ -19,15 +19,6 @@ import {URL_SERVICIOS}  from '../config/config';
   save (a: any){
 
     let url = URL_SERVICIOS;
-
-    /* return this.http.get(url, a)
-            .pipe(
-                map((resp: any) => {
-                  
-                    console.log(resp);
-                    return resp;
-                })
-            ) */
     
     return this.http.get(url, {params: {a}})
     .pipe(

@@ -7,6 +7,9 @@ import {AfterViewInit,  ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 
+// services
+import {WholeHouseHPService} from '../../services/WholeHouseHP.service';
+
 
 @Component({
   selector: 'app-whole-house-hp-rebate',
@@ -41,6 +44,7 @@ export class WholeHouseHPRebateComponent implements OnInit {
   }
 
   constructor(
+    public _wholeHouseHPService: WholeHouseHPService,
     private _formBuilder: FormBuilder
   ) { }
 
@@ -71,7 +75,12 @@ export class WholeHouseHPRebateComponent implements OnInit {
     // tranformandolo a json
     let jsonPay = JSON.stringify(f);
     
-    console.log(jsonPay);
+    //console.log(jsonPay);
+
+    this._wholeHouseHPService.save(jsonPay)
+          .subscribe( a => {
+            //console.log(a);
+          });
   }
 
 // arrayform - control - group  end

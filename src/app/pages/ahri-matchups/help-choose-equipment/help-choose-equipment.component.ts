@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
+// services
 import {AHRIMatchupsService} from '../../../services/AHRIMatchups.service';
 
 // temporal
@@ -49,7 +50,7 @@ export class HelpChooseEquipmentComponent implements OnInit {
 
 
   constructor(
-    //public _arhiMatchupsService: AHRIMatchupsService,
+    public _AHRIMatchupsService: AHRIMatchupsService,
     private _formBuilder: FormBuilder
   ) { }
 
@@ -95,13 +96,12 @@ export class HelpChooseEquipmentComponent implements OnInit {
     // tranformandolo a json
     let jsonPay = JSON.stringify(f);
     
-    console.log(jsonPay);
+    //console.log(jsonPay);
 
-    //this._arhiMatchupsService.save(jsonPay);
-          /* .subscribe( ahri => {
-            console .log('componente: ' + ahri);
-          }); */
-
+    this._AHRIMatchupsService.save(jsonPay)
+          .subscribe( a => {
+            //console.log(a);
+          });
   }
 
 // control - group  end
