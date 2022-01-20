@@ -61,8 +61,7 @@
 
             <!-- button -->
             <div class="nkn-space-between nkn-mt-medium">
-              <button type="button" mat-button matStepperPrevious>Back</button>
-              <button type="button" mat-raised-button matStepperNext color="primary">Continue</button>
+              <button type="button"  mat-raised-button matStepperNext color="primary">Continue</button>
             </div>
           </div>
         </div>
@@ -71,7 +70,6 @@
 
       <!-- Step 2 -->
       <mat-step  errorMessage="Eligibility Detail is required." formGroupName="eligibility_detail" [stepControl]="formGroup?.get('eligibility_detail')!">
-
         <!-- Name of step -->
         <ng-template matStepLabel>Eligibility Details</ng-template>
         <!-- Content of step -->
@@ -82,30 +80,28 @@
             <!-- selects -->
             <mat-form-field appearance="fill"  >
               <mat-label>State</mat-label>
-              <mat-select  #sGroup formControlName="stateCtrl">
-                  <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
-                  <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
-                  <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
-                  <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
+              <mat-select (selectionChange)="changeState_electric($event)" (selectionChange)="changeState_gas($event)" #sGroup formControlName="stateCtrl">
+                  <mat-option *ngFor="let count of State" [value]="count.name" radioGroup="sGroup">
+                    {{count.name}}
+                  </mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="fill"  >
               <mat-label>Electric Utility Provider</mat-label>
               <mat-select  #sGroup formControlName="electric_utitlity_providerCtrl">
-                  <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
-                  <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
-                  <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
-                  <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
+                <mat-option *ngFor ="let elec of electric" [value]="elec" radioGroup="sGroup">
+                  {{elec}}
+                  </mat-option>
               </mat-select>
             </mat-form-field>
+
             <mat-form-field appearance="fill"  >
               <mat-label>Gas / Oil Utility</mat-label>
               <mat-select  #sGroup formControlName="gas_oil_utilityCtrl">
-                  <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
-                  <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
-                  <mat-option [value]="'NH'" radioGroup="sGroup"> NH </mat-option>
-                  <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
+                <mat-option *ngFor ="let Gas of gas" [value]="Gas" radioGroup="sGroup">
+                  {{Gas}}
+                </mat-option>
               </mat-select>
             </mat-form-field>
             <!-- radio buttons -->
