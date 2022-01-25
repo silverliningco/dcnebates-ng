@@ -19,7 +19,7 @@
                   <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
               </mat-select>
             </mat-form-field>
-
+            <mat-divider class="nkn-py-small"></mat-divider>
             <mat-form-field appearance="fill"  >
               <mat-label>Inddor Unit</mat-label>
               <mat-select  #sGroup formControlName="indoor_unitCtrl">
@@ -38,7 +38,7 @@
               <mat-radio-button [value]="'electric heat'" radioGroup="rGroup">Electric Heat</mat-radio-button>  <br>
               <mat-radio-button [value]="'existing or n/a'" radioGroup="rGroup">Existing or N/A</mat-radio-button>
             </mat-radio-group>
-
+            <mat-divider class="nkn-py-small"></mat-divider>
             <!-- selects -->
             <mat-form-field appearance="fill"  >
               <mat-label>Furnace</mat-label>
@@ -49,9 +49,7 @@
                   <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
               </mat-select>
             </mat-form-field>
-            <!-- falta renderizar esto
-            <mat-checkbox>Existing or Non-ECM</mat-checkbox> -->
-            <!-- radio button -->
+            <mat-checkbox class="nkn-my-medium">Existing or Non-ECM</mat-checkbox>
             <mat-label>Fuel (If applicable)</mat-label>
             <mat-radio-group #rGroup formControlName="fuelCtrl" class="rc-radio-group">
               <mat-radio-button [value]="'natural gas'" radioGroup="rGroup">Natural Gas</mat-radio-button>  <br>

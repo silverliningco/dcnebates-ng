@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
 
 
 // angular material
@@ -15,6 +15,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatDividerModule} from '@angular/material/divider';
 // components
 import { PagesComponent } from './pages.component';
 import { AHRIMatchupsComponent } from './ahri-matchups/ahri-matchups.component';
@@ -70,7 +72,9 @@ import { SharedModModule } from '../shared/shared-mod.module';
     MatTableModule,
     MatPaginatorModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule,
+    MatDividerModule
   ],
   exports:[
     // angular Material
@@ -85,7 +89,9 @@ import { SharedModModule } from '../shared/shared-mod.module';
     MatTableModule,
     MatPaginatorModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule,
+    MatDividerModule
   ]
 })
 export class PagesModModule { }
