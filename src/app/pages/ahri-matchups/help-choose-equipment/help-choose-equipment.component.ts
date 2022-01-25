@@ -56,7 +56,10 @@ export class HelpChooseEquipmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
-      
+
+        rebate_id: [ [3] , Validators.required],
+        title: ['Mass Save Gas Heating', Validators.required],
+
         equipment_size: this._formBuilder.group({
           cooling_tomsCtrl: ['', Validators.required],
           heating_btuhCtrl: ['', Validators.required],
@@ -96,11 +99,11 @@ export class HelpChooseEquipmentComponent implements OnInit {
     // tranformandolo a json
     let jsonPay = JSON.stringify(f);
     
-    //console.log(jsonPay);
+    console.log(jsonPay);
 
     this._AHRIMatchupsService.save(jsonPay)
           .subscribe( a => {
-            //console.log(a);
+            console.log(a);
           });
   }
 

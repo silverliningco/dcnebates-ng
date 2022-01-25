@@ -24,7 +24,6 @@ import {WholeHouseHPService} from '../../services/WholeHouseHP.service';
 })
 
 
-
 export class WholeHouseHPRebateComponent implements OnInit {
 
   // arrayform - control - group 
@@ -50,6 +49,9 @@ export class WholeHouseHPRebateComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
+
+        rebate_id: [ [2] , Validators.required],
+        title: ['Mass Save Air Source HP (Whole home)', Validators.required],
       
         equipment_size: this._formBuilder.group({
           manualj_heating_btuhCtrl: ['', Validators.required],
@@ -75,11 +77,11 @@ export class WholeHouseHPRebateComponent implements OnInit {
     // tranformandolo a json
     let jsonPay = JSON.stringify(f);
     
-    //console.log(jsonPay);
+    console.log(jsonPay);
 
     this._wholeHouseHPService.save(jsonPay)
           .subscribe( a => {
-            //console.log(a);
+            console.log(a);
           });
   }
 

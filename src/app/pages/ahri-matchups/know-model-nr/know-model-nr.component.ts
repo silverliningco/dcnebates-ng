@@ -64,6 +64,9 @@ export class KnowModelNrComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
+
+        rebate_id: [ [3] , Validators.required],
+        title: ['Mass Save Gas Heating', Validators.required],
       
         model_numbers: this._formBuilder.group({
           outdoor_unitCtrl: ['', Validators.required],
@@ -99,11 +102,11 @@ export class KnowModelNrComponent implements OnInit {
     // tranformandolo a json
     let jsonPay = JSON.stringify(f);
     
-    //console.log(jsonPay);
+    console.log(jsonPay);
 
     this._AHRIMatchupsService.save(jsonPay)
           .subscribe( a => {
-            //console.log(a);
+            console.log(a);
           });
   }
 
