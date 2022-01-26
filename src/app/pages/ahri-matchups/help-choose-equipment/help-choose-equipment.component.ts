@@ -6,6 +6,9 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 // services
 import {AHRIMatchupsService} from '../../../services/AHRIMatchups.service';
 
+// model
+import {AHRIMatchups}  from '../../../models/AHRIMatchups.model';
+
 // temporal
 import {AfterViewInit,  ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
@@ -18,24 +21,16 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class HelpChooseEquipmentComponent implements OnInit {
 
+  ahriMatchups: AHRIMatchups[] = []; 
 
-  // arrayform - control - group 
-    
+  columnsTable: string[] = ['nr','outdoorUnit', 'indoorUnit', 'furnace', 'seer', 'eer', 'hspf', 'afue', 'totalRebate'];
+
   formGroup !: FormGroup ;  
-  
- // arrayform - control - group  end
 
-  // table
-  displayedColumns: string[] = ['outdoorUnit', 'indoorUnit', 'furnace', 'seer', 'eer', 'hspf', 'afue', 'totalRebate'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  data!: any;
+  cargando: boolean = false;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
-  // select
+  // ******* select *******
   State: Array<any> = [
     { name: 'MA', electric: ['Cape Light Compact', 'Eversource', 'National Grid', 'Unitil', 'Marblehead Municipal Light Department', 'Other'], gas: ['Berkshire Gas', 'Eversource', 'Liberty', 'National Grid', 'Unitil', 'Other'] },
     { name: 'ME', electric: ['aaaaaaa', 'bbbbbbb'], gas: ['aaaaaa', 'bbbbbbb'] },
@@ -45,9 +40,7 @@ export class HelpChooseEquipmentComponent implements OnInit {
   electric:  Array<any> = [];
   gas:  Array<any> = [];
 
-  // select end
-
-
+  // ******* select end *******
 
   constructor(
     public _AHRIMatchupsService: AHRIMatchupsService,
@@ -56,10 +49,7 @@ export class HelpChooseEquipmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
-
-        rebate_id: [ [3] , Validators.required],
-        title: ['Mass Save Gas Heating', Validators.required],
-
+      
         equipment_size: this._formBuilder.group({
           cooling_tomsCtrl: ['', Validators.required],
           heating_btuhCtrl: ['', Validators.required],
@@ -85,69 +75,39 @@ export class HelpChooseEquipmentComponent implements OnInit {
     });
   }
 
-
-  // control - group 
     
- /*  get formArray(): AbstractControl | null { 
-    return this.formGroup.get('formArray'); 
-  }  */
-
   submit(f: FormGroup) {
     if (f.invalid) {
       return;
     }
-    // tranformandolo a json
     let jsonPay = JSON.stringify(f);
     
     console.log(jsonPay);
+    
 
     this._AHRIMatchupsService.save(jsonPay)
-          .subscribe( a => {
-            console.log(a);
+          .subscribe( (resp:any) => {
+            this.data = resp;
+            console.log(this.data);
           });
   }
 
-// control - group  end
+  loadTable( ) {
+    //console.log(this.data);
+    
+    //this.cargando = true;
+  }
+
+ 
 
 
+  // ******* select *******
+  changeState_electric(count: any) {
+    this.electric = this.State.find((con: any) => con.name == count.value).electric;
+  }
 
-// select 
-changeState_electric(count: any) {
-  //console.log(count);
-  this.electric = this.State.find((con: any) => con.name == count.value).electric;
+  changeState_gas(count: any) {
+    this.gas = this.State.find((con: any) => con.name == count.value).gas;
+  }
+  // ******* select end *******
 }
-
-changeState_gas(count: any) {
-  //console.log(count);
-  this.gas = this.State.find((con: any) => con.name == count.value).gas;
-}
-//select end
-}
-
-
-
-
-// table and select
-const ELEMENT_DATA: PeriodicElement[] = [
-  {outdoorUnit: 1, indoorUnit: 1, furnace: 1.0079, seer: 1,eer: 12,hspf: 12,afue: 12,totalRebate: 12},
-  {outdoorUnit: 1, indoorUnit: 1, furnace: 1.0079, seer: 1,eer: 12,hspf: 12,afue: 12,totalRebate: 12}
-];
-
-export interface PeriodicElement {
-  outdoorUnit: number;
-  indoorUnit: number;
-  furnace: number;
-  seer: number;
-  eer: number;
-  hspf: number;
-  afue: number;
-  totalRebate: number;
-}
-
-//select
-interface Food {
-  value: string;
-  viewValue: string;
-}
-
-
