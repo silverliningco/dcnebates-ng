@@ -15,16 +15,16 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let ahriMatchup of ahriMatchups, let indice=index">
+        <tr *ngFor="let ahriCombination of ahriCombinations, let indice=index">
             <td data-title="n°">{{ (p - 1) * 10 + indice +1 }}</td>
-            <td data-title="Outdoor unit">{{ahriMatchup.outdoorUnit}}</td>
-            <td data-title="Indoor unit">{{ahriMatchup.indoorUnit}}</td>
-            <td data-title="Furnace">{{ahriMatchup.furnace}}</td>
-            <td data-title="SEER">{{ahriMatchup.seer}}</td>
-            <td data-title="EER">{{ahriMatchup.eer}}</td>
-            <td data-title="HSPF">{{ahriMatchup.hspf}}</td>
-            <td data-title="AFUE">{{ahriMatchup.afue}}</td>
-            <td data-title="Total rebate">{{ahriMatchup.totalEligibleRebateAmount}}</td>
+            <td data-title="Outdoor unit">{{ahriCombination.outdoorUnit}}</td>
+            <td data-title="Indoor unit">{{ahriCombination.indoorUnit}}</td>
+            <td data-title="Furnace">{{ahriCombination.furnace}}</td>
+            <td data-title="SEER">{{ahriCombination.seer}}</td>
+            <td data-title="EER">{{ahriCombination.eer}}</td>
+            <td data-title="HSPF">{{ahriCombination.hspf}}</td>
+            <td data-title="AFUE">{{ahriCombination.afue}}</td>
+            <td data-title="Total rebate">{{ahriCombination.totalEligibleRebateAmount}}</td>
             <td data-title="View">
                 <button [routerLink]="['/AHRIMatchups/HelpChoose']" mat-stroked-button color="primary">
                     <label>Detail</label>

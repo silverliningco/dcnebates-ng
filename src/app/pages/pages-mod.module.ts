@@ -40,6 +40,8 @@ import {PagesRoutingModule} from './pages-routing.module';
 import { HelpChooseEquipmentComponent } from './ahri-matchups/help-choose-equipment/help-choose-equipment.component';
 import { KnowModelNrComponent } from './ahri-matchups/know-model-nr/know-model-nr.component';
 import { SharedModModule } from '../shared/shared-mod.module';
+import { ResultsParComponent } from './partial-supplemental-hp-rebate/results-par.component';
+import { ResultsWhoComponent } from './whole-house-hp-rebate/results-who.component';
 
 
 @NgModule({
@@ -54,7 +56,9 @@ import { SharedModModule } from '../shared/shared-mod.module';
     DetailAhriComponent,
     DetailParComponent,
     DetailWhoComponent,
-    ResultsHelpComponent
+    ResultsHelpComponent,
+    ResultsParComponent,
+    ResultsWhoComponent
   ],
   imports: [
     CommonModule,

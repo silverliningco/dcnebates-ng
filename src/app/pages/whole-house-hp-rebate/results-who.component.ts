@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import {AHRICombinations} from '../../../models/AHRICombinations.model';
+import {AHRICombinations} from '../../models/AHRICombinations.model';
 
 @Component({
-  selector: 'app-results-help',
-  templateUrl: './results-help.component.html',
-  styleUrls: ['./results-help.component.css']
+  selector: 'app-results-who',
+  templateUrl: './results-who.component.html',
+  styleUrls: ['./results-who.component.css']
 })
-export class ResultsHelpComponent implements OnInit {
+export class ResultsWhoComponent implements OnInit {
 
   ahriCombinations: AHRICombinations[] = [];
   p: number =1;
