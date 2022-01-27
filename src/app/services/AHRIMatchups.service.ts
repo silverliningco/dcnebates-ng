@@ -24,7 +24,7 @@ import {URL_SERVICIOS}  from '../config/config';
     .pipe(
         map((resp: any) => {
           
-            console.log(resp);
+            //console.log(resp);
             return resp;
         })
     )

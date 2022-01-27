@@ -1,4 +1,5 @@
-<form [formGroup]="formGroup" (ngSubmit)="submit(formGroup.value)">
+<!-- <form [formGroup]="formGroup" (ngSubmit)="submit(formGroup.value)"> -->
+<form [formGroup]="formGroup">
   <mat-stepper #stepper>
     <!-- Step 1 -->
     <mat-step  errorMessage="Equipment Size is required" formGroupName="equipment_size" [stepControl]="formGroup?.get('equipment_size')!">
@@ -139,7 +140,7 @@
           <!-- button -->
           <div class="nkn-space-between nkn-mt-medium">
             <button type="button" mat-button matStepperPrevious>Back</button>
-            <button type="button" type="submit" (click)="loadTable()" mat-raised-button matStepperNext color="primary">Continue</button>
+            <button type="button" type="submit" (click)="submit(formGroup.value)"  mat-raised-button matStepperNext color="primary">Continue</button>
           </div>
         </div>
       </div>
@@ -151,83 +152,21 @@
       <ng-template matStepLabel>AHRI Combinations</ng-template>
 
       <h2 class="rc-main-title">AHRI Combinations</h2>
-       <!-- table -->
-      <div class="mat-elevation-z8">
-        <div class="rc-table-container">
-          <table mat-table [dataSource]="ahriMatchups"  class="rc-table">
 
-            <!-- Outdoor unit Column -->
-            <ng-container matColumnDef="nr">
-              <th mat-header-cell *matHeaderCellDef class="nkn-mx-medium"> nr </th>
-              <td mat-cell *matCellDef="let ahriMatchup"> 1 </td>
-            </ng-container>
-            
-            <!-- Outdoor unit Column -->
-            <ng-container matColumnDef="outdoorUnit">
-              <th mat-header-cell *matHeaderCellDef class="nkn-mx-medium"> Outdoor unit </th>
-              <td mat-cell *matCellDef="let ahriMatchup"> {{ahriMatchup.outdoorUnit}} </td>
-            </ng-container>
-
-            <!-- Indoor unit Column -->
-            <ng-container matColumnDef="indoorUnit">
-              <th mat-header-cell *matHeaderCellDef> Indoor unit </th>
-              <td mat-cell *matCellDef="let ahriMatchup"> {{ahriMatchup.indoorUnit}} </td>
-            </ng-container>
-
-            <!-- Furnace Column -->
-            <ng-container matColumnDef="furnace">
-              <th mat-header-cell *matHeaderCellDef> Furnace </th>
-              <td mat-cell *matCellDef="let ahriMatchup"> {{ahriMatchup.furnace}} </td>
-            </ng-container>
-
-            <!-- SEER Column -->
-            <ng-container matColumnDef="seer">
-              <th mat-header-cell *matHeaderCellDef> SEER </th>
-              <td mat-cell *matCellDef="let ahriMatchup"> {{ahriMatchup.seer}} </td>
-            </ng-container>
-
-            <!-- EER Column -->
-            <ng-container matColumnDef="eer">
-              <th mat-header-cell *matHeaderCellDef> EER </th>
-              <td mat-cell *matCellDef="let ahriMatchup"> {{ahriMatchup.eer}} </td>
-            </ng-container>
-
-            <!-- HSPF Column -->
-            <ng-container matColumnDef="hspf">
-              <th mat-header-cell *matHeaderCellDef> HSPF </th>
-              <td mat-cell *matCellDef="let ahriMatchup"> {{ahriMatchup.hspf}} </td>
-            </ng-container>
-
-            <!-- AFUE Column -->
-            <ng-container matColumnDef="afue">
-              <th mat-header-cell *matHeaderCellDef> AFUE </th>
-              <td mat-cell *matCellDef="let ahriMatchup"> {{ahriMatchup.afue}} </td>
-            </ng-container>
-
-            <!-- TOTAL REBATE Column -->
-            <ng-container matColumnDef="totalRebate">
-              <th mat-header-cell *matHeaderCellDef> TOTAL REBATE </th>
-              <td mat-cell *matCellDef="let ahriMatchup"> {{ahriMatchup.totalEligibleRebateAmount}} </td>
-            </ng-container>
-
-            <!-- Detail Column -->
-            <!-- <ng-container matColumnDef="weight">
-              <th mat-header-cell *matHeaderCellDef> Detail </th>
-              <td mat-cell *matCellDef="let element">
-                <button type="button" mat-raised-button> Detail</button>
-              </td>
-            </ng-container> -->
-
-            <tr mat-header-row *matHeaderRowDef="columnsTable"></tr>
-            <tr mat-row *matRowDef="let rows; columns: columnsTable;" class="rc-row"></tr>
-          </table>
-        </div>
-          <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                         showFirstLastButtons
-                         aria-label="Select page of periodic elements">
-          </mat-paginator> -->
+      <div *ngIf="cargando">
+        <h3> please, fill out the form first </h3>
       </div>
-          <!-- table end  -->
+
+      <!-- table -->
+      <!-- <app-results-help *ngIf="showTable" [data]="data"></app-results-help> -->
+
+      <div *ngIf="showTable" class="mat-elevation-z8">
+        <div class="rc-table-container">
+          <!-- table -->
+          <app-results-help *ngIf="showTable" [data]="data"></app-results-help>
+        </div>
+      </div>
+
     </mat-step>
     <!-- results end -->
 

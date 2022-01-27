@@ -1,0 +1,36 @@
+<!-- table -->
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>n°</th>
+            <th>Outdoor unit</th>
+            <th>Indoor unit</th>
+            <th>Furnace</th>
+            <th>SEER</th>
+            <th>EER</th>
+            <th>HSPF</th>
+            <th>AFUE</th>
+            <th>TOTAL REBATE</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ahriMatchup of ahriMatchups, let indice=index">
+            <td>{{ (p - 1) * 10 + indice +1 }}</td>
+            <td>{{ahriMatchup.outdoorUnit}}</td>
+            <td>{{ahriMatchup.indoorUnit}}</td>
+            <td>{{ahriMatchup.furnace}}</td>
+            <td>{{ahriMatchup.seer}</td>
+            <td>{{ahriMatchup.eer}}</td>
+            <td>{{ahriMatchup.hspf}}</td>
+            <td>{{ahriMatchup.afue}}</td>
+            <td>{{ahriMatchup.totalEligibleRebateAmount}}</td>
+            <td>
+                <button [routerLink]="['/AHRIMatchups/HelpChoose']" class="btn btn-primary">
+                    <label>Detail</label>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- table end -->

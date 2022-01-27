@@ -6,14 +6,6 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 // services
 import {AHRIMatchupsService} from '../../../services/AHRIMatchups.service';
 
-// model
-import {AHRIMatchups}  from '../../../models/AHRIMatchups.model';
-
-// temporal
-import {AfterViewInit,  ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-
 @Component({
   selector: 'app-help-choose-equipment',
   templateUrl: './help-choose-equipment.component.html',
@@ -21,14 +13,11 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class HelpChooseEquipmentComponent implements OnInit {
 
-  ahriMatchups: AHRIMatchups[] = []; 
-
-  columnsTable: string[] = ['nr','outdoorUnit', 'indoorUnit', 'furnace', 'seer', 'eer', 'hspf', 'afue', 'totalRebate'];
-
   formGroup !: FormGroup ;  
 
   data!: any;
-  cargando: boolean = false;
+  cargando: boolean = true;
+  showTable: boolean = false;
 
   // ******* select *******
   State: Array<any> = [
@@ -49,7 +38,10 @@ export class HelpChooseEquipmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
-      
+
+        rebate_id: [ [3] , Validators.required],
+        title: ['Mass Save Gas Heating', Validators.required],
+            
         equipment_size: this._formBuilder.group({
           cooling_tomsCtrl: ['', Validators.required],
           heating_btuhCtrl: ['', Validators.required],
@@ -71,12 +63,11 @@ export class HelpChooseEquipmentComponent implements OnInit {
           hpS_source_headCtrl: ['', Validators.required]
         }),
       
-     
     });
   }
 
     
-  submit(f: FormGroup) {
+  submit(f: FormGroup){
     if (f.invalid) {
       return;
     }
@@ -87,20 +78,14 @@ export class HelpChooseEquipmentComponent implements OnInit {
 
     this._AHRIMatchupsService.save(jsonPay)
           .subscribe( (resp:any) => {
-            this.data = resp;
-            console.log(this.data);
+            this.data = resp.body;
+            //console.log(resp);
+            this.cargando = false;
+            this.showTable = true;
           });
   }
 
-  loadTable( ) {
-    //console.log(this.data);
-    
-    //this.cargando = true;
-  }
-
- 
-
-
+  
   // ******* select *******
   changeState_electric(count: any) {
     this.electric = this.State.find((con: any) => con.name == count.value).electric;
