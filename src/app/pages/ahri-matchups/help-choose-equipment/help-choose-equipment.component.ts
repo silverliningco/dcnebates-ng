@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@a
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 // services
-import {AHRIMatchupsService} from '../../../services/AHRIMatchups.service';
+import {AHRICombinationService} from '../../../services/AHRICombinations.service';
 
 @Component({
   selector: 'app-help-choose-equipment',
@@ -32,7 +32,7 @@ export class HelpChooseEquipmentComponent implements OnInit {
   // ******* select end *******
 
   constructor(
-    public _AHRIMatchupsService: AHRIMatchupsService,
+    public _ahriCombinationService: AHRICombinationService,
     private _formBuilder: FormBuilder
   ) { }
 
@@ -76,7 +76,7 @@ export class HelpChooseEquipmentComponent implements OnInit {
     console.log(jsonPay);
     
 
-    this._AHRIMatchupsService.save(jsonPay)
+    this._ahriCombinationService.save(jsonPay)
           .subscribe( (resp:any) => {
             this.data = resp.body;
             //console.log(resp);

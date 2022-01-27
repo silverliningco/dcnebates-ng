@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@a
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 // services
-import {WholeHouseHPService} from '../../services/WholeHouseHP.service';
+import {AHRICombinationService} from '../../services/AHRICombinations.service';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class WholeHouseHPRebateComponent implements OnInit {
   showTable: boolean = false;
 
   constructor(
-    public _wholeHouseHPService: WholeHouseHPService,
+    public _ahriCombinationService: AHRICombinationService,
     private _formBuilder: FormBuilder
   ) { }
 
@@ -53,7 +53,7 @@ export class WholeHouseHPRebateComponent implements OnInit {
     
     console.log(jsonPay);
 
-    this._wholeHouseHPService.save(jsonPay)
+    this._ahriCombinationService.save(jsonPay)
             .subscribe( (resp:any) => {
               this.data = resp.body;
               //console.log(resp);

@@ -9,7 +9,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 
 // services
-import {AHRIMatchupsService} from '../../../services/AHRIMatchups.service';
+import {AHRICombinationService} from '../../../services/AHRICombinations.service';
 
 @Component({
   selector: 'app-know-model-nr',
@@ -58,7 +58,7 @@ export class KnowModelNrComponent implements OnInit {
   ];
 
   constructor(
-    public _AHRIMatchupsService: AHRIMatchupsService,
+    public _ahriCombinationService: AHRICombinationService,
     private _formBuilder: FormBuilder
   ) { }
 
@@ -104,7 +104,7 @@ export class KnowModelNrComponent implements OnInit {
     
     console.log(jsonPay);
 
-    this._AHRIMatchupsService.save(jsonPay)
+    this._ahriCombinationService.save(jsonPay)
           .subscribe( a => {
             console.log(a);
           });

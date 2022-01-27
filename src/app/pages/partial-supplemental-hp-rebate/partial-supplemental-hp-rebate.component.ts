@@ -3,13 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
-// temporal
-import {AfterViewInit,  ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-
 // services
-import {PartialSupplementalHPService} from '../../services/PartialSupplementalHP.service';
+import {AHRICombinationService} from '../../services/AHRICombinations.service';
 
 
 @Component({
@@ -28,7 +23,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
 
   
   constructor(
-    public _partialSupplementalHPService: PartialSupplementalHPService,
+    public _ahriCombinationService: AHRICombinationService,
     private _formBuilder: FormBuilder
   ) { }
 
@@ -68,7 +63,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
     }
     let jsonPay = JSON.stringify(f);
     
-    this._partialSupplementalHPService.save(jsonPay)
+    this._ahriCombinationService.save(jsonPay)
             .subscribe( (resp:any) => {
               this.data = resp.body;
               console.log(resp);
