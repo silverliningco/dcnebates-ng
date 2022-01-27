@@ -132,6 +132,7 @@
       <div *ngIf="showTable" class="mat-elevation-z8">
         <div class="rc-table-container">
           <!-- table -->
+          <app-results-par *ngIf="showTable" [data]="data"></app-results-par>
         </div>
       </div>
 
