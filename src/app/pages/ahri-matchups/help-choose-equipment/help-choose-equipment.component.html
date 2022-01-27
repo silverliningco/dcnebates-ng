@@ -10,7 +10,7 @@
           <h2 class="rc-main-title">Equipment Size</h2>
           <!-- User input -->
           <div class="rc-column">
-            
+
             <!-- input -->
             <mat-form-field appearance="fill">
               <mat-label>Cooling tons</mat-label>
@@ -157,7 +157,8 @@
         <h3> please, fill out the form first </h3>
       </div>
 
-      <div *ngIf="showTable" class="mat-elevation-z8">
+      <!-- <div *ngIf="showTable" class="mat-elevation-z8"> -->
+      <div *ngIf="showTable">
         <div class="rc-table-container">
           <!-- table -->
           <app-results-help *ngIf="showTable" [data]="data"></app-results-help>
