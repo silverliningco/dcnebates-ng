@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import {AHRIMatchups} from '../../models/AHRIMatchups.model';
+import {AHRICombinations} from '../../models/AHRICombinations.model';
 
 @Component({
   selector: 'app-results-par',
@@ -9,12 +9,13 @@ import {AHRIMatchups} from '../../models/AHRIMatchups.model';
 })
 export class ResultsParComponent implements OnInit {
 
-  ahriMatchups: AHRIMatchups[] = [];
+  ahriCombinations: AHRICombinations[] = [];
   p: number =1;
+  
 
   @Input('data')
     set data( data:any){
-      this.ahriMatchups = data;
+      this.ahriCombinations = data;
     }
 
   constructor() { }

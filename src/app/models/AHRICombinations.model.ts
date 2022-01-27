@@ -1,4 +1,4 @@
-export class AHRIMatchups {
+export class AHRICombinations {
     constructor(
         public outdoorUnit: string,
         public indoorUnit: string,

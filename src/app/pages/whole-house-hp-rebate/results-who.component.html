@@ -15,16 +15,16 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let ahriMatchup of ahriMatchups, let indice=index">
+        <tr *ngFor="let ahriCombination of ahriCombinations, let indice=index">
             <td>{{ (p - 1) * 10 + indice +1 }}</td>
-            <td>{{ahriMatchup.outdoorUnit}}</td>
-            <td>{{ahriMatchup.indoorUnit}}</td>
-            <td>{{ahriMatchup.furnace}}</td>
-            <td>{{ahriMatchup.seer}}</td>
-            <td>{{ahriMatchup.eer}}</td>
-            <td>{{ahriMatchup.hspf}}</td>
-            <td>{{ahriMatchup.afue}}</td>
-            <td>{{ahriMatchup.totalEligibleRebateAmount}}</td>
+            <td>{{ahriCombination.outdoorUnit}}</td>
+            <td>{{ahriCombination.indoorUnit}}</td>
+            <td>{{ahriCombination.furnace}}</td>
+            <td>{{ahriCombination.seer}}</td>
+            <td>{{ahriCombination.eer}}</td>
+            <td>{{ahriCombination.hspf}}</td>
+            <td>{{ahriCombination.afue}}</td>
+            <td>{{ahriCombination.totalEligibleRebateAmount}}</td>
             <td>
                 <button [routerLink]="['/AHRIMatchups/HelpChoose']" class="btn btn-primary">
                     <label>Detail</label>
