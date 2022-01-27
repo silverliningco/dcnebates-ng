@@ -12,19 +12,19 @@ import {URL_SERVICIOS}  from '../config/config';
     
   constructor(
     public http: HttpClient
-  ) { }
+  ) { } 
 
     
   
-  save (a: any){
+  save (params: any){
 
     let url = URL_SERVICIOS;
     
-    return this.http.get(url, {params: {a}})
+    return this.http.get(url, {params: {params}})
     .pipe(
         map((resp: any) => {
           
-            console.log(resp);
+            //console.log(resp);
             return resp;
         })
     )

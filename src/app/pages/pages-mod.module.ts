@@ -32,6 +32,9 @@ import { DetailParComponent } from './partial-supplemental-hp-rebate/detail-par.
 import { DetailWhoComponent } from './whole-house-hp-rebate/detail-who.component';
 
 
+import { ResultsHelpComponent } from './ahri-matchups/help-choose-equipment/results-help.component';
+
+
 // module
 import {PagesRoutingModule} from './pages-routing.module';
 import { HelpChooseEquipmentComponent } from './ahri-matchups/help-choose-equipment/help-choose-equipment.component';
@@ -50,7 +53,8 @@ import { SharedModModule } from '../shared/shared-mod.module';
     KnowModelNrComponent,
     DetailAhriComponent,
     DetailParComponent,
-    DetailWhoComponent
+    DetailWhoComponent,
+    ResultsHelpComponent
   ],
   imports: [
     CommonModule,
