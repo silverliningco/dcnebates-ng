@@ -10,51 +10,51 @@
         <mat-card-content>
           <div class="nkn-space-between">
             <div>Outdoor unit</div>
-            <div>{{detail.outdoorUnit}}</div>
+            <div>{{detail.AHRIRatings[0].outdoor_unit}}</div>
           </div>
           <div class="nkn-space-between">
             <div>Indoor unit</div>
-            <div>{{detail.indoorUnit}}</div>
+            <div>{{detail.AHRIRatings[0].indoor_unit}}</div>
           </div>
           <div class="nkn-space-between">
             <div>Furnace</div>
-            <div>{{detail.furnace}}</div>
+            <div>{{detail.AHRIRatings[0].furnace}}</div>
           </div>
           <div class="nkn-space-between">
             <div>Cooling capacity</div>
-            <div>{{detail.coolingCapacity}}</div>
+            <div>{{detail.AHRIRatings[0].cooling_capacity}}</div>
           </div>
           <div class="nkn-space-between">
             <div>SEER</div>
-            <div>{{detail.seer}}</div>
+            <div>{{detail.AHRIRatings[0].seer}}</div>
           </div>
           <div class="nkn-space-between">
             <div>EER</div>
-            <div>{{detail.eer}}</div>
+            <div>{{detail.AHRIRatings[0].eer}}</div>
           </div>
           <div class="nkn-space-between">
             <div>HSPF</div>
-            <div>{{detail.hspf}}</div>
+            <div>{{detail.AHRIRatings[0].hspf}}</div>
           </div>
           <div class="nkn-space-between">
             <div>HCap 47</div>
-            <div>{{detail.hcap47}}</div>
+            <div>{{detail.AHRIRatings[0].hcap47}}</div>
           </div>
           <div class="nkn-space-between">
             <div>HCap 17</div>
-            <div>{{detail.hcap17}}</div>
+            <div>{{detail.AHRIRatings[0].hcap17}}</div>
           </div>
           <div class="nkn-space-between">
             <div>AFUE</div>
-            <div>{{detail.afue}}</div>
+            <div></div>
           </div>
           <div class="nkn-space-between">
             <div>BTUH</div>
-            <div>{{detail.furnaceInputBTUH}}</div>
+            <div></div>
           </div>
           <div class="nkn-space-between">
             <div>AHRI reference nr</div>
-            <div>24ANB136</div>
+            <div>{{detail.AHRIRatings[0].ahri_ref}}</div>
           </div>
         </mat-card-content>
       </mat-card>
@@ -75,7 +75,9 @@
           </p>
         </mat-card-content>
         <mat-card-actions class="nkn-center">
-          <button type="button" mat-flat-button color="primary">Download Form</button>
+          <button type="button"    mat-flat-button color="primary">
+            Download Form
+          </button>
           <a href="" color="primary" class="nkn-ml-large">More info</a>
         </mat-card-actions>
       </mat-card>

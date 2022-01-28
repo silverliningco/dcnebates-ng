@@ -18,8 +18,6 @@ export class WholeHouseHPRebateComponent implements OnInit {
   formGroup !: FormGroup ;  
 
   data!: any;
-  cargando: boolean = true;
-  showTable: boolean = false;
 
   constructor(
     public _ahriCombinationService: AHRICombinationService,
@@ -50,15 +48,10 @@ export class WholeHouseHPRebateComponent implements OnInit {
     }
     // tranformandolo a json
     let jsonPay = JSON.stringify(f);
-    
-    console.log(jsonPay);
 
     this._ahriCombinationService.save(jsonPay)
             .subscribe( (resp:any) => {
               this.data = resp.body;
-              //console.log(resp);
-              this.cargando = false;
-              this.showTable = true;
             });
   }
 

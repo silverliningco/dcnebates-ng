@@ -18,11 +18,9 @@ export class ResultsParComponent implements OnInit {
 
   ahriCombinationsDetail!: AHRICombinations;
   
-
   @Input('data')
     set data( data:any){
       this.ahriCombinations = data;
-      this.ahriCombinationsDetail = data;
     }
 
   constructor(
@@ -30,12 +28,6 @@ export class ResultsParComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-  }
-
-  detail(){
-
-    this._ahriCombinationService.senddetail(this.ahriCombinationsDetail);
-
   }
 
 }

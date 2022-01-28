@@ -18,10 +18,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   formGroup !: FormGroup ;  
 
   data!: any;
-  cargando: boolean = true;
-  showTable: boolean = false;
 
-  
   constructor(
     public _ahriCombinationService: AHRICombinationService,
     private _formBuilder: FormBuilder
@@ -66,9 +63,6 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
     this._ahriCombinationService.save(jsonPay)
             .subscribe( (resp:any) => {
               this.data = resp.body;
-              console.log(resp);
-              this.cargando = false;
-              this.showTable = true;
             });
   }
 

@@ -56,12 +56,10 @@
 
         <h2 class="rc-main-title">AHRI Combinations</h2>
 
-        <div *ngIf="showTable">
           <div class="rc-table-container">
             <!-- table -->
-            <app-results-who *ngIf="showTable" [data]="data"></app-results-who>
+            <app-results-who  [data]="data"></app-results-who>
           </div>
-        </div>
 
       </mat-step>
       <!-- results end -->
