@@ -146,6 +146,14 @@ a {
   margin: .5rem;
 }
 
+.rc-card-selected-hvac div.nkn-space-between {
+  padding: .25rem;
+}
+
+.rc-card-selected-hvac div.nkn-space-between div:first-child {
+  font-weight: 500;
+}
+
 /*Style table*/
 .rc-table-container {
   overflow-x: auto;
