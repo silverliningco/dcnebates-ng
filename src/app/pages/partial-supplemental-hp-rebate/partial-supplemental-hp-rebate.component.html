@@ -124,17 +124,10 @@
       <ng-template matStepLabel>AHRI Combinations</ng-template>
       <h2 class="rc-main-title">AHRI Combinations</h2>
 
-      <!-- message to complete the form -->
-      <div *ngIf="cargando">
-        <h3> please, fill out the form first </h3>
-      </div>
-
-      <div *ngIf="showTable">
         <div class="rc-table-container">
           <!-- table -->
-          <app-results-par *ngIf="showTable" [data]="data"></app-results-par>
+          <app-results-par [data]="data"></app-results-par>
         </div>
-      </div>
 
     </mat-step>
     <!-- results end -->

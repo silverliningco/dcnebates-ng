@@ -16,8 +16,6 @@ export class HelpChooseEquipmentComponent implements OnInit {
   formGroup !: FormGroup ;  
 
   data!: any;
-  cargando: boolean = true;
-  showTable: boolean = false;
 
   // ******* select *******
   State: Array<any> = [
@@ -71,17 +69,11 @@ export class HelpChooseEquipmentComponent implements OnInit {
     if (f.invalid) {
       return;
     }
-    let jsonPay = JSON.stringify(f);
-    
-    console.log(jsonPay);
-    
+    let jsonPay = JSON.stringify(f); 
 
     this._ahriCombinationService.save(jsonPay)
           .subscribe( (resp:any) => {
             this.data = resp.body;
-            //console.log(resp);
-            this.cargando = false;
-            this.showTable = true;
           });
   }
 

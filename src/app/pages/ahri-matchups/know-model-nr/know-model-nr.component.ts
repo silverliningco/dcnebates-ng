@@ -101,12 +101,9 @@ export class KnowModelNrComponent implements OnInit {
     }
     // tranformandolo a json
     let jsonPay = JSON.stringify(f);
-    
-    console.log(jsonPay);
-
+  
     this._ahriCombinationService.save(jsonPay)
           .subscribe( a => {
-            console.log(a);
           });
   }
 
@@ -114,12 +111,10 @@ export class KnowModelNrComponent implements OnInit {
 
   // select 
   changeState_electric(count: any) {
-    //console.log(count);
     this.electric = this.State.find((con: any) => con.name == count.value).electric;
   }
 
   changeState_gas(count: any) {
-    //console.log(count);
     this.gas = this.State.find((con: any) => con.name == count.value).gas;
   }
   //select end

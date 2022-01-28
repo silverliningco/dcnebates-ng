@@ -22,7 +22,6 @@ export class ResultsWhoComponent implements OnInit {
   @Input('data')
     set data( data:any){
       this.ahriCombinations = data;
-      this.ahriCombinationsDetail = data;
     }
 
   constructor(
@@ -33,19 +32,5 @@ export class ResultsWhoComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  detail(){
-    //console.log(this.ahriCombinationsDetail);
-
-    //var textj = JSON.stringify(this.ahriCombinations);
-
-    this._ahriCombinationService.senddetail(this.ahriCombinationsDetail);
-            /* .subscribe( detail => {
-              let data = JSON.stringify(detail);
-              console.log(data);
-            }); */
-  }
-
-
 
 }

@@ -26,9 +26,10 @@
             <td data-title="AFUE">{{ahriCombination.afue}}</td>
             <td data-title="Total rebate">{{ahriCombination.totalEligibleRebateAmount}}</td>
             <td data-title="View">
-                <!-- <button (click)="detail()" class="btn btn-primary"> -->
-                <button (click)="detail()" [routerLink]="['/WholeHouseHP/',ahriCombination.skus[0]]" mat-stroked-button color="primary">
-                    <label>Detail</label>
+                <button  mat-stroked-button color="primary">
+                    <a [routerLink]="['/WholeHouseHP/',ahriCombination.skus[0]]" class="navf" fragment="det" target="_blank" >
+                        <label>Detail</label>
+                    </a>
                 </button>
             </td>
         </tr>

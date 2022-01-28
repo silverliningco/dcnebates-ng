@@ -29,9 +29,11 @@ export class DetailAhriComponent implements OnInit {
   }
 
   loadDetail(cod: any){
-
-    this.detail = this._ahriCombinationService.getdetail(cod);
-    console.log(this.detail);
+    this._ahriCombinationService.getResultDetail(cod)
+            .subscribe( (resp:any) => {
+              this.detail= resp.body;
+            });
+    
             
   }
 
