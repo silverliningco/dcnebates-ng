@@ -26,7 +26,8 @@
             <td>{{ahriCombination.afue}}</td>
             <td>{{ahriCombination.totalEligibleRebateAmount}}</td>
             <td>
-                <button [routerLink]="['/AHRIMatchups/HelpChoose']" class="btn btn-primary">
+                <!-- <button (click)="detail()" class="btn btn-primary"> -->
+                <button (click)="detail()" [routerLink]="['/WholeHouseHP/',ahriCombination.skus[0]]" class="btn btn-primary">
                     <label>Detail</label>
                 </button>
             </td>

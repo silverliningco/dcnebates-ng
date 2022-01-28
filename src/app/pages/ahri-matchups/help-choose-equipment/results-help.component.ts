@@ -1,6 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+// model
 import {AHRICombinations} from '../../../models/AHRICombinations.model';
+
+// sevice
+import {AHRICombinationService} from '../../../services/AHRICombinations.service';
+
 
 @Component({
   selector: 'app-results-help',
@@ -11,16 +16,27 @@ export class ResultsHelpComponent implements OnInit {
 
   ahriCombinations: AHRICombinations[] = [];
   p: number =1;
+
+  ahriCombinationsDetail!: AHRICombinations;
   
 
-  @Input('data')
+  @Input('data') 
     set data( data:any){
       this.ahriCombinations = data;
+      this.ahriCombinationsDetail = data;
     }
 
-  constructor() { }
+  constructor(
+    public _ahriCombinationService: AHRICombinationService,
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  detail(){
+
+    this._ahriCombinationService.senddetail(this.ahriCombinationsDetail);
+
   }
 
 }

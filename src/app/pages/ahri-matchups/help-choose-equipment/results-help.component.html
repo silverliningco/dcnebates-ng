@@ -26,7 +26,7 @@
             <td data-title="AFUE">{{ahriCombination.afue}}</td>
             <td data-title="Total rebate">{{ahriCombination.totalEligibleRebateAmount}}</td>
             <td data-title="View">
-                <button [routerLink]="['/AHRIMatchups/HelpChoose']" mat-stroked-button color="primary">
+                <button (click)="detail()" [routerLink]="['/AHRIMatchups/HelpChoose/',ahriCombination.skus[0]]" mat-stroked-button color="primary">
                     <label>Detail</label>
                 </button>
             </td>

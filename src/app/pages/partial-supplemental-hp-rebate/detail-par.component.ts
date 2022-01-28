@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+// sevice
+import {AHRICombinationService} from '../../services/AHRICombinations.service';
+
 
 @Component({
   selector: 'app-detail-par',
@@ -7,9 +12,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailParComponent implements OnInit {
 
-  constructor() { }
+  detail!:any;
+
+  constructor(
+    public _ahriCombinationService: AHRICombinationService,
+    public router: Router,
+    public activatedRoute: ActivatedRoute
+  ) { 
+    activatedRoute.params.subscribe( params => {
+      let cod = params['cod'];
+      
+      this.loadDetail(cod)
+    });
+  }
 
   ngOnInit(): void {
+  }
+
+  loadDetail(cod: any){
+
+    this.detail = this._ahriCombinationService.getdetail(cod);
+
+    console.log(this.detail);
+            
   }
 
 }
