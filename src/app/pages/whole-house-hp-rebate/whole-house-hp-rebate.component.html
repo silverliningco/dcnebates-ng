@@ -59,14 +59,14 @@
         <div *ngIf="cargando">
           <h3> please, fill out the form first </h3>
         </div>
-         
-        <div *ngIf="showTable" class="mat-elevation-z8">
+
+        <div *ngIf="showTable">
           <div class="rc-table-container">
             <!-- table -->
             <app-results-who *ngIf="showTable" [data]="data"></app-results-who>
           </div>
         </div>
-            
+
       </mat-step>
       <!-- results end -->
 

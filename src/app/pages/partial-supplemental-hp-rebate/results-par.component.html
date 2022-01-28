@@ -1,5 +1,5 @@
 <!-- table -->
-<table class="table table-hover">
+<table class="nkn-table nkn-vertical">
     <thead>
         <tr>
             <th>n°</th>
@@ -16,17 +16,17 @@
     </thead>
     <tbody>
         <tr *ngFor="let ahriCombination of ahriCombinations, let indice=index">
-            <td>{{ (p - 1) * 10 + indice +1 }}</td>
-            <td>{{ahriCombination.outdoorUnit}}</td>
-            <td>{{ahriCombination.indoorUnit}}</td>
-            <td>{{ahriCombination.furnace}}</td>
-            <td>{{ahriCombination.seer}}</td>
-            <td>{{ahriCombination.eer}}</td>
-            <td>{{ahriCombination.hspf}}</td>
-            <td>{{ahriCombination.afue}}</td>
-            <td>{{ahriCombination.totalEligibleRebateAmount}}</td>
-            <td>
-                <button (click)="detail()" [routerLink]="['/PartialSupplementalHP/',ahriCombination.skus[0]]" class="btn btn-primary">
+            <td data-title="n°">{{ (p - 1) * 10 + indice +1 }}</td>
+            <td data-title="Outdoor unit">{{ahriCombination.outdoorUnit}}</td>
+            <td data-title="Indoor unit">{{ahriCombination.indoorUnit}}</td>
+            <td data-title="Furnace">{{ahriCombination.furnace}}</td>
+            <td data-title="SEER">{{ahriCombination.seer}}</td>
+            <td data-title="EER">{{ahriCombination.eer}}</td>
+            <td data-title="HSPF">{{ahriCombination.hspf}}</td>
+            <td data-title="AFUE">{{ahriCombination.afue}}</td>
+            <td data-title="Total rebate">{{ahriCombination.totalEligibleRebateAmount}}</td>
+            <td data-title="View">
+                <button (click)="detail()" [routerLink]="['/PartialSupplementalHP/',ahriCombination.skus[0]]" mat-stroked-button color="primary">
                     <label>Detail</label>
                 </button>
             </td>
