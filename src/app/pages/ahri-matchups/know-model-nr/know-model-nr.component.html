@@ -1,5 +1,5 @@
 <form [formGroup]="formGroup" (ngSubmit)="submit(formGroup.value)">
-    <mat-stepper #stepper >
+    <mat-stepper linear #stepper >
       <!-- Step 1 -->
       <mat-step  errorMessage="Model Numbers is required." formGroupName="model_numbers" [stepControl]="formGroup?.get('model_numbers')!">
         <!-- Name of step -->

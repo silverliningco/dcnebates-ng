@@ -1,5 +1,5 @@
 <form [formGroup]="formGroup" (ngSubmit)="submit(formGroup.value)">
-    <mat-stepper #stepper >
+    <mat-stepper linear #stepper  >
       <!-- Step 1 -->
       <mat-step  errorMessage="Equipment Size is required." formGroupName="equipment_size" [stepControl]="formGroup?.get('equipment_size')!">
         <!-- Name of step -->
@@ -55,10 +55,6 @@
         <ng-template matStepLabel>AHRI Combinations</ng-template>
 
         <h2 class="rc-main-title">AHRI Combinations</h2>
-
-        <div *ngIf="cargando">
-          <h3> please, fill out the form first </h3>
-        </div>
 
         <div *ngIf="showTable">
           <div class="rc-table-container">
