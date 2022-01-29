@@ -16,12 +16,13 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
   ) { } 
 
     
-  
   save (params: any){
 
-    let url = URL_SERVICIOS;
-    
-    return this.http.get(url, {params: {params}})
+    let url = URL_SERVICIOS + '/result/' + params;
+
+    console.log(url);
+
+    return this.http.get(url)
     .pipe(
         map((resp: any) => {
           return resp;
@@ -29,9 +30,11 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
     )
   }
 
-  // 2 endpoints ************************************************
   getResultDetail(ahri_refs: any){
-    let url = URL_SERVICIOS + '/detail/' + ahri_refs;
+
+    let url = URL_SERVICIOS + '/detail/'+ ahri_refs ;
+
+    
     
     return this.http.get(url)
     .pipe(
@@ -40,8 +43,7 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
         })
     )
   }
-
- 
+  
 }
 
 
