@@ -11,7 +11,9 @@ import {AHRICombinationService} from '../../../services/AHRICombinations.service
   styleUrls: ['./detail-ahri.component.css']
 })
 export class DetailAhriComponent implements OnInit {
+  
   detail!:any;
+  url !:any;
 
   constructor(
     public _ahriCombinationService: AHRICombinationService,
@@ -31,10 +33,13 @@ export class DetailAhriComponent implements OnInit {
   loadDetail(cod: any){
     this._ahriCombinationService.getResultDetail(cod)
             .subscribe( (resp:any) => {
+              this.url = resp.body.eligibleRebates[0].url;
               this.detail= resp.body;
-            });
-    
-            
+            });            
+  }
+
+  goToLink(){
+    window.open(this.url, "_blank");    
   }
 
 }

@@ -10,8 +10,7 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
   })
   export class AHRICombinationService {
 
-  data_table!: any;
-  constructor(
+    constructor(
     public http: HttpClient
   ) { } 
 
@@ -19,8 +18,6 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
   save (params: any){
 
     let url = URL_SERVICIOS + '/result/' + params;
-
-    console.log(url);
 
     return this.http.get(url)
     .pipe(
@@ -34,8 +31,6 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
 
     let url = URL_SERVICIOS + '/detail/'+ ahri_refs ;
 
-    
-    
     return this.http.get(url)
     .pipe(
         map((resp: any) => {

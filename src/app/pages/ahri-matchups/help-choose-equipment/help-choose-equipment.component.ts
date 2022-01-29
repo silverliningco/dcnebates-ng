@@ -20,9 +20,9 @@ export class HelpChooseEquipmentComponent implements OnInit {
   // ******* select *******
   State: Array<any> = [
     { name: 'MA', electric: ['Cape Light Compact', 'Eversource', 'National Grid', 'Unitil', 'Marblehead Municipal Light Department', 'Other'], gas: ['Berkshire Gas', 'Eversource', 'Liberty', 'National Grid', 'Unitil', 'Other'] },
-    { name: 'ME', electric: ['aaaaaaa', 'bbbbbbb'], gas: ['aaaaaa', 'bbbbbbb'] },
-    { name: 'NH', electric: ['11111', '222222'], gas: ['1111', '22222'] },
-    { name: 'RI', electric: ['National Grid'], gas: ['National Grid']  },
+    { name: 'ME', electric: ['Other'], gas: ['Other'] },
+    { name: 'NH', electric: ['Other'], gas: ['Other'] },
+    { name: 'RI', electric: ['National Grid', 'Other'], gas: ['National Grid', 'Other']  },
   ];
   electric:  Array<any> = [];
   gas:  Array<any> = [];
