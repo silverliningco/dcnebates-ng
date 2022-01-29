@@ -28,7 +28,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
     this.formGroup = this._formBuilder.group({
 
         rebate_id: [ [1] , Validators.required],
-        title: ['Mass Save Air Source HP (Partial home\/supplemental)', Validators.required],
+        title: ['Mass Save Air Source HP (Partial home supplemental)', Validators.required],
         
         equipment_size: this._formBuilder.group({
           cooling_tomsCtrl: ['', Validators.required],
