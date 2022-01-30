@@ -1,7 +1,7 @@
 <form [formGroup]="formGroup" (ngSubmit)="submit(formGroup.value)">
     <mat-stepper linear #stepper  >
       <!-- Step 1 -->
-      <mat-step  errorMessage="Equipment Size is required." formGroupName="equipment_size" [stepControl]="formGroup?.get('equipment_size')!">
+      <mat-step  errorMessage="Equipment Size is required." formGroupName="nominalSize" [stepControl]="formGroup?.get('equipment_size')!">
         <!-- Name of step -->
         <ng-template matStepLabel>Equipment Size</ng-template>
         <!-- Content of step -->
@@ -12,7 +12,7 @@
             <!-- input -->
             <mat-form-field appearance="fill">
               <mat-label>Manual J Heating BTUH</mat-label>
-              <input matInput placeholder="Manual J Heating BTUH" required formControlName="manualj_heating_btuhCtrl" >
+              <input matInput placeholder="Manual J Heating BTUH" required formControlName="heatingBTUH" >
             </mat-form-field>
 
             <!-- button -->
@@ -25,7 +25,7 @@
       <!-- Step 1 end  -->
 
       <!-- Step 2 -->
-      <mat-step  errorMessage="Energy Distrubution is required."  formGroupName="energy_distribution" [stepControl]="formGroup?.get('energy_distribution')!">
+      <mat-step  errorMessage="Energy Distrubution is required."   [stepControl]="formGroup?.get('energy_distribution')!">
         <!-- Name of step -->
         <ng-template matStepLabel>Energy Distrubution</ng-template>
         <!-- Content of step -->
@@ -35,7 +35,7 @@
           <div class="rc-column">
             <!-- radio button -->
             <mat-label>Energy Distrubution Method</mat-label>
-            <mat-radio-group #rGroup formControlName="methodCtrl" class="rc-radio-group">
+            <mat-radio-group #rGroup formControlName="energyDistributionMethod" class="rc-radio-group">
               <mat-radio-button [value]="'Central heat pumps'" radioGroup="rGroup">Central heat pumps</mat-radio-button>
               <mat-radio-button [value]="'Mini-split ducted & Multi splits'" radioGroup="rGroup">Mini-split ducted & Multi splits</mat-radio-button>
               <mat-radio-button [value]="'Mini-split heat pumps'" radioGroup="rGroup">Mini-split heat pumps</mat-radio-button>

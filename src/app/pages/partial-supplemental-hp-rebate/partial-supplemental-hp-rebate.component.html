@@ -2,7 +2,7 @@
 <form [formGroup]="formGroup" (ngSubmit)="submit(formGroup.value)">
     <mat-stepper linear #stepper >
       <!-- Step 1 -->
-      <mat-step  errorMessage="Equipment Size is required" formGroupName="equipment_size" [stepControl]="formGroup?.get('equipment_size')!">
+      <mat-step  errorMessage="Equipment Size is required" formGroupName="nominalSize" [stepControl]="formGroup?.get('equipment_size')!">
         <!-- Name of step -->
         <ng-template matStepLabel>Equipment Size</ng-template>
         <!-- Content of step -->
@@ -13,12 +13,12 @@
             <!-- input -->
             <mat-form-field appearance="fill">
               <mat-label>Cooling tons</mat-label>
-              <input matInput placeholder="Cooling tons" required  formControlName="cooling_tomsCtrl" >
+              <input matInput placeholder="Cooling tons" required  formControlName="coolingTons" >
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
               <mat-label> Heating BTUH</mat-label>
-              <input matInput placeholder="Heating BTUH" required formControlName="heating_btuhCtrl" >
+              <input matInput placeholder="Heating BTUH" required formControlName="heatingBTUH" >
             </mat-form-field>
 
             <!-- button -->
@@ -28,10 +28,10 @@
           </div>
         </div>
       </mat-step>
-      <!-- Step 1 end  -->
+      <!-- Step 1 end  --> 
 
       <!-- Step 2 -->
-      <mat-step  errorMessage="Energy Distrubution is required."  formGroupName="energy_distribution" [stepControl]="formGroup?.get('energy_distribution')!">
+      <mat-step  errorMessage="Energy Distrubution is required."   [stepControl]="formGroup?.get('energy_distribution')!">
         <!-- Name of step -->
         <ng-template matStepLabel>Energy Distrubution</ng-template>
         <!-- Content of step -->
@@ -41,7 +41,7 @@
           <div class="rc-column">
             <!-- radio button -->
             <mat-label>Energy Distrubution Method</mat-label>
-            <mat-radio-group #rGroup formControlName="methodCtrl" class="rc-radio-group">
+            <mat-radio-group #rGroup formControlName="energyDistributionMethod" class="rc-radio-group">
               <mat-radio-button [value]="'Central heat pumps'" radioGroup="rGroup">Central heat pumps</mat-radio-button>
               <mat-radio-button [value]="'Mini-split ducted & Multi splits'" radioGroup="rGroup">Mini-split ducted & Multi splits</mat-radio-button>
               <mat-radio-button [value]="'Mini-split heat pumps'" radioGroup="rGroup">Mini-split heat pumps</mat-radio-button>
@@ -58,7 +58,7 @@
       <!-- Step 2 end -->
 
       <!-- Step 3 -->
-      <mat-step  errorMessage="Furnace is required."  formGroupName="furnace" [stepControl]="formGroup?.get('furnace')!">
+      <mat-step  errorMessage="Furnace is required."  [stepControl]="formGroup?.get('furnace')!">
         <!-- Name of step -->
         <ng-template matStepLabel>Furnace</ng-template>
         <!-- Content of step -->
@@ -68,7 +68,7 @@
           <div class="rc-column">
             <!-- radio button -->
             <mat-label>Furnace Fuel</mat-label>
-            <mat-radio-group #rGroup formControlName="fuelCtrl" class="rc-radio-group">
+            <mat-radio-group #rGroup formControlName="fuelSource" class="rc-radio-group">
               <mat-radio-button [value]="'gas'" radioGroup="rGroup">Gas</mat-radio-button>
               <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>
               <mat-radio-button [value]="'none'" radioGroup="rGroup">None</mat-radio-button>
@@ -85,7 +85,7 @@
       <!-- Step 3 end -->
 
     <!-- Step 4 -->
-    <mat-step  errorMessage="Eligibility Detail is required." formGroupName="eligibility_detail" [stepControl]="formGroup?.get('eligibility_detail')!">
+    <mat-step  errorMessage="Eligibility Detail is required." formGroupName="eligibilityDetail" [stepControl]="formGroup?.get('eligibility_detail')!">
       <!-- Name of step -->
       <ng-template matStepLabel>Eligibility Details</ng-template>
       <!-- Content of step -->
@@ -95,19 +95,19 @@
         <div class="rc-column">
           <mat-form-field appearance="fill"  >
             <mat-label>Gas / Oil Utility</mat-label>
-            <mat-select  #sGroup formControlName="gas_oil_utilityCtrl">
-                <mat-option [value]="'MA'" radioGroup="sGroup"> Berkshire Gas </mat-option>
-                <mat-option [value]="'ME'" radioGroup="sGroup"> Eversource  </mat-option>
-                <mat-option [value]="'NH'" radioGroup="sGroup"> Liberty </mat-option>
-                <mat-option [value]="'RI'" radioGroup="sGroup"> National Grid </mat-option>
-                <mat-option [value]="'NH'" radioGroup="sGroup"> Unitil </mat-option>
-                <mat-option [value]="'RI'" radioGroup="sGroup"> Other </mat-option>
+            <mat-select  #sGroup formControlName="gasOilUtility">
+                <mat-option [value]="'Berkshire Gas'" radioGroup="sGroup"> Berkshire Gas </mat-option>
+                <mat-option [value]="'Eversource'" radioGroup="sGroup"> Eversource  </mat-option>
+                <mat-option [value]="'Liberty'" radioGroup="sGroup"> Liberty </mat-option>
+                <mat-option [value]="'National Grid'" radioGroup="sGroup"> National Grid </mat-option>
+                <mat-option [value]="'Unitil'" radioGroup="sGroup"> Unitil </mat-option>
+                <mat-option [value]="'Other'" radioGroup="sGroup"> Other </mat-option>
             </mat-select>
           </mat-form-field>
 
           <!-- radio buttons -->
           <mat-label> Existing furnace type?</mat-label>
-          <mat-radio-group #rGroup formControlName="existen_furnace_typeCtrl" class="rc-radio-group">
+          <mat-radio-group #rGroup formControlName="existingFurnaceType" class="rc-radio-group">
             <mat-radio-button [value]="'condensing'" radioGroup="rGroup">Condensing</mat-radio-button>
             <mat-radio-button [value]="'none - condensing'" radioGroup="rGroup">None - condensing</mat-radio-button>
           </mat-radio-group>

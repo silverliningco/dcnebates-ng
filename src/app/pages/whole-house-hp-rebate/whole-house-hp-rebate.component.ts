@@ -27,7 +27,7 @@ export class WholeHouseHPRebateComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
 
-        rebate_id: [ [2] , Validators.required],
+        /* rebate_id: [ [2] , Validators.required],
         title: ['Mass Save Air Source HP (Whole home)', Validators.required],
       
         equipment_size: this._formBuilder.group({
@@ -36,8 +36,19 @@ export class WholeHouseHPRebateComponent implements OnInit {
 
         energy_distribution: this._formBuilder.group({
           methodCtrl: ['', Validators.required],
-        }),      
-     
+        }), 
+         */
+        // **************************************************************
+        rebateIds: [ [2] , Validators.required],
+        ShowAllResults: [ true , Validators.required],
+
+        nominalSize: this._formBuilder.group({
+          heatingBTUH: ['', Validators.required],
+        }),
+
+        energyDistributionMethod: ['', Validators.required],
+
+
     });
   }
 
@@ -48,6 +59,8 @@ export class WholeHouseHPRebateComponent implements OnInit {
     }
     // tranformandolo a json
     let jsonPay = JSON.stringify(f);
+
+    console.log(jsonPay);
 
     this._ahriCombinationService.save(jsonPay)
             .subscribe( (resp:any) => {

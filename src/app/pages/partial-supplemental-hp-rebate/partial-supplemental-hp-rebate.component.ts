@@ -27,7 +27,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
 
-        rebate_id: [ [1] , Validators.required],
+        /* rebate_id: [ [1] , Validators.required],
         title: ['Mass Save Air Source HP (Partial home supplemental)', Validators.required],
         
         equipment_size: this._formBuilder.group({
@@ -46,9 +46,25 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
         eligibility_detail: this._formBuilder.group({
           gas_oil_utilityCtrl: ['', Validators.required],
           existen_furnace_typeCtrl: ['', Validators.required],
-        }),
+        }), */
       
-     
+        // ****************************************************************
+        rebateIds: [ [1] , Validators.required],
+        ShowAllResults: [ true , Validators.required],
+
+        nominalSize: this._formBuilder.group({
+          coolingTons: [ 0, Validators.required],
+          heatingBTUH: [ 0, Validators.required],
+        }),
+
+        energyDistributionMethod: ['', Validators.required],
+
+        fuelSource: ['', Validators.required],
+
+        eligibilityDetail:  this._formBuilder.group({
+          gasOilUtility: ['', Validators.required],
+          existingFurnaceType: ['', Validators.required],
+        }),
     });
   }
 
@@ -59,6 +75,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
       return;
     }
     let jsonPay = JSON.stringify(f);
+    console.log(jsonPay);
     
     this._ahriCombinationService.save(jsonPay)
             .subscribe( (resp:any) => {

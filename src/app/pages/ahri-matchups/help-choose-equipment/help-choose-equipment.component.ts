@@ -37,7 +37,7 @@ export class HelpChooseEquipmentComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
 
-        rebate_id: [ [3] , Validators.required],
+       /*  rebate_id: [ [3] , Validators.required],
         title: ['Mass Save Gas Heating', Validators.required],
             
         equipment_size: this._formBuilder.group({
@@ -59,8 +59,29 @@ export class HelpChooseEquipmentComponent implements OnInit {
           gas_oil_utilityCtrl: ['', Validators.required],
           existen_furnace_typeCtrl: ['', Validators.required],
           hpS_source_headCtrl: ['', Validators.required]
+        }), */
+
+        // ****************************************************************
+        rebateIds: [ [3] , Validators.required],
+        ShowAllResults: [ true , Validators.required],
+
+        nominalSize: this._formBuilder.group({
+          coolingTons: [ , Validators.required],
+          heatingBTUH: [ , Validators.required],
         }),
       
+        energyDistributionMethod: ['', Validators.required],
+
+        fuelSource: ['', Validators.required],
+
+        state: ['', Validators.required],
+
+        eligibilityDetail: this._formBuilder.group({
+          electricUtilityProvider: ['', Validators.required],
+          gasOilUtility:  ['', Validators.required],
+          existingFurnaceType:  ['', Validators.required],
+          HPSoleSource: ['', Validators.required],
+        })
     });
   }
 
@@ -70,6 +91,8 @@ export class HelpChooseEquipmentComponent implements OnInit {
       return;
     }
     let jsonPay = JSON.stringify(f); 
+
+    console.log(jsonPay);
 
     this._ahriCombinationService.save(jsonPay)
           .subscribe( (resp:any) => {
