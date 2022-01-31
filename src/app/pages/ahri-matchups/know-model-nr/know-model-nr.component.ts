@@ -34,7 +34,7 @@ export class KnowModelNrComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
 
-        rebate_id: [ [3] , Validators.required],
+        rebate_id: [ null , Validators.required],
         title: ['Mass Save Gas Heating', Validators.required],
       
         model_numbers: this._formBuilder.group({
