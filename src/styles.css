@@ -24,7 +24,6 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: Nunito, sans-serif;
-  font-weight: 300;
 }
 
 .rc-hero-content{
@@ -48,6 +47,7 @@ html, body {
     margin: 3.5rem 0;
   }
 }
+
 /*Customizing Stepper */
 @media (max-width: 768px) {
   .mat-horizontal-content-container{
