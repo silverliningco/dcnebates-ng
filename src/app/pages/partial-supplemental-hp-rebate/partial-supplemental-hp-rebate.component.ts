@@ -53,8 +53,8 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
         ShowAllResults: [ true , Validators.required],
 
         nominalSize: this._formBuilder.group({
-          coolingTons: [ 0, Validators.required],
-          heatingBTUH: [ 0, Validators.required],
+          coolingTons: [ , Validators.required],
+          heatingBTUH: [ , Validators.required],
         }),
 
         energyDistributionMethod: ['', Validators.required],

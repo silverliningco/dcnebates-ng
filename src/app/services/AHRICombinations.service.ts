@@ -22,6 +22,7 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
     return this.http.get(url)
     .pipe(
         map((resp: any) => {
+          console.log(resp);
           return resp;
         })
     )
