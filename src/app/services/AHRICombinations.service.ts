@@ -17,7 +17,7 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
     
   save (params: any){
 
-    let url = URL_SERVICIOS + '/result/' + params;
+    let url = URL_SERVICIOS + '/search-equipment?params=' + params;
 
     return this.http.get(url)
     .pipe(
@@ -30,7 +30,7 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
 
   getResultDetail(ahri_refs: any){
 
-    let url = URL_SERVICIOS + '/detail/'+ ahri_refs ;
+    let url = URL_SERVICIOS + '/view-result'+ ahri_refs ;
 
     return this.http.get(url)
     .pipe(

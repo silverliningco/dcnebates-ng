@@ -48,19 +48,44 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
           existen_furnace_typeCtrl: ['', Validators.required],
         }), */
       
+
+        /*http://localhost:8081/search-equipment?params=
+        {"storeId": 1,
+        "showAllResults":true,
+        "heated": true,
+        "cooled": true,
+        "energyDistributionMethod":"Forced air",
+        "fuelSource":"Natural Gas",
+        "nominalSize":{"coolingTons":null,"heatingBTUH":25000},
+        "systemDetails": {
+          "compressorStages":"1",
+          "brandedTiersMatch": false,
+          "indoorUnitConfiguration": "Multipoise",
+          "nominalCoolingTonsMatch": true
+        },
+        "eligibilityDetail":{}}
+         */
         // ****************************************************************
         rebateIds: [ [1] , Validators.required],
-        ShowAllResults: [ true , Validators.required],
 
-        nominalSize: this._formBuilder.group({
-          coolingTons: [ , Validators.required],
-          heatingBTUH: [ , Validators.required],
-        }),
+        /* Hardcoded for now */
+        heated: true,
+        cooled: true,
+        storeId: 1,
+        country: "US",
+        state:"MA",
+        utilityId: 3,
+
+        showAllResults: [ true , Validators.required],
 
         energyDistributionMethod: ['', Validators.required],
 
         fuelSource: ['', Validators.required],
-
+        
+        nominalSize: this._formBuilder.group({
+          coolingTons: [ , Validators.required],
+          heatingBTUH: [ , Validators.required],
+        }),
         eligibilityDetail:  this._formBuilder.group({
           gasOilUtility: ['', Validators.required],
           existingFurnaceType: ['', Validators.required],

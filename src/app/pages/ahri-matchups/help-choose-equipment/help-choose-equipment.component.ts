@@ -63,7 +63,15 @@ export class HelpChooseEquipmentComponent implements OnInit {
 
         // ****************************************************************
         rebateIds: [ null, Validators.required],
-        ShowAllResults: [ true , Validators.required],
+
+         /* Hardcoded for now */
+         heated: true,
+         cooled: true,
+         storeId: 1,
+         country: "US",
+         utilityId: 3,
+
+        showAllResults: [ true , Validators.required],
 
         nominalSize: this._formBuilder.group({
           coolingTons: [ , Validators.required],

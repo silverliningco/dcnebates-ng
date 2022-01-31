@@ -17,14 +17,14 @@
     <tbody>
         <tr *ngFor="let ahriCombination of ahriCombinations, let indice=index">
             <td data-title="n°">{{ (p - 1) * 10 + indice +1 }}</td>
-            <td data-title="Outdoor unit">{{ahriCombination.outdoorUnit}}</td>
-            <td data-title="Indoor unit">{{ahriCombination.indoorUnit}}</td>
-            <td data-title="Furnace">{{ahriCombination.furnace}}</td>
-            <td data-title="SEER">{{ahriCombination.seer}}</td>
-            <td data-title="EER">{{ahriCombination.eer}}</td>
-            <td data-title="HSPF">{{ahriCombination.hspf}}</td>
-            <td data-title="AFUE">{{ahriCombination.afue}}</td>
-            <td data-title="Total rebate">{{ahriCombination.totalEligibleRebateAmount}}</td>
+            <td data-title="Outdoor unit">{{ahriCombination.outdoorUnitAHRIModel}}</td>
+            <td data-title="Indoor unit">{{ahriCombination.indoorUnitAHRIModel}}</td>
+            <td data-title="Furnace">{{ahriCombination.furnaceAHRIModel}}</td>
+            <td data-title="SEER">{{ahriCombination.SEER}}</td>
+            <td data-title="EER">{{ahriCombination.EER}}</td>
+            <td data-title="HSPF">{{ahriCombination.HSPF}}</td>
+            <td data-title="AFUE">{{ahriCombination.AFUE}}</td>
+            <td data-title="Total rebate">{{ahriCombination.totalAvailableRebates}}</td>
             <td data-title="View">
                 <!-- <button  mat-stroked-button color="primary">
                     <a [routerLink]="['/WholeHouseHP/',ahriCombination.skus[0]]" class="navf" fragment="det" target="_blank" >

@@ -40,7 +40,16 @@ export class WholeHouseHPRebateComponent implements OnInit {
          */
         // **************************************************************
         rebateIds: [ [2] , Validators.required],
-        ShowAllResults: [ true , Validators.required],
+        
+        /* Hardcoded for now */
+        heated: true,
+        cooled: true,
+        storeId: 1,
+        country: "US",
+        state:"MA",
+        utilityId: 3,
+        
+        showAllResults: [ true , Validators.required],
 
         nominalSize: this._formBuilder.group({
           heatingBTUH: ['', Validators.required],
