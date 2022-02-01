@@ -1,5 +1,5 @@
 .rc-card-home {
-  height: 331.5px;
+  height: 400px;
   margin: .5rem;
   text-align: center;
 }
@@ -22,15 +22,18 @@
   padding-bottom: 1.5rem;
 }
 
-/* .mat-card-title {
+.mat-card-title {
   width: 268px;
-  font-size: 1.25rem;
+  font-size: 1rem;
+  line-height: 1.4rem;
   font-weight: 100;
+  text-transform: uppercase;
+  color: #504f4f;
 }
 .mat-card-title:not(:first-child) {
   margin-top: 1.5rem;
   margin-bottom: 1rem;
-} */
+}
 .rc-card-img {
   padding: .5rem;
   width: 100px;
@@ -38,10 +41,11 @@
   color: red;
 }
 .rc-card-home .mat-card-content p {
-  margin: 1.75rem 2rem 1rem 2rem;
+  margin: 1rem 2rem 1rem 2rem;
   text-align: center;
   height: 80px;
   font-weight: lighter;
+  color: #989797;
 }
 
 .rc-card-home .mat-card-actions button {
@@ -55,14 +59,15 @@
   color: #fff;
 }
 .rc-divider.mat-divider {
-  border-top-color: var(--rc-primary-color);
+  /* border-top-color: var(--rc-primary-color); */
+  border-top-color: #0075db;
   border-top-width: 3px;
   border-radius: 30px;
 }
 
 .rc-divider.mat-divider-horizontal {
-  width: 100px;
-  left: 34%;
+  width: 150px;
+  left: 25%;
 }
 
 .green {
@@ -70,4 +75,18 @@
   font-weight: 400;
   letter-spacing: 1px;
   font-size: 16px;
+}
+
+.rc-img {
+  position: relative;
+}
+
+.rc-right-top {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  margin-top: -1rem;
+  margin-right: -.5rem;
 }
