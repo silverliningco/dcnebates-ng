@@ -8,11 +8,13 @@ export class AHRICombinations {
         public HSPF: number,
         public AFUE: number,
         public totalAvailableRebates: number,
-        public skus?: any,
+        public SKUs?: any,
         public accessories?: any,
         public coolingCapacity?: number,
         public hcap47?: number,
         public hcap17?: number,
-        public furnaceInputBTUH?: number
+        public furnaceInputBTUH?: number,
+        public AHRIReferences?: any,
+        public coolingCapacityRated?: number
     ) {}
 }
