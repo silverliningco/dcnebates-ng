@@ -15,8 +15,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let ahriCombination of ahriCombinations, let indice=index">
-            <td data-title="n°">{{ (p - 1) * 10 + indice +1 }}</td>
+        <tr *ngFor="let ahriCombination of ahriCombinations | paginate: { itemsPerPage: 10, currentPage: p } , let i=index">
+            <td data-title="n°">{{ 10 * (p - 1) + i  + 1}}</td>  
             <td data-title="Outdoor unit">{{ahriCombination.outdoorUnitAHRIModel}}</td>
             <td data-title="Indoor unit">{{ahriCombination.indoorUnitAHRIModel}}</td>
             <td data-title="Furnace">{{ahriCombination.furnaceAHRIModel}}</td>
@@ -36,3 +36,6 @@
     </tbody>
 </table>
 <!-- table end -->
+
+<!-- pagination -->
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

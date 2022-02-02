@@ -15,13 +15,15 @@ import {AHRICombinationService} from '../../services/AHRICombinations.service';
 export class ResultsWhoComponent implements OnInit {
 
   ahriCombinations: AHRICombinations[] = [];
-  p: number =1;
+  p: number = 1;
 
-  ahriCombinationsDetail!: AHRICombinations;
+  load: boolean = true;
+  showTable: boolean = false;
 
   @Input('data')
     set data( data:any){
       this.ahriCombinations = data;
+      console.log(this.ahriCombinations);
     }
 
   constructor(
@@ -32,5 +34,6 @@ export class ResultsWhoComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 }
