@@ -1,30 +1,27 @@
 <div class="rc-content-flex rc-hero-content">
-  <mat-card class="rc-card-ahri-matchup">
+  <mat-card class="rc-card rc-card-ahri-matchup">
     <img src="./assets/img/bot.svg" alt="" class="rc-card-img">
-    <mat-card-title>Help me Choose equipment</mat-card-title>
-    <!-- <mat-card-content>
-      Help me Choose equipment
-    </mat-card-content> -->
+    <mat-card-title class="rc-card-title">Help me Choose equipment</mat-card-title>
     <!-- <mat-card-content>
       <p class="nkn-text-justify">
         Select this option to find HVAC systems based on installation parameters such as system type, heating and cooling capacity and configuration. Find HVAC systems that qualify for energy rebates in your area.
       </p>
     </mat-card-content> -->
-    <mat-card-actions class="nkn-center">
+    <mat-card-actions class="rc-card-actions">
       <button [routerLink]="['/AHRIMatchups','HelpChoose']" >
         Continue
         <mat-icon>arrow_forward</mat-icon>
     </button>
     </mat-card-actions>
   </mat-card>
-  <mat-card class="rc-card-ahri-matchup">
+  <mat-card class="rc-card rc-card-ahri-matchup">
     <img src="./assets/img/person.svg" alt="" class="rc-card-img">
-    <mat-card-title>I know my model nrs</mat-card-title>
+    <mat-card-title class="rc-card-title">I know my model nrs</mat-card-title>
     <!-- <mat-card-content>
       <p class="nkn-text-justify">
         Select this option to view HVAC ratings and rebates if you know the model nrs of outdoor unit, indoor unit and furnace.      </p>
     </mat-card-content> -->
-    <mat-card-actions class="nkn-center">
+    <mat-card-actions class="rc-card-actions">
       <button [routerLink]="['/AHRIMatchups','KnowModel']" >
         Continue
         <mat-icon>arrow_forward</mat-icon>
