@@ -1,34 +1,34 @@
-<!-- <div class="nkn-vertical-align rc-ahri-matchups-content">
-  <div>
-    <div class="rc-content-flex">
-      <p class="nkn-text-justify">Select this option to find HVAC systems based on installation parameters such as system type, heating and cooling capacity and configuration. Find HVAC systems that qualify for energy rebates in your area.</p>
-      <button mat-raised-button color="primary" [routerLink]="['/AHRIMatchups','HelpChoose']" >Help Choose</button>
-  <button mat-raised-button color="primary" [routerLink]="['/AHRIMatchups','KnowModel']" >Know Model</button>
-    </div>
-  </div>
-</div> -->
-
 <div class="rc-content-flex rc-hero-content">
   <mat-card class="rc-card-ahri-matchup">
-    <mat-card-title>Help Choose equipment</mat-card-title>
-    <mat-card-content>
+    <img src="./assets/img/bot.svg" alt="" class="rc-card-img">
+    <mat-card-title>Help me Choose equipment</mat-card-title>
+    <!-- <mat-card-content>
+      Help me Choose equipment
+    </mat-card-content> -->
+    <!-- <mat-card-content>
       <p class="nkn-text-justify">
         Select this option to find HVAC systems based on installation parameters such as system type, heating and cooling capacity and configuration. Find HVAC systems that qualify for energy rebates in your area.
       </p>
-    </mat-card-content>
+    </mat-card-content> -->
     <mat-card-actions class="nkn-center">
-      <button mat-raised-button color="primary" [routerLink]="['/AHRIMatchups','HelpChoose']" >Help Choose</button>
+      <button [routerLink]="['/AHRIMatchups','HelpChoose']" >
+        Continue
+        <mat-icon>arrow_forward</mat-icon>
+    </button>
     </mat-card-actions>
   </mat-card>
   <mat-card class="rc-card-ahri-matchup">
-    <mat-card-title>I know my equipment</mat-card-title>
-    <mat-card-content>
+    <img src="./assets/img/person.svg" alt="" class="rc-card-img">
+    <mat-card-title>I know my model nrs</mat-card-title>
+    <!-- <mat-card-content>
       <p class="nkn-text-justify">
         Select this option to view HVAC ratings and rebates if you know the model nrs of outdoor unit, indoor unit and furnace.      </p>
-    </mat-card-content>
-    <br> <br>
+    </mat-card-content> -->
     <mat-card-actions class="nkn-center">
-      <button mat-raised-button color="primary" [routerLink]="['/AHRIMatchups','KnowModel']" >Know Model</button>
+      <button [routerLink]="['/AHRIMatchups','KnowModel']" >
+        Continue
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
     </mat-card-actions>
   </mat-card>
 </div>

@@ -186,6 +186,28 @@ tbody tr:hover {
   }
 }
 /*End style table*/
+
+/*Style button*/
+button {
+  border-radius: 30px;
+  background-color: var(--rc-primary-color);
+  color: #fff;
+  border: solid 1px var(--rc-primary-color);
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .4rem 1rem;
+  width: 180px;
+  margin: auto;
+  cursor: pointer;
+  font-size: 14px;
+}
+.mat-card:hover {
+  box-shadow: var(--nkn-box-shadow);
+  cursor: pointer;
+}
+/*End style button*/
 /*End general styles of each view*/
 
 
