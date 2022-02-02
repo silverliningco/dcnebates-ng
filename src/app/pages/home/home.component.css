@@ -59,8 +59,7 @@
   color: #fff;
 }
 .rc-divider.mat-divider {
-  /* border-top-color: var(--rc-primary-color); */
-  border-top-color: #0075db;
+  border-top-color: var(--rc-primary-color);
   border-top-width: 3px;
   border-radius: 30px;
 }
