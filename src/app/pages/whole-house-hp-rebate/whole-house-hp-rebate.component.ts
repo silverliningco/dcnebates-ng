@@ -69,7 +69,7 @@ export class WholeHouseHPRebateComponent implements OnInit {
     // tranformandolo a json
     let jsonPay = JSON.stringify(f);
 
-    console.log(jsonPay);
+    //console.log(jsonPay);
 
     this._ahriCombinationService.save(jsonPay)
             .subscribe( (resp:any) => {
