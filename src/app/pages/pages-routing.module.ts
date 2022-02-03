@@ -29,14 +29,14 @@ const routes: Routes =[
 
       {path: 'AHRIMatchups', component: AHRIMatchupsComponent, data: {breadcrumbs: ['home','AHRI Matchups']} },
       {path: 'AHRIMatchups/HelpChoose', component: HelpChooseEquipmentComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'Help Choose']} },
-      {path: 'AHRIMatchups/HelpChoose/:cod', component: DetailAhriComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'detail']} },
+      {path: 'AHRIMatchups/:skus/:ahri_refs', component: DetailAhriComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'detail']} },
       {path: 'AHRIMatchups/KnowModel', component: KnowModelNrComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'Know Model']} },
 
       {path: 'WholeHouseHP', component: WholeHouseHPRebateComponent, data: {breadcrumbs: ['home','Whole House HP']} },
-      {path: 'WholeHouseHP/:cod', component: DetailWhoComponent, data: {breadcrumbs: ['home','Whole House HP', 'detail']} },
+      {path: 'WholeHouseHP/:skus/:ahri_refs', component: DetailWhoComponent, data: {breadcrumbs: ['home','Whole House HP', 'detail']} },
 
       {path: 'PartialSupplementalHP', component: PartialSupplementalHPRebateComponent, data: {breadcrumbs: ['home','Partial Supplemental HP']} },
-      {path: 'PartialSupplementalHP/:cod', component: DetailParComponent, data: {breadcrumbs: ['home', 'Partial Supplemental HP', 'detail']} }
+      {path: 'PartialSupplementalHP/:skus/:ahri_refs', component: DetailParComponent, data: {breadcrumbs: ['home', 'Partial Supplemental HP', 'detail']} }
     ]
   }
 ]
