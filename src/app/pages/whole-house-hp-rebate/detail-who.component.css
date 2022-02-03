@@ -1,0 +1,15 @@
+.rc-row {
+  margin: .5rem;
+}
+.rc-row * {
+  display: inline-block;
+}
+.rc-row :nth-child(1) {
+  color: var(--rc-primary-color);
+  width: 50%;
+  text-transform: uppercase;
+}
+.rc-row :nth-child(2) {
+  color: #989797;
+  width: 50%;
+}
