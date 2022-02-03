@@ -21,19 +21,19 @@ export class DetailWhoComponent implements OnInit {
     public activatedRoute: ActivatedRoute
   ) {
     activatedRoute.params.subscribe( params => {
-      let cod = params['cod'];
-      
-      this.loadDetail(cod);
+      let skus = params['skus'];
+      let ahri_refs = params['ahri_refs'];   
+      this.loadDetail(skus, ahri_refs);
     });
    }
 
   ngOnInit(): void {
   }
 
-  loadDetail(cod: any){
-    this._ahriCombinationService.getResultDetail(cod)
+  loadDetail(skus: any, ahri_refs: any){
+    this._ahriCombinationService.getResultDetail(skus, ahri_refs)
             .subscribe( (resp:any) => {
-              this.url = resp.body.eligibleRebates[0].url;
+              //this.url = resp.body.eligibleRebates[0].url;
               this.detail= resp.body;
             });            
   }

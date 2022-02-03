@@ -27,9 +27,9 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
     )
   }
 
-  getResultDetail(ahri_refs: any){
+  getResultDetail(skus: any, ahri_refs: any){
 
-    let url = URL_SERVICIOS + '/view-result'+ ahri_refs ;
+    let url = URL_SERVICIOS + '/view-detail?skus='+ skus + '&ahri_refs=' + ahri_refs;
 
     return this.http.get(url)
     .pipe(
