@@ -1,3 +1,4 @@
+<p> aqui va la numeracion </p>
 <!-- table -->
 <table class="nkn-table nkn-vertical">
     <thead>
@@ -15,8 +16,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let ahriCombination of ahriCombinations | paginate: { itemsPerPage: 10, currentPage: p } , let i=index">
-            <td data-title="n°">{{ 10 * (p - 1) + i  + 1}}</td> 
+        <tr *ngFor="let ahriCombination of ahriCombinations | paginate: { itemsPerPage: rows, currentPage: p } , let i=index">
+            <td data-title="n°">{{ rows * (p - 1) + i  + 1}}</td>   
             <td data-title="Outdoor unit">{{ahriCombination.outdoorUnitAHRIModel}}</td>
             <td data-title="Indoor unit">{{ahriCombination.indoorUnitAHRIModel}}</td>
             <td data-title="Furnace">{{ahriCombination.furnaceAHRIModel}}</td>
@@ -26,11 +27,9 @@
             <td data-title="AFUE">{{ahriCombination.AFUE}}</td>
             <td data-title="Total rebate">{{ahriCombination.totalAvailableRebates}}</td>
             <td data-title="View">
-                <button  mat-stroked-button color="primary">
-                    <a [routerLink]="['/WholeHouseHP/',ahriCombination.SKUs | json, ahriCombination.AHRIReferences  | json]" class="navf" fragment="det" target="_blank" >
-                        <label>Detail</label>
-                    </a>
-                </button>
+                <a [routerLink]="['/WholeHouseHP/', ahriCombination.SKUs | json, ahriCombination.AHRIReferences  | json]" class="navf" fragment="det" target="_blank"   mat-stroked-button color="primary">
+                    <label>Detail</label>
+                </a>
             </td>
         </tr>
     </tbody>

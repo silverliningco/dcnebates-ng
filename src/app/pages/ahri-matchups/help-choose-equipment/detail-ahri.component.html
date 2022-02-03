@@ -1,5 +1,6 @@
-
 <div class="rc-hero-content">
+
+  <!-- SELECTED HVAC SYSTEM -->
   <section class="nkn-mb-medium">
     <h2 class="rc-main-title">SELECTED HVAC SYSTEM</h2>
     <div class="rc-content-flex">
@@ -59,11 +60,18 @@
       <!-- <img src="./assets/img/illustration-2.svg" alt="" class="illustration-2"> -->
     </div>
   </section>
+  <!-- SELECTED HVAC SYSTEM  END-->
+
+  <!-- AVAILABLE REBATES -->
   <section>
     <h2 class="rc-main-title">AVAILABLE REBATES</h2>
     <div class="rc-content-flex">
+
+      <!-- 1 -->
       <mat-card class="rc-card-rebate">
-        <mat-card-title>Mass Save central AC / HP - Standard</mat-card-title>
+        <!-- title -->
+        <mat-card-title>{{detail.availableRebates[0].title}}</mat-card-title>
+        <!-- description -->
         <mat-card-content>
           <p class="nkn-text-justify">
             Mass Save residential central AC and Heat Pump rebate.
@@ -72,6 +80,8 @@
             January 31, 2022.
           </p>
         </mat-card-content>
+
+        <!-- button  download form -->
         <mat-card-actions class="nkn-center">
           <button type="button" (click)="goToLink()"   mat-flat-button color="primary">
             Download Form
@@ -79,6 +89,8 @@
           <a href="" color="primary" class="nkn-ml-large">More info</a>
         </mat-card-actions>
       </mat-card>
+      <!-- 1 END-->
+
     </div>
   </section>
 </div>

@@ -1,4 +1,6 @@
 <div class="rc-hero-content">
+
+  <!-- SELECTED HVAC SYSTEM -->
   <section class="nkn-mb-medium">
     <h2 class="rc-main-title">SELECTED HVAC SYSTEM</h2>
     <div class="rc-content-flex">
@@ -57,11 +59,20 @@
       </mat-card>
     </div>
   </section>
+  <!-- SELECTED HVAC SYSTEM  END-->
+
+
+  <!-- AVAILABLE REBATES -->
   <section>
     <h2 class="rc-main-title">AVAILABLE REBATES</h2>
     <div class="rc-content-flex">
+
+      <!-- 1 -->
       <mat-card class="rc-card rc-card-rebate">
-        <mat-card-title class="rc-card-title">Mass Save central AC / HP - Standard</mat-card-title>
+        <!-- title -->
+        <mat-card-title class="rc-card-title">{{detail.availableRebates[0].title}}</mat-card-title>
+
+        <!-- description -->
         <mat-card-content class="rc-card-content">
           <p class="nkn-text-justify">
             Mass Save residential central AC and Heat Pump rebate.
@@ -69,8 +80,11 @@
             January 1, 2021, and December 31, 2021. Applications must be postmarked by
             January 31, 2022.
           </p>
-          <div class="rc-amount">$10 000</div>
+          <!-- amount -->
+          <div class="rc-amount">${{detail.availableRebates[0].amount}}</div>
         </mat-card-content>
+
+        <!-- button  download form -->
         <mat-card-actions class="rc-card-actions nkn-center">
           <button type="button" (click)="goToLink()" >
             Download Form
@@ -79,15 +93,24 @@
           <a href="" class="rc-link">More info</a>
         </mat-card-actions>
       </mat-card>
+      <!-- 1 END-->
+
+      <!-- 2 -->
       <mat-card class="rc-card rc-card-rebate">
-        <mat-card-title class="rc-card-title">AC Upgraid</mat-card-title>
+        <!-- title -->
+        <mat-card-title class="rc-card-title">{{detail.availableRebates[1].title}}</mat-card-title>
+
+        <!-- description -->
         <mat-card-content class="rc-card-content">
           <p class="nkn-text-justify">
             Requires purchase of specified Carrier indoor air quality product(s). See rebate form for details of qualifying products.
             Sales made between 9/6/2021 to 5/31/2022. Rebate claim must be submitted by 6/30/2022. Rebate offered from participating dealers only.
           </p>
-          <div class="rc-amount">$1 000</div>
+          <!-- amount -->
+          <div class="rc-amount">${{detail.availableRebates[1].amount}}</div>
         </mat-card-content>
+
+        <!-- button  download form -->
         <mat-card-actions class="rc-card-actions nkn-center">
           <button type="button" (click)="goToLink()" >
             Download Form
@@ -96,8 +119,14 @@
           <a href="" class="rc-link">More info</a>
         </mat-card-actions>
       </mat-card>
+      <!-- 2 END -->
+
+      <!-- 3 -->
       <mat-card class="rc-card rc-card-rebate">
-        <mat-card-title class="rc-card-title">Mass Save central AC / HP - Standard</mat-card-title>
+        <!-- title -->
+        <mat-card-title class="rc-card-title">{{detail.availableRebates[2].title}}</mat-card-title>
+
+        <!-- description -->
         <mat-card-content class="rc-card-content">
           <p class="nkn-text-justify">
             Mass Save residential central AC and Heat Pump rebate.
@@ -105,8 +134,11 @@
             January 1, 2021, and December 31, 2021. Applications must be postmarked by
             January 31, 2022.
           </p>
-          <div class="rc-amount">$10 000</div>
+          <!-- amount -->
+          <div class="rc-amount">${{detail.availableRebates[2].amount}}</div>
         </mat-card-content>
+
+        <!-- button  download form -->
         <mat-card-actions class="rc-card-actions nkn-center">
           <button type="button" (click)="goToLink()" >
             Download Form
@@ -115,6 +147,10 @@
           <a href="" class="rc-link">More info</a>
         </mat-card-actions>
       </mat-card>
+      <!-- 3 END -->
+
     </div>
   </section>
+  <!-- AVAILABLE REBATES END -->
+
 </div>
