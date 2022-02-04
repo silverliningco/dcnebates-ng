@@ -93,11 +93,14 @@ html, body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 1.5rem;
 }
+/* .mat-h2, .mat-title, .mat-typography h2 */
 .rc-main-title::after{
   content: '';
   border-bottom: solid 3px #E4D340;
   width: 100px;
+  margin-bottom: 1rem;
 }
 /*End Main title of page*/
 
@@ -212,6 +215,7 @@ a {
 table.nkn-table thead tr {
   border: solid 1px var(--rc-primary-color);
 }
+
 .nkn-table thead th {
   background-color: var(--rc-primary-color);
   color: #fff;
@@ -220,6 +224,7 @@ table.nkn-table thead tr {
 tbody tr:hover {
   box-shadow: var(--nkn-box-shadow);
 }
+
 .nkn-table tbody tr:nth-child(2n) {
   background-color: transparent;
 }
@@ -227,20 +232,29 @@ tbody tr:hover {
 @media (max-width: 767px) {
   .rc-table-container {
     box-shadow: var(--nkn-box-shadow);
-    border-radius: 1rem;
+    border-radius: .5rem;
   }
 
   table.nkn-vertical tr {
     border: none;
     border-bottom: solid 1px #d4d4d4;
     margin: 0;
-    padding: 1rem;
+    padding: .5rem;
+  }
+  table.nkn-vertical td::before {
+    width: 49%;
+    color: var(--rc-primary-color);
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  table.nkn-vertical td:last-child {
+    justify-content: right;
   }
 }
 /*End style table*/
 
 /*Style button*/
-button {
+/* button {
   border-radius: 30px;
   background-color: var(--rc-primary-color);
   color: #fff;
@@ -254,6 +268,14 @@ button {
   margin: auto;
   cursor: pointer;
   font-size: 14px;
+} */
+
+.mat-stroked-button:not(.mat-button-disabled),
+.mat-flat-button:not([class*="mat-elevation-z"]){
+  border-color: var(--rc-primary-color);
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /*End style button*/

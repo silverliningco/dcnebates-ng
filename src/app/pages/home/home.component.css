@@ -75,3 +75,7 @@
   margin-top: -1rem;
   margin-right: -.5rem;
 }
+
+.rc-card-home .mat-flat-button:not([class*="mat-elevation-z"]){
+  width: 180px;
+}

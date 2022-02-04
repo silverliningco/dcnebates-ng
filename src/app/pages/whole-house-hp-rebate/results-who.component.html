@@ -1,11 +1,15 @@
 <!-- <mat-spinner *ngIf="load"></mat-spinner> -->
-<div class="nkn-space-between">
-  <!-- Filter -->
-  <button type="button" mat-button>
-    Filter
-  </button>
-  <!-- pagination -->
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+<div class="nkn-clear">
+  <div class="nkn-left">
+    <!-- Filter -->
+    <button type="button" mat-stroked-button color="primary">
+      Filter
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+  <div class="nkn-right">
+    1-10 of 100
+  </div>
 </div>
 
 <!-- table -->
@@ -49,4 +53,8 @@
 </div>
 <!-- table end -->
 
+<!-- pagination -->
+<div class="nkn-text-right">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
 
