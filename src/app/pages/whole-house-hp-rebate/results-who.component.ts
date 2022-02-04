@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
+
 // model
 import {AHRICombinations} from '../../models/AHRICombinations.model';
 
@@ -43,8 +44,5 @@ export class ResultsWhoComponent implements OnInit {
       this.rows=10
     }
   }
-
-  
-
 
 }
