@@ -34,6 +34,7 @@ export class DetailWhoComponent implements OnInit {
     this._ahriCombinationService.getResultDetail(skus, ahri_refs)
             .subscribe( (resp:any) => {
               //this.url = resp.body.eligibleRebates[0].url;
+              console.log(resp.body);
               this.detail= resp.body;
             });            
   }

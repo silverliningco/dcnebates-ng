@@ -12,46 +12,43 @@
   </div>
 </div>
 
-<!-- table -->
-<div class="rc-table-container">
-  <table class="nkn-table nkn-vertical" >
-      <thead>
-          <tr>
-              <th>n°</th>
-              <th>Outdoor unit</th>
-              <th>Indoor unit</th>
-              <th>Furnace</th>
-              <th>SEER</th>
-              <th>EER</th>
-              <th>HSPF</th>
-              <th>AFUE</th>
-              <th>TOTAL REBATE</th>
-              <th></th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let ahriCombination of ahriCombinations | paginate: { itemsPerPage: 10, currentPage: p } , let i=index">
-              <td data-title="n°">{{ 10 * (p - 1) + i  + 1}}</td>
-              <td data-title="Outdoor unit">{{ahriCombination.outdoorUnitAHRIModel}}</td>
-              <td data-title="Indoor unit">{{ahriCombination.indoorUnitAHRIModel}}</td>
-              <td data-title="Furnace">{{ahriCombination.furnaceAHRIModel}}</td>
-              <td data-title="SEER">{{ahriCombination.SEER}}</td>
-              <td data-title="EER">{{ahriCombination.EER}}</td>
-              <td data-title="HSPF">{{ahriCombination.HSPF}}</td>
-              <td data-title="AFUE">{{ahriCombination.AFUE}}</td>
-              <td data-title="Total rebate">{{ahriCombination.totalAvailableRebates}}</td>
-              <td>
-                  <button  mat-stroked-button color="primary">
-                      <a [routerLink]="['/WholeHouseHP/', ahriCombination.SKUs | json, ahriCombination.AHRIReferences  | json]" class="navf" fragment="det" target="_blank" >
-                          <label>Detail</label>
-                      </a>
-                  </button>
-              </td>
-          </tr>
-      </tbody>
-  </table>
-</div>
-<!-- table end -->
+
+<!-- table  for Desktop-->
+<table  class="nkn-table nkn-vertical" >
+    <thead>
+        <tr>
+            <th>n°</th>
+            <th>Outdoor unit</th>
+            <th>Indoor unit</th>
+            <th>Furnace</th>
+            <th>SEER</th>
+            <th>EER</th>
+            <th>HSPF</th>
+            <th>AFUE</th>
+            <th>TOTAL REBATE</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ahriCombination of ahriCombinations | paginate: { itemsPerPage: rows, currentPage: p } , let i=index">
+            <td data-title="n°">{{ rows * (p - 1) + i  + 1}}</td>
+            <td data-title="Outdoor unit">{{ahriCombination.outdoorUnitAHRIModel}}</td>
+            <td data-title="Indoor unit">{{ahriCombination.indoorUnitAHRIModel}}</td>
+            <td data-title="Furnace">{{ahriCombination.furnaceAHRIModel}}</td>
+            <td data-title="SEER">{{ahriCombination.SEER}}</td>
+            <td data-title="EER">{{ahriCombination.EER}}</td>
+            <td data-title="HSPF">{{ahriCombination.HSPF}}</td>
+            <td data-title="AFUE">{{ahriCombination.AFUE}}</td>
+            <td data-title="Total rebate">{{ahriCombination.totalAvailableRebates}}</td>
+            <td data-title="View">
+                <a [routerLink]="['/WholeHouseHP/', ahriCombination.SKUs | json, ahriCombination.AHRIReferences  | json]" class="navf" fragment="det" target="_blank"   mat-stroked-button color="primary">
+                    <label>Detail</label>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- table for Desktop end -->
 
 <!-- pagination -->
 <div class="nkn-text-right">

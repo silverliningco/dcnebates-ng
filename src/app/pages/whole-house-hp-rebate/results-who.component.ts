@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 // model
 import {AHRICombinations} from '../../models/AHRICombinations.model';
@@ -17,23 +17,34 @@ export class ResultsWhoComponent implements OnInit {
   ahriCombinations: AHRICombinations[] = [];
   p: number = 1;
 
-  load: boolean = true;
-  showTable: boolean = false;
+  rows!: number;
+  isMobile = this.deviceService.isMobile();
+  isDesktopDevice = this.deviceService.isDesktop();
 
   @Input('data')
     set data( data:any){
       this.ahriCombinations = data;
-      console.log(this.ahriCombinations);
     }
 
   constructor(
     public _ahriCombinationService: AHRICombinationService,
-    public router: Router,
-    public activatedRoute: ActivatedRoute
+    private deviceService: DeviceDetectorService
   ) { }
 
   ngOnInit(): void {
+    this.Device();
   }
+
+  
+  Device(){
+    if(this.isMobile === true){
+      this.rows=3;
+    }else{
+      this.rows=10
+    }
+  }
+
+  
 
 
 }
