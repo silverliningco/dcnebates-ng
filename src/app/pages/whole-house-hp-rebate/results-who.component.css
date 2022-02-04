@@ -2,3 +2,21 @@
   line-height: 36px;
   margin-bottom: 1rem;
 }
+.example-margin {
+  margin: 10px 0;
+}
+
+.nkn-modal-container.nkn-open {
+  z-index: 1;
+}
+
+.nkn-modal-container .nkn-modal.nkn-large {
+  height: 800px;
+}
+
+.rc-slider {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  margin-top: 16px;
+}

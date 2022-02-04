@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 // pagination
 import {NgxPaginationModule} from 'ngx-pagination';
- 
+
 // angular material
 import { MatInputModule } from '@angular/material/input';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -20,6 +20,8 @@ import {MatTableModule} from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatSliderModule} from '@angular/material/slider';
 
 // components
 import { PagesComponent } from './pages.component';
@@ -87,7 +89,9 @@ import { SharedModModule } from '../shared/shared-mod.module';
     MatSelectModule,
     MatCheckboxModule,
     MatDividerModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSlideToggleModule,
+    MatSliderModule
   ],
   exports:[
     // angular Material
@@ -104,7 +108,9 @@ import { SharedModModule } from '../shared/shared-mod.module';
     MatRadioModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSlideToggleModule,
+    MatSliderModule
   ]
 })
 export class PagesModModule { }
