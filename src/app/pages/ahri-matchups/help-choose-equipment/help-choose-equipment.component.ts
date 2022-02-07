@@ -37,39 +37,15 @@ export class HelpChooseEquipmentComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
 
-       /*  rebate_id: [ [3] , Validators.required],
-        title: ['Mass Save Gas Heating', Validators.required],
-            
-        equipment_size: this._formBuilder.group({
-          cooling_tomsCtrl: ['', Validators.required],
-          heating_btuhCtrl: ['', Validators.required],
-        }),
-
-        energy_distribution: this._formBuilder.group({
-          methodCtrl: ['', Validators.required],
-        }),
-
-        furnace: this._formBuilder.group({
-          fuelCtrl: ['', Validators.required],
-        }),
-
-        eligibility_detail: this._formBuilder.group({
-          stateCtrl: ['', Validators.required],
-          electric_utitlity_providerCtrl: ['', Validators.required],
-          gas_oil_utilityCtrl: ['', Validators.required],
-          existen_furnace_typeCtrl: ['', Validators.required],
-          hpS_source_headCtrl: ['', Validators.required]
-        }), */
-
-        // ****************************************************************
         rebateIds: [ null, Validators.required],
 
-         /* Hardcoded for now */
+        // Hardcoded for now
          heated: true,
          cooled: true,
          storeId: 1,
          country: "US",
          utilityId: 3,
+        //  Hardcoded for now end
 
         showAllResults: [ true , Validators.required],
 
@@ -77,9 +53,7 @@ export class HelpChooseEquipmentComponent implements OnInit {
           coolingTons: [ , Validators.required],
           heatingBTUH: [ , Validators.required],
         }),
-      
-        energyDistributionMethod: ['', Validators.required],
-
+        
         fuelSource: ['', Validators.required],
 
         state: ['', Validators.required],
@@ -89,6 +63,7 @@ export class HelpChooseEquipmentComponent implements OnInit {
           gasOilUtility:  ['', Validators.required],
           existingFurnaceType:  ['', Validators.required],
           HPSoleSource: ['', Validators.required],
+          Replace_displace_fuel_type: ['', Validators.required]
         })
     });
   }

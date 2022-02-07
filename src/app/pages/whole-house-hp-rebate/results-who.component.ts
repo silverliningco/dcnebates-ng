@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
+
 // color para slider
 import {ThemePalette} from '@angular/material/core';
-// End color para slider
+
 // model
 import {AHRICombinations} from '../../models/AHRICombinations.model';
 
@@ -15,17 +16,7 @@ import {AHRICombinationService} from '../../services/AHRICombinations.service';
   styleUrls: ['./results-who.component.css']
 })
 export class ResultsWhoComponent implements OnInit {
-  // Para el color y rango del slider
-  color: ThemePalette = 'accent';
-  checked = false;
-  disabled = false;
-  formatLabel(value: number) {
-    if (value >= 1000) {
-      return Math.round(value / 1000) + 'k';
-    }
-    return value;
-  }
-  //End Para el color y rango del slider
+
   ahriCombinations: AHRICombinations[] = [];
   p: number = 1;
 
@@ -56,7 +47,16 @@ export class ResultsWhoComponent implements OnInit {
     }
   }
 
-
-
+  // Para el color y rango del slider
+  color: ThemePalette = 'accent';
+  checked = false;
+  disabled = false;
+  formatLabel(value: number) {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }
+    return value;
+  }
+  //End Para el color y rango del slider
 
 }

@@ -19,6 +19,7 @@
                   <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
               </mat-select>
             </mat-form-field>
+            
             <mat-divider class="nkn-py-small"></mat-divider>
             <mat-form-field appearance="fill"  >
               <mat-label>Inddor Unit</mat-label>
@@ -39,6 +40,7 @@
               <mat-radio-button [value]="'existing or n/a'" radioGroup="rGroup">Existing or N/A</mat-radio-button>
             </mat-radio-group>
             <mat-divider class="nkn-py-small"></mat-divider>
+
             <!-- selects -->
             <mat-form-field appearance="fill"  >
               <mat-label>Furnace</mat-label>
@@ -49,6 +51,7 @@
                   <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
               </mat-select>
             </mat-form-field>
+
             <mat-checkbox class="nkn-my-medium">Existing or Non-ECM</mat-checkbox>
             <mat-label>Fuel (If applicable)</mat-label>
             <mat-radio-group #rGroup formControlName="fuelCtrl" class="rc-radio-group">
@@ -102,6 +105,7 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
+
             <!-- radio buttons -->
             <mat-label> Existing furnace type?</mat-label>
             <mat-radio-group #rGroup formControlName="existen_furnace_typeCtrl" class="rc-radio-group">
@@ -115,6 +119,14 @@
               <mat-radio-button [value]="'no'" radioGroup="rGroup">No</mat-radio-button>
             </mat-radio-group>
 
+            <mat-label> Replace / displace fuel type?</mat-label>
+            <mat-radio-group #rGroup formControlName="Replace_displace_fuel_type" class="rc-radio-group">
+              <mat-radio-button [value]="'Natural gas'" radioGroup="rGroup">Natutal gas</mat-radio-button>
+              <mat-radio-button [value]="'Propane'" radioGroup="rGroup">Propane</mat-radio-button>
+              <mat-radio-button [value]="'Oil'" radioGroup="rGroup">Oil</mat-radio-button>
+              <mat-radio-button [value]="'Electric resistance heat'" radioGroup="rGroup">Electric resistance heat</mat-radio-button>
+            </mat-radio-group>
+
             <!-- button -->
             <div class="nkn-space-between nkn-mt-medium">
               <button type="button" mat-button matStepperPrevious>Back</button>
@@ -125,7 +137,7 @@
       </mat-step>
       <!-- Step 2 end  -->
 
-      <!-- Step 3 -->
+      <!-- Result -->
       <mat-step>
         <!-- Name of step -->
         <ng-template matStepLabel>AHRI Combination</ng-template>
@@ -211,7 +223,7 @@
           </div>
         </section>
       </mat-step>
-      <!-- Step 3 end -->
+      <!-- Result end -->
 
     </mat-stepper>
 

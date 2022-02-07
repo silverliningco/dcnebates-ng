@@ -51,7 +51,8 @@ export class KnowModelNrComponent implements OnInit {
           electric_utitlity_providerCtrl: ['', Validators.required],
           gas_oil_utilityCtrl: ['', Validators.required],
           existen_furnace_typeCtrl: ['', Validators.required],
-          hpS_source_headCtrl: ['', Validators.required]
+          hpS_source_headCtrl: ['', Validators.required],
+          Replace_displace_fuel_type: ['', Validators.required]
         }),
       
      

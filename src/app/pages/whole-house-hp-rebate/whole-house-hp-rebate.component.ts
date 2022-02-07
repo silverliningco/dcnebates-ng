@@ -27,27 +27,16 @@ export class WholeHouseHPRebateComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
 
-        /* rebate_id: [ [2] , Validators.required],
-        title: ['Mass Save Air Source HP (Whole home)', Validators.required],
-      
-        equipment_size: this._formBuilder.group({
-          manualj_heating_btuhCtrl: ['', Validators.required],
-        }),
-
-        energy_distribution: this._formBuilder.group({
-          methodCtrl: ['', Validators.required],
-        }), 
-         */
-        // **************************************************************
         rebateIds: [ [2] , Validators.required],
         
-        /* Hardcoded for now */
+        // Hardcoded for now
         heated: true,
         cooled: true,
         storeId: 1,
         country: "US",
         state:"MA",
         utilityId: 3,
+        //  Hardcoded for now end
         
         showAllResults: [ true , Validators.required],
 
@@ -55,10 +44,12 @@ export class WholeHouseHPRebateComponent implements OnInit {
           heatingBTUH: ['', Validators.required],
         }),
 
-        energyDistributionMethod: ['', Validators.required],
-
-
     });
+
+    // ************************************************************************
+    //  capturar los valores en tiemporeal
+    this.userData();
+
   }
 
 
@@ -66,15 +57,20 @@ export class WholeHouseHPRebateComponent implements OnInit {
     if (f.invalid) {
       return;
     }
-    // tranformandolo a json
     let jsonPay = JSON.stringify(f);
-
-    //console.log(jsonPay);
 
     this._ahriCombinationService.save(jsonPay)
             .subscribe( (resp:any) => {
               this.data = resp.body;
             });
   }
+
+  // funcion para capturar datos en tiempo real
+  userData(){
+    this.formGroup.get('nominalSize.heatingBTUH')?.valueChanges.subscribe( (val: any) => {
+      console.log(`heatingBTUH -> ${val}`);
+    });
+  }
+  
 
 }

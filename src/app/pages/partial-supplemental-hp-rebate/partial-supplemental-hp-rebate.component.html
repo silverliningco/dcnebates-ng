@@ -30,35 +30,8 @@
       </mat-step>
       <!-- Step 1 end  --> 
 
-      <!-- Step 2 -->
-      <mat-step  errorMessage="Energy Distrubution is required."   [stepControl]="formGroup?.get('energy_distribution')!">
-        <!-- Name of step -->
-        <ng-template matStepLabel>Energy Distrubution</ng-template>
-        <!-- Content of step -->
-        <div class="rc-content-flex rc-column">
-          <h2 class="rc-main-title">Energy Distrubution</h2>
-          <!-- User input -->
-          <div class="rc-column">
-            <!-- radio button -->
-            <mat-label>Energy Distrubution Method</mat-label>
-            <mat-radio-group #rGroup formControlName="energyDistributionMethod" class="rc-radio-group">
-              <mat-radio-button [value]="'Forced air'" radioGroup="rGroup">Central heat pumps</mat-radio-button>
-              <mat-radio-button [value]="'Mixed ducted'" radioGroup="rGroup">Mini-split ducted & Multi splits</mat-radio-button>
-              <mat-radio-button [value]="'Ductless'" radioGroup="rGroup">Mini-split heat pumps</mat-radio-button>
-            </mat-radio-group>
-
-            <!-- button -->
-            <div class="nkn-space-between nkn-mt-medium">
-              <button type="button" mat-button matStepperPrevious>Back</button>
-              <button type="button"  mat-raised-button matStepperNext color="primary">Continue</button>
-            </div>
-          </div>
-        </div>
-      </mat-step>
-      <!-- Step 2 end -->
-
       <!-- Step 3 -->
-      <mat-step  errorMessage="Furnace is required."  [stepControl]="formGroup?.get('furnace')!">
+      <mat-step *ngIf="showStep3ad4"  errorMessage="Furnace is required."  [stepControl]="formGroup?.get('furnace')!">
         <!-- Name of step -->
         <ng-template matStepLabel>Furnace</ng-template>
         <!-- Content of step -->
@@ -85,7 +58,7 @@
       <!-- Step 3 end -->
 
     <!-- Step 4 -->
-    <mat-step  errorMessage="Eligibility Detail is required." formGroupName="eligibilityDetail" [stepControl]="formGroup?.get('eligibility_detail')!">
+    <mat-step *ngIf="showStep3ad4" errorMessage="Eligibility Detail is required." formGroupName="eligibilityDetail" [stepControl]="formGroup?.get('eligibility_detail')!">
       <!-- Name of step -->
       <ng-template matStepLabel>Eligibility Details</ng-template>
       <!-- Content of step -->

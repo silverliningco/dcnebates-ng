@@ -19,6 +19,8 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
 
   data!: any;
 
+  showStep3ad4: boolean = false;
+
   constructor(
     public _ahriCombinationService: AHRICombinationService,
     private _formBuilder: FormBuilder
@@ -27,58 +29,18 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
 
-        /* rebate_id: [ [1] , Validators.required],
-        title: ['Mass Save Air Source HP (Partial home supplemental)', Validators.required],
-        
-        equipment_size: this._formBuilder.group({
-          cooling_tomsCtrl: ['', Validators.required],
-          heating_btuhCtrl: ['', Validators.required],
-        }),
-
-        energy_distribution: this._formBuilder.group({
-          methodCtrl: ['', Validators.required],
-        }),
-
-        furnace: this._formBuilder.group({
-          fuelCtrl: ['', Validators.required],
-        }),
-
-        eligibility_detail: this._formBuilder.group({
-          gas_oil_utilityCtrl: ['', Validators.required],
-          existen_furnace_typeCtrl: ['', Validators.required],
-        }), */
-      
-
-        /*http://localhost:8081/search-equipment?params=
-        {"storeId": 1,
-        "showAllResults":true,
-        "heated": true,
-        "cooled": true,
-        "energyDistributionMethod":"Forced air",
-        "fuelSource":"Natural Gas",
-        "nominalSize":{"coolingTons":null,"heatingBTUH":25000},
-        "systemDetails": {
-          "compressorStages":"1",
-          "brandedTiersMatch": false,
-          "indoorUnitConfiguration": "Multipoise",
-          "nominalCoolingTonsMatch": true
-        },
-        "eligibilityDetail":{}}
-         */
-        // ****************************************************************
         rebateIds: [ [1] , Validators.required],
 
-        /* Hardcoded for now */
+        // Hardcoded for now
         heated: true,
         cooled: true,
         storeId: 1,
         country: "US",
         state:"MA",
         utilityId: 3,
+        //  Hardcoded for now end
 
         showAllResults: [ true , Validators.required],
-
-        energyDistributionMethod: ['', Validators.required],
 
         fuelSource: ['', Validators.required],
         
@@ -91,6 +53,9 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
           existingFurnaceType: ['', Validators.required],
         }),
     });
+
+    //  capturar los valores en tiemporeal
+    this.userData();
   }
 
 
@@ -106,6 +71,20 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
             .subscribe( (resp:any) => {
               this.data = resp.body;
             });
+  }
+
+  // funcion para capturar datos en tiempo real
+  userData(){
+    this.formGroup.get('energyDistributionMethod')?.valueChanges.subscribe( (val: any) => {
+      
+      if(val === 'Forced air'){
+        this.showStep3ad4 = true;
+      }
+      else{
+        this.showStep3ad4 = false;
+      }
+      
+    });
   }
 
 
