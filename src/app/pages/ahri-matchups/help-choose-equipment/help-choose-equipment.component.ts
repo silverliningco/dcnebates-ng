@@ -17,6 +17,8 @@ export class HelpChooseEquipmentComponent implements OnInit {
 
   data!: any;
 
+  showfurnaceInfo: boolean = false;
+
   // ******* select *******
   State: Array<any> = [
     { name: 'MA', electric: ['Cape Light Compact', 'Eversource', 'National Grid', 'Unitil', 'Marblehead Municipal Light Department', 'Other'], gas: ['Berkshire Gas', 'Eversource', 'Liberty', 'National Grid', 'Unitil', 'Other'] },
@@ -66,6 +68,10 @@ export class HelpChooseEquipmentComponent implements OnInit {
           Replace_displace_fuel_type: ['', Validators.required]
         })
     });
+  
+    //  capturar los valores en tiemporeal
+    this.userData();
+  
   }
 
     
@@ -77,7 +83,7 @@ export class HelpChooseEquipmentComponent implements OnInit {
 
     console.log(jsonPay);
 
-    this._ahriCombinationService.save(jsonPay)
+    this._ahriCombinationService.search(jsonPay)
           .subscribe( (resp:any) => {
             this.data = resp.body;
           });
@@ -93,4 +99,20 @@ export class HelpChooseEquipmentComponent implements OnInit {
     this.gas = this.State.find((con: any) => con.name == count.value).gas;
   }
   // ******* select end *******
+
+
+  // funcion para capturar datos en tiempo real
+  userData(){
+    this.formGroup.get('fuelSource')?.valueChanges.subscribe( (val: any) => {
+      
+      if(val === 'Natural Gas' || val === 'Oil'){
+        this.showfurnaceInfo = true;
+      }
+      else{
+        this.showfurnaceInfo = false;
+      }
+      
+    });
+  }
+
 }

@@ -30,8 +30,8 @@
       </mat-step>
       <!-- Step 1 end  --> 
 
-      <!-- Step 3 -->
-      <mat-step *ngIf="showStep3ad4"  errorMessage="Furnace is required."  [stepControl]="formGroup?.get('furnace')!">
+      <!-- Step 2 -->
+      <mat-step  errorMessage="Furnace is required."  [stepControl]="formGroup?.get('furnace')!">
         <!-- Name of step -->
         <ng-template matStepLabel>Furnace</ng-template>
         <!-- Content of step -->
@@ -55,10 +55,10 @@
           </div>
         </div>
       </mat-step>
-      <!-- Step 3 end -->
+      <!-- Step 2 end -->
 
-    <!-- Step 4 -->
-    <mat-step *ngIf="showStep3ad4" errorMessage="Eligibility Detail is required." formGroupName="eligibilityDetail" [stepControl]="formGroup?.get('eligibility_detail')!">
+    <!-- Step 3 -->
+    <mat-step *ngIf="showfurnaceInfo" errorMessage="Eligibility Detail is required." formGroupName="eligibilityDetail" [stepControl]="formGroup?.get('eligibility_detail')!">
       <!-- Name of step -->
       <ng-template matStepLabel>Eligibility Details</ng-template>
       <!-- Content of step -->
@@ -92,7 +92,7 @@
         </div>
       </div>
     </mat-step>
-    <!-- Step 4 end  -->
+    <!-- Step 3 end  -->
 
     <!-- results -->
     <mat-step>

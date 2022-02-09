@@ -16,7 +16,7 @@ import {AHRICombinationService} from '../../services/AHRICombinations.service';
 export class WholeHouseHPRebateComponent implements OnInit {
 
   formGroup !: FormGroup ;  
-
+  productLine!: any;
   data!: any;
 
   constructor(
@@ -46,30 +46,35 @@ export class WholeHouseHPRebateComponent implements OnInit {
 
     });
 
-    // ************************************************************************
-    //  capturar los valores en tiemporeal
-    this.userData();
-
   }
 
 
-  submit(f: FormGroup) {
+  // submit info of form to endpoint product line    
+  submitForm(f: FormGroup) {
     if (f.invalid) {
       return;
     }
     let jsonPay = JSON.stringify(f);
 
-    this._ahriCombinationService.save(jsonPay)
+    this._ahriCombinationService.ProductLines(jsonPay)
             .subscribe( (resp:any) => {
-              this.data = resp.body;
+              console.log(resp.body);
+              this.productLine = resp.body;
             });
   }
 
-  // funcion para capturar datos en tiempo real
-  userData(){
-    this.formGroup.get('nominalSize.heatingBTUH')?.valueChanges.subscribe( (val: any) => {
-      console.log(`heatingBTUH -> ${val}`);
-    });
+  
+  // submint info of product line to endpoint equipment search
+  submitProductLine(f: FormGroup) {
+    if (f.invalid) {
+      return;
+    }
+    let jsonPay = JSON.stringify(f);
+
+    this._ahriCombinationService.ProductLines(jsonPay)
+            .subscribe( (resp:any) => {
+              this.data = resp.body;
+            });
   }
   
 

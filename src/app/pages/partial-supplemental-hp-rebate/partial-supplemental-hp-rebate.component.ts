@@ -19,7 +19,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
 
   data!: any;
 
-  showStep3ad4: boolean = false;
+  showfurnaceInfo: boolean = false;
 
   constructor(
     public _ahriCombinationService: AHRICombinationService,
@@ -67,7 +67,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
     let jsonPay = JSON.stringify(f);
     console.log(jsonPay);
     
-    this._ahriCombinationService.save(jsonPay)
+    this._ahriCombinationService.search(jsonPay)
             .subscribe( (resp:any) => {
               this.data = resp.body;
             });
@@ -75,13 +75,15 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
 
   // funcion para capturar datos en tiempo real
   userData(){
-    this.formGroup.get('energyDistributionMethod')?.valueChanges.subscribe( (val: any) => {
+    this.formGroup.get('fuelSource')?.valueChanges.subscribe( (val: any) => {
+
+      console.log(val);
       
-      if(val === 'Forced air'){
-        this.showStep3ad4 = true;
+      if(val === 'Natural Gas' || val === 'Oil'){
+        this.showfurnaceInfo = true;
       }
       else{
-        this.showStep3ad4 = false;
+        this.showfurnaceInfo = false;
       }
       
     });

@@ -94,21 +94,23 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="fill"  >
-              <mat-label>Gas / Oil Utility</mat-label>
-              <mat-select  #sGroup formControlName="gasOilUtility">
-                  <mat-option *ngFor ="let Gas of gas" [value]="Gas" radioGroup="sGroup">
-                    {{Gas}}
-                  </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <!-- radio buttons -->
-            <mat-label> Existing furnace type?</mat-label>
-            <mat-radio-group #rGroup formControlName="existingFurnaceType" class="rc-radio-group">
-              <mat-radio-button [value]="'Condensing'" radioGroup="rGroup">Condensing</mat-radio-button>
-              <mat-radio-button [value]="'Non-condensing'" radioGroup="rGroup">None - condensing</mat-radio-button>
-            </mat-radio-group>
+            <div *ngIf="showfurnaceInfo">
+              <mat-form-field appearance="fill"  >
+                <mat-label>Gas / Oil Utility</mat-label>
+                <mat-select  #sGroup formControlName="gasOilUtility">
+                    <mat-option *ngFor ="let Gas of gas" [value]="Gas" radioGroup="sGroup">
+                      {{Gas}}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+              <!-- radio buttons -->
+              <mat-label > Existing furnace type?</mat-label>
+              <mat-radio-group #rGroup formControlName="existingFurnaceType" class="rc-radio-group">
+                <mat-radio-button [value]="'Condensing'" radioGroup="rGroup">Condensing</mat-radio-button>
+                <mat-radio-button [value]="'Non-condensing'" radioGroup="rGroup">None - condensing</mat-radio-button>
+              </mat-radio-group>
+            </div>
 
             <mat-label> HP System is the sole source of heat?</mat-label>
             <mat-radio-group #rGroup formControlName="HPSoleSource" class="rc-radio-group">

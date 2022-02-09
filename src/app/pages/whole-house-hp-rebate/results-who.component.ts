@@ -26,6 +26,7 @@ export class ResultsWhoComponent implements OnInit {
 
   @Input('data')
     set data( data:any){
+      console.log(data);
       this.ahriCombinations = data;
     }
 
@@ -43,7 +44,7 @@ export class ResultsWhoComponent implements OnInit {
     if(this.isMobile === true){
       this.rows=3;
     }else{
-      this.rows=10
+      this.rows=10;
     }
   }
 

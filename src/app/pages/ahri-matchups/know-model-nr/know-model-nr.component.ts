@@ -67,7 +67,7 @@ export class KnowModelNrComponent implements OnInit {
     }
     let jsonPay = JSON.stringify(f);
   
-    this._ahriCombinationService.save(jsonPay)
+    this._ahriCombinationService.search(jsonPay)
           .subscribe( a => {
           });
   }
