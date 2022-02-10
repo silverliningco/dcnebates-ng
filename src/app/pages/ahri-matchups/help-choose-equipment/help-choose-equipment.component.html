@@ -1,5 +1,4 @@
-<!-- <form [formGroup]="formGroup" (ngSubmit)="submit(formGroup.value)"> -->
-<form [formGroup]="formGroup">
+<form [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup.value)">
   <mat-stepper linear #stepper>
     <!-- Step 1 -->
     <mat-step  errorMessage="Equipment Size is required" formGroupName="nominalSize" [stepControl]="formGroup?.get('equipment_size')!">
@@ -131,7 +130,7 @@
           <!-- button -->
           <div class="nkn-space-between nkn-mt-medium">
             <button type="button" mat-button matStepperPrevious>Back</button>
-            <button type="button" type="submit" (click)="submit(formGroup.value)"  mat-raised-button matStepperNext color="primary">Continue</button>
+            <button type="button" type="submit" (click)="submitForm(formGroup.value)"  mat-raised-button matStepperNext color="primary">Continue</button>
           </div>
         </div>
       </div>
@@ -143,6 +142,13 @@
       <ng-template matStepLabel>AHRI Combinations</ng-template>
 
       <h2 class="rc-main-title">AHRI Combinations</h2>
+
+      <!-- product line -->
+      <div *ngFor="let productLine of productLines; let i = index">
+        <button type="button" (click)="submitProductLine(i)" mat-raised-button matStepperNext color="primary">
+          {{productLine}}
+        </button>
+      </div>
 
         <div class="rc-table-container">
           <!-- table -->

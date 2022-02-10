@@ -17,8 +17,7 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
   // step 1 for to find a combination
    ProductLines(params: any){
 
-    let url = URL_SERVICIOS + '/product-lines?params=' + params;
-    console.log(url);
+    let url = URL_SERVICIOS + '/product-lines?params=' + params; 
 
     return this.http.get(url)
     .pipe(
@@ -32,6 +31,7 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
   search (params: any){
 
     let url = URL_SERVICIOS + '/search-equipment?params=' + params;
+    console.log(url);
 
     return this.http.get(url)
     .pipe(

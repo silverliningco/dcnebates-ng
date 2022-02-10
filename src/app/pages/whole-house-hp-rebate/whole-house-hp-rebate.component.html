@@ -32,9 +32,13 @@
         <h2 class="rc-main-title">AHRI Combinations</h2>
 
         <!-- product line -->
-        <h2>{{productLine}}</h2>
+        <div *ngFor="let productLine of productLines; let i = index">
+          <button type="button" (click)="submitProductLine(i)" mat-raised-button matStepperNext color="primary">
+            {{productLine}}
+          </button>
+        </div>
 
-        ]<!-- table -->
+        <!-- table -->
         <app-results-who  [data]="data"></app-results-who>
 
       </mat-step>
