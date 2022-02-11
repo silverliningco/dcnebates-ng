@@ -40,6 +40,7 @@ export class WholeHouseHPRebateComponent implements OnInit {
         country: "US",
         state:"MA",
         utilityId: 3,
+        eligibilityDetail: [[ { "name": "HP is sole source of heating","value": "Yes" } ]],
         //  Hardcoded for now end
         
         showAllResults: [ true , Validators.required],
@@ -63,7 +64,21 @@ export class WholeHouseHPRebateComponent implements OnInit {
 
     this._ahriCombinationService.ProductLines(jsonPay)
             .subscribe( (resp:any) => {
+              
               this.productLines = resp.body;
+
+              // cargar por defecto el primer elemento del arreglo
+              this.formInfo = this.formGroup.value;
+              this.formInfo.productLine = resp.body[0];
+              let jsonPay2 = JSON.stringify(this.formInfo); 
+              console.log(this.formInfo);
+              
+              this._ahriCombinationService.search(jsonPay2)
+                  .subscribe( (resp:any) => {
+                    console.log(resp),
+                    this.data = resp.body;
+              });
+
             });
   }
 

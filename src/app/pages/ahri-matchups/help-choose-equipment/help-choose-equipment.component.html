@@ -44,13 +44,23 @@
         <h2 class="rc-main-title">Furnace</h2>
         <!-- User input -->
         <div class="rc-column">
-          <!-- radio button -->
-          <mat-label>Furnace Fuel</mat-label>
-          <mat-radio-group #rGroup formControlName="fuelSource" class="rc-radio-group">
-            <mat-radio-button [value]="'Natural Gas'" radioGroup="rGroup">Gas</mat-radio-button>
-            <mat-radio-button [value]="'Oil'" radioGroup="rGroup">Oil</mat-radio-button>
-            <mat-radio-button [value]="'None'" radioGroup="rGroup">None</mat-radio-button>
-          </mat-radio-group>
+
+           <!-- radio button -->
+            <mat-label>Furnace</mat-label>
+            <mat-radio-group #rGroup formControlName="furnace" class="rc-radio-group">
+              <mat-radio-button [value]="'New furnace'" radioGroup="rGroup">New furnace</mat-radio-button>
+              <mat-radio-button [value]="'Existing or Non-ECM furnace'" radioGroup="rGroup">Existing or Non-ECM furnace</mat-radio-button>
+              <mat-radio-button [value]="'None'" radioGroup="rGroup">None</mat-radio-button>
+            </mat-radio-group>
+
+            <div *ngIf="showfurnaceFuel" >
+              <mat-label>Furnace Fuel</mat-label>
+              <mat-radio-group #rGroup formControlName="fuelSource" class="rc-radio-group">
+                <mat-radio-button [value]="'Natural Gas'" radioGroup="rGroup">Gas</mat-radio-button>
+                <mat-radio-button [value]="'Oil'" radioGroup="rGroup">Oil</mat-radio-button>
+                <mat-radio-button [value]="'None'" radioGroup="rGroup">None</mat-radio-button>
+              </mat-radio-group>
+            </div>
 
           <!-- button -->
           <div class="nkn-space-between nkn-mt-medium">
@@ -82,8 +92,8 @@
             </mat-select>
           </mat-form-field>
 
-          <!-- <div [stepControl]="formGroup?.get('eligibilityDetail')!"> -->
-          <div formGroupName="eligibilityDetail" class="rc-column">
+          <!-- <div formGroupName="eligibilityDetail" class="rc-column"> -->
+            <div class="rc-column">
             <mat-form-field appearance="fill">
               <mat-label>Electric Utility Provider</mat-label>
               <mat-select  #sGroup formControlName="electricUtilityProvider">

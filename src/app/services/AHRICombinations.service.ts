@@ -31,7 +31,6 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
   search (params: any){
 
     let url = URL_SERVICIOS + '/search-equipment?params=' + params;
-    console.log(url);
 
     return this.http.get(url)
     .pipe(

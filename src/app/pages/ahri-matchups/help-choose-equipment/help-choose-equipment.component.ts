@@ -22,6 +22,7 @@ export class HelpChooseEquipmentComponent implements OnInit {
   data!: any;
   selectProductLine!: any;
 
+  showfurnaceFuel: boolean = false;
   showfurnaceInfo: boolean = false;
 
   // ******* select *******
@@ -61,21 +62,26 @@ export class HelpChooseEquipmentComponent implements OnInit {
           heatingBTUH: [ , Validators.required],
         }),
         
+        furnace: ['', Validators.required],
         fuelSource: ['', Validators.required],
 
         state: ['', Validators.required],
 
-        eligibilityDetail: this._formBuilder.group({
+        //eligibilityDetail: this._formBuilder.group({
           electricUtilityProvider: ['', Validators.required],
           gasOilUtility:  ['', Validators.required],
           existingFurnaceType:  ['', Validators.required],
           HPSoleSource: ['', Validators.required],
-          Replace_displace_fuel_type: ['', Validators.required]
-        })
+          Replace_displace_fuel_type: ['', Validators.required],
+        //})
+
+        eligibilityDetail:[ [ { "name": "HP is sole source of heating","value": "No" } ]]
+
     });
   
     //  capturar los valores en tiemporeal
-    this.userData();
+    this.furnace();
+    this.fuelSource();
   
   }
 
@@ -92,6 +98,18 @@ export class HelpChooseEquipmentComponent implements OnInit {
     this._ahriCombinationService.ProductLines(jsonPay)
             .subscribe( (resp:any) => {
               this.productLines = resp.body;
+
+              // cargar por defecto el primer elemento del arreglo
+              this.formInfo = this.formGroup.value;
+              this.formInfo.productLine = resp.body[0];
+              let jsonPay2 = JSON.stringify(this.formInfo); 
+              console.log(this.formInfo);
+              
+              this._ahriCombinationService.search(jsonPay2)
+                  .subscribe( (resp:any) => {
+                    console.log(resp),
+                    this.data = resp.body;
+              });
             });
   }
 
@@ -130,20 +148,6 @@ export class HelpChooseEquipmentComponent implements OnInit {
               this.data = resp.body;
             });
   }
-    
-  /* submit(f: FormGroup){
-    if (f.invalid) {
-      return;
-    }
-    let jsonPay = JSON.stringify(f); 
-
-    console.log(jsonPay);
-
-    this._ahriCombinationService.search(jsonPay)
-          .subscribe( (resp:any) => {
-            this.data = resp.body;
-          });
-  } */
 
   
   // ******* select *******
@@ -158,7 +162,22 @@ export class HelpChooseEquipmentComponent implements OnInit {
 
 
   // funcion para capturar datos en tiempo real
-  userData(){
+  furnace(){
+    this.formGroup.get('furnace')?.valueChanges.subscribe( (val: any) => {
+
+      console.log(val);
+      
+      if(val === 'New furnace'){
+        this.showfurnaceFuel = true;
+      }
+      else{
+        this.showfurnaceFuel = false;
+      }
+      
+    });
+  }
+
+  fuelSource(){
     this.formGroup.get('fuelSource')?.valueChanges.subscribe( (val: any) => {
       
       if(val === 'Natural Gas' || val === 'Oil'){

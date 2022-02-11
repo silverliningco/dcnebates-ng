@@ -1,5 +1,6 @@
 
 <form [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup.value)">
+  
     <mat-stepper linear #stepper >
       <!-- Step 1 -->
       <mat-step  errorMessage="Equipment Size is required" formGroupName="nominalSize" [stepControl]="formGroup?.get('equipment_size')!">
@@ -39,18 +40,29 @@
           <h2 class="rc-main-title">Furnace</h2>
           <!-- User input -->
           <div class="rc-column">
+            
             <!-- radio button -->
-            <mat-label>Furnace Fuel</mat-label>
-            <mat-radio-group #rGroup formControlName="fuelSource" class="rc-radio-group">
-              <mat-radio-button [value]="'Natural Gas'" radioGroup="rGroup">Gas</mat-radio-button>
-              <mat-radio-button [value]="'Oil'" radioGroup="rGroup">Oil</mat-radio-button>
+            <mat-label>Furnace</mat-label>
+            <mat-radio-group #rGroup formControlName="furnace" class="rc-radio-group">
+              <mat-radio-button [value]="'New furnace'" radioGroup="rGroup">New furnace</mat-radio-button>
+              <mat-radio-button [value]="'Existing or Non-ECM furnace'" radioGroup="rGroup">Existing or Non-ECM furnace</mat-radio-button>
               <mat-radio-button [value]="'None'" radioGroup="rGroup">None</mat-radio-button>
             </mat-radio-group>
+
+            <div *ngIf="showfurnaceFuel" >
+              <mat-label>Furnace Fuel</mat-label>
+              <mat-radio-group #rGroup formControlName="fuelSource" class="rc-radio-group">
+                <mat-radio-button [value]="'Natural Gas'" radioGroup="rGroup">Gas</mat-radio-button>
+                <mat-radio-button [value]="'Oil'" radioGroup="rGroup">Oil</mat-radio-button>
+                <mat-radio-button [value]="'None'" radioGroup="rGroup">None</mat-radio-button>
+              </mat-radio-group>
+            </div>
 
             <!-- button -->
             <div class="nkn-space-between nkn-mt-medium">
               <button type="button" mat-button matStepperPrevious>Back</button>
-              <button type="button"  mat-raised-button matStepperNext color="primary">Continue</button>
+              <button *ngIf="showfurnaceInfo"  type="button"  mat-raised-button matStepperNext color="primary">Continue</button>
+              <button  *ngIf="submintOnlyFurnace" type="button" type="submit"  mat-raised-button matStepperNext color="primary">Continue</button>
             </div>
           </div>
         </div>
@@ -58,7 +70,8 @@
       <!-- Step 2 end -->
 
     <!-- Step 3 -->
-    <mat-step *ngIf="showfurnaceInfo" errorMessage="Eligibility Detail is required." formGroupName="eligibilityDetail" [stepControl]="formGroup?.get('eligibility_detail')!">
+    <!-- <mat-step *ngIf="showfurnaceInfo" errorMessage="Eligibility Detail is required." formGroupName="eligibilityDetail" [stepControl]="formGroup?.get('eligibility_detail')!"> -->
+      <mat-step *ngIf="showfurnaceInfo" errorMessage="Eligibility Detail is required." >
       <!-- Name of step -->
       <ng-template matStepLabel>Eligibility Details</ng-template>
       <!-- Content of step -->

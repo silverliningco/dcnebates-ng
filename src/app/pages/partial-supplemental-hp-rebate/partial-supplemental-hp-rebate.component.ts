@@ -23,7 +23,9 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   data!: any;
   selectProductLine!: any;
 
+  showfurnaceFuel: boolean = false;
   showfurnaceInfo: boolean = false;
+  submintOnlyFurnace: boolean = true;
 
   constructor(
     public _ahriCombinationService: AHRICombinationService,
@@ -45,21 +47,28 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
         //  Hardcoded for now end
 
         showAllResults: [ true , Validators.required],
-
+        furnace: ['', Validators.required],
         fuelSource: ['', Validators.required],
         
         nominalSize: this._formBuilder.group({
           coolingTons: [ , Validators.required],
           heatingBTUH: [ , Validators.required],
         }),
-        eligibilityDetail:  this._formBuilder.group({
+        // *** por el codigo sql deve de tenr una estructura name y value, no calve valor **
+        //eligibilityDetail:  this._formBuilder.group({
           gasOilUtility: ['', Validators.required],
           existingFurnaceType: ['', Validators.required],
-        }),
+        //}),
+        
+        // *** por el codigo sql deve de tenr una estructura name y value, no calve valor **
+        // seria un valor por defecto
+        eligibilityDetail:[ [ { "name": "HP is sole source of heating","value": "No" } ]]
+
     });
 
     //  capturar los valores en tiemporeal
-    this.userData();
+    this.furnace();
+    this.fuelSource();
   }
 
 
@@ -69,13 +78,25 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
       return;
     }
 
-    let jsonPay = JSON.stringify(f);    
+    let jsonPay = JSON.stringify(f);
+    console.log(this.formGroup.controls['eligibilityDetail'].value); 
 
     this._ahriCombinationService.ProductLines(jsonPay)
             .subscribe( (resp:any) => {
 
-              console.log(resp);
               this.productLines = resp.body;
+
+              // cargar por defecto el primer elemento del arreglo
+              this.formInfo = this.formGroup.value;
+              this.formInfo.productLine = resp.body[0];
+              let jsonPay2 = JSON.stringify(this.formInfo); 
+              console.log(this.formInfo);
+              
+              this._ahriCombinationService.search(jsonPay2)
+                  .subscribe( (resp:any) => {
+                    console.log(resp),
+                    this.data = resp.body;
+              });
             });
   }
 
@@ -116,32 +137,36 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
  
 
 
- 
-/* 
-  submit(f: FormGroup) {
-    if (f.invalid) {
-      return;
-    }
-    let jsonPay = JSON.stringify(f);
-    console.log(jsonPay);
-    
-    this._ahriCombinationService.search(jsonPay)
-            .subscribe( (resp:any) => {
-              this.data = resp.body;
-            });
-  } */
+  // funcion para capturar datos en tiempo real 
+  furnace(){
+    this.formGroup.get('furnace')?.valueChanges.subscribe( (val: any) => {
 
-  // funcion para capturar datos en tiempo real
-  userData(){
+      console.log(val);
+      
+      if(val === 'New furnace'){
+        this.showfurnaceFuel = true;
+        this.submintOnlyFurnace = true;
+      }
+      else{
+        this.showfurnaceFuel = false;
+      }
+      
+    });
+  }
+
+
+  fuelSource(){
     this.formGroup.get('fuelSource')?.valueChanges.subscribe( (val: any) => {
 
       console.log(val);
       
       if(val === 'Natural Gas' || val === 'Oil'){
         this.showfurnaceInfo = true;
+        this.submintOnlyFurnace = false;
       }
       else{
         this.showfurnaceInfo = false;
+        this.submintOnlyFurnace = true;
       }
       
     });
