@@ -1,7 +1,56 @@
 <form [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup.value)">
     <mat-stepper linear #stepper  >
+
       <!-- Step 1 -->
       <mat-step  errorMessage="Equipment Size is required." formGroupName="nominalSize" [stepControl]="formGroup?.get('equipment_size')!">
+        <!-- Name of step -->
+        <ng-template matStepLabel>Intro</ng-template>
+        <!-- Content of step -->
+        <div class="rc-content-flex rc-column">
+          <h2 class="rc-main-title">Intro</h2>
+          <!-- User input -->
+          <div class="rc-column">
+           
+              <!-- info for the user -->
+               <p>
+                Use this page to find HVAC systems that qualify for the 2022 Mass Save whole house HP $10,000 rebate.  
+              </p>
+
+              <p>
+                Prior to offering the rebate it’s important that you become familiar with and verify all of the eligibility requirements published by Mass Save. 
+                Requirements to qualify for the rebate include, but are not limited to:  
+              </p>
+
+              <ul>
+                <li>
+                  Valid only for residential customers in Massachusetts where the Mass Save Electric Heating and Cooling Program is offered by Cape Light Compact,
+                   Eversource, National Grid and Unitil.
+                </li>
+                <li>
+                  HP system must be sized to be the sole source of heat for the home.
+                  A complete and signed Whole Home Verification form must be submitted as part of the rebate claim. 
+                  </li>
+                <li>
+                  System replaces a pre-existing heat type of Oil, Propane, Natural Gas or Electric Resistance heating.  
+                </li>
+              </ul>
+
+              <p>View complete rebate details and requirements at:</p>
+              <a href="https://www.masssave.com/en/saving/residential-rebates/heat-pump">
+                <b style="color:#E8B12D">www.masssave.com</b>
+              </a>
+
+            <!-- button -->
+            <div class="nkn-center nkn-mt-medium">
+              <button type="submit" mat-flat-button color="primary" matStepperNext>Continue</button>
+            </div>
+          </div>
+        </div>
+      </mat-step>
+      <!-- Step 1 end  -->
+
+       <!-- Step 2 -->
+       <mat-step  errorMessage="Equipment Size is required." formGroupName="nominalSize" [stepControl]="formGroup?.get('equipment_size')!">
         <!-- Name of step -->
         <ng-template matStepLabel>Equipment Size</ng-template>
         <!-- Content of step -->
@@ -22,7 +71,7 @@
           </div>
         </div>
       </mat-step>
-      <!-- Step 1 end  -->
+      <!-- Step 2 end  -->
 
       <!-- results -->
       <mat-step>

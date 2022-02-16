@@ -9,11 +9,11 @@ import {AHRICombinationService} from '../../../services/AHRICombinations.service
 import {FormInfo} from '../../../models/formInfo.model';
 
 @Component({
-  selector: 'app-help-choose-equipment',
-  templateUrl: './help-choose-equipment.component.html',
-  styleUrls: ['./help-choose-equipment.component.css']
+  selector: 'app-cooling-only',
+  templateUrl: './cooling-only.component.html',
+  styleUrls: ['./cooling-only.component.css']
 })
-export class HelpChooseEquipmentComponent implements OnInit {
+export class CoolingOnlyComponent implements OnInit {
 
   formInfo: FormInfo = new FormInfo();
 
@@ -22,18 +22,14 @@ export class HelpChooseEquipmentComponent implements OnInit {
   data!: any;
   selectProductLine!: any;
 
-  showfurnaceFuel: boolean = false;
-  GasOilUtility: boolean = false;
-
   // ******* select *******
   State: Array<any> = [
-    { name: 'MA', electric: ['Cape Light Compact', 'Eversource', 'National Grid', 'Unitil', 'Marblehead Municipal Light Department', 'Other'], gas: ['Berkshire Gas', 'Eversource', 'Liberty', 'National Grid', 'Unitil', 'Other'] },
-    { name: 'ME', electric: ['Other'], gas: ['Other'] },
-    { name: 'NH', electric: ['Other'], gas: ['Other'] },
-    { name: 'RI', electric: ['National Grid', 'Other'], gas: ['National Grid', 'Other']  },
+    { name: 'MA', electric: ['Cape Light Compact', 'Eversource', 'National Grid', 'Unitil', 'Marblehead Municipal Light Department', 'Other']},
+    { name: 'ME', electric: ['Other']},
+    { name: 'NH', electric: ['Other']},
+    { name: 'RI', electric: ['National Grid', 'Other']},
   ];
   electric:  Array<any> = [];
-  gas:  Array<any> = [];
 
   // ******* select end *******
 
@@ -59,26 +55,13 @@ export class HelpChooseEquipmentComponent implements OnInit {
 
         nominalSize: this._formBuilder.group({
           coolingTons: [ , Validators.required],
-          heatingBTUH: [ , Validators.required],
         }),
 
-        fuelSource: ['', Validators.required],
-
         state: ['', Validators.required],
-        electricUtilityProvider: ['', Validators.required],
-        gasOilUtility:  ['', Validators.required],
-
-        HPSoleSource: ['', Validators.required],
-        existingFurnaceType:  ['', Validators.required],  
- 
-
-        eligibilityDetail:[ [ { "name": "HP is sole source of heating","value": "No" } ]]
+        electricUtilityProvider: ['', Validators.required], 
 
     });
-  
-    //  capturar los valores en tiemporeal
-    this.fuelSource();
-  
+
   }
 
 
@@ -150,26 +133,8 @@ export class HelpChooseEquipmentComponent implements OnInit {
   changeState_electric(count: any) {
     this.electric = this.State.find((con: any) => con.name == count.value).electric;
   }
-
-  changeState_gas(count: any) {
-    this.gas = this.State.find((con: any) => con.name == count.value).gas;
-  }
   // ******* select end *******
 
 
-  // funcion para capturar datos en tiempo real
-
-  fuelSource(){
-    this.formGroup.get('fuelSource')?.valueChanges.subscribe( (val: any) => {
-      
-      if(val === 'Natural Gas' || val === 'Heating Oil' || val === 'Propane'){
-        this.GasOilUtility = true;
-      }
-      else{
-        this.GasOilUtility = false;
-      }
-      
-    });
-  }
-
 }
+

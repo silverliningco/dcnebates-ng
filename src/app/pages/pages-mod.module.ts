@@ -46,6 +46,7 @@ import { ResultsWhoComponent } from './whole-house-hp-rebate/results-who.compone
 // module
 import {PagesRoutingModule} from './pages-routing.module';
 import { SharedModModule } from '../shared/shared-mod.module';
+import { CoolingOnlyComponent } from './ahri-matchups/cooling-only/cooling-only.component';
 
 
 
@@ -63,7 +64,8 @@ import { SharedModModule } from '../shared/shared-mod.module';
     DetailWhoComponent,
     ResultsHelpComponent,
     ResultsParComponent,
-    ResultsWhoComponent
+    ResultsWhoComponent,
+    CoolingOnlyComponent
   ],
   imports: [
     CommonModule,

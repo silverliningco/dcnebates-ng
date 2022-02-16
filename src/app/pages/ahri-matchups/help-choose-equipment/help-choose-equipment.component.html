@@ -35,8 +35,8 @@
     </mat-step>
     <!-- Step 1 end  -->
 
-    <!-- Step 3 -->
-    <mat-step  errorMessage="Furnace is required."  [stepControl]="formGroup?.get('furnace')!">
+    <!-- Step 2 -->
+    <mat-step  errorMessage="Furnace is required."  >
       <!-- Name of step -->
      <ng-template matStepLabel>Furnace</ng-template>
       <!-- Content of step -->
@@ -45,22 +45,14 @@
         <!-- User input -->
         <div class="rc-column">
 
-           <!-- radio button -->
-            <mat-label>Furnace</mat-label>
-            <mat-radio-group #rGroup formControlName="furnace" class="rc-radio-group">
-              <mat-radio-button [value]="'New furnace'" radioGroup="rGroup">New furnace</mat-radio-button>
-              <mat-radio-button [value]="'Existing or Non-ECM furnace'" radioGroup="rGroup">Existing or Non-ECM furnace</mat-radio-button>
+            <!-- radio button -->
+            <mat-label>Furnace Fuel</mat-label>
+            <mat-radio-group #rGroup  formControlName="fuelSource" class="rc-radio-group">
+              <mat-radio-button [value]="'Natural Gas'" radioGroup="rGroup">Natural Gas</mat-radio-button>
+              <mat-radio-button [value]="'Propane'" radioGroup="rGroup">Propane</mat-radio-button>
+              <mat-radio-button [value]="'Heating Oil'" radioGroup="rGroup">Heating Oil</mat-radio-button>
               <mat-radio-button [value]="'None'" radioGroup="rGroup">None</mat-radio-button>
             </mat-radio-group>
-
-            <div *ngIf="showfurnaceFuel" >
-              <mat-label>Furnace Fuel</mat-label>
-              <mat-radio-group #rGroup formControlName="fuelSource" class="rc-radio-group">
-                <mat-radio-button [value]="'Natural Gas'" radioGroup="rGroup">Gas</mat-radio-button>
-                <mat-radio-button [value]="'Oil'" radioGroup="rGroup">Oil</mat-radio-button>
-                <mat-radio-button [value]="'None'" radioGroup="rGroup">None</mat-radio-button>
-              </mat-radio-group>
-            </div>
 
           <!-- button -->
           <div class="nkn-space-between nkn-mt-medium">
@@ -69,6 +61,55 @@
           </div>
         </div>
      </div>
+    </mat-step>
+    <!-- Step 2 end -->
+
+    <!-- Step 3 -->
+    <mat-step  errorMessage="Location is required.">
+      <!-- Name of step -->
+      <ng-template matStepLabel> Location</ng-template>
+      <!-- Content of step -->
+      <div class="rc-content-flex rc-column">
+        <h2 class="rc-main-title">Location </h2>
+        <!-- User input -->
+        <div class="rc-column">
+          
+          <!-- selects -->
+          <mat-form-field appearance="fill">
+            <mat-label>State</mat-label>
+            <mat-select (selectionChange)="changeState_electric($event)" (selectionChange)="changeState_gas($event)"  #sGroup formControlName="state">
+                <mat-option *ngFor="let count of State" [value]="count.name" radioGroup="sGroup">
+                  {{count.name}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Electric Utility Provider</mat-label>
+              <mat-select  #sGroup formControlName="electricUtilityProvider">
+                  <mat-option *ngFor ="let elec of electric" [value]="elec" radioGroup="sGroup">
+                  {{elec}}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            
+              <mat-form-field *ngIf="GasOilUtility" appearance="fill"  >
+                <mat-label>Gas / Oil Utility</mat-label>
+                <mat-select  #sGroup formControlName="gasOilUtility">
+                    <mat-option *ngFor ="let Gas of gas" [value]="Gas" radioGroup="sGroup">
+                      {{Gas}}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+          <!-- button -->
+          <div class="nkn-space-between nkn-mt-medium">
+            <button type="button" mat-button matStepperPrevious>Back</button>
+            <button type="button"  mat-raised-button matStepperNext color="primary">Continue</button>
+          </div> 
+        </div>
+      </div>
     </mat-step>
     <!-- Step 3 end -->
 
@@ -81,61 +122,19 @@
         <h2 class="rc-main-title">Eligibility Details</h2>
         <!-- User input -->
         <div class="rc-column">
-
-          <!-- selects -->
-          <mat-form-field appearance="fill">
-            <mat-label>State</mat-label>
-            <mat-select (selectionChange)="changeState_electric($event)" (selectionChange)="changeState_gas($event)"  #sGroup formControlName="state">
-                <mat-option *ngFor="let count of State" [value]="count.name" radioGroup="sGroup">
-                  {{count.name}}
-                </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <!-- <div formGroupName="eligibilityDetail" class="rc-column"> -->
-            <div class="rc-column">
-            <mat-form-field appearance="fill">
-              <mat-label>Electric Utility Provider</mat-label>
-              <mat-select  #sGroup formControlName="electricUtilityProvider">
-                  <mat-option *ngFor ="let elec of electric" [value]="elec" radioGroup="sGroup">
-                  {{elec}}
-                  </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <div *ngIf="showfurnaceInfo">
-              <mat-form-field appearance="fill"  >
-                <mat-label>Gas / Oil Utility</mat-label>
-                <mat-select  #sGroup formControlName="gasOilUtility">
-                    <mat-option *ngFor ="let Gas of gas" [value]="Gas" radioGroup="sGroup">
-                      {{Gas}}
-                    </mat-option>
-                </mat-select>
-              </mat-form-field>
   
               <!-- radio buttons -->
-              <mat-label > Existing furnace type?</mat-label>
-              <mat-radio-group #rGroup formControlName="existingFurnaceType" class="rc-radio-group">
-                <mat-radio-button [value]="'Condensing'" radioGroup="rGroup">Condensing</mat-radio-button>
-                <mat-radio-button [value]="'Non-condensing'" radioGroup="rGroup">None - condensing</mat-radio-button>
-              </mat-radio-group>
-            </div>
-
             <mat-label> HP System is the sole source of heat?</mat-label>
             <mat-radio-group #rGroup formControlName="HPSoleSource" class="rc-radio-group">
               <mat-radio-button [value]="'Yes'" radioGroup="rGroup">Yes</mat-radio-button>
               <mat-radio-button [value]="'No'" radioGroup="rGroup">No</mat-radio-button>
             </mat-radio-group>
 
-            <mat-label> Replace / displace fuel type?</mat-label>
-            <mat-radio-group #rGroup formControlName="Replace_displace_fuel_type" class="rc-radio-group">
-              <mat-radio-button [value]="'Natural gas'" radioGroup="rGroup">Natutal gas</mat-radio-button>
-              <mat-radio-button [value]="'Propane'" radioGroup="rGroup">Propane</mat-radio-button>
-              <mat-radio-button [value]="'Oil'" radioGroup="rGroup">Oil</mat-radio-button>
-              <mat-radio-button [value]="'Electric resistance heat'" radioGroup="rGroup">Electric resistance heat</mat-radio-button>
-            </mat-radio-group>
-
-          </div>
+            <mat-label > Existing furnace type?</mat-label>
+              <mat-radio-group #rGroup formControlName="existingFurnaceType" class="rc-radio-group">
+              <mat-radio-button [value]="'Condensing'" radioGroup="rGroup">Condensing</mat-radio-button>
+              <mat-radio-button [value]="'Non-condensing'" radioGroup="rGroup">None - condensing</mat-radio-button>
+            </mat-radio-group>         
 
           <!-- button -->
           <div class="nkn-space-between nkn-mt-medium">

@@ -1,0 +1,95 @@
+<form [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup.value)">
+    <mat-stepper linear #stepper>
+      <!-- Step 1 -->
+      <mat-step  errorMessage="Equipment Size is required" formGroupName="nominalSize" [stepControl]="formGroup?.get('equipment_size')!">
+          <!-- Name of step -->
+          <ng-template matStepLabel>Equipment Size</ng-template>
+          <!-- Content of step -->
+          <div class="rc-content-flex rc-column">
+            <h2 class="rc-main-title">Equipment Size</h2>
+            <!-- User input -->
+            <div class="rc-column">
+  
+              <!-- input -->
+              <mat-form-field appearance="fill">
+                <mat-label>Cooling tons</mat-label>
+                <input type="number" matInput placeholder="Cooling tons" required type="number" required  formControlName="coolingTons" >
+              </mat-form-field>
+  
+              <!-- button -->
+              <div class="nkn-center nkn-mt-medium">
+                <button type="button" mat-flat-button color="primary"  matStepperNext>
+                  Continue
+                  <mat-icon>arrow_forward</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+      </mat-step>
+      <!-- Step 1 end  -->
+  
+      <!-- Step 2 -->
+      <mat-step  errorMessage="Location is required.">
+        <!-- Name of step -->
+        <ng-template matStepLabel> Location</ng-template>
+        <!-- Content of step -->
+        <div class="rc-content-flex rc-column">
+          <h2 class="rc-main-title">Location </h2>
+          <!-- User input -->
+          <div class="rc-column">
+            
+            <!-- selects -->
+            <mat-form-field appearance="fill">
+              <mat-label>State</mat-label>
+              <mat-select (selectionChange)="changeState_electric($event)"  #sGroup formControlName="state">
+                  <mat-option *ngFor="let count of State" [value]="count.name" radioGroup="sGroup">
+                    {{count.name}}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+              <mat-form-field appearance="fill">
+                <mat-label>Electric Utility Provider</mat-label>
+                <mat-select  #sGroup formControlName="electricUtilityProvider">
+                    <mat-option *ngFor ="let elec of electric" [value]="elec" radioGroup="sGroup">
+                    {{elec}}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+  
+            <!-- button -->
+            <div class="nkn-space-between nkn-mt-medium">
+              <button type="button" mat-button matStepperPrevious>Back</button>
+              <button type="submit"  mat-raised-button matStepperNext color="primary">Continue</button>
+            </div> 
+          </div>
+        </div>
+      </mat-step>
+      <!-- Step 2 end -->
+
+  
+      <!-- results -->
+      <mat-step >
+        <ng-template matStepLabel>AHRI Combinations</ng-template>
+  
+        <h2 class="rc-main-title">AHRI Combinations</h2>
+  
+        <!-- product line -->
+        <div *ngFor="let productLine of productLines; let i = index">
+          <button type="button" (click)="submitProductLine(i)" mat-raised-button matStepperNext color="primary">
+            {{productLine}}
+          </button>
+        </div>
+  
+          <div class="rc-table-container">
+            <!-- table -->
+            <app-results-help  [data]="data"></app-results-help>
+          </div>
+  
+      </mat-step>
+      <!-- results end -->
+  
+    </mat-stepper>
+  </form>
+  

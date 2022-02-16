@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
 
 import { AHRIMatchupsComponent } from './ahri-matchups/ahri-matchups.component';
+import {CoolingOnlyComponent} from './ahri-matchups/cooling-only/cooling-only.component';
 import { HelpChooseEquipmentComponent } from './ahri-matchups/help-choose-equipment/help-choose-equipment.component';
 import { DetailAhriComponent } from './ahri-matchups/help-choose-equipment/detail-ahri.component';
 import { KnowModelNrComponent } from './ahri-matchups/know-model-nr/know-model-nr.component';
@@ -30,6 +31,7 @@ const routes: Routes =[
       {path: 'AHRIMatchups', component: AHRIMatchupsComponent, data: {breadcrumbs: ['home','AHRI Matchups']} },
       {path: 'AHRIMatchups/HelpChoose', component: HelpChooseEquipmentComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'Help Choose']} },
       {path: 'AHRIMatchups/:skus/:ahri_refs', component: DetailAhriComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'detail']} },
+      {path: 'AHRIMatchups/CoolingOnly', component: CoolingOnlyComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'Help Choose']} },
       {path: 'AHRIMatchups/KnowModel', component: KnowModelNrComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'Know Model']} },
 
       {path: 'WholeHouseHP', component: WholeHouseHPRebateComponent, data: {breadcrumbs: ['home','Whole House HP']} },

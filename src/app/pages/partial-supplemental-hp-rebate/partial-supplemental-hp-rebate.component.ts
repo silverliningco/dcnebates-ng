@@ -23,8 +23,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   data!: any;
   selectProductLine!: any;
 
-  showfurnaceFuel: boolean = false;
-  showfurnaceInfo: boolean = false;
+  showStep4and5: boolean = false;
   submintOnlyFurnace: boolean = true;
 
   constructor(
@@ -47,39 +46,33 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
         //  Hardcoded for now end
 
         showAllResults: [ true , Validators.required],
-        furnace: ['', Validators.required],
-        fuelSource: ['', Validators.required],
         
         nominalSize: this._formBuilder.group({
           coolingTons: [ , Validators.required],
           heatingBTUH: [ , Validators.required],
         }),
-        // *** por el codigo sql deve de tenr una estructura name y value, no calve valor **
-        //eligibilityDetail:  this._formBuilder.group({
-          gasOilUtility: ['', Validators.required],
-          existingFurnaceType: ['', Validators.required],
-        //}),
-        
-        // *** por el codigo sql deve de tenr una estructura name y value, no calve valor **
-        // seria un valor por defecto
+        fuelSource: ['', Validators.required],
+        gasOilUtility: ['', Validators.required],
         eligibilityDetail:[ [ { "name": "HP is sole source of heating","value": "No" } ]]
 
     });
 
     //  capturar los valores en tiemporeal
-    this.furnace();
     this.fuelSource();
   }
 
 
   // submit info of form to endpoint product line    
   submitForm(f: FormGroup) {
+    console.log(f);
+    console.log(this.formGroup.controls['eligibilityDetail'].value); 
     if (f.invalid) {
       return;
     }
 
     let jsonPay = JSON.stringify(f);
-    console.log(this.formGroup.controls['eligibilityDetail'].value); 
+
+    console.log(jsonPay);
 
     this._ahriCombinationService.ProductLines(jsonPay)
             .subscribe( (resp:any) => {
@@ -138,39 +131,32 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
 
 
   // funcion para capturar datos en tiempo real 
-  furnace(){
-    this.formGroup.get('furnace')?.valueChanges.subscribe( (val: any) => {
-
-      console.log(val);
-      
-      if(val === 'New furnace'){
-        this.showfurnaceFuel = true;
-        this.submintOnlyFurnace = true;
-      }
-      else{
-        this.showfurnaceFuel = false;
-      }
-      
-    });
-  }
-
-
-  fuelSource(){
+   fuelSource(){
     this.formGroup.get('fuelSource')?.valueChanges.subscribe( (val: any) => {
-
-      console.log(val);
       
-      if(val === 'Natural Gas' || val === 'Oil'){
-        this.showfurnaceInfo = true;
+      if(val === 'Natural Gas' || val === 'Heating Oil' || val === 'Propane'){
+        this.showStep4and5 = true;
         this.submintOnlyFurnace = false;
       }
       else{
-        this.showfurnaceInfo = false;
+        this.showStep4and5 = false;
         this.submintOnlyFurnace = true;
       }
       
     });
   }
+
+  // prueva para cambiar de clave valor -> name value
+  EligibilityDetail(){
+    this.formGroup.get('eligibilityDetail')?.valueChanges.subscribe( (val: any) => {
+
+      if (val === 'Condensing') {
+       this.formInfo.eligibilityDetail = [ { "name": "HP is sole source of heating","value": "Yes" } ]
+      } else {
+        this.formInfo.eligibilityDetail = [ { "name": "HP is sole source of heating","value": "No" } ]
+      }
+    });
+  }  
 
 
 }
