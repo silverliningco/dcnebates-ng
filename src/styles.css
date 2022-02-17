@@ -284,5 +284,8 @@ tbody tr:hover {
 }
 /*End general styles of each view*/
 
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
 
 

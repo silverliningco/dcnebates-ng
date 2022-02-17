@@ -11,6 +11,6 @@ export class FormInfo {
         public fuelSource?: string,
         public nominalSize?: any,
         public eligibilityDetail?: any,
-        public productLine?: string
+        public productLine?: number
     ) {}
 }

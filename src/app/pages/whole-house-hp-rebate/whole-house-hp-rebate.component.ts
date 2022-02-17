@@ -31,7 +31,7 @@ export class WholeHouseHPRebateComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
 
-        rebateIds: [ [2] , Validators.required],
+        //rebateIds: [ [2] , Validators.required],
         
         // Hardcoded for now
         heated: true,
@@ -40,6 +40,7 @@ export class WholeHouseHPRebateComponent implements OnInit {
         country: "US",
         state:"MA",
         utilityId: 3,
+    
         eligibilityDetail: [[ { "name": "HP is sole source of heating","value": "Yes" } ]],
         //  Hardcoded for now end
         
@@ -84,47 +85,14 @@ export class WholeHouseHPRebateComponent implements OnInit {
 
   
   // submint info of product line to endpoint equipment search
-  submitProductLine(index: number) {
-
-    // verificar que funcione bien cuando varie el numero de datos que se resiven
-    //console.log(index)
-    switch(index){
-      case 0:
-        this.selectProductLine = this.productLines[0];
-        //console.log(this.selectProductLine);
-        break;
-      case 1:
-        this.selectProductLine = this.productLines[1];
-        //console.log(this.selectProductLine);
-        break;
-      case 2:
-        this.selectProductLine = this.productLines[2];
-        //console.log(this.selectProductLine);
-        break;
-      case 3:
-        this.selectProductLine = this.productLines[3];
-        //console.log(this.selectProductLine);
-        break;
-      case 4:
-        this.selectProductLine = this.productLines[4];
-        //console.log(this.selectProductLine);
-        break;
-    }
-
-    /* nota: falta implementar los casos:
-    1. la primera ves-> el valor de product line deve de enviarse con el primer valor del array
-    2. el resto de veces -> debe de enviarse el product line con el valor que corresponda al boton que se haga click */
-
+  submitProductLine(id: number) {
     // payload 
     this.formInfo = this.formGroup.value;
-    this.formInfo.productLine = this.selectProductLine;
-    console.log(this.formInfo);
+    this.formInfo.productLine = id;
     let jsonPay = JSON.stringify(this.formInfo); 
     
     this._ahriCombinationService.search(jsonPay)
             .subscribe( (resp:any) => {
-
-              console.log(resp),
               this.data = resp.body;
             });
   }
