@@ -70,7 +70,7 @@ export class WholeHouseHPRebateComponent implements OnInit {
 
               // cargar por defecto el primer elemento del arreglo
               this.formInfo = this.formGroup.value;
-              this.formInfo.productLine = resp.body[0];
+              this.formInfo.productLine = resp.body[0].cc_system_definition_id;
               let jsonPay2 = JSON.stringify(this.formInfo); 
               console.log(this.formInfo);
               
