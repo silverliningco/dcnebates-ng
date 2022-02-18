@@ -36,5 +36,204 @@
 </table>
 <!-- table end -->
 
+
+
 <!-- pagination -->
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
+<div class="nkn-text-right">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+<!-- End pagination -->
+
+
+
+<!-- Modal filters -->
+<div class="nkn-modal-container">
+    <div id="modal1" class="nkn-modal nkn-large">
+
+        <!-- modal-heading -->
+        <div class="nkn-modal-heading">
+          FILTER
+            <div class="nkn-icon-close" data-nkn-role="close-modal">
+                <!--svg class="nkn-icon">
+                    <use xlink:href="/nkn/icons/sprites/icons.svg#close-icon"></use>
+                </svg -->
+                <mat-icon>close</mat-icon>
+            </div>
+        </div>
+
+
+        <div class="nkn-modal-content">
+          <div class="nkn-row-padding">
+
+            <!-- column  1 -->
+            <div class="nkn-col-m6">
+              <div class="rc-column">
+
+                <!-- Brand -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Brand</mat-label>
+                  <mat-select>
+                    <mat-option value="option1">Option 1</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- Indoor -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Indoor unit stages</mat-label>
+                  <mat-select>
+                    <mat-option value="option1">Option 1</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- Outdoor -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Outdoor unit stages</mat-label>
+                  <mat-select>
+                    <mat-option value="option1">Option 1</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- Phase -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Phase</mat-label>
+                  <mat-select>
+                    <mat-option value="option1">Option 1</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- SEER -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Minimum SEER</mat-label>
+                  <input type="number" matInput placeholder="Minimum SEER">
+                </mat-form-field>
+
+                <!-- EER -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Minimum EER</mat-label>
+                  <input type="number" matInput placeholder="Minimum EER">
+                </mat-form-field>
+
+                <!-- HSPF -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Minimum HSPF</mat-label>
+                  <input type="number" matInput placeholder="Minimum HSPF">
+                </mat-form-field>
+
+                <!-- AFUE -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Minimum AFUE</mat-label>
+                  <input type="number" matInput placeholder="Minimum AFUE">
+                </mat-form-field>
+
+              </div>
+            </div>
+            <!-- column 1 end -->
+
+            <!-- column 2 -->
+            <div class="nkn-col-m6">
+              <div class="rc-column">
+
+                <!--  piping length -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Max piping length</mat-label>
+                  <input type="number" matInput placeholder="Max piping length">
+                </mat-form-field>
+
+                <!-- Supports zoning -->
+                <mat-slide-toggle
+                  class="example-margin"
+                  [color]="color"
+                  [checked]="checked"
+                  [disabled]="disabled">
+                  Supports zoning
+                </mat-slide-toggle>
+
+                <!-- Coil and furnace are flush -->
+                <mat-slide-toggle
+                  class="example-margin"
+                  [color]="color"
+                  [checked]="checked"
+                  [disabled]="disabled">
+                  Coil and furnace are flush
+                </mat-slide-toggle>
+
+                <!-- Nominal tons -->
+                <mat-slide-toggle
+                  class="example-margin"
+                  [color]="color"
+                  [checked]="checked"
+                  [disabled]="disabled">
+                  Nominal tons match
+                </mat-slide-toggle>
+
+                <!-- ductless zones -->
+                <div class="rc-slider">
+                  <mat-label>Max nr. Of ductless zones</mat-label>
+                  <mat-slider
+                    thumbLabel
+                    [displayWith]="formatLabel"
+                    tickInterval="1000"
+                    step="1000"
+                    min="0"
+                    max="100000"
+                    aria-label="units">
+                  </mat-slider>
+                </div>
+
+                <!-- Stack height -->
+                <div class="rc-slider">
+                  <mat-label>Stack height</mat-label>
+                  <mat-slider
+                    thumbLabel
+                    [displayWith]="formatLabel"
+                    tickInterval="1000"
+                    step="1000"
+                    min="0"
+                    max="100000"
+                    aria-label="units">
+                  </mat-slider>
+                </div>
+
+                <!-- sound level -->
+                <div class="rc-slider">
+                  <mat-label>Max sound level</mat-label>
+                  <mat-slider
+                    thumbLabel
+                    [displayWith]="formatLabel"
+                    tickInterval="1000"
+                    step="1000"
+                    min="0"
+                    max="100000"
+                    aria-label="units">
+                  </mat-slider>
+                </div>
+
+                <!-- Breaker size -->
+                <div class="rc-slider">
+                  <mat-label>Breaker size</mat-label>
+                  <mat-slider
+                    thumbLabel
+                    [displayWith]="formatLabel"
+                    tickInterval="1000"
+                    step="1000"
+                    min="0"
+                    max="100000"
+                    aria-label="units">
+                  </mat-slider>
+                </div>
+
+              </div>
+            </div>
+            <!-- column 2 end -->
+
+          </div>
+        </div>
+
+        <!-- button Close  -->
+        <div class="nkn-modal-footer nkn-text-right">
+          <button type="button" mat-stroked-button color="primary" data-nkn-role="close-modal">Close</button>
+        </div>
+
+    </div>
+</div>
+<!-- End Modal filters -->

@@ -6,6 +6,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {AHRICombinationService} from '../../services/AHRICombinations.service';
 // model
 import {FormInfo} from '../../models/formInfo.model';
+import {ProductLine} from '../../models/productLine.model';
 
 @Component({
   selector: 'app-whole-house-hp-rebate',
@@ -17,11 +18,11 @@ import {FormInfo} from '../../models/formInfo.model';
 export class WholeHouseHPRebateComponent implements OnInit {
 
   formInfo: FormInfo = new FormInfo();
-
+  productLines!: ProductLine[];
+  
   formGroup !: FormGroup ;  
-  productLines!: any;
   data!: any;
-  selectProductLine!: any;
+  
 
   constructor(
     public _ahriCombinationService: AHRICombinationService,
@@ -60,22 +61,24 @@ export class WholeHouseHPRebateComponent implements OnInit {
       return;
     }
 
-    let jsonPay = JSON.stringify(f);    
+    let jsonPay = JSON.stringify(f); 
 
     this._ahriCombinationService.ProductLines(jsonPay)
             .subscribe( (resp:any) => {
               
               this.productLines = resp.body;
+              console.log(this.productLines);
 
-              // cargar por defecto el primer elemento del arreglo
+              // load by default the first element of the array
               this.formInfo = this.formGroup.value;
-              this.formInfo.productLine = resp.body[0];
+              this.formInfo.productLine = resp.body[0].cc_system_definition_id;
               let jsonPay2 = JSON.stringify(this.formInfo); 
-              console.log(this.formInfo);
+
+              console.log(jsonPay2);
               
               this._ahriCombinationService.search(jsonPay2)
                   .subscribe( (resp:any) => {
-                    console.log(resp),
+                    console.log(resp);
                     this.data = resp.body;
               });
 
@@ -84,47 +87,19 @@ export class WholeHouseHPRebateComponent implements OnInit {
 
   
   // submint info of product line to endpoint equipment search
-  submitProductLine(index: number) {
+  submitProductLine(id: any) {
 
-    // verificar que funcione bien cuando varie el numero de datos que se resiven
-    //console.log(index)
-    switch(index){
-      case 0:
-        this.selectProductLine = this.productLines[0];
-        //console.log(this.selectProductLine);
-        break;
-      case 1:
-        this.selectProductLine = this.productLines[1];
-        //console.log(this.selectProductLine);
-        break;
-      case 2:
-        this.selectProductLine = this.productLines[2];
-        //console.log(this.selectProductLine);
-        break;
-      case 3:
-        this.selectProductLine = this.productLines[3];
-        //console.log(this.selectProductLine);
-        break;
-      case 4:
-        this.selectProductLine = this.productLines[4];
-        //console.log(this.selectProductLine);
-        break;
-    }
+    console.log(id);
 
-    /* nota: falta implementar los casos:
-    1. la primera ves-> el valor de product line deve de enviarse con el primer valor del array
-    2. el resto de veces -> debe de enviarse el product line con el valor que corresponda al boton que se haga click */
-
-    // payload 
     this.formInfo = this.formGroup.value;
-    this.formInfo.productLine = this.selectProductLine;
-    console.log(this.formInfo);
+    this.formInfo.productLine = id;
     let jsonPay = JSON.stringify(this.formInfo); 
+
+    console.log(jsonPay);
     
     this._ahriCombinationService.search(jsonPay)
             .subscribe( (resp:any) => {
-
-              console.log(resp),
+              console.log(resp);
               this.data = resp.body;
             });
   }

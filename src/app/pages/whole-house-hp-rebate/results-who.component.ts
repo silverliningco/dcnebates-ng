@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
-// color para slider
+// modal color para slider
 import {ThemePalette} from '@angular/material/core';
 
 // model
@@ -26,7 +26,7 @@ export class ResultsWhoComponent implements OnInit {
 
   @Input('data')
     set data( data:any){
-      console.log(data);
+      //console.log(data);
       this.ahriCombinations = data;
     }
 
@@ -48,7 +48,7 @@ export class ResultsWhoComponent implements OnInit {
     }
   }
 
-  // Para el color y rango del slider
+  // MODAL For slider color and range
   color: ThemePalette = 'accent';
   checked = false;
   disabled = false;
@@ -58,6 +58,6 @@ export class ResultsWhoComponent implements OnInit {
     }
     return value;
   }
-  //End Para el color y rango del slider
+  // MODAL end
 
 }

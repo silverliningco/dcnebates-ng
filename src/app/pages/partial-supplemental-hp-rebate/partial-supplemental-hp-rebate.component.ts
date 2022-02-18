@@ -23,6 +23,8 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   data!: any;
   selectProductLine!: any;
 
+  EligibilityDetailStructure!: any;
+
   showStep4and5: boolean = false;
   submintOnlyFurnace: boolean = true;
 
@@ -59,20 +61,19 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
 
     //  capturar los valores en tiemporeal
     this.fuelSource();
+    this.EligibilityDetailNewStructure();
   }
 
 
   // submit info of form to endpoint product line    
   submitForm(f: FormGroup) {
-    console.log(f);
-    console.log(this.formGroup.controls['eligibilityDetail'].value); 
     if (f.invalid) {
       return;
     }
-
-    let jsonPay = JSON.stringify(f);
-
-    console.log(jsonPay);
+    
+    this.formInfo = this.formGroup.value;
+    this.formInfo.eligibilityDetail = this.EligibilityDetailStructure;
+    let jsonPay = JSON.stringify(this.formInfo); 
 
     this._ahriCombinationService.ProductLines(jsonPay)
             .subscribe( (resp:any) => {
@@ -127,8 +128,6 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
               this.data = resp.body;
             });
   }
- 
-
 
   // funcion para capturar datos en tiempo real 
    fuelSource(){
@@ -147,13 +146,13 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   }
 
   // prueva para cambiar de clave valor -> name value
-  EligibilityDetail(){
+  EligibilityDetailNewStructure(){
     this.formGroup.get('eligibilityDetail')?.valueChanges.subscribe( (val: any) => {
 
       if (val === 'Condensing') {
-       this.formInfo.eligibilityDetail = [ { "name": "HP is sole source of heating","value": "Yes" } ]
+       this.EligibilityDetailStructure = [ { "name": "Condensing","value": "Condensing" } ];
       } else {
-        this.formInfo.eligibilityDetail = [ { "name": "HP is sole source of heating","value": "No" } ]
+        this.EligibilityDetailStructure = [ { "name": "Non-condensing", "value": "Non-condensing" } ];
       }
     });
   }  
