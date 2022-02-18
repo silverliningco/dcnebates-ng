@@ -80,18 +80,10 @@
 
         <h2 class="rc-main-title">AHRI Combinations</h2>
 
+        <!-- product line -->
         <mat-radio-group aria-label="Select an option" class="example-radio-group">
-          <mat-radio-button *ngFor="let productLine of productLines; let i = index" 
-                            [checked]="(i === 0)" 
-                            [value]="productLine.cc_system_definition_id" 
-                            (click)="submitProductLine(productLine.cc_system_definition_id)">
-
-           {{productLine.title}}
-           
-          </mat-radio-button>
+          <mat-radio-button *ngFor="let productLine of productLines; let idx = index" [checked]="(idx === 0)" [value]="productLine.cc_system_definition_id" (click)="submitProductLine(productLine.cc_system_definition_id)"> {{productLine.title}}</mat-radio-button>
         </mat-radio-group>
-
-
 
         <!-- table -->
         <app-results-who  [data]="data"></app-results-who>
