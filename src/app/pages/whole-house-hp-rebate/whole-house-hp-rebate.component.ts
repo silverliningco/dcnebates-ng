@@ -6,7 +6,6 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {AHRICombinationService} from '../../services/AHRICombinations.service';
 // model
 import {FormInfo} from '../../models/formInfo.model';
-import {ProductLine} from '../../models/productLine.model';
 
 @Component({
   selector: 'app-whole-house-hp-rebate',
@@ -18,8 +17,8 @@ import {ProductLine} from '../../models/productLine.model';
 export class WholeHouseHPRebateComponent implements OnInit {
 
   formInfo: FormInfo = new FormInfo();
-  productLines!: ProductLine[];
-  
+
+  productLines!: any;  
   formGroup !: FormGroup ;  
   data!: any;
   
@@ -87,28 +86,16 @@ export class WholeHouseHPRebateComponent implements OnInit {
   }
 
   
-  // submint info of product line to endpoint equipment search
-<<<<<<< HEAD
-  submitProductLine(id: any) {
-
-    console.log(id);
-
-=======
-  submitProductLine(id: number) {
+   // submint info of product line to endpoint equipment search
+   submitProductLine(id: number) {
     // payload 
->>>>>>> 6ea2c511a2f18b94e05d390f9dd719566f0b0d94
     this.formInfo = this.formGroup.value;
     this.formInfo.productLine = id;
     let jsonPay = JSON.stringify(this.formInfo); 
-
-    console.log(jsonPay);
+    console.log(this.formInfo);
     
     this._ahriCombinationService.search(jsonPay)
             .subscribe( (resp:any) => {
-<<<<<<< HEAD
-              console.log(resp);
-=======
->>>>>>> 6ea2c511a2f18b94e05d390f9dd719566f0b0d94
               this.data = resp.body;
             });
   }

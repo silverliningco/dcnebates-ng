@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
+// modal color para slider
+import {ThemePalette} from '@angular/material/core';
+
 // model
 import {AHRICombinations} from '../../../models/AHRICombinations.model';
 
@@ -44,6 +47,19 @@ export class ResultsHelpComponent implements OnInit {
         this.rows=10
       }
     }
+
+
+    // MODAL For slider color and range
+  color: ThemePalette = 'accent';
+  checked = false;
+  disabled = false;
+  formatLabel(value: number) {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }
+    return value;
+  }
+  // MODAL end
 
 
 

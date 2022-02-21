@@ -111,40 +111,18 @@ export class HelpChooseEquipmentComponent implements OnInit {
 
 
   // submint info of product line to endpoint equipment search
-  submitProductLine(index: number) {
-
-    switch(index){
-      case 0:
-        this.selectProductLine = this.productLines[0];
-        break;
-      case 1:
-        this.selectProductLine = this.productLines[1];
-        break;
-      case 2:
-        this.selectProductLine = this.productLines[2];
-        break;
-      case 3:
-        this.selectProductLine = this.productLines[3];
-        break;
-      case 4:
-        this.selectProductLine = this.productLines[4];
-        break;
-    }
-
+  submitProductLine(id: number) {
     // payload 
     this.formInfo = this.formGroup.value;
-    this.formInfo.productLine = this.selectProductLine;
-    console.log(this.formInfo);
+    this.formInfo.productLine = id;
     let jsonPay = JSON.stringify(this.formInfo); 
+    console.log(this.formInfo);
     
     this._ahriCombinationService.search(jsonPay)
             .subscribe( (resp:any) => {
-
-              console.log(resp),
               this.data = resp.body;
             });
   }
-
   
   // ******* select *******
   changeState_electric(count: any) {
