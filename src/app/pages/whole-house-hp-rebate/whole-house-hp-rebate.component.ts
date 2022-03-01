@@ -41,7 +41,7 @@ export class WholeHouseHPRebateComponent implements OnInit {
         state:"MA",
         utilityId: 3,
     
-        eligibilityDetail: [[ { "name": "HP is sole source of heating","value": "Yes" } ]],
+        //eligibilityDetail: [[ { "name": "HP is sole source of heating","value": "Yes" } ]],
         //  Hardcoded for now end
         
         showAllResults: [ true , Validators.required],
@@ -67,18 +67,17 @@ export class WholeHouseHPRebateComponent implements OnInit {
             .subscribe( (resp:any) => {
               
               this.productLines = resp.body;
-              console.log(this.productLines);
+
+          
 
               // load by default the first element of the array
               this.formInfo = this.formGroup.value;
               this.formInfo.productLine = resp.body[0].cc_system_definition_id;
               let jsonPay2 = JSON.stringify(this.formInfo); 
-
-              console.log(jsonPay2);
               
               this._ahriCombinationService.search(jsonPay2)
                   .subscribe( (resp:any) => {
-                    console.log(resp);
+                    
                     this.data = resp.body;
               });
 
@@ -92,7 +91,6 @@ export class WholeHouseHPRebateComponent implements OnInit {
     this.formInfo = this.formGroup.value;
     this.formInfo.productLine = id;
     let jsonPay = JSON.stringify(this.formInfo); 
-    console.log(this.formInfo);
     
     this._ahriCombinationService.search(jsonPay)
             .subscribe( (resp:any) => {

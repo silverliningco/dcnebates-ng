@@ -11,11 +11,11 @@ import {AHRICombinations} from '../../../models/AHRICombinations.model';
 import {AHRICombinationService} from '../../../services/AHRICombinations.service';
 
 @Component({
-  selector: 'app-results-help',
-  templateUrl: './results-help.component.html',
-  styleUrls: ['./results-help.component.css']
+  selector: 'app-results-hc',
+  templateUrl: './results-hc.component.html',
+  styleUrls: ['./results-hc.component.css']
 })
-export class ResultsHelpComponent implements OnInit {
+export class ResultsHCComponent implements OnInit {
 
   ahriCombinations: AHRICombinations[] = [];
   p: number =1;
@@ -49,7 +49,7 @@ export class ResultsHelpComponent implements OnInit {
     }
 
 
-    // MODAL For slider color and range
+  // MODAL For slider color and range
   color: ThemePalette = 'accent';
   checked = false;
   disabled = false;

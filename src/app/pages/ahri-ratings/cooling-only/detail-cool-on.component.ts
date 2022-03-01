@@ -6,12 +6,12 @@ import {AHRICombinationService} from '../../../services/AHRICombinations.service
 
 
 @Component({
-  selector: 'app-detail-ahri',
-  templateUrl: './detail-ahri.component.html',
-  styleUrls: ['./detail-ahri.component.css']
+  selector: 'app-detail-cool-on',
+  templateUrl: './detail-cool-on.component.html',
+  styleUrls: ['./detail-cool-on.component.css']
 })
-export class DetailAhriComponent implements OnInit {
-  
+export class DetailCoolOnComponent implements OnInit {
+
   detail!:any;
   url !:any;
 

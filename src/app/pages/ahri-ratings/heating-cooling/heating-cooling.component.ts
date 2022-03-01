@@ -7,13 +7,14 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {AHRICombinationService} from '../../../services/AHRICombinations.service';
 // model
 import {FormInfo} from '../../../models/formInfo.model';
+import { retry } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-help-choose-equipment',
-  templateUrl: './help-choose-equipment.component.html',
-  styleUrls: ['./help-choose-equipment.component.css']
+  selector: 'app-heating-cooling',
+  templateUrl: './heating-cooling.component.html',
+  styleUrls: ['./heating-cooling.component.css']
 })
-export class HelpChooseEquipmentComponent implements OnInit {
+export class HeatingCoolingComponent implements OnInit {
 
   formInfo: FormInfo = new FormInfo();
 
@@ -68,16 +69,19 @@ export class HelpChooseEquipmentComponent implements OnInit {
         electricUtilityProvider: ['', Validators.required],
         gasOilUtility:  ['', Validators.required],
 
-        HPSoleSource: ['', Validators.required],
-        existingFurnaceType:  ['', Validators.required],  
- 
+        eligibilityDetail:[ [ { "name": "HP is sole source of heating","value": "No" } ]],
 
-        eligibilityDetail:[ [ { "name": "HP is sole source of heating","value": "No" } ]]
+        //eligibilityDetail: this._formBuilder.group({
+          preExistingHeatingType: ['', Validators.required],
+          HPSoleSource: ['', Validators.required],
+          existingFurnaceType: ['', Validators.required],
+        //}),
 
     });
   
     //  capturar los valores en tiemporeal
     this.fuelSource();
+    this.getUtility(this.furnaceFuel(), this.state());
   
   }
 
@@ -134,6 +138,32 @@ export class HelpChooseEquipmentComponent implements OnInit {
   }
   // ******* select end *******
 
+  // get furnce fuel
+  furnaceFuel(){
+    this.formGroup.get('fuelSource')?.valueChanges.subscribe( (runFuel: any) => {
+      console.log(runFuel);  
+      return runFuel;
+    });
+  }
+
+  // get state
+  state(){
+    this.formGroup.get('fuelSource')?.valueChanges.subscribe( (runFuel: any) => {
+      console.log(runFuel);
+      return runFuel
+    });
+  }
+
+  // get utilities
+  getUtility(fuel: any, state: any){
+    // call service
+    this._ahriCombinationService.getUtilities(fuel, state)
+          .subscribe((resp:any) => {
+            console.log(resp);
+          });
+    
+
+  }
 
   // funcion para capturar datos en tiempo real
 
@@ -149,5 +179,7 @@ export class HelpChooseEquipmentComponent implements OnInit {
       
     });
   }
+
+
 
 }

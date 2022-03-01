@@ -25,30 +25,30 @@ import {MatSliderModule} from '@angular/material/slider';
 
 // components
 import { PagesComponent } from './pages.component';
-import { AHRIMatchupsComponent } from './ahri-matchups/ahri-matchups.component';
+import { AHRIMatchupsComponent } from './ahri-ratings/ahri-matchups.component';
 import { WholeHouseHPRebateComponent } from './whole-house-hp-rebate/whole-house-hp-rebate.component';
 import { PartialSupplementalHPRebateComponent } from './partial-supplemental-hp-rebate/partial-supplemental-hp-rebate.component';
 import { HomeComponent } from './home/home.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
-import { HelpChooseEquipmentComponent } from './ahri-matchups/help-choose-equipment/help-choose-equipment.component';
-import { KnowModelNrComponent } from './ahri-matchups/know-model-nr/know-model-nr.component';
+import { HeatingCoolingComponent } from './ahri-ratings/heating-cooling/heating-cooling.component';
+import { KnowModelNrComponent } from './ahri-ratings/know-model-nr/know-model-nr.component';
 
-import { DetailAhriComponent } from './ahri-matchups/help-choose-equipment/detail-ahri.component';
+import { DetailHCComponent } from './ahri-ratings/heating-cooling/detail-hc.component';
 import { DetailParComponent } from './partial-supplemental-hp-rebate/detail-par.component';
 import { DetailWhoComponent } from './whole-house-hp-rebate/detail-who.component';
 
-import { ResultsHelpComponent } from './ahri-matchups/help-choose-equipment/results-help.component';
+import { ResultsHCComponent } from './ahri-ratings/heating-cooling/results-hc.component';
 import { ResultsParComponent } from './partial-supplemental-hp-rebate/results-par.component';
 import { ResultsWhoComponent } from './whole-house-hp-rebate/results-who.component';
 
 // module
 import {PagesRoutingModule} from './pages-routing.module';
 import { SharedModModule } from '../shared/shared-mod.module';
-import { CoolingOnlyComponent } from './ahri-matchups/cooling-only/cooling-only.component';
-import { ResultsCoolOnComponent } from './ahri-matchups/cooling-only/results-cool-on.component';
-import { DetailCoolOnComponent } from './ahri-matchups/cooling-only/detail-cool-on.component';
+import { CoolingOnlyComponent } from './ahri-ratings/cooling-only/cooling-only.component';
+import { ResultsCoolOnComponent } from './ahri-ratings/cooling-only/results-cool-on.component';
+import { DetailCoolOnComponent } from './ahri-ratings/cooling-only/detail-cool-on.component';
 
 
 
@@ -59,12 +59,12 @@ import { DetailCoolOnComponent } from './ahri-matchups/cooling-only/detail-cool-
     WholeHouseHPRebateComponent,
     PartialSupplementalHPRebateComponent,
     HomeComponent,
-    HelpChooseEquipmentComponent,
+    HeatingCoolingComponent,
     KnowModelNrComponent,
-    DetailAhriComponent,
+    DetailHCComponent,
     DetailParComponent,
     DetailWhoComponent,
-    ResultsHelpComponent,
+    ResultsHCComponent,
     ResultsParComponent,
     ResultsWhoComponent,
     CoolingOnlyComponent,

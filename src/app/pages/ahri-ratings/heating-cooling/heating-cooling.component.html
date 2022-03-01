@@ -85,7 +85,7 @@
           </mat-form-field>
 
             <mat-form-field appearance="fill">
-              <mat-label>Electric Utility Provider</mat-label>
+              <mat-label>Electric Utility</mat-label>
               <mat-select  #sGroup formControlName="electricUtilityProvider">
                   <mat-option *ngFor ="let elec of electric" [value]="elec" radioGroup="sGroup">
                   {{elec}}
@@ -114,7 +114,8 @@
     <!-- Step 3 end -->
 
     <!-- Step 4 -->
-    <mat-step  errorMessage="Eligibility Detail is required.">
+    <!-- <mat-step formGroupName="eligibilityDetail"  errorMessage="Eligibility Detail is required."> -->
+      <mat-step errorMessage="Eligibility Detail is required.">  
       <!-- Name of step -->
       <ng-template matStepLabel>Eligibility Details</ng-template>
       <!-- Content of step -->
@@ -122,7 +123,16 @@
         <h2 class="rc-main-title">Eligibility Details</h2>
         <!-- User input -->
         <div class="rc-column">
-  
+
+             <!-- radio button -->
+             <mat-label>Pre-existing heating type</mat-label>
+             <mat-radio-group #rGroup  formControlName="preExistingHeatingType" class="rc-radio-group">
+               <mat-radio-button [value]="'Natural Gas'" radioGroup="rGroup">Natural Gas</mat-radio-button>
+               <mat-radio-button [value]="'Propane'" radioGroup="rGroup">Propane</mat-radio-button>
+               <mat-radio-button [value]="'Heating Oil'" radioGroup="rGroup">Heating Oil</mat-radio-button>
+               <mat-radio-button [value]="'Resistance heat'" radioGroup="rGroup">Resistance heat</mat-radio-button>
+             </mat-radio-group>
+
               <!-- radio buttons -->
             <mat-label> HP System is the sole source of heat?</mat-label>
             <mat-radio-group #rGroup formControlName="HPSoleSource" class="rc-radio-group">
@@ -159,7 +169,7 @@
 
         <div class="rc-table-container">
           <!-- table -->
-          <app-results-help  [data]="data"></app-results-help>
+          <app-results-hc  [data]="data"></app-results-hc>
         </div>
 
     </mat-step>

@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators'; 
 
 import {URL_SERVICIOS}  from '../config/config';
-import {AHRICombinations}  from '../models/AHRICombinations.model';
+
+
 
 @Injectable({
     providedIn: 'root'
@@ -11,8 +12,8 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
   export class AHRICombinationService {
 
     constructor(
-    public http: HttpClient
-  ) { } 
+      public http: HttpClient
+    ) { } 
 
   // step 1 for to find a combination
    ProductLines(params: any){
@@ -22,7 +23,7 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
     return this.http.get(url)
     .pipe(
         map((resp: any) => {
-          return resp;
+          return resp ;
         })
     )
   }
@@ -43,7 +44,7 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
   // step 3 to find a combination
   getResultDetail(skus: any, ahri_refs: any){
 
-    let url = URL_SERVICIOS + '/view-detail?skus='+ skus + '&ahri_refs=' + ahri_refs;
+    let url = URL_SERVICIOS + '/view-detail?skus='+ skus + '&ahri_refs=' + ahri_refs + '&params=' ;
 
     return this.http.get(url)
     .pipe(
@@ -51,6 +52,23 @@ import {AHRICombinations}  from '../models/AHRICombinations.model';
             return resp;
         })
     )
+  }
+
+  //get itulities
+  getUtilities(state: any, furnaceFuel: any){
+
+    console.log(state, furnaceFuel);
+
+    let url = URL_SERVICIOS + '/load-utilities?state='+ state + '&furnaceFuel=' + furnaceFuel;
+
+    return this.http.get(url)
+    .pipe(
+        map((resp: any) => {
+            //console.log(resp);
+            return 'esta es la respuesta del servicio';
+        })
+    )
+    
   }
   
 }
