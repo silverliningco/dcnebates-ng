@@ -5,12 +5,17 @@ export class FormInfo {
         public cooled?: boolean,
         public storeId?: number,
         public country?: string,
-        public utilityId?: number,
+        public electricUtilityId?: number,
+        public gasOilUtilityId?: number,
         public state?: string,
         public showAllResults?: boolean,
         public fuelSource?: string,
         public nominalSize?: any,
         public eligibilityDetail?: any,
-        public productLine?: number
+        public productLine?: number,
+        public systemTypeId?: number,
+        public matchFilters?: any,
+        public rangeFilters?: any,
+        
     ) {}
 }

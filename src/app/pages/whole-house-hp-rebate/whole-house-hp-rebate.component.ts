@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@angular/forms';
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormArray } from '@angular/forms';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 // services
-import {AHRICombinationService} from '../../services/AHRICombinations.service';
+import { AHRICombinationService } from '../../services/AHRICombinations.service';
 // model
-import {FormInfo} from '../../models/formInfo.model';
+import { FormInfo } from '../../models/formInfo.model';
 
 @Component({
   selector: 'app-whole-house-hp-rebate',
@@ -18,10 +18,10 @@ export class WholeHouseHPRebateComponent implements OnInit {
 
   formInfo: FormInfo = new FormInfo();
 
-  productLines!: any;  
-  formGroup !: FormGroup ;  
+  productLines!: any;
+  formGroup !: FormGroup;
   data!: any;
-  
+
 
   constructor(
     public _ahriCombinationService: AHRICombinationService,
@@ -31,25 +31,20 @@ export class WholeHouseHPRebateComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
 
-        //rebateIds: [ [2] , Validators.required],
-        
-        // Hardcoded for now
-        heated: true,
-        cooled: true,
-        storeId: 1,
-        country: "US",
-        state:"MA",
-        utilityId: 3,
-    
-        //eligibilityDetail: [[ { "name": "HP is sole source of heating","value": "Yes" } ]],
-        //  Hardcoded for now end
-        
-        showAllResults: [ true , Validators.required],
-
-        nominalSize: this._formBuilder.group({
-          heatingBTUH: ['', Validators.required],
-        }),
-
+      nominalSize: this._formBuilder.group({
+        heatingBTUH: ['', Validators.required],
+        coolingTons: 3.0
+      }),
+      // Hardcoded for now
+      storeId: 1,
+      showAllResults: true,
+      fuelSource: 'Natural Gas',
+      country: "US",
+      state: "MA",
+      electricUtilityId: 3,
+      gasOilUtilityId: 3,
+      eligibilityDetail: [[{ "name": "Pre-existing heating type", "value": ["Electric Resistance Heat"] }, { "name": "HP is sole source of heating", "value": "Yes" }]],
+      rebateIds: [[2], Validators.required]
     });
 
   }
@@ -61,42 +56,45 @@ export class WholeHouseHPRebateComponent implements OnInit {
       return;
     }
 
-    let jsonPay = JSON.stringify(f); 
+    let jsonPay = JSON.stringify(f);
 
     this._ahriCombinationService.ProductLines(jsonPay)
-            .subscribe( (resp:any) => {
-              
-              this.productLines = resp.body;
+      .subscribe((resp: any) => {
 
-          
+        this.productLines = resp.body;
 
-              // load by default the first element of the array
-              this.formInfo = this.formGroup.value;
-              this.formInfo.productLine = resp.body[0].cc_system_definition_id;
-              let jsonPay2 = JSON.stringify(this.formInfo); 
-              
-              this._ahriCombinationService.search(jsonPay2)
-                  .subscribe( (resp:any) => {
-                    
-                    this.data = resp.body;
-              });
+        // load by default the first element of the array
+        this.formInfo = this.formGroup.value;
+        this.formInfo.systemTypeId = resp.body[0].id;
 
-            });
+        this.formInfo.matchFilters = null;
+        this.formInfo.rangeFilters = null;
+        let jsonPay2 = JSON.stringify(this.formInfo);
+
+        this._ahriCombinationService.search(jsonPay2)
+          .subscribe((resp: any) => {
+
+            this.data = resp.body;
+          });
+
+      });
   }
 
-  
-   // submint info of product line to endpoint equipment search
-   submitProductLine(id: number) {
+
+  // submint info of product line to endpoint equipment search
+  submitProductLine(id: number) {
     // payload 
     this.formInfo = this.formGroup.value;
-    this.formInfo.productLine = id;
-    let jsonPay = JSON.stringify(this.formInfo); 
-    
+    this.formInfo.systemTypeId = id;
+    this.formInfo.matchFilters = null;
+    this.formInfo.rangeFilters = null;
+    let jsonPay = JSON.stringify(this.formInfo);
+
     this._ahriCombinationService.search(jsonPay)
-            .subscribe( (resp:any) => {
-              this.data = resp.body;
-            });
+      .subscribe((resp: any) => {
+        this.data = resp.body;
+      });
   }
-  
+
 
 }

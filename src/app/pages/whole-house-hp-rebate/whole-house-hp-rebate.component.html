@@ -2,7 +2,7 @@
     <mat-stepper linear #stepper  >
 
       <!-- Step 1 -->
-      <mat-step  errorMessage="Equipment Size is required." formGroupName="nominalSize" [stepControl]="formGroup?.get('equipment_size')!">
+      <mat-step>
         <!-- Name of step -->
         <ng-template matStepLabel>Intro</ng-template>
         <!-- Content of step -->
@@ -50,7 +50,7 @@
       <!-- Step 1 end  -->
 
        <!-- Step 2 -->
-       <mat-step  errorMessage="Equipment Size is required." formGroupName="nominalSize" [stepControl]="formGroup?.get('equipment_size')!">
+       <mat-step formGroupName="nominalSize" [stepControl]="formGroup?.get('nominalSize')!">
         <!-- Name of step -->
         <ng-template matStepLabel>Equipment Size</ng-template>
         <!-- Content of step -->
@@ -83,7 +83,7 @@
 
         <!-- product line -->
         <mat-radio-group aria-label="Select an option" class="example-radio-group">
-          <mat-radio-button *ngFor="let productLine of productLines; let idx = index" [checked]="(idx === 0)" [value]="productLine.cc_system_definition_id" (click)="submitProductLine(productLine.cc_system_definition_id)"> {{productLine.title}}</mat-radio-button>
+          <mat-radio-button *ngFor="let productLine of productLines; let idx = index" [checked]="(idx === 0)" [value]="productLine.id" (click)="submitProductLine(productLine.id)"> {{productLine.title}}</mat-radio-button>
         </mat-radio-group>
 
         <!-- table -->

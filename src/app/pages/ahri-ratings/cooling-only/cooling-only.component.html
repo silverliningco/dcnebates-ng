@@ -1,7 +1,7 @@
 <form [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup.value)">
     <mat-stepper linear #stepper>
       <!-- Step 1 -->
-      <mat-step  errorMessage="Equipment Size is required" formGroupName="nominalSize" [stepControl]="formGroup?.get('equipment_size')!">
+      <mat-step formGroupName="nominalSize" [stepControl]="formGroup?.get('nominalSize')!">
           <!-- Name of step -->
           <ng-template matStepLabel>Equipment Size</ng-template>
           <!-- Content of step -->
@@ -29,7 +29,7 @@
       <!-- Step 1 end  -->
   
       <!-- Step 2 -->
-      <mat-step  errorMessage="Location is required.">
+      <mat-step>
         <!-- Name of step -->
         <ng-template matStepLabel> Location</ng-template>
         <!-- Content of step -->
