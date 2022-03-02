@@ -5,7 +5,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 // services
 import { AHRICombinationService } from '../../services/AHRICombinations.service';
-import { paramsDetailService } from '../../services/paramsdetail.service';
+import { paramsDetailService } from '../../services/params-detail.service';
 
 // model
 import { FormInfo } from '../../models/formInfo.model';

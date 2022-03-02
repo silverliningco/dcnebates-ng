@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@angular/forms';
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // services
 import { AHRICombinationService } from '../../../services/AHRICombinations.service';
-import { paramsDetailService } from '../../../services/paramsdetail.service';
+import { paramsDetailService } from '../../../services/params-detail.service';
 
 // model
 import { FormInfo } from '../../../models/formInfo.model';
@@ -103,8 +102,10 @@ export class HeatingCoolingComponent implements OnInit {
 
     });
   
-    //  capturar los valores en tiemporeal
+    // enable or disable option
     this.fuelSource();
+
+    // utilities service
     //this.getUtility(this.furnaceFuel(), this.state());
   
   }
@@ -171,43 +172,58 @@ export class HeatingCoolingComponent implements OnInit {
   }
   
   // ******* select *******
-  changeState_electric(count: any) {
-    this.electric = this.State.find((con: any) => con.name == count.value).electric;
-  }
+    changeState_electric(count: any) {
+      this.electric = this.State.find((con: any) => con.name == count.value).electric;
+    }
 
-  changeState_gas(count: any) {
-    this.gas = this.State.find((con: any) => con.name == count.value).gas;
-  }
+    changeState_gas(count: any) {
+      this.gas = this.State.find((con: any) => con.name == count.value).gas;
+    }
+
+    // send de id of utilities
+    sendElectricID(){
+
+    }
+
+    sendGasOilID(){
+     
+    }
+
   // ******* select end *******
 
-  // get furnce fuel
-  furnaceFuel(){
-    this.formGroup.get('fuelSource')?.valueChanges.subscribe( (runFuel: any) => {
-      console.log(runFuel);  
-      return runFuel;
-    });
-  }
 
-  // get state
-  state(){
-    this.formGroup.get('fuelSource')?.valueChanges.subscribe( (runFuel: any) => {
-      console.log(runFuel);
-      return runFuel
-    });
-  }
 
-  // get utilities
-  getUtility(fuel: any, state: any){
-    // call service
-    this._ahriCombinationService.getUtilities(fuel, state)
-          .subscribe((resp:any) => {
-            console.log(resp);
-          });
-    
+  // ******** service utilities *****
+    // get furnce fuel
+    /* furnaceFuel(){
+      this.formGroup.get('fuelSource')?.valueChanges.subscribe( (runFuel: any) => {
+        console.log(runFuel);  
+        return runFuel;
+      });
+    } */
 
-  }
+    // get state
+  /*  state(){
+      this.formGroup.get('fuelSource')?.valueChanges.subscribe( (runFuel: any) => {
+        console.log(runFuel);
+        return runFuel
+      });
+    } */
 
-  // funcion para capturar datos en tiempo real
+    // get utilities
+    /* getUtility(fuel: any, state: any){
+      // call service
+      this._ahriCombinationService.getUtilities(fuel, state)
+            .subscribe((resp:any) => {
+              console.log(resp);
+            });
+    } */
+  // ******** service utilities end *****
+
+  
+
+
+  // enable or disable option
 
   fuelSource(){
     this.formGroup.get('fuelSource')?.valueChanges.subscribe( (val: any) => {

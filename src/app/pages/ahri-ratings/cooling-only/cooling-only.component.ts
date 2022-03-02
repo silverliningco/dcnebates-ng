@@ -5,7 +5,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 // services
 import { AHRICombinationService } from '../../../services/AHRICombinations.service';
-import { paramsDetailService } from '../../../services/paramsdetail.service';
+import { paramsDetailService } from '../../../services/params-detail.service';
 
 // model
 import { FormInfo } from '../../../models/formInfo.model';
@@ -79,8 +79,8 @@ export class CoolingOnlyComponent implements OnInit {
 
         // data of form
         nominalSize: this._formBuilder.group({
-          heatingBTUH: ['', Validators.required],
-          coolingTons: [  3.0, Validators.required],// Hardcoded for now
+          heatingBTUH: [26000, Validators.required],
+          coolingTons: [ , Validators.required],// Hardcoded for now
         }),
         state: ['', Validators.required],
         electricUtilityId: ['', Validators.required],
@@ -97,7 +97,7 @@ export class CoolingOnlyComponent implements OnInit {
     if (f.invalid) {
       return;
     }
-    // load data in detailParams model
+    // *load data in detailParams model
     this.payloadDetailParams.rebateIds = this.formGroup.get('rebateIds')?.value;
     this.payloadDetailParams.storeId = this.formGroup.get('storeId')?.value;
     this.payloadDetailParams.country = this.formGroup.get('country')?.value;
@@ -109,6 +109,7 @@ export class CoolingOnlyComponent implements OnInit {
     this._paramsDetailService.sentParams.emit({
       data:this.payloadDetailParams 
     });
+    // *load data in detailParams model end
 
     // send data of stepper to product line service
     let jsonPay = JSON.stringify(f);    

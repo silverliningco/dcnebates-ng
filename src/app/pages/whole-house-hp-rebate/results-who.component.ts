@@ -10,7 +10,7 @@ import { detailParams } from '../../models/detail.model';
 
 // sevice
 import {AHRICombinationService} from '../../services/AHRICombinations.service';
-import { paramsDetailService } from '../../services/paramsdetail.service';
+import { paramsDetailService } from '../../services/params-detail.service';
 
 @Component({
   selector: 'app-results-who',

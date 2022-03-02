@@ -6,9 +6,11 @@ import {ThemePalette} from '@angular/material/core';
 
 // model
 import {AHRICombinations} from '../../../models/AHRICombinations.model';
+import { detailParams } from '../../../models/detail.model';
 
 // sevice
 import {AHRICombinationService} from '../../../services/AHRICombinations.service';
+import { paramsDetailService } from '../../../services/params-detail.service';
 
 
 @Component({
@@ -17,6 +19,9 @@ import {AHRICombinationService} from '../../../services/AHRICombinations.service
   styleUrls: ['./results-cool-on.component.css']
 })
 export class ResultsCoolOnComponent implements OnInit {
+
+  DetailParams: detailParams = new detailParams();
+  loadDetailParams!: string;
 
   ahriCombinations: AHRICombinations[] = [];
   p: number =1;
@@ -33,11 +38,32 @@ export class ResultsCoolOnComponent implements OnInit {
 
   constructor(
     public _ahriCombinationService: AHRICombinationService,
-    private deviceService: DeviceDetectorService
+    private deviceService: DeviceDetectorService,
+    public _paramsDetailService: paramsDetailService
   ) { }
 
   ngOnInit(): void {
     this.Device();
+
+    this._paramsDetailService.sentParams
+    .subscribe((forDetail: any) => {
+      console.log(forDetail);
+      //console.log(forDetail.data.country);
+
+      // load data of forDetail to model paramsDetailService
+      this.DetailParams.rebateIds = forDetail.data.rebateIds;
+      this.DetailParams.storeId = forDetail.data.storeId;
+      this.DetailParams.country = forDetail.data.country;
+      this.DetailParams.electricUtilityId = forDetail.data.electricUtilityId;
+      this.DetailParams.gasOilUtilityId = forDetail.data.gasOilUtilityId;
+      this.DetailParams.state = forDetail.data.state;
+      this.DetailParams.eligibilityDetail = forDetail.data.eligibilityDetail;
+
+      this.loadDetailParams = JSON.stringify(this.DetailParams);
+
+      console.log(this.DetailParams);
+
+    });
   }
 
   Device(){
