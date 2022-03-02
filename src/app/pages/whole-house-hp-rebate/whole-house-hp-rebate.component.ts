@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, FormArray } from '@angular/forms';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // services
 import { AHRICombinationService } from '../../services/AHRICombinations.service';
+import { paramsDetailService } from '../../services/paramsdetail.service';
+
 // model
 import { FormInfo } from '../../models/formInfo.model';
+import { detailParams } from '../../models/detail.model';
 
 @Component({
   selector: 'app-whole-house-hp-rebate',
@@ -17,6 +19,8 @@ import { FormInfo } from '../../models/formInfo.model';
 export class WholeHouseHPRebateComponent implements OnInit {
 
   formInfo: FormInfo = new FormInfo();
+  payloadDetailParams: detailParams = new detailParams();
+
 
   productLines!: any;
   formGroup !: FormGroup;
@@ -25,7 +29,8 @@ export class WholeHouseHPRebateComponent implements OnInit {
 
   constructor(
     public _ahriCombinationService: AHRICombinationService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    public _paramsDetailService: paramsDetailService
   ) { }
 
   ngOnInit(): void {
@@ -33,17 +38,22 @@ export class WholeHouseHPRebateComponent implements OnInit {
 
       nominalSize: this._formBuilder.group({
         heatingBTUH: ['', Validators.required],
-        coolingTons: 3.0
+        coolingTons: [  3.0, Validators.required],// Hardcoded for now
       }),
       // Hardcoded for now
-      storeId: 1,
-      showAllResults: true,
-      fuelSource: 'Natural Gas',
-      country: "US",
-      state: "MA",
-      electricUtilityId: 3,
-      gasOilUtilityId: 3,
-      eligibilityDetail: [[{ "name": "Pre-existing heating type", "value": ["Electric Resistance Heat"] }, { "name": "HP is sole source of heating", "value": "Yes" }]],
+      storeId: [ 1, Validators.required],
+      showAllResults: [ true, Validators.required],
+      fuelSource: ['Natural Gas', Validators.required],
+      country: ["US", Validators.required],
+      state: ["MA" , Validators.required],
+      electricUtilityId: [ 3, Validators.required],
+      //electricUtilityId: [[2,3,5,6], Validators.required], 
+      gasOilUtilityId: [ 3, Validators.required],
+      // gasOilUtilityId: [[2,3,5,6], Validators.required],
+      eligibilityDetail: [[{ "name": "Pre-existing heating type", 
+                             "value": ["Electric Resistance Heat"] }, 
+                           { "name": "HP is sole source of heating", 
+                             "value": "Yes" }]],
       rebateIds: [[2], Validators.required]
     });
 
@@ -56,6 +66,20 @@ export class WholeHouseHPRebateComponent implements OnInit {
       return;
     }
 
+    // load data in detailParams model
+    this.payloadDetailParams.rebateIds = this.formGroup.get('rebateIds')?.value;
+    this.payloadDetailParams.storeId = this.formGroup.get('storeId')?.value;
+    this.payloadDetailParams.country = this.formGroup.get('country')?.value;
+    this.payloadDetailParams.electricUtilityId = this.formGroup.get('electricUtilityId')?.value;
+    this.payloadDetailParams.gasOilUtilityId = this.formGroup.get('gasOilUtilityId')?.value;
+    this.payloadDetailParams.state = this.formGroup.get('state')?.value;
+    this.payloadDetailParams.eligibilityDetail = this.formGroup.get('eligibilityDetail')?.value;
+    //console.log(this.payloadDetailParams);
+    this._paramsDetailService.sentParams.emit({
+      data:this.payloadDetailParams 
+    });
+
+    // send data of stepper to product line service
     let jsonPay = JSON.stringify(f);
 
     this._ahriCombinationService.ProductLines(jsonPay)
