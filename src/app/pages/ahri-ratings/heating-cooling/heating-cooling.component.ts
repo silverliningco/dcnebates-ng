@@ -74,7 +74,7 @@ export class HeatingCoolingComponent implements OnInit {
         gasOilUtility:  ['', Validators.required],
 
         eligibilityDetail:[ [ { "name": "HP is sole source of heating","value": "No" } ]],
-        |*/
+        */
         //eligibilityDetail: this._formBuilder.group({
           preExistingHeatingType: ['', Validators.required],
           HPSoleSource: ['', Validators.required],
@@ -180,7 +180,7 @@ export class HeatingCoolingComponent implements OnInit {
   }
   // ******* select end *******
 
- /*  // get furnce fuel
+  // get furnce fuel
   furnaceFuel(){
     this.formGroup.get('fuelSource')?.valueChanges.subscribe( (runFuel: any) => {
       console.log(runFuel);  
@@ -205,7 +205,7 @@ export class HeatingCoolingComponent implements OnInit {
           });
     
 
-  } */
+  }
 
   // funcion para capturar datos en tiempo real
 
