@@ -77,11 +77,12 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
           heatingBTUH: [ , Validators.required],
         }),
         fuelSource: ['', Validators.required],
-        gasOilUtilityId: ['', Validators.required],
-        //eligibilityDetail: [[], Validators.required]
-        eligibilityDetail: [[ { "name": "Pre-existing heating type","value": [ "Natural Gas" ] }, { "name": "HP is sole source of heating","value": "No" } ]]    
+        gasOilUtilityId: [3, Validators.required],
+        eligibilityDetail: [[ { "name": "Pre-existing heating type","value": [ "Natural Gas" ] }, { "name": "HP is sole source of heating","value": "No" }]],
+        existingFurnaceType: ['', Validators.required]
 
     });
+
 
     //  capturar los valores en tiemporeal
     this.fuelSource();
