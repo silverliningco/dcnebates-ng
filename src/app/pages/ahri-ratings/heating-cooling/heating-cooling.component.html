@@ -86,7 +86,7 @@
 
             <mat-form-field appearance="fill">
               <mat-label>Electric Utility</mat-label>
-              <mat-select  #sGroup formControlName="electricUtilityProvider">
+              <mat-select  #sGroup formControlName="electricUtilityId">
                   <mat-option *ngFor ="let elec of electric" [value]="elec" radioGroup="sGroup">
                   {{elec}}
                   </mat-option>
@@ -96,7 +96,7 @@
             
               <mat-form-field *ngIf="GasOilUtility" appearance="fill"  >
                 <mat-label>Gas / Oil Utility</mat-label>
-                <mat-select  #sGroup formControlName="gasOilUtility">
+                <mat-select  #sGroup formControlName="gasOilUtilityId">
                     <mat-option *ngFor ="let Gas of gas" [value]="Gas" radioGroup="sGroup">
                       {{Gas}}
                     </mat-option>

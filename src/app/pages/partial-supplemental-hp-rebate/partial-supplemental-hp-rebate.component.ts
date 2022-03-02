@@ -4,9 +4,12 @@ import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@a
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 // services
-import {AHRICombinationService} from '../../services/AHRICombinations.service';
+import { AHRICombinationService } from '../../services/AHRICombinations.service';
+import { paramsDetailService } from '../../services/paramsdetail.service';
+
 // model
-import {FormInfo} from '../../models/formInfo.model';
+import { FormInfo } from '../../models/formInfo.model';
+import { detailParams } from '../../models/detail.model';
 
 
 @Component({
@@ -17,6 +20,7 @@ import {FormInfo} from '../../models/formInfo.model';
 export class PartialSupplementalHPRebateComponent implements OnInit {
  
   formInfo: FormInfo = new FormInfo();
+  payloadDetailParams: detailParams = new detailParams();
 
   formGroup !: FormGroup ;  
   productLines!: any;
@@ -30,13 +34,14 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
 
   constructor(
     public _ahriCombinationService: AHRICombinationService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    public _paramsDetailService: paramsDetailService
   ) { }
 
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
 
-        rebateIds: [ [1] , Validators.required],
+       /*  rebateIds: [ [1] , Validators.required],
 
         // Hardcoded for now
         heated: true,
@@ -55,14 +60,33 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
         }),
         fuelSource: ['', Validators.required],
         gasOilUtility: ['', Validators.required],
-        eligibilityDetail:[ [ { "name": "HP is sole source of heating","value": "No" } ]]
+        eligibilityDetail:[ [ { "name": "HP is sole source of heating","value": "No" } ]] */
+
+        //************************************************************************************ */
+        // Hardcoded for now
+        rebateIds: [[1], Validators.required],
+        storeId: [ 1, Validators.required],
+        showAllResults: [ true, Validators.required],
+        country: ["US", Validators.required],
+        state: ["MA" , Validators.required],
+        electricUtilityId: [ 3, Validators.required],
+
+        // data of form
+        nominalSize: this._formBuilder.group({
+          coolingTons: [ , Validators.required],
+          heatingBTUH: [ , Validators.required],
+        }),
+        fuelSource: ['', Validators.required],
+        gasOilUtilityId: ['', Validators.required],
+        //eligibilityDetail: [[], Validators.required]
+        eligibilityDetail: [[ { "name": "Pre-existing heating type","value": [ "Natural Gas" ] }, { "name": "HP is sole source of heating","value": "No" } ]]    
 
     });
 
     //  capturar los valores en tiemporeal
     this.fuelSource();
-    this.EligibilityDetailNewStructure();
-  }
+    //this.EligibilityDetailNewStructure();
+  }//
 
 
   // submit info of form to endpoint product line    
@@ -70,21 +94,41 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
     if (f.invalid) {
       return;
     }
-    
+    // load data in detailParams model
+    this.payloadDetailParams.rebateIds = this.formGroup.get('rebateIds')?.value;
+    this.payloadDetailParams.storeId = this.formGroup.get('storeId')?.value;
+    this.payloadDetailParams.country = this.formGroup.get('country')?.value;
+    this.payloadDetailParams.electricUtilityId = this.formGroup.get('electricUtilityId')?.value;
+    this.payloadDetailParams.gasOilUtilityId = this.formGroup.get('gasOilUtilityId')?.value;
+    this.payloadDetailParams.state = this.formGroup.get('state')?.value;
+    this.payloadDetailParams.eligibilityDetail = this.formGroup.get('eligibilityDetail')?.value;
+    //console.log(this.payloadDetailParams);
+    this._paramsDetailService.sentParams.emit({
+      data:this.payloadDetailParams 
+    });
+
+    // send data of stepper to product line service
     this.formInfo = this.formGroup.value;
-    this.formInfo.eligibilityDetail = this.EligibilityDetailStructure;
+    //this.formInfo.eligibilityDetail = this.EligibilityDetailStructure;
     let jsonPay = JSON.stringify(this.formInfo); 
+
+    console.log(jsonPay);
 
     this._ahriCombinationService.ProductLines(jsonPay)
             .subscribe( (resp:any) => {
 
+              console.log(resp);
+
               this.productLines = resp.body;
 
-              // cargar por defecto el primer elemento del arreglo
+              // load by default the first element of the array
               this.formInfo = this.formGroup.value;
-              this.formInfo.productLine = resp.body[0];
+              this.formInfo.systemTypeId = resp.body[0].id;
+
+              this.formInfo.matchFilters = null;
+              this.formInfo.rangeFilters = null;
+
               let jsonPay2 = JSON.stringify(this.formInfo); 
-              console.log(this.formInfo);
               
               this._ahriCombinationService.search(jsonPay2)
                   .subscribe( (resp:any) => {
@@ -99,6 +143,9 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
     // payload 
     this.formInfo = this.formGroup.value;
     this.formInfo.productLine = id;
+    this.formInfo.matchFilters = null;
+    this.formInfo.rangeFilters = null;
+
     let jsonPay = JSON.stringify(this.formInfo); 
     console.log(this.formInfo);
     
@@ -111,7 +158,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   // funcion para capturar datos en tiempo real 
    fuelSource(){
     this.formGroup.get('fuelSource')?.valueChanges.subscribe( (val: any) => {
-      
+      console.log(val);
       if(val === 'Natural Gas' || val === 'Heating Oil' || val === 'Propane'){
         this.showStep4and5 = true;
         this.submintOnlyFurnace = false;
@@ -129,9 +176,9 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
     this.formGroup.get('eligibilityDetail')?.valueChanges.subscribe( (val: any) => {
 
       if (val === 'Condensing') {
-       this.EligibilityDetailStructure = [ { "name": "Condensing","value": "Condensing" } ];
+       this.EligibilityDetailStructure = [ { "name": "Existing furnace type","value": "Condensing" } ];
       } else {
-        this.EligibilityDetailStructure = [ { "name": "Non-condensing", "value": "Non-condensing" } ];
+        this.EligibilityDetailStructure = [ { "name": "Existing furnace type", "value": "Non-condensing" } ];
       }
     });
   }  

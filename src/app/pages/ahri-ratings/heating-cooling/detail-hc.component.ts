@@ -23,15 +23,17 @@ export class DetailHCComponent implements OnInit {
     activatedRoute.params.subscribe( params => {
       let skus = params['skus'];
       let ahri_refs = params['ahri_refs'];   
-      this.loadDetail(skus, ahri_refs);
+      let detailParams = params['params'];   
+
+      this.loadDetail(skus, ahri_refs, detailParams);
     });
   }
 
   ngOnInit(): void {
   }
 
-  loadDetail(skus: any, ahri_refs: any){
-    this._ahriCombinationService.getResultDetail(skus, ahri_refs)
+  loadDetail(skus: any, ahri_refs: any, detailParams: any){
+    this._ahriCombinationService.newGetResultDetail(skus, ahri_refs, detailParams)
             .subscribe( (resp:any) => {
               //this.url = resp.body.eligibleRebates[0].url;
               this.detail= resp.body;

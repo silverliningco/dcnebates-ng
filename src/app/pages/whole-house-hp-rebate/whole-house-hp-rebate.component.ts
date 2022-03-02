@@ -35,26 +35,28 @@ export class WholeHouseHPRebateComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
-
-      nominalSize: this._formBuilder.group({
-        heatingBTUH: ['', Validators.required],
-        coolingTons: [  3.0, Validators.required],// Hardcoded for now
-      }),
       // Hardcoded for now
+      rebateIds: [[2], Validators.required],
       storeId: [ 1, Validators.required],
       showAllResults: [ true, Validators.required],
-      fuelSource: ['Natural Gas', Validators.required],
       country: ["US", Validators.required],
       state: ["MA" , Validators.required],
       electricUtilityId: [ 3, Validators.required],
       //electricUtilityId: [[2,3,5,6], Validators.required], 
       gasOilUtilityId: [ 3, Validators.required],
       // gasOilUtilityId: [[2,3,5,6], Validators.required],
+      fuelSource: ['Natural Gas', Validators.required],
       eligibilityDetail: [[{ "name": "Pre-existing heating type", 
                              "value": ["Electric Resistance Heat"] }, 
                            { "name": "HP is sole source of heating", 
                              "value": "Yes" }]],
-      rebateIds: [[2], Validators.required]
+
+      // data of form
+      nominalSize: this._formBuilder.group({
+        heatingBTUH: ['', Validators.required],
+        coolingTons: [  3.0, Validators.required],// Hardcoded for now
+      }),
+  
     });
 
   }
@@ -93,6 +95,7 @@ export class WholeHouseHPRebateComponent implements OnInit {
 
         this.formInfo.matchFilters = null;
         this.formInfo.rangeFilters = null;
+
         let jsonPay2 = JSON.stringify(this.formInfo);
 
         this._ahriCombinationService.search(jsonPay2)
@@ -112,6 +115,7 @@ export class WholeHouseHPRebateComponent implements OnInit {
     this.formInfo.systemTypeId = id;
     this.formInfo.matchFilters = null;
     this.formInfo.rangeFilters = null;
+
     let jsonPay = JSON.stringify(this.formInfo);
 
     this._ahriCombinationService.search(jsonPay)

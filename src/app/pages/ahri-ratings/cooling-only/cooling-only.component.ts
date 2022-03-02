@@ -4,9 +4,12 @@ import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@a
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 // services
-import {AHRICombinationService} from '../../../services/AHRICombinations.service';
+import { AHRICombinationService } from '../../../services/AHRICombinations.service';
+import { paramsDetailService } from '../../../services/paramsdetail.service';
+
 // model
-import {FormInfo} from '../../../models/formInfo.model';
+import { FormInfo } from '../../../models/formInfo.model';
+import { detailParams } from '../../../models/detail.model';
 
 @Component({
   selector: 'app-cooling-only',
@@ -16,6 +19,7 @@ import {FormInfo} from '../../../models/formInfo.model';
 export class CoolingOnlyComponent implements OnInit {
 
   formInfo: FormInfo = new FormInfo();
+  payloadDetailParams: detailParams = new detailParams();
 
   formGroup !: FormGroup ;  
   productLines!: any;
@@ -35,13 +39,14 @@ export class CoolingOnlyComponent implements OnInit {
 
   constructor(
     public _ahriCombinationService: AHRICombinationService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    public _paramsDetailService: paramsDetailService
   ) { }
 
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
 
-        rebateIds: [ null, Validators.required],
+        /* rebateIds: [ null, Validators.required],
 
         // Hardcoded for now
          heated: true,
@@ -58,7 +63,28 @@ export class CoolingOnlyComponent implements OnInit {
         }),
 
         state: ['', Validators.required],
-        electricUtilityProvider: ['', Validators.required], 
+        electricUtilityProvider: ['', Validators.required],  */
+
+        // Hardcoded for now
+        rebateIds: [[2], Validators.required],
+        storeId: [ 1, Validators.required],
+        showAllResults: [ true, Validators.required],
+        country: ["US", Validators.required],
+        //gasOilUtilityId: [ 3, Validators.required],
+        //fuelSource: ['Natural Gas', Validators.required],
+        /* eligibilityDetail: [[{ "name": "Pre-existing heating type", 
+                              "value": ["Electric Resistance Heat"] }, 
+                            { "name": "HP is sole source of heating", 
+                              "value": "Yes" }]], */
+
+        // data of form
+        nominalSize: this._formBuilder.group({
+          heatingBTUH: ['', Validators.required],
+          coolingTons: [  3.0, Validators.required],// Hardcoded for now
+        }),
+        state: ['', Validators.required],
+        electricUtilityId: ['', Validators.required],
+
 
     });
 
@@ -71,7 +97,20 @@ export class CoolingOnlyComponent implements OnInit {
     if (f.invalid) {
       return;
     }
+    // load data in detailParams model
+    this.payloadDetailParams.rebateIds = this.formGroup.get('rebateIds')?.value;
+    this.payloadDetailParams.storeId = this.formGroup.get('storeId')?.value;
+    this.payloadDetailParams.country = this.formGroup.get('country')?.value;
+    this.payloadDetailParams.electricUtilityId = this.formGroup.get('electricUtilityId')?.value;
+    this.payloadDetailParams.gasOilUtilityId = this.formGroup.get('gasOilUtilityId')?.value;
+    this.payloadDetailParams.state = this.formGroup.get('state')?.value;
+    this.payloadDetailParams.eligibilityDetail = this.formGroup.get('eligibilityDetail')?.value;
+    //console.log(this.payloadDetailParams);
+    this._paramsDetailService.sentParams.emit({
+      data:this.payloadDetailParams 
+    });
 
+    // send data of stepper to product line service
     let jsonPay = JSON.stringify(f);    
 
     this._ahriCombinationService.ProductLines(jsonPay)
@@ -80,9 +119,12 @@ export class CoolingOnlyComponent implements OnInit {
 
               // cargar por defecto el primer elemento del arreglo
               this.formInfo = this.formGroup.value;
-              this.formInfo.productLine = resp.body[0];
+              this.formInfo.systemTypeId = resp.body[0].id;
+
+              this.formInfo.matchFilters = null;
+              this.formInfo.rangeFilters = null;
+
               let jsonPay2 = JSON.stringify(this.formInfo); 
-              console.log(this.formInfo);
               
               this._ahriCombinationService.search(jsonPay2)
                   .subscribe( (resp:any) => {
@@ -97,9 +139,11 @@ export class CoolingOnlyComponent implements OnInit {
   submitProductLine(id: number) {
     // payload 
     this.formInfo = this.formGroup.value;
-    this.formInfo.productLine = id;
+    this.formInfo.systemTypeId = id;
+    this.formInfo.matchFilters = null;
+    this.formInfo.rangeFilters = null;
+
     let jsonPay = JSON.stringify(this.formInfo); 
-    console.log(this.formInfo);
     
     this._ahriCombinationService.search(jsonPay)
             .subscribe( (resp:any) => {

@@ -116,7 +116,7 @@
 
 
       <!-- Step 4 (only if furnace fuel != "None") -->
-      <mat-step *ngIf="showStep4and5" [stepControl]="formGroup?.get('gasOilUtility')!">
+      <mat-step *ngIf="showStep4and5" [stepControl]="formGroup?.get('gasOilUtilityId')!">
         <!-- Name of step -->
         <ng-template matStepLabel> Location</ng-template>
         <!-- Content of step -->
@@ -128,12 +128,12 @@
             <div class="rc-column">
               <mat-form-field appearance="fill"  >
                 <mat-label>Gas / Oil Utility</mat-label>
-                <mat-select  #sGroup formControlName="gasOilUtility">
-                    <mat-option [value]="'Berkshire Gas'" radioGroup="sGroup"> Berkshire Gas </mat-option>
-                    <mat-option [value]="'Eversource'" radioGroup="sGroup"> Eversource  </mat-option>
-                    <mat-option [value]="'Liberty'" radioGroup="sGroup"> Liberty </mat-option>
-                    <mat-option [value]="'National Grid'" radioGroup="sGroup"> National Grid </mat-option>
-                    <mat-option [value]="'Unitil'" radioGroup="sGroup"> Unitil </mat-option>
+                <mat-select  #sGroup formControlName="gasOilUtilityId">
+                    <mat-option [value]="'1'" radioGroup="sGroup"> Berkshire Gas </mat-option>
+                    <mat-option [value]="'3'" radioGroup="sGroup"> Eversource  </mat-option>
+                    <mat-option [value]="'4'" radioGroup="sGroup"> Liberty </mat-option>
+                    <mat-option [value]="'5'" radioGroup="sGroup"> National Grid </mat-option>
+                    <mat-option [value]="'6'" radioGroup="sGroup"> Unitil </mat-option>
                     <mat-option [value]="'Other'" radioGroup="sGroup"> Other </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -183,7 +183,7 @@
         
          <!-- product line -->
          <mat-radio-group aria-label="Select an option" class="example-radio-group">
-          <mat-radio-button *ngFor="let productLine of productLines; let idx = index" [checked]="(idx === 0)" [value]="productLine.cc_system_definition_id" (click)="submitProductLine(productLine.cc_system_definition_id)"> {{productLine.title}}</mat-radio-button>
+          <mat-radio-button *ngFor="let productLine of productLines; let idx = index" [checked]="(idx === 0)" [value]="productLine.id" (click)="submitProductLine(productLine.id)"> {{productLine.title}}</mat-radio-button>
         </mat-radio-group>
 
 
