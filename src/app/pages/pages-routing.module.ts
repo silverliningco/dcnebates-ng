@@ -29,18 +29,18 @@ const routes: Routes =[
       {path: '', redirectTo: '/home', pathMatch: 'full' },
       {path: 'home', component: HomeComponent, data: {breadcrumbs: ['home']}},
 
-      {path: 'AHRIMatchups', component: AHRIMatchupsComponent, data: {breadcrumbs: ['home','AHRI Matchups']} },
-      {path: 'AHRIMatchups/HeatingCooling', component: HeatingCoolingComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'Help Choose']} },
-      {path: 'AHRIMatchups/HeatingCooling/:skus/:ahri_refs/:params', component: DetailHCComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'detail']} },
-      {path: 'AHRIMatchups/CoolingOnly', component: CoolingOnlyComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'Help Choose']} },
-      {path: 'AHRIMatchups/CoolingOnly/:skus/:ahri_refs/:params', component: DetailCoolOnComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'Help Choose']} },
+      {path: 'AHRIMatchups', component: AHRIMatchupsComponent, data: {breadcrumbs: ['home','AHRI Ratings']} },
+      {path: 'AHRIMatchups/HeatingCooling', component: HeatingCoolingComponent, data: {breadcrumbs: ['home','AHRI Ratings', 'Heating Cooling']} },
+      {path: 'AHRIMatchups/HeatingCooling/:skus/:ahri_refs/:params', component: DetailHCComponent},
+      {path: 'AHRIMatchups/CoolingOnly', component: CoolingOnlyComponent, data: {breadcrumbs: ['home','AHRI Ratings', 'Cooling Only']} },
+      {path: 'AHRIMatchups/CoolingOnly/:skus/:ahri_refs/:params', component: DetailCoolOnComponent },
       {path: 'AHRIMatchups/KnowModel', component: KnowModelNrComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'Know Model']} },
 
       {path: 'WholeHouseHP', component: WholeHouseHPRebateComponent, data: {breadcrumbs: ['home','Whole House HP']} },
-      {path: 'WholeHouseHP/:skus/:ahri_refs/:params', component: DetailWhoComponent, data: {breadcrumbs: ['home','Whole House HP', 'detail']} },
+      {path: 'WholeHouseHP/:skus/:ahri_refs/:params', component: DetailWhoComponent},
 
       {path: 'PartialSupplementalHP', component: PartialSupplementalHPRebateComponent, data: {breadcrumbs: ['home','Partial Supplemental HP']} },
-      {path: 'PartialSupplementalHP/:skus/:ahri_refs/:params', component: DetailParComponent, data: {breadcrumbs: ['home', 'Partial Supplemental HP', 'detail']} }
+      {path: 'PartialSupplementalHP/:skus/:ahri_refs/:params', component: DetailParComponent }
     ]
   }
 ]

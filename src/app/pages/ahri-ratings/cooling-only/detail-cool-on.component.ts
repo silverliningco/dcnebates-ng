@@ -36,6 +36,7 @@ export class DetailCoolOnComponent implements OnInit {
     this._ahriCombinationService.newGetResultDetail(skus, ahri_refs, detailParams)
             .subscribe( (resp:any) => {
               //this.url = resp.body.eligibleRebates[0].url;
+              console.log(resp.body);
               this.detail= resp.body;
             });            
   }

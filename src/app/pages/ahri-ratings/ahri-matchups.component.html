@@ -1,7 +1,7 @@
 <div class="rc-content-flex rc-hero-content">
 
   <!-- Heating & Cooling -->
-  <mat-card class="rc-card rc-card-ahri-matchup">
+  <mat-card class="rc-card rc-card-ahri-matchup" [routerLink]="['/AHRIMatchups','HeatingCooling']">
     <img src="./assets/img/bot.svg" alt="" class="rc-card-img">
     <mat-card-title class="rc-card-title">Heating & Cooling</mat-card-title>
     <mat-card-actions class="rc-card-actions">
@@ -13,7 +13,7 @@
   </mat-card>
 
   <!-- Cooling only -->
-  <mat-card class="rc-card rc-card-ahri-matchup">
+  <mat-card class="rc-card rc-card-ahri-matchup" [routerLink]="['/AHRIMatchups','CoolingOnly']">
     <img src="./assets/img/bot.svg" alt="" class="rc-card-img">
     <mat-card-title class="rc-card-title">Cooling only</mat-card-title>
     <mat-card-actions class="rc-card-actions">
@@ -26,7 +26,7 @@
 
   <!-- Existing or non-ECM furnace installations -->
   <mat-card class="rc-card rc-card-ahri-matchup">
-    <!-- <img src="./assets/img/person.svg" alt="" class="rc-card-img"> -->
+    <img src="./assets/img/person.svg" alt="" class="rc-card-img">
     <mat-card-title class="rc-card-title">Existing or non-ECM furnace installations</mat-card-title>
     <mat-card-actions class="rc-card-actions">
       <button  mat-flat-button color="primary">
@@ -38,7 +38,7 @@
 
   <!-- Furnace-only -->
   <mat-card class="rc-card rc-card-ahri-matchup">
-    <!-- <img src="./assets/img/person.svg" alt="" class="rc-card-img"> -->
+    <img src="./assets/img/person.svg" alt="" class="rc-card-img">
     <mat-card-title class="rc-card-title">Furnace-only</mat-card-title>
     <mat-card-actions class="rc-card-actions">
       <button  mat-flat-button color="primary">
@@ -49,7 +49,7 @@
   </mat-card>
 
   <!-- I know my model nrs -->
-  <mat-card class="rc-card rc-card-ahri-matchup">
+  <mat-card class="rc-card rc-card-ahri-matchup" [routerLink]="['/AHRIMatchups','KnowModel']">
     <img src="./assets/img/person.svg" alt="" class="rc-card-img">
     <mat-card-title class="rc-card-title">I know my model nrs</mat-card-title>
     <mat-card-actions class="rc-card-actions">

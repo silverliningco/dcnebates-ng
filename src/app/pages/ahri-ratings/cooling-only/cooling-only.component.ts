@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@angular/forms';
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // services
 import { AHRICombinationService } from '../../../services/AHRICombinations.service';
@@ -26,6 +25,10 @@ export class CoolingOnlyComponent implements OnInit {
   data!: any;
   selectProductLine!: any;
 
+  // ******* send ids itulities *******
+  sendElectric!: any; 
+  // ******* send ids itulities end *******
+
   // ******* select *******
   State: Array<any> = [
     { name: 'MA', electric: ['Cape Light Compact', 'Eversource', 'National Grid', 'Unitil', 'Marblehead Municipal Light Department', 'Other']},
@@ -46,25 +49,6 @@ export class CoolingOnlyComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
 
-        /* rebateIds: [ null, Validators.required],
-
-        // Hardcoded for now
-         heated: true,
-         cooled: true,
-         storeId: 1,
-         country: "US",
-         utilityId: 3,
-        //  Hardcoded for now end
-
-        showAllResults: [ true , Validators.required],
-
-        nominalSize: this._formBuilder.group({
-          coolingTons: [ , Validators.required],
-        }),
-
-        state: ['', Validators.required],
-        electricUtilityProvider: ['', Validators.required],  */
-
         // Hardcoded for now
         rebateIds: [[2], Validators.required],
         storeId: [ 1, Validators.required],
@@ -83,10 +67,11 @@ export class CoolingOnlyComponent implements OnInit {
           coolingTons: [ , Validators.required],// Hardcoded for now
         }),
         state: ['', Validators.required],
-        electricUtilityId: ['', Validators.required],
-
-
+        electricUtility: ['', Validators.required],
     });
+
+    // send utilities ids
+    this.sendElectricID();
 
   }
 
@@ -97,22 +82,18 @@ export class CoolingOnlyComponent implements OnInit {
     if (f.invalid) {
       return;
     }
-    // *load data in detailParams model
-    this.payloadDetailParams.rebateIds = this.formGroup.get('rebateIds')?.value;
-    this.payloadDetailParams.storeId = this.formGroup.get('storeId')?.value;
-    this.payloadDetailParams.country = this.formGroup.get('country')?.value;
-    this.payloadDetailParams.electricUtilityId = this.formGroup.get('electricUtilityId')?.value;
-    this.payloadDetailParams.gasOilUtilityId = this.formGroup.get('gasOilUtilityId')?.value;
-    this.payloadDetailParams.state = this.formGroup.get('state')?.value;
-    this.payloadDetailParams.eligibilityDetail = this.formGroup.get('eligibilityDetail')?.value;
-    //console.log(this.payloadDetailParams);
-    this._paramsDetailService.sentParams.emit({
-      data:this.payloadDetailParams 
-    });
-    // *load data in detailParams model end
+    
+    // send data of stepper to product line service
+    this.formInfo = this.formGroup.value;
+    this.formInfo.electricUtilityId = this.sendElectric;
+
+    this.loadDataDetailParams(this.formInfo);
+
 
     // send data of stepper to product line service
     let jsonPay = JSON.stringify(f);    
+
+    console.log(f);
 
     this._ahriCombinationService.ProductLines(jsonPay)
             .subscribe( (resp:any) => {
@@ -129,10 +110,25 @@ export class CoolingOnlyComponent implements OnInit {
               
               this._ahriCombinationService.search(jsonPay2)
                   .subscribe( (resp:any) => {
-                    console.log(resp),
                     this.data = resp.body;
               });
             });
+  }
+
+  // load data in detailParams model
+  loadDataDetailParams(formInfo: any){
+
+    this.payloadDetailParams.rebateIds = formInfo.rebateIds;
+    this.payloadDetailParams.storeId = formInfo.storeId;
+    this.payloadDetailParams.country = formInfo.country;
+    this.payloadDetailParams.electricUtilityId = formInfo.electricUtilityId;
+    this.payloadDetailParams.gasOilUtilityId = formInfo.gasOilUtilityId;
+    this.payloadDetailParams.state = formInfo.state;
+    this.payloadDetailParams.eligibilityDetail = formInfo.eligibilityDetail;
+
+    this._paramsDetailService.sentParams.emit({
+      data:this.payloadDetailParams 
+    });  
   }
 
 
@@ -157,6 +153,36 @@ export class CoolingOnlyComponent implements OnInit {
   changeState_electric(count: any) {
     this.electric = this.State.find((con: any) => con.name == count.value).electric;
   }
+
+  // send de id of utilities
+  sendElectricID(){
+    this.formGroup.get('electricUtility')?.valueChanges.subscribe( (val: any) => {
+    
+      switch (val) {
+        case 'Cape Light Compact':
+          this.sendElectric = 2;
+          break;
+        case 'Eversource':
+          this.sendElectric = 3;
+          break;
+        case 'National Grid':
+          this.sendElectric= 5;
+          break;
+        case 'Unitil':
+          this.sendElectric = 4;
+          break;
+        case 'Marblehead Municipal Light Department':
+          this.sendElectric = 7;
+          break;
+        /* case 'Other':
+          this.sendElectric = null;
+          break; */
+      }
+      
+    });
+
+  }
+
   // ******* select end *******
 
 

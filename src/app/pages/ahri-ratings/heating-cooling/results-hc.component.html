@@ -1,6 +1,22 @@
-<p> aqui va la numeracion </p>
-<!-- table -->
-<table class="nkn-table nkn-vertical">
+<!-- <mat-spinner *ngIf="load"></mat-spinner> -->
+<!-- Filter and number of row in table -->
+<div class="nkn-clear">
+  <div class="nkn-left">
+    <!--Button filter -->
+    <button type="button" mat-stroked-button color="primary" data-nkn-role="open-modal" data-nkn-target="modal1">
+      Filter
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+  <div class="nkn-right">
+    1-10 of 100
+  </div>
+</div>
+<!-- End Filter and number of row in table -->
+
+<!-- table  -->
+<div class="rc-table-container">
+  <table  class="nkn-table nkn-vertical" >
     <thead>
         <tr>
             <th>n°</th>
@@ -11,13 +27,13 @@
             <th>EER</th>
             <th>HSPF</th>
             <th>AFUE</th>
-            <th>Total rebate</th>
+            <th>TOTAL REBATE</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let ahriCombination of ahriCombinations | paginate: { itemsPerPage: rows, currentPage: p } , let i=index">
-            <td data-title="n°">{{ rows * (p - 1) + i  + 1}}</td>   
+            <td data-title="n°">{{ rows * (p - 1) + i  + 1}}</td>
             <td data-title="Outdoor unit">{{ahriCombination.outdoorUnitAHRIModel}}</td>
             <td data-title="Indoor unit">{{ahriCombination.indoorUnitAHRIModel}}</td>
             <td data-title="Furnace">{{ahriCombination.furnaceAHRIModel}}</td>
@@ -26,14 +42,16 @@
             <td data-title="HSPF">{{ahriCombination.HSPF}}</td>
             <td data-title="AFUE">{{ahriCombination.AFUE}}</td>
             <td data-title="Total rebate">{{ahriCombination.totalAvailableRebates}}</td>
-            <td data-title="View">
-                <a [routerLink]="['/AHRIMatchups/HeatingCooling/', ahriCombination.SKUs | json, ahriCombination.AHRIReferences  | json, loadDetailParams  | json]" class="navf" fragment="det" target="_blank"   mat-stroked-button color="primary">
+            <td>
+                <a [routerLink]="['/WholeHouseHP/', ahriCombination.SKUs | json, ahriCombination.AHRIReferences  | json, loadDetailParams  | json]" class="navf" fragment="det" target="_blank"   mat-stroked-button color="primary">
                     <label>Detail</label>
                 </a>
             </td>
         </tr>
     </tbody>
-</table>
+  </table>
+</div>
+
 <!-- table end -->
 
 <!-- pagination -->

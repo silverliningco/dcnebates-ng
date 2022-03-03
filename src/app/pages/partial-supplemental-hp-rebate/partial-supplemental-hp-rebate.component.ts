@@ -136,6 +136,8 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
     this.formInfo.matchFilters = null;
     this.formInfo.rangeFilters = null;
 
+    console.log(this.formInfo);
+
     let jsonPay = JSON.stringify(this.formInfo); 
     
     this._ahriCombinationService.search(jsonPay)
@@ -144,7 +146,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
             });
   }
 
-  // funcion para capturar datos en tiempo real 
+  // function to capture data in real time 
    fuelSource(){
     this.formGroup.get('fuelSource')?.valueChanges.subscribe( (val: any) => {
 
