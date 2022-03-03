@@ -35,9 +35,6 @@ import {MatSelectModule} from '@angular/material/select';
 import { HeatingCoolingComponent } from './ahri-ratings/heating-cooling/heating-cooling.component';
 import { KnowModelNrComponent } from './ahri-ratings/know-model-nr/know-model-nr.component';
 
-import { DetailHCComponent } from './ahri-ratings/heating-cooling/detail-hc.component';
-import { DetailParComponent } from './partial-supplemental-hp-rebate/detail-par.component';
-import { DetailWhoComponent } from './whole-house-hp-rebate/detail-who.component';
 
 import { ResultsHCComponent } from './ahri-ratings/heating-cooling/results-hc.component';
 import { ResultsParComponent } from './partial-supplemental-hp-rebate/results-par.component';
@@ -48,7 +45,7 @@ import {PagesRoutingModule} from './pages-routing.module';
 import { SharedModModule } from '../shared/shared-mod.module';
 import { CoolingOnlyComponent } from './ahri-ratings/cooling-only/cooling-only.component';
 import { ResultsCoolOnComponent } from './ahri-ratings/cooling-only/results-cool-on.component';
-import { DetailCoolOnComponent } from './ahri-ratings/cooling-only/detail-cool-on.component';
+import { DetailComponent } from './detail/detail.component';
 
 
 
@@ -61,15 +58,12 @@ import { DetailCoolOnComponent } from './ahri-ratings/cooling-only/detail-cool-o
     HomeComponent,
     HeatingCoolingComponent,
     KnowModelNrComponent,
-    DetailHCComponent,
-    DetailParComponent,
-    DetailWhoComponent,
     ResultsHCComponent,
     ResultsParComponent,
     ResultsWhoComponent,
     CoolingOnlyComponent,
     ResultsCoolOnComponent,
-    DetailCoolOnComponent
+    DetailComponent
   ],
   imports: [
     CommonModule,

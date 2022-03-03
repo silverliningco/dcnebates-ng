@@ -4,13 +4,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 // sevice
 import {AHRICombinationService} from '../../services/AHRICombinations.service';
 
-
 @Component({
-  selector: 'app-detail-who',
-  templateUrl: './detail-who.component.html',
-  styleUrls: ['./detail-who.component.css']
+  selector: 'app-detail',
+  templateUrl: './detail.component.html',
+  styleUrls: ['./detail.component.css']
 })
-export class DetailWhoComponent implements OnInit {
+export class DetailComponent implements OnInit {
 
   detail!:any;
   url !:any;
@@ -19,15 +18,15 @@ export class DetailWhoComponent implements OnInit {
     public _ahriCombinationService: AHRICombinationService,
     public router: Router,
     public activatedRoute: ActivatedRoute
-  ) {
+  ) { 
     activatedRoute.params.subscribe( params => {
       let skus = params['skus'];
       let ahri_refs = params['ahri_refs'];
-      let detailParams = params['params'];   
+      let detailParams = params['params']; 
 
-      this.loadDetail(skus, ahri_refs, detailParams);
+       this.loadDetail(skus, ahri_refs, detailParams);
     });
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -44,5 +43,4 @@ export class DetailWhoComponent implements OnInit {
   goToLink(){
     window.open(this.url, "_blank");    
   }
-
 }
