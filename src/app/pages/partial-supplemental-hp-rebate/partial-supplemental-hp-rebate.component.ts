@@ -27,6 +27,8 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   selectProductLine!: any;
 
   // ******* send eligibilityDetail *******
+  getpreExistingHeating: any = { "name": "Pre-existing heating type", "value": [ "Electric Resistance Heat" ] };
+  getHPSole: any = { "name": "HP is sole source of heating", "value": "No" }; 
   getexistingFurnace!: any;
   // ******* send eligibilityDetail end *******
 
@@ -80,13 +82,15 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
     // send data of stepper to product line service
     this.formInfo = this.formGroup.value;
     // json struct for eligibilityDetail
-    this.formInfo.eligibilityDetail =  [this.getexistingFurnace];
+    this.formInfo.eligibilityDetail =  [this.getexistingFurnace, this.getpreExistingHeating, this.getHPSole];
 
     this.loadDataDetailParams(this.formInfo);
     
     console.log(this.formInfo);
 
     let jsonPay = JSON.stringify(this.formInfo); 
+
+    console.log(jsonPay);
 
     this._ahriCombinationService.ProductLines(jsonPay)
             .subscribe( (resp:any) => {
@@ -175,6 +179,34 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
       } 
     });     
   }
+  // ******** json eligibilityDetail end *****
+
+  // ******** json eligibilityDetail *****
+    //capture the data
+/*     getPreExistingHeatingType(){
+      this.formGroup.get('preExistingHeatingType')?.valueChanges.subscribe( (val: any) => {
+
+        switch (val) {
+          case 'Natural Gas':
+            this.getpreExistingHeating =  { "name": "Pre-existing heating type", "value": [ "Electric Resistance Heat" ] }             
+        }       
+    
+      });
+
+    }
+
+    getHPSoleSource(){
+      this.formGroup.get('HPSoleSource')?.valueChanges.subscribe( (val: any) => {
+
+        switch (val) {
+          case 'Yes':
+            this.getHPSole = { "name": "HP is sole source of heating", "value": "No" };
+            break;;
+        } 
+        
+      });
+    } */
+
   // ******** json eligibilityDetail end *****
 
 
