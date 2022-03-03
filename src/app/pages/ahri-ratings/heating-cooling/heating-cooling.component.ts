@@ -33,12 +33,11 @@ export class HeatingCoolingComponent implements OnInit {
   sendGasOil!: any; 
   // ******* send ids itulities end *******
 
-  // ******* send ids itulities *******
+  // ******* send eligibilityDetail *******
   getpreExistingHeating!: any;
   getHPSole!: any; 
   getexistingFurnace!: any;
-  preparingData !: any;
-  // ******* send ids itulities end *******
+  // ******* send eligibilityDetail end *******
 
   // ******* select *******
   State: Array<any> = [
@@ -120,7 +119,7 @@ export class HeatingCoolingComponent implements OnInit {
               this.productLines = resp.body;
               console.log(this.productLines);
 
-              // cargar por defecto el primer elemento del arreglo
+              // load by default the first element of the array
               this.formInfo = this.formGroup.value;
               this.formInfo.systemTypeId = resp.body[0].id;
 
