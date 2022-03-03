@@ -11,10 +11,11 @@ export class AHRICombinations {
         public SKUs?: any,
         public accessories?: any,
         public coolingCapacity?: number,
-        public hcap47?: number,
-        public hcap17?: number,
+        public Hcap47?: number,
+        public Hcap17?: number,
         public furnaceInputBTUH?: number,
         public AHRIReferences?: any,
-        public coolingCapacityRated?: number
+        public coolingCapacityRated?: number,
+        public availableRebates?: any
     ) {}
 }
