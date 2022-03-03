@@ -21,7 +21,7 @@ import { paramsDetailService } from '../../../services/params-detail.service';
 export class ResultsCoolOnComponent implements OnInit {
 
   DetailParams: detailParams = new detailParams();
-  loadDetailParams!: string;
+  loadDetailParams!: any;
 
   ahriCombinations: AHRICombinations[] = [];
   p: number =1;
@@ -59,7 +59,7 @@ export class ResultsCoolOnComponent implements OnInit {
       this.DetailParams.state = forDetail.data.state;
       this.DetailParams.eligibilityDetail = forDetail.data.eligibilityDetail;
 
-      this.loadDetailParams = JSON.stringify(this.DetailParams);
+      this.loadDetailParams = this.DetailParams;
 
       console.log(this.DetailParams);
 
