@@ -181,33 +181,4 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   }
   // ******** json eligibilityDetail end *****
 
-  // ******** json eligibilityDetail *****
-    //capture the data
-/*     getPreExistingHeatingType(){
-      this.formGroup.get('preExistingHeatingType')?.valueChanges.subscribe( (val: any) => {
-
-        switch (val) {
-          case 'Natural Gas':
-            this.getpreExistingHeating =  { "name": "Pre-existing heating type", "value": [ "Electric Resistance Heat" ] }             
-        }       
-    
-      });
-
-    }
-
-    getHPSoleSource(){
-      this.formGroup.get('HPSoleSource')?.valueChanges.subscribe( (val: any) => {
-
-        switch (val) {
-          case 'Yes':
-            this.getHPSole = { "name": "HP is sole source of heating", "value": "No" };
-            break;;
-        } 
-        
-      });
-    } */
-
-  // ******** json eligibilityDetail end *****
-
-
 }
