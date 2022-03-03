@@ -23,7 +23,9 @@ export class DetailHCComponent implements OnInit {
     activatedRoute.params.subscribe( params => {
       let skus = params['skus'];
       let ahri_refs = params['ahri_refs'];   
-      let detailParams = params['params'];   
+      let detailParams = params['params'];  
+      
+      console.log(detailParams);
 
       this.loadDetail(skus, ahri_refs, detailParams);
     });

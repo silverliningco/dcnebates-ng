@@ -86,7 +86,7 @@
 
             <mat-form-field appearance="fill">
               <mat-label>Electric Utility</mat-label>
-              <mat-select  #sGroup formControlName="electricUtilityId">
+              <mat-select  #sGroup formControlName="electricUtility">
                   <mat-option *ngFor ="let elec of electric" [value]="elec" radioGroup="sGroup">
                   {{elec}}
                   </mat-option>
@@ -96,7 +96,7 @@
             
               <mat-form-field *ngIf="GasOilUtility" appearance="fill"  >
                 <mat-label>Gas / Oil Utility</mat-label>
-                <mat-select  #sGroup formControlName="gasOilUtilityId">
+                <mat-select  #sGroup formControlName="gasOilUtility">
                     <mat-option *ngFor ="let Gas of gas" [value]="Gas" radioGroup="sGroup">
                       {{Gas}}
                     </mat-option>
@@ -164,7 +164,12 @@
 
        <!-- product line -->
        <mat-radio-group aria-label="Select an option" class="example-radio-group">
-        <mat-radio-button *ngFor="let productLine of productLines; let idx = index" [checked]="(idx === 0)" [value]="productLine.cc_system_definition_id" (click)="submitProductLine(productLine.cc_system_definition_id)"> {{productLine.title}}</mat-radio-button>
+        <mat-radio-button *ngFor="let productLine of productLines; let idx = index" 
+                          [checked]="(idx === 0)" 
+                          [value]="productLine.id" 
+                          (click)="submitProductLine(productLine.id)"> 
+          {{productLine.title}}
+        </mat-radio-button>
       </mat-radio-group>
 
         <div class="rc-table-container">

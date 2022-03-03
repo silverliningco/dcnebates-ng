@@ -46,7 +46,7 @@ export class ResultsHCComponent implements OnInit {
 
       this._paramsDetailService.sentParams
           .subscribe((forDetail: any) => {
-            console.log(forDetail);
+            //console.log(forDetail);
             //console.log(forDetail.data.country);
 
             // load data of forDetail to model paramsDetailService
@@ -60,7 +60,7 @@ export class ResultsHCComponent implements OnInit {
 
             this.loadDetailParams = JSON.stringify(this.DetailParams);
 
-            console.log(this.DetailParams);
+            //console.log(this.DetailParams);
 
           });
 

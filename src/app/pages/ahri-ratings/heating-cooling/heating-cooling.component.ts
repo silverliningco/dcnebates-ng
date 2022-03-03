@@ -28,6 +28,18 @@ export class HeatingCoolingComponent implements OnInit {
   showfurnaceFuel: boolean = false;
   GasOilUtility: boolean = false;
 
+  // ******* send ids itulities *******
+  sendElectric!: any;
+  sendGasOil!: any; 
+  // ******* send ids itulities end *******
+
+  // ******* send ids itulities *******
+  getpreExistingHeating!: any;
+  getHPSole!: any; 
+  getexistingFurnace!: any;
+  preparingData !: any;
+  // ******* send ids itulities end *******
+
   // ******* select *******
   State: Array<any> = [
     { name: 'MA', electric: ['Cape Light Compact', 'Eversource', 'National Grid', 'Unitil', 'Marblehead Municipal Light Department', 'Other'], gas: ['Berkshire Gas', 'Eversource', 'Liberty', 'National Grid', 'Unitil', 'Other'] },
@@ -48,38 +60,7 @@ export class HeatingCoolingComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
-
-        /* rebateIds: [ null, Validators.required],
-
-        // Hardcoded for now
-         heated: true,
-         cooled: true,
-         storeId: 1,
-         country: "US",
-         utilityId: 3,
-        //  Hardcoded for now end
-
-        showAllResults: [ true , Validators.required],
-
-        nominalSize: this._formBuilder.group({
-          coolingTons: [ , Validators.required],
-          heatingBTUH: [ , Validators.required],
-        }),
-
-        fuelSource: ['', Validators.required],
-
-        state: ['', Validators.required],
-        electricUtilityProvider: ['', Validators.required],
-        gasOilUtility:  ['', Validators.required],
-
-        eligibilityDetail:[ [ { "name": "HP is sole source of heating","value": "No" } ]],
-        */
-        //eligibilityDetail: this._formBuilder.group({
-          preExistingHeatingType: ['', Validators.required],
-          HPSoleSource: ['', Validators.required],
-          existingFurnaceType: ['', Validators.required],
-        //}), 
-
+       
         // Hardcoded for now
         rebateIds: [[2], Validators.required],
         storeId: [ 1, Validators.required],
@@ -93,21 +74,26 @@ export class HeatingCoolingComponent implements OnInit {
         }),                     
         fuelSource: ['', Validators.required],
         state: ['', Validators.required],
-        electricUtilityId: ['', Validators.required],
-        gasOilUtilityId:  ['', Validators.required],
-        /* eligibilityDetail: [[{ "name": "Pre-existing heating type", 
-                              "value": ["Electric Resistance Heat"] }, 
-                            { "name": "HP is sole source of heating", 
-                              "value": "Yes" }]], */
+        electricUtility: ['', Validators.required],
+        gasOilUtility:  ['', Validators.required],
+        preExistingHeatingType: ['', Validators.required],
+        HPSoleSource: ['', Validators.required],
+        existingFurnaceType: ['', Validators.required],
+        eligibilityDetail: ['', Validators.required],
 
     });
   
     // enable or disable option
     this.fuelSource();
 
-    // utilities service
-    //this.getUtility(this.furnaceFuel(), this.state());
-  
+    // send utilities ids
+    this.sendElectricID();
+    this.sendGasOilID();
+
+    // json eligibilityDetail
+    this.getPreExistingHeatingType();
+    this.getHPSoleSource();
+    this.getExistingFurnaceType();  
   }
 
 
@@ -118,25 +104,21 @@ export class HeatingCoolingComponent implements OnInit {
       return;
     }
 
-    // load data in detailParams model
-    this.payloadDetailParams.rebateIds = this.formGroup.get('rebateIds')?.value;
-    this.payloadDetailParams.storeId = this.formGroup.get('storeId')?.value;
-    this.payloadDetailParams.country = this.formGroup.get('country')?.value;
-    this.payloadDetailParams.electricUtilityId = this.formGroup.get('electricUtilityId')?.value;
-    this.payloadDetailParams.gasOilUtilityId = this.formGroup.get('gasOilUtilityId')?.value;
-    this.payloadDetailParams.state = this.formGroup.get('state')?.value;
-    this.payloadDetailParams.eligibilityDetail = this.formGroup.get('eligibilityDetail')?.value;
-    //console.log(this.payloadDetailParams);
-    this._paramsDetailService.sentParams.emit({
-      data:this.payloadDetailParams 
-    });
-
     // send data of stepper to product line service
-    let jsonPay = JSON.stringify(f);    
+    this.formInfo = this.formGroup.value;
+    this.formInfo.electricUtilityId = this.sendElectric;
+    this.formInfo.gasOilUtilityId = this.sendGasOil;
+    // json struct for eligibilityDetail
+    this.formInfo.eligibilityDetail =  [this.getpreExistingHeating , this.getHPSole, this.getexistingFurnace];
+
+    this.loadDataDetailParams(this.formInfo);
+
+    let jsonPay = JSON.stringify(this.formInfo);    
 
     this._ahriCombinationService.ProductLines(jsonPay)
             .subscribe( (resp:any) => {
               this.productLines = resp.body;
+              console.log(this.productLines);
 
               // cargar por defecto el primer elemento del arreglo
               this.formInfo = this.formGroup.value;
@@ -144,6 +126,8 @@ export class HeatingCoolingComponent implements OnInit {
 
               this.formInfo.matchFilters = null;
               this.formInfo.rangeFilters = null;
+
+              console.log(this.formInfo);
 
               let jsonPay2 = JSON.stringify(this.formInfo); 
               
@@ -153,6 +137,24 @@ export class HeatingCoolingComponent implements OnInit {
               });
             });
   }
+
+  // load data in detailParams model
+  loadDataDetailParams(formInfo: any){
+
+    this.payloadDetailParams.rebateIds = formInfo.rebateIds;
+    this.payloadDetailParams.storeId = formInfo.storeId;
+    this.payloadDetailParams.country = formInfo.country;
+    this.payloadDetailParams.electricUtilityId = formInfo.electricUtilityId;
+    this.payloadDetailParams.gasOilUtilityId = formInfo.gasOilUtilityId;
+    this.payloadDetailParams.state = formInfo.state;
+    this.payloadDetailParams.eligibilityDetail = formInfo.eligibilityDetail;
+
+    this._paramsDetailService.sentParams.emit({
+      data:this.payloadDetailParams 
+    });  
+  }
+
+
 
 
   // submint info of product line to endpoint equipment search
@@ -182,44 +184,115 @@ export class HeatingCoolingComponent implements OnInit {
 
     // send de id of utilities
     sendElectricID(){
+      this.formGroup.get('electricUtility')?.valueChanges.subscribe( (val: any) => {
+      
+        switch (val) {
+          case 'Cape Light Compact':
+            this.sendElectric = 2;
+            break;
+          case 'Eversource':
+            this.sendElectric = 3;
+            break;
+          case 'National Grid':
+            this.sendElectric= 5;
+            break;
+          case 'Unitil':
+            this.sendElectric = 4;
+            break;
+          case 'Marblehead Municipal Light Department':
+            this.sendElectric = 7;
+            break;
+          /* case 'Other':
+            this.sendElectric = null;
+            break; */
+        }
+        
+      });
 
     }
 
     sendGasOilID(){
-     
+      this.formGroup.get('gasOilUtility')?.valueChanges.subscribe( (val: any) => {
+      
+        switch (val) {
+          case 'Berkshire Gas':
+            this.sendGasOil = 1;
+            break;
+          case 'Eversource':
+            this.sendGasOil = 3;
+            break;
+          case 'Liberty':
+            this.sendGasOil = 4;
+            break;
+          case 'National Grid':
+            this.sendGasOil = 5;
+            break;
+          case 'Unitil':
+            this.sendGasOil = 6;
+            break;
+          /* case 'Other':
+            this.sendGasOil = null;
+            break; */
+        }
+        
+      });
     }
 
   // ******* select end *******
 
 
+  // ******** json eligibilityDetail *****
+    //capture the data
+    getPreExistingHeatingType(){
+      this.formGroup.get('preExistingHeatingType')?.valueChanges.subscribe( (val: any) => {
 
-  // ******** service utilities *****
-    // get furnce fuel
-    /* furnaceFuel(){
-      this.formGroup.get('fuelSource')?.valueChanges.subscribe( (runFuel: any) => {
-        console.log(runFuel);  
-        return runFuel;
+        switch (val) {
+          case 'Natural Gas':
+            this.getpreExistingHeating =  { "name":"Pre-existing heating type", "value":[ "Natural Gas"]};            
+            break;
+          case 'Propane':
+            this.getpreExistingHeating =  { "name":"Pre-existing heating type", "value":[ "Propane"]};
+            break;
+          case 'Heating Oil':
+            this.getpreExistingHeating =  { "name":"Pre-existing heating type", "value":[ "Heating Oil"]};
+            break;
+          case 'Resistance heat':
+            this.getpreExistingHeating = { "name":"Pre-existing heating type", "value":[ "Resistance heat"]};
+            break; 
+        }       
+    
       });
-    } */
 
-    // get state
-  /*  state(){
-      this.formGroup.get('fuelSource')?.valueChanges.subscribe( (runFuel: any) => {
-        console.log(runFuel);
-        return runFuel
+    }
+
+    getHPSoleSource(){
+      this.formGroup.get('HPSoleSource')?.valueChanges.subscribe( (val: any) => {
+
+        switch (val) {
+          case 'Yes':
+            this.getHPSole = { "name":"HP is sole source of heating", "value": "Yes"};
+            break;
+          case 'No':
+            this.getHPSole = { "name":"HP is sole source of heating", "value": "No"};
+            break;
+        } 
+        
       });
-    } */
+    }
 
-    // get utilities
-    /* getUtility(fuel: any, state: any){
-      // call service
-      this._ahriCombinationService.getUtilities(fuel, state)
-            .subscribe((resp:any) => {
-              console.log(resp);
-            });
-    } */
-  // ******** service utilities end *****
-
+    getExistingFurnaceType(){
+      this.formGroup.get('existingFurnaceType')?.valueChanges.subscribe( (val: any) => {
+        switch (val) {
+          case 'Condensing':
+            this.getexistingFurnace = { "name":"Existing furnace type", "value": "Condensing"};
+            break;
+          case 'Non-condensing':
+            this.getexistingFurnace = { "name":"Existing furnace type", "value": "Non-condensing"};
+            break;
+        } 
+      });     
+    }
+  // ******** json eligibilityDetail end *****
   
 
 
