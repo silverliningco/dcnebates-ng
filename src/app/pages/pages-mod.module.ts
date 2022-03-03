@@ -25,7 +25,7 @@ import {MatSliderModule} from '@angular/material/slider';
 
 // components
 import { PagesComponent } from './pages.component';
-import { AHRIMatchupsComponent } from './ahri-ratings/ahri-matchups.component';
+import { AHRIRatingsComponent } from './ahri-ratings/ahri-ratings.component';
 import { WholeHouseHPRebateComponent } from './whole-house-hp-rebate/whole-house-hp-rebate.component';
 import { PartialSupplementalHPRebateComponent } from './partial-supplemental-hp-rebate/partial-supplemental-hp-rebate.component';
 import { HomeComponent } from './home/home.component';
@@ -52,7 +52,7 @@ import { DetailComponent } from './detail/detail.component';
 @NgModule({
   declarations: [
     PagesComponent,
-    AHRIMatchupsComponent,
+    AHRIRatingsComponent,
     WholeHouseHPRebateComponent,
     PartialSupplementalHPRebateComponent,
     HomeComponent,

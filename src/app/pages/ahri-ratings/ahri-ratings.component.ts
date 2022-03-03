@@ -3,9 +3,9 @@ import {FormBuilder, FormGroup, Validators, AbstractControl, FormArray} from '@a
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 
 @Component({
-  selector: 'app-ahri-matchups',
-  templateUrl: './ahri-matchups.component.html',
-  styleUrls: ['./ahri-matchups.component.css'], 
+  selector: 'app-ahri-ratings',
+  templateUrl: './ahri-ratings.component.html',
+  styleUrls: ['./ahri-ratings.component.css'], 
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
@@ -13,7 +13,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
     },
   ]
 })
-export class AHRIMatchupsComponent implements OnInit {
+export class AHRIRatingsComponent implements OnInit {
 
   constructor() { }
 
