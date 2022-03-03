@@ -129,12 +129,11 @@
               <mat-form-field appearance="fill"  >
                 <mat-label>Gas / Oil Utility</mat-label>
                 <mat-select  #sGroup formControlName="gasOilUtilityId">
-                    <mat-option [value]="'1'" radioGroup="sGroup"> Berkshire Gas </mat-option>
-                    <mat-option [value]="'3'" radioGroup="sGroup"> Eversource  </mat-option>
-                    <mat-option [value]="'4'" radioGroup="sGroup"> Liberty </mat-option>
-                    <mat-option [value]="'5'" radioGroup="sGroup"> National Grid </mat-option>
-                    <mat-option [value]="'6'" radioGroup="sGroup"> Unitil </mat-option>
-                    <mat-option [value]="'Other'" radioGroup="sGroup"> Other </mat-option>
+                    <mat-option [value]="1" radioGroup="sGroup"> Berkshire Gas </mat-option>
+                    <mat-option [value]="3" radioGroup="sGroup"> Eversource  </mat-option>
+                    <mat-option [value]="4" radioGroup="sGroup"> Liberty </mat-option>
+                    <mat-option [value]="5" radioGroup="sGroup"> National Grid </mat-option>
+                    <mat-option [value]="6" radioGroup="sGroup"> Unitil </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -151,7 +150,7 @@
 
 
     <!-- Step 5 (only if furnace fuel != "None")	-->
-    <mat-step *ngIf="showStep4and5" [stepControl]="formGroup?.get('eligibilityDetail')!">
+    <mat-step *ngIf="showStep4and5" [stepControl]="formGroup?.get('existingFurnaceType')!">
       <!-- Name of step -->
       <ng-template matStepLabel>Eligibility Details</ng-template>
       <!-- Content of step -->
@@ -161,7 +160,7 @@
         
           <!-- radio buttons -->
           <mat-label> Existing furnace type?</mat-label>
-          <mat-radio-group #rGroup formControlName="eligibilityDetail" class="rc-radio-group">
+          <mat-radio-group #rGroup formControlName="existingFurnaceType" class="rc-radio-group">
             <mat-radio-button [value]="'Condensing'" radioGroup="rGroup">Condensing</mat-radio-button>
             <mat-radio-button [value]="'Non-condensing'" radioGroup="rGroup">None-condensing</mat-radio-button>
           </mat-radio-group>
