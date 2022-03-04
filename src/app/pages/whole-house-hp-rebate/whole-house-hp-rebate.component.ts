@@ -37,7 +37,7 @@ export class WholeHouseHPRebateComponent implements OnInit {
     this.formGroup = this._formBuilder.group({
       // Hardcoded for now
       rebateIds: [[2], Validators.required],
-      storeId: [7, Validators.required],
+      storeId: [1, Validators.required],
       showAllResults: [true, Validators.required],
       country: ["US", Validators.required],
       state: ["MA", Validators.required],
