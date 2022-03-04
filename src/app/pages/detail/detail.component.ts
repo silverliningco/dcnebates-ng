@@ -34,9 +34,9 @@ export class DetailComponent implements OnInit {
   loadDetail(skus: any, ahri_refs: any, detailParams: any){
     this._ahriCombinationService.newGetResultDetail(skus, ahri_refs, detailParams)
             .subscribe( (resp:any) => {
-              //this.url = resp.body.eligibleRebates[0].url;
-              console.log(resp.body);
-              this.detail= resp.body;
+              //this.url = resp.eligibleRebates[0].url;
+              console.log(resp);
+              this.detail= resp;
             });            
   }
 

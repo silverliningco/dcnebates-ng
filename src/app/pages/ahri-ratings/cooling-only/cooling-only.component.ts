@@ -97,11 +97,15 @@ export class CoolingOnlyComponent implements OnInit {
 
     this._ahriCombinationService.ProductLines(jsonPay)
             .subscribe( (resp:any) => {
-              this.productLines = resp.body;
+              this.productLines = resp;
 
               // cargar por defecto el primer elemento del arreglo
               this.formInfo = this.formGroup.value;
-              this.formInfo.systemTypeId = resp.body[0].id;
+              if (resp.length > 0) {
+                this.formInfo.systemTypeId = resp[0].id;
+              } else {
+                alert("No product lines where found.")
+              }
 
               this.formInfo.matchFilters = null;
               this.formInfo.rangeFilters = null;
@@ -110,8 +114,14 @@ export class CoolingOnlyComponent implements OnInit {
               
               this._ahriCombinationService.search(jsonPay2)
                   .subscribe( (resp:any) => {
-                    this.data = resp.body;
+                    this.data = resp;
+              },
+              err => {
+                alert(err.error)
               });
+            },
+            err => {
+              alert(err.error)
             });
   }
 
@@ -144,7 +154,10 @@ export class CoolingOnlyComponent implements OnInit {
     
     this._ahriCombinationService.search(jsonPay)
             .subscribe( (resp:any) => {
-              this.data = resp.body;
+              this.data = resp;
+            },
+            err => {
+              alert(err.error)
             });
   }
 
