@@ -8,8 +8,9 @@
         <mat-icon>filter_list</mat-icon>
       </button>
     </div>
+ 
     <div class="nkn-right">
-      1-10 of 100
+      {{ beginning }} - {{ end }} of  {{ahriCombinations?.length}}
     </div>
   </div>
   <!-- End Filter and number of row in table -->
@@ -55,14 +56,12 @@
       </tbody>
     </table>
   </div>
-  
+
   <!-- table end -->
-  
-  
-  
+
   <!-- pagination -->
   <div class="nkn-text-right">
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
   </div>
   <!-- End pagination -->
   
