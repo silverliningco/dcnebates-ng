@@ -12,7 +12,6 @@ import {AHRICombinationService} from '../../services/AHRICombinations.service';
 export class DetailComponent implements OnInit {
 
   detail!:any;
-  url !:any;
 
   constructor(
     public _ahriCombinationService: AHRICombinationService,
@@ -34,13 +33,12 @@ export class DetailComponent implements OnInit {
   loadDetail(skus: any, ahri_refs: any, detailParams: any){
     this._ahriCombinationService.newGetResultDetail(skus, ahri_refs, detailParams)
             .subscribe( (resp:any) => {
-              //this.url = resp.body.eligibleRebates[0].url;
-              console.log(resp.body);
-              this.detail= resp.body;
+              console.log(resp);
+              this.detail= resp;
             });            
   }
 
-  goToLink(){
-    window.open(this.url, "_blank");    
+  goToLink(myUrl: string){
+    window.open(myUrl, "_blank");    
   }
 }

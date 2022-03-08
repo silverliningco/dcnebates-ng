@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // services
 import { AHRICombinationService } from '../../services/AHRICombinations.service';
@@ -37,26 +37,30 @@ export class WholeHouseHPRebateComponent implements OnInit {
     this.formGroup = this._formBuilder.group({
       // Hardcoded for now
       rebateIds: [[2], Validators.required],
-      storeId: [ 1, Validators.required],
-      showAllResults: [ true, Validators.required],
+      storeId: [1, Validators.required],
+      showAllResults: [true, Validators.required],
       country: ["US", Validators.required],
-      state: ["MA" , Validators.required],
-      electricUtilityId: [ 3, Validators.required],
+      state: ["MA", Validators.required],
+      electricUtilityId: [3, Validators.required],
       //electricUtilityId: [[2,3,5,6], Validators.required], 
-      gasOilUtilityId: [ 3, Validators.required],
+      gasOilUtilityId: [3, Validators.required],
       // gasOilUtilityId: [[2,3,5,6], Validators.required],
       fuelSource: ['Natural Gas', Validators.required],
-      eligibilityDetail: [[{ "name": "Pre-existing heating type", 
-                             "value": ["Electric Resistance Heat"] }, 
-                           { "name": "HP is sole source of heating", 
-                             "value": "Yes" }]],
+      eligibilityDetail: [[{
+        "name": "Pre-existing heating type",
+        "value": ["Electric Resistance Heat"]
+      },
+      {
+        "name": "HP is sole source of heating",
+        "value": "Yes"
+      }]],
 
       // data of form
       nominalSize: this._formBuilder.group({
         heatingBTUH: ['', Validators.required],
-        coolingTons: [  3.0, Validators.required],// Hardcoded for now
+        coolingTons: [3.0, Validators.required],// Hardcoded for now
       }),
-  
+
     });
 
   }
@@ -78,33 +82,45 @@ export class WholeHouseHPRebateComponent implements OnInit {
     this.payloadDetailParams.eligibilityDetail = this.formGroup.get('eligibilityDetail')?.value;
     //console.log(this.payloadDetailParams);
     this._paramsDetailService.sentParams.emit({
-      data:this.payloadDetailParams 
+      data: this.payloadDetailParams
     });
 
     // send data of stepper to product line service
     let jsonPay = JSON.stringify(f);
 
     this._ahriCombinationService.ProductLines(jsonPay)
-      .subscribe((resp: any) => {
+      .subscribe(
+        (resp: any) => {
 
-        this.productLines = resp.body;
+          this.productLines = resp;
 
-        // load by default the first element of the array
-        this.formInfo = this.formGroup.value;
-        this.formInfo.systemTypeId = resp.body[0].id;
+          // load by default the first element of the array
+          this.formInfo = this.formGroup.value;
+          if (resp.length > 0) {
+            this.formInfo.systemTypeId = resp[0].id;
+          } else {
+            alert("No product lines where found.")
+          }
 
-        this.formInfo.matchFilters = null;
-        this.formInfo.rangeFilters = null;
+          this.formInfo.matchFilters = null;
+          this.formInfo.rangeFilters = null;
 
-        let jsonPay2 = JSON.stringify(this.formInfo);
+          let jsonPay2 = JSON.stringify(this.formInfo);
 
-        this._ahriCombinationService.search(jsonPay2)
-          .subscribe((resp: any) => {
+          this._ahriCombinationService.search(jsonPay2)
+            .subscribe((resp: any) => {
+              this.data = resp;
+            },
+              err => {
+                alert(err.error)
+              });
+        },
+        err => {
+          alert(err.error)
+        }
 
-            this.data = resp.body;
-          });
 
-      });
+      );
   }
 
 
@@ -120,8 +136,11 @@ export class WholeHouseHPRebateComponent implements OnInit {
 
     this._ahriCombinationService.search(jsonPay)
       .subscribe((resp: any) => {
-        this.data = resp.body;
-      });
+        this.data = resp;
+      },
+        err => {
+          alert(err.error)
+        });
   }
 
 

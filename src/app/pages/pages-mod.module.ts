@@ -39,16 +39,13 @@ import { HeatingCoolingComponent } from './ahri-ratings/heating-cooling/heating-
 import { KnowModelNrComponent } from './ahri-ratings/know-model-nr/know-model-nr.component';
 
 
-import { ResultsHCComponent } from './ahri-ratings/heating-cooling/results-hc.component';
-import { ResultsParComponent } from './partial-supplemental-hp-rebate/results-par.component';
-import { ResultsWhoComponent } from './whole-house-hp-rebate/results-who.component';
 
 // module
 import {PagesRoutingModule} from './pages-routing.module';
 import { SharedModModule } from '../shared/shared-mod.module';
 import { CoolingOnlyComponent } from './ahri-ratings/cooling-only/cooling-only.component';
-import { ResultsCoolOnComponent } from './ahri-ratings/cooling-only/results-cool-on.component';
 import { DetailComponent } from './detail/detail.component';
+import { ResultsComponent } from './results/results.component';
 
 
 
@@ -61,12 +58,9 @@ import { DetailComponent } from './detail/detail.component';
     HomeComponent,
     HeatingCoolingComponent,
     KnowModelNrComponent,
-    ResultsHCComponent,
-    ResultsParComponent,
-    ResultsWhoComponent,
     CoolingOnlyComponent,
-    ResultsCoolOnComponent,
-    DetailComponent
+    DetailComponent,
+    ResultsComponent
   ],
   imports: [
     CommonModule,
