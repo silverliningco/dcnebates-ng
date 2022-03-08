@@ -1,8 +1,9 @@
 <app-header></app-header>
-<app-breadcrumbs></app-breadcrumbs>
+<xng-breadcrumb separator=">"  (click)="onActivate($event)"></xng-breadcrumb>
+
 
 <div class="nkn-container">
-  <router-outlet></router-outlet>
+  <router-outlet ></router-outlet>
 </div>
 
 <app-footer></app-footer>

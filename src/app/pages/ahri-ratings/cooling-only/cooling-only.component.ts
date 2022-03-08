@@ -50,17 +50,11 @@ export class CoolingOnlyComponent implements OnInit {
     this.formGroup = this._formBuilder.group({
 
         // Hardcoded for now
-        rebateIds: [[2], Validators.required],
+        rebateIds: [[], Validators.required],
         storeId: [ 1, Validators.required],
         showAllResults: [ true, Validators.required],
         country: ["US", Validators.required],
-        //gasOilUtilityId: [ 3, Validators.required],
-        //fuelSource: ['Natural Gas', Validators.required],
-        /* eligibilityDetail: [[{ "name": "Pre-existing heating type", 
-                              "value": ["Electric Resistance Heat"] }, 
-                            { "name": "HP is sole source of heating", 
-                              "value": "Yes" }]], */
-
+        
         // data of form
         nominalSize: this._formBuilder.group({
           heatingBTUH: [26000, Validators.required],

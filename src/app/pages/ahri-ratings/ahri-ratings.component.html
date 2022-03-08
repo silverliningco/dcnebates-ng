@@ -1,62 +1,70 @@
-<div class="rc-content-flex rc-hero-content">
+<div [hidden]="hiddenHome"  >
+  <div class="rc-content-flex rc-hero-content">
 
-  <!-- Heating & Cooling -->
-  <mat-card class="rc-card rc-card-ahri-matchup" [routerLink]="['/AHRIRatings','HeatingCooling']">
-    <img src="./assets/img/bot.svg" alt="" class="rc-card-img">
-    <mat-card-title class="rc-card-title">Heating & Cooling</mat-card-title>
-    <mat-card-actions class="rc-card-actions">
-      <button [routerLink]="['/AHRIRatings','HeatingCooling']" mat-flat-button color="primary">
-        Continue
-        <mat-icon>arrow_forward</mat-icon>
-    </button>
-    </mat-card-actions>
-  </mat-card>
-
-  <!-- Cooling only -->
-  <mat-card class="rc-card rc-card-ahri-matchup" [routerLink]="['/AHRIRatings','CoolingOnly']">
-    <img src="./assets/img/bot.svg" alt="" class="rc-card-img">
-    <mat-card-title class="rc-card-title">Cooling only</mat-card-title>
-    <mat-card-actions class="rc-card-actions">
-      <button [routerLink]="['/AHRIRatings','CoolingOnly']"  mat-flat-button color="primary">
-        Continue
-        <mat-icon>arrow_forward</mat-icon>
+    <!-- Heating & Cooling -->
+    <mat-card class="rc-card rc-card-ahri-matchup" [routerLink]="['HeatingCooling']">
+      <img src="./assets/img/bot.svg" alt="" class="rc-card-img">
+      <mat-card-title class="rc-card-title">Heating & Cooling</mat-card-title>
+      <mat-card-actions class="rc-card-actions">
+        <button [routerLink]="['HeatingCooling']" mat-flat-button color="primary">
+          Continue
+          <mat-icon>arrow_forward</mat-icon>
       </button>
-    </mat-card-actions>
-  </mat-card>
+      </mat-card-actions>
+    </mat-card>
+  
+    <!-- Cooling only -->
+    <mat-card class="rc-card rc-card-ahri-matchup" [routerLink]="['CoolingOnly']">
+      <img src="./assets/img/bot.svg" alt="" class="rc-card-img">
+      <mat-card-title class="rc-card-title">Cooling only</mat-card-title>
+      <mat-card-actions class="rc-card-actions">
+        <button [routerLink]="['CoolingOnly']"  mat-flat-button color="primary">
+          Continue
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  
+    <!-- Existing or non-ECM furnace installations -->
+    <mat-card class="rc-card rc-card-ahri-matchup">
+      <img src="./assets/img/person.svg" alt="" class="rc-card-img">
+      <mat-card-title class="rc-card-title">Existing or non-ECM furnace installations</mat-card-title>
+      <mat-card-actions class="rc-card-actions">
+        <button  mat-flat-button color="primary">
+          Continue
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  
+    <!-- Furnace-only -->
+    <mat-card class="rc-card rc-card-ahri-matchup">
+      <img src="./assets/img/person.svg" alt="" class="rc-card-img">
+      <mat-card-title class="rc-card-title">Furnace-only</mat-card-title>
+      <mat-card-actions class="rc-card-actions">
+        <button  mat-flat-button color="primary">
+          Continue
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  
+    <!-- I know my model nrs -->
+    <mat-card class="rc-card rc-card-ahri-matchup" [routerLink]="['KnowModel']">
+      <img src="./assets/img/person.svg" alt="" class="rc-card-img">
+      <mat-card-title class="rc-card-title">I know my model nrs</mat-card-title>
+      <mat-card-actions class="rc-card-actions">
+        <button [routerLink]="['KnowModel']"  mat-flat-button color="primary">
+          Continue
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  
 
-  <!-- Existing or non-ECM furnace installations -->
-  <mat-card class="rc-card rc-card-ahri-matchup">
-    <img src="./assets/img/person.svg" alt="" class="rc-card-img">
-    <mat-card-title class="rc-card-title">Existing or non-ECM furnace installations</mat-card-title>
-    <mat-card-actions class="rc-card-actions">
-      <button  mat-flat-button color="primary">
-        Continue
-        <mat-icon>arrow_forward</mat-icon>
-      </button>
-    </mat-card-actions>
-  </mat-card>
-
-  <!-- Furnace-only -->
-  <mat-card class="rc-card rc-card-ahri-matchup">
-    <img src="./assets/img/person.svg" alt="" class="rc-card-img">
-    <mat-card-title class="rc-card-title">Furnace-only</mat-card-title>
-    <mat-card-actions class="rc-card-actions">
-      <button  mat-flat-button color="primary">
-        Continue
-        <mat-icon>arrow_forward</mat-icon>
-      </button>
-    </mat-card-actions>
-  </mat-card>
-
-  <!-- I know my model nrs -->
-  <mat-card class="rc-card rc-card-ahri-matchup" [routerLink]="['/AHRIRatings','KnowModel']">
-    <img src="./assets/img/person.svg" alt="" class="rc-card-img">
-    <mat-card-title class="rc-card-title">I know my model nrs</mat-card-title>
-    <mat-card-actions class="rc-card-actions">
-      <button [routerLink]="['/AHRIRatings','KnowModel']"  mat-flat-button color="primary">
-        Continue
-        <mat-icon>arrow_forward</mat-icon>
-      </button>
-    </mat-card-actions>
-  </mat-card>
 </div>
+
+
+
+<router-outlet  (activate)="onActivate($event)"></router-outlet>

@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+// bradcrumb
+import {BreadcrumbModule} from 'xng-breadcrumb';
+
 // pagination
 import {NgxPaginationModule} from 'ngx-pagination';
 
@@ -73,6 +76,7 @@ import { DetailComponent } from './detail/detail.component';
     SharedModModule,
     HttpClientModule,
     NgxPaginationModule,
+    BreadcrumbModule,
     // angular Material
     MatInputModule,
     MatToolbarModule,
@@ -94,6 +98,7 @@ import { DetailComponent } from './detail/detail.component';
     MatSliderModule
   ],
   exports:[
+    BreadcrumbModule,
     // angular Material
     MatInputModule,
     MatToolbarModule,

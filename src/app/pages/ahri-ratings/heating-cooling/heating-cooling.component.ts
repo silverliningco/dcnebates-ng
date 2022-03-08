@@ -61,7 +61,7 @@ export class HeatingCoolingComponent implements OnInit {
     this.formGroup = this._formBuilder.group({
        
         // Hardcoded for now
-        rebateIds: [[2], Validators.required],
+        rebateIds: [[], Validators.required],
         storeId: [ 1, Validators.required],
         showAllResults: [ true, Validators.required],
         country: ["US", Validators.required],
@@ -117,7 +117,6 @@ export class HeatingCoolingComponent implements OnInit {
     this._ahriCombinationService.ProductLines(jsonPay)
             .subscribe( (resp:any) => {
               this.productLines = resp.body;
-              console.log(this.productLines);
 
               // load by default the first element of the array
               this.formInfo = this.formGroup.value;
@@ -126,9 +125,9 @@ export class HeatingCoolingComponent implements OnInit {
               this.formInfo.matchFilters = null;
               this.formInfo.rangeFilters = null;
 
-              console.log(this.formInfo);
-
               let jsonPay2 = JSON.stringify(this.formInfo); 
+
+              console.log(jsonPay2);
               
               this._ahriCombinationService.search(jsonPay2)
                   .subscribe( (resp:any) => {
@@ -165,6 +164,8 @@ export class HeatingCoolingComponent implements OnInit {
     this.formInfo.rangeFilters = null;
 
     let jsonPay = JSON.stringify(this.formInfo); 
+
+    console.log(jsonPay);
     
     this._ahriCombinationService.search(jsonPay)
             .subscribe( (resp:any) => {

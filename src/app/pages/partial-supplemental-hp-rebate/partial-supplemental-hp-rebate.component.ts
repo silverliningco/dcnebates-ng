@@ -81,12 +81,16 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
 
     // send data of stepper to product line service
     this.formInfo = this.formGroup.value;
-    // json struct for eligibilityDetail
-    this.formInfo.eligibilityDetail =  [this.getexistingFurnace, this.getpreExistingHeating, this.getHPSole];
+    
+    // eligibility Detail is not sent if furnace = none
+    if(this.formInfo.fuelSource = 'None'){
+      this.formInfo.eligibilityDetail = [];
+    } else {
+      // json struct for eligibilityDetail
+      this.formInfo.eligibilityDetail =  [this.getexistingFurnace, this.getpreExistingHeating, this.getHPSole];
+    }
 
     this.loadDataDetailParams(this.formInfo);
-    
-    console.log(this.formInfo);
 
     let jsonPay = JSON.stringify(this.formInfo); 
 
@@ -105,6 +109,8 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
               this.formInfo.rangeFilters = null;
 
               let jsonPay2 = JSON.stringify(this.formInfo); 
+
+              console.log(jsonPay2);
               
               this._ahriCombinationService.search(jsonPay2)
                   .subscribe( (resp:any) => {
@@ -136,13 +142,13 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   submitProductLine(id: number) {
     // payload 
     this.formInfo = this.formGroup.value;
-    this.formInfo.productLine = id;
+    this.formInfo.systemTypeId = id;
     this.formInfo.matchFilters = null;
     this.formInfo.rangeFilters = null;
 
-    console.log(this.formInfo);
-
     let jsonPay = JSON.stringify(this.formInfo); 
+
+    console.log(jsonPay);
     
     this._ahriCombinationService.search(jsonPay)
             .subscribe( (resp:any) => {

@@ -18,7 +18,7 @@ import { DetailComponent } from './detail/detail.component';
 
 
 
-const routes: Routes =[
+/* const routes: Routes =[
   {
     path: '',
     component: PagesComponent,
@@ -37,7 +37,94 @@ const routes: Routes =[
       {path: 'PartialSupplementalHP', component: PartialSupplementalHPRebateComponent, data: {breadcrumbs: ['home','Partial Supplemental HP']} },
     ]
   }
+] */
+
+
+
+
+
+
+const routes: Routes =[
+  {
+    path: '',
+    component: PagesComponent,
+    children: [
+
+      // rutas dinamicas
+
+      /* {
+        path: 'detail/:skus/:ahri_refs/:params', 
+        component: DetailComponent
+      }, */
+
+      // HOME *********************************
+      {
+        path: '', 
+        redirectTo: '/home', 
+        pathMatch: 'full' 
+      },
+
+      {
+        path: 'home', 
+        component: HomeComponent, 
+        data: {breadcrumbs: 'Home'},
+        children: [
+          // AHRIRatings *************************************
+          {
+            path: 'AHRIRatings', 
+            component: AHRIRatingsComponent,
+            data: {breadcrumbs: 'AHRI Ratings'},
+            children: [
+
+              // HeatingCooling
+              {
+                path: 'HeatingCooling', 
+                component: HeatingCoolingComponent, 
+                data: {breadcrumbs: 'Heating Cooling'}
+              },
+
+
+              // CoolingOnly
+              {
+                path: 'CoolingOnly', 
+                component: CoolingOnlyComponent, 
+                data: {breadcrumbs: 'Cooling Only'},
+              },
+
+              // KnowModel
+              {
+                path: 'KnowModel', 
+                component: KnowModelNrComponent, 
+                data: {breadcrumbs: 'Know Model'},
+              }
+
+            ]
+          },
+
+          // WholeHouseHP **************************************
+          {
+            path: 'WholeHouseHP', 
+            component: WholeHouseHPRebateComponent, 
+            data: {breadcrumbs: 'Whole HouseHP'}
+          },
+
+          // PartialSupplementalHP **********************************
+          {
+            path: 'PartialSupplementalHP', 
+            component: PartialSupplementalHPRebateComponent, 
+            data: {breadcrumbs: 'Partial Supplemental HP'}
+          }
+
+        ]
+      }
+    ]
+  }
 ]
+
+
+
+
+
 
 
 

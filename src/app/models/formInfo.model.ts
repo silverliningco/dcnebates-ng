@@ -14,7 +14,7 @@ export class FormInfo {
         public fuelSource?: string,
         public nominalSize?: any,
         public eligibilityDetail?: Array<JSON>,
-        public productLine?: number,
+        //public productLine?: number,
         public systemTypeId?: number,
         public matchFilters?: any,
         public rangeFilters?: any,
