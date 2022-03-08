@@ -27,9 +27,9 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   selectProductLine!: any;
 
   // ******* send eligibilityDetail *******
-  getpreExistingHeating: any = { "name": "Pre-existing heating type", "value": [ "Electric Resistance Heat" ] };
+  /* getpreExistingHeating: any = { "name": "Pre-existing heating type", "value": [ "Electric Resistance Heat" ] };
   getHPSole: any = { "name": "HP is sole source of heating", "value": "No" }; 
-  getexistingFurnace!: any;
+  getexistingFurnace!: any; */
   // ******* send eligibilityDetail end *******
 
   showStep4and5: boolean = false;
@@ -69,7 +69,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
     this.fuelSource();
 
     // json eligibilityDetail
-    this.getExistingFurnaceType();
+    //this.getExistingFurnaceType();
   }
 
 
@@ -82,13 +82,9 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
     // send data of stepper to product line service
     this.formInfo = this.formGroup.value;
     
-    // eligibility Detail is not sent if furnace = none
-    if(this.formInfo.fuelSource = 'None'){
+    // eligibility Detail is empty 
       this.formInfo.eligibilityDetail = [];
-    } else {
-      // json struct for eligibilityDetail
-      this.formInfo.eligibilityDetail =  [this.getexistingFurnace, this.getpreExistingHeating, this.getHPSole];
-    }
+
 
     this.loadDataDetailParams(this.formInfo);
 
@@ -186,7 +182,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   }
 
   // ******** json eligibilityDetail  *****
-  getExistingFurnaceType(){
+ /*  getExistingFurnaceType(){
     this.formGroup.get('existingFurnaceType')?.valueChanges.subscribe( (val: any) => {
       switch (val) {
         case 'Condensing':
@@ -197,7 +193,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
           break;
       } 
     });     
-  }
+  } */
   // ******** json eligibilityDetail end *****
 
 }

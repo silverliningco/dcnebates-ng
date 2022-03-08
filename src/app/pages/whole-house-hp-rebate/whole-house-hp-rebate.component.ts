@@ -46,14 +46,7 @@ export class WholeHouseHPRebateComponent implements OnInit {
       gasOilUtilityId: [3, Validators.required],
       // gasOilUtilityId: [[2,3,5,6], Validators.required],
       fuelSource: ['Natural Gas', Validators.required],
-      eligibilityDetail: [[{
-        "name": "Pre-existing heating type",
-        "value": ["Electric Resistance Heat"]
-      },
-      {
-        "name": "HP is sole source of heating",
-        "value": "Yes"
-      }]],
+      eligibilityDetail: [[]],
 
       // data of form
       nominalSize: this._formBuilder.group({

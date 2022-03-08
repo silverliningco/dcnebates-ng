@@ -34,9 +34,9 @@ export class HeatingCoolingComponent implements OnInit {
   // ******* send ids itulities end *******
 
   // ******* send eligibilityDetail *******
-  getpreExistingHeating!: any;
+ /*  getpreExistingHeating!: any;
   getHPSole!: any; 
-  getexistingFurnace!: any;
+  getexistingFurnace!: any; */
   // ******* send eligibilityDetail end *******
 
   // ******* select *******
@@ -83,16 +83,16 @@ export class HeatingCoolingComponent implements OnInit {
     });
   
     // enable or disable option
-    this.fuelSource();
+    //this.fuelSource();
 
     // send utilities ids
     this.sendElectricID();
     this.sendGasOilID();
 
     // json eligibilityDetail
-    this.getPreExistingHeatingType();
+    /* this.getPreExistingHeatingType();
     this.getHPSoleSource();
-    this.getExistingFurnaceType();  
+    this.getExistingFurnaceType() */;  
   }
 
 
@@ -108,7 +108,7 @@ export class HeatingCoolingComponent implements OnInit {
     this.formInfo.electricUtilityId = this.sendElectric;
     this.formInfo.gasOilUtilityId = this.sendGasOil;
     // json struct for eligibilityDetail
-    this.formInfo.eligibilityDetail =  [this.getpreExistingHeating , this.getHPSole, this.getexistingFurnace];
+    this.formInfo.eligibilityDetail =  [];
 
     this.loadDataDetailParams(this.formInfo);
 
@@ -257,7 +257,7 @@ export class HeatingCoolingComponent implements OnInit {
 
   // ******** json eligibilityDetail *****
     //capture the data
-    getPreExistingHeatingType(){
+    /* getPreExistingHeatingType(){
       this.formGroup.get('preExistingHeatingType')?.valueChanges.subscribe( (val: any) => {
 
         switch (val) {
@@ -323,7 +323,7 @@ export class HeatingCoolingComponent implements OnInit {
       }
       
     });
-  }
+  } */
 
 
 

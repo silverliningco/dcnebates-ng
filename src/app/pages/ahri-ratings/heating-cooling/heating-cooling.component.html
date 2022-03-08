@@ -106,55 +106,14 @@
           <!-- button -->
           <div class="nkn-space-between nkn-mt-medium">
             <button type="button" mat-button matStepperPrevious>Back</button>
-            <button type="button"  mat-raised-button matStepperNext color="primary">Continue</button>
+            <button type="submit" (click)="submitForm(formGroup.value)"   mat-raised-button matStepperNext color="primary">Continue</button>
           </div> 
         </div>
       </div>
     </mat-step>
     <!-- Step 3 end -->
 
-    <!-- Step 4 -->
-    <!-- <mat-step formGroupName="eligibilityDetail"  errorMessage="Eligibility Detail is required."> -->
-      <mat-step errorMessage="Eligibility Detail is required.">  
-      <!-- Name of step -->
-      <ng-template matStepLabel>Eligibility Details</ng-template>
-      <!-- Content of step -->
-      <div class="rc-content-flex rc-column">
-        <h2 class="rc-main-title">Eligibility Details</h2>
-        <!-- User input -->
-        <div class="rc-column">
-
-             <!-- radio button -->
-             <mat-label>Pre-existing heating type</mat-label>
-             <mat-radio-group #rGroup  formControlName="preExistingHeatingType" class="rc-radio-group">
-               <mat-radio-button [value]="'Natural Gas'" radioGroup="rGroup">Natural Gas</mat-radio-button>
-               <mat-radio-button [value]="'Propane'" radioGroup="rGroup">Propane</mat-radio-button>
-               <mat-radio-button [value]="'Heating Oil'" radioGroup="rGroup">Heating Oil</mat-radio-button>
-               <mat-radio-button [value]="'Resistance heat'" radioGroup="rGroup">Resistance heat</mat-radio-button>
-             </mat-radio-group>
-
-              <!-- radio buttons -->
-            <mat-label> HP System is the sole source of heat?</mat-label>
-            <mat-radio-group #rGroup formControlName="HPSoleSource" class="rc-radio-group">
-              <mat-radio-button [value]="'Yes'" radioGroup="rGroup">Yes</mat-radio-button>
-              <mat-radio-button [value]="'No'" radioGroup="rGroup">No</mat-radio-button>
-            </mat-radio-group>
-
-            <mat-label > Existing furnace type?</mat-label>
-              <mat-radio-group #rGroup formControlName="existingFurnaceType" class="rc-radio-group">
-              <mat-radio-button [value]="'Condensing'" radioGroup="rGroup">Condensing</mat-radio-button>
-              <mat-radio-button [value]="'Non-condensing'" radioGroup="rGroup">None - condensing</mat-radio-button>
-            </mat-radio-group>         
-
-          <!-- button -->
-          <div class="nkn-space-between nkn-mt-medium">
-            <button type="button" mat-button matStepperPrevious>Back</button>
-            <button type="button" type="submit" (click)="submitForm(formGroup.value)"  mat-raised-button matStepperNext color="primary">Continue</button>
-          </div>
-        </div>
-      </div>
-    </mat-step>
-    <!-- Step 4 end  -->
+    
 
     <!-- results -->
     <mat-step >

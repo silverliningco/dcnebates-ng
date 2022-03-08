@@ -141,38 +141,12 @@
             <!-- button -->
             <div class="nkn-space-between nkn-mt-medium">
               <button type="button" mat-button matStepperPrevious>Back</button>
-              <button type="button"  mat-raised-button matStepperNext color="primary">Continue</button>
+              <button type="submit" (click)="submitForm(formGroup.value)" mat-raised-button matStepperNext color="primary">Continue</button>
             </div> 
           </div>
         </div>
       </mat-step>
       <!-- Step 4 end -->
-
-
-    <!-- Step 5 (only if furnace fuel != "None")	-->
-    <mat-step *ngIf="showStep4and5" [stepControl]="formGroup?.get('existingFurnaceType')!">
-      <!-- Name of step -->
-      <ng-template matStepLabel>Eligibility Details</ng-template>
-      <!-- Content of step -->
-      <div class="rc-content-flex rc-column">
-        <h2 class="rc-main-title">Eligibility Details</h2>
-        <!-- User input -->
-        
-          <!-- radio buttons -->
-          <mat-label> Existing furnace type?</mat-label>
-          <mat-radio-group #rGroup formControlName="existingFurnaceType" class="rc-radio-group">
-            <mat-radio-button [value]="'Condensing'" radioGroup="rGroup">Condensing</mat-radio-button>
-            <mat-radio-button [value]="'Non-condensing'" radioGroup="rGroup">None-condensing</mat-radio-button>
-          </mat-radio-group>
-          <!-- button -->
-          <div class="nkn-space-between nkn-mt-medium">
-            <button type="button" mat-button matStepperPrevious>Back</button>
-            <button type="submit" mat-raised-button matStepperNext color="primary">Continue</button>
-          </div>
-        
-      </div>
-    </mat-step>
-    <!-- Step 5 end  -->
 
     <!-- results -->
     <mat-step>
