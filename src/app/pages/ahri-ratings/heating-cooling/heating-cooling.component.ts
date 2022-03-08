@@ -116,12 +116,8 @@ export class HeatingCoolingComponent implements OnInit {
 
     this._ahriCombinationService.ProductLines(jsonPay)
             .subscribe( (resp:any) => {
-<<<<<<< HEAD
-              this.productLines = resp.body;
-=======
               this.productLines = resp;
               console.log(this.productLines);
->>>>>>> 832418885e0f97d7fbb58d299017f3cb2b39a93b
 
               // load by default the first element of the array
               this.formInfo = this.formGroup.value;
