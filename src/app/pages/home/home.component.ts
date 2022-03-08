@@ -30,12 +30,8 @@ export class HomeComponent implements OnInit {
   ngAfterViewInit() {
     
     const myhome = this.ahrihome.nativeElement;
-    //console.log(this.ahrihome.nativeElement);
     setTimeout(() => {
-      console.log(myhome);
       if (this.myurl === 'http://localhost:4200/home/AHRIRatings'){
-      console.log('aqui se oculta');
-      //this.renderer2.setStyle(myhome, 'display', 'none'); ver proque no funciona 
       myhome.style.display = 'none';
     }
 

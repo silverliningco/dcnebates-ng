@@ -4,24 +4,6 @@
   text-align: center;
 }
 
-/* .rc-card-ahri-matchup.mat-card {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}  */
-
-/* .mat-card-title {
-  width: 268px;
-  font-size: 1rem;
-  line-height: 1.4rem;
-  font-weight: 100;
-  text-transform: uppercase;
-  color: #504f4f;
-}
-.mat-card-title:not(:first-child) {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-} */
-
 .mat-card-content {
   margin: 1rem;
   text-align: center;

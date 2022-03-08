@@ -17,33 +17,6 @@ import { HomeComponent } from './home/home.component';
 import { DetailComponent } from './detail/detail.component';
 
 
-
-/* const routes: Routes =[
-  {
-    path: '',
-    component: PagesComponent,
-    children: [
-      {path: '', redirectTo: '/home', pathMatch: 'full' },
-      {path: 'home', component: HomeComponent, data: {breadcrumbs: ['home']}},
-      {path: 'detail/:skus/:ahri_refs/:params', component: DetailComponent, data: {breadcrumbs: ['detail']}},
-
-      {path: 'AHRIRatings', component: AHRIRatingsComponent, data: {breadcrumbs: ['home','AHRI Ratings']} },
-      {path: 'AHRIRatings/HeatingCooling', component: HeatingCoolingComponent, data: {breadcrumbs: ['home','AHRI Ratings', 'Heating Cooling']} },
-      {path: 'AHRIRatings/CoolingOnly', component: CoolingOnlyComponent, data: {breadcrumbs: ['home','AHRI Ratings', 'Cooling Only']} },
-      {path: 'AHRIRatings/KnowModel', component: KnowModelNrComponent, data: {breadcrumbs: ['home','AHRI Matchups', 'Know Model']} },
-
-      {path: 'WholeHouseHP', component: WholeHouseHPRebateComponent, data: {breadcrumbs: ['home','Whole House HP']} },
-
-      {path: 'PartialSupplementalHP', component: PartialSupplementalHPRebateComponent, data: {breadcrumbs: ['home','Partial Supplemental HP']} },
-    ]
-  }
-] */
-
-
-
-
-
-
 const routes: Routes =[
   {
     path: '',
@@ -52,10 +25,10 @@ const routes: Routes =[
 
       // rutas dinamicas
 
-      /* {
+      {
         path: 'detail/:skus/:ahri_refs/:params', 
         component: DetailComponent
-      }, */
+      },
 
       // HOME *********************************
       {
