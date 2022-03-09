@@ -17,58 +17,61 @@ import { HomeComponent } from './home/home.component';
 import { DetailComponent } from './detail/detail.component';
 
 
-const routes: Routes =[
+const routes: Routes = [
   {
     path: '',
     component: PagesComponent,
     children: [
-
-      // rutas dinamicas
-
       {
-        path: 'detail/:skus/:ahri_refs/:params', 
-        component: DetailComponent
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
       },
-
-      // HOME *********************************
       {
-        path: '', 
-        redirectTo: '/home', 
-        pathMatch: 'full' 
-      },
-
-      {
-        path: 'home', 
-        component: HomeComponent, 
-        data: {breadcrumbs: 'Home'},
+        path: 'home',
+        data: { breadcrumb: 'Home' },
         children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: HomeComponent
+          },
+          {
+            path: 'detail/:skus/:ahri_refs/:params',
+            component: DetailComponent,
+            data: { breadcrumb: 'View detail' },
+          },
+
           // AHRIRatings *************************************
           {
-            path: 'AHRIRatings', 
-            component: AHRIRatingsComponent,
-            data: {breadcrumbs: 'AHRI Ratings'},
+            path: 'AHRIRatings',
+            data: { breadcrumb: 'AHRI Ratings' },
             children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                component: AHRIRatingsComponent
+              },
 
               // HeatingCooling
               {
-                path: 'HeatingCooling', 
-                component: HeatingCoolingComponent, 
-                data: {breadcrumbs: 'Heating Cooling'}
+                path: 'HeatingCooling',
+                component: HeatingCoolingComponent,
+                data: { breadcrumb: 'Heating Cooling' }
               },
-
 
               // CoolingOnly
               {
-                path: 'CoolingOnly', 
-                component: CoolingOnlyComponent, 
-                data: {breadcrumbs: 'Cooling Only'},
+                path: 'CoolingOnly',
+                component: CoolingOnlyComponent,
+                data: { breadcrumb: 'Cooling Only' },
               },
 
               // KnowModel
               {
-                path: 'KnowModel', 
-                component: KnowModelNrComponent, 
-                data: {breadcrumbs: 'Know Model'},
+                path: 'KnowModel',
+                component: KnowModelNrComponent,
+                data: { breadcrumb: 'Know Model' },
               }
 
             ]
@@ -76,22 +79,22 @@ const routes: Routes =[
 
           // WholeHouseHP **************************************
           {
-            path: 'WholeHouseHP', 
-            component: WholeHouseHPRebateComponent, 
-            data: {breadcrumbs: 'Whole HouseHP'}
+            path: 'WholeHouseHP',
+            component: WholeHouseHPRebateComponent,
+            data: { breadcrumb: 'Mass save Whole house' }
           },
 
           // PartialSupplementalHP **********************************
           {
-            path: 'PartialSupplementalHP', 
-            component: PartialSupplementalHPRebateComponent, 
-            data: {breadcrumbs: 'Partial Supplemental HP'}
+            path: 'PartialSupplementalHP',
+            component: PartialSupplementalHPRebateComponent,
+            data: { breadcrumb: 'Partial Supplemental HP' }
           }
-
         ]
       }
     ]
-  }
+  },
+  { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ]
 
 
@@ -101,8 +104,9 @@ const routes: Routes =[
 
 
 
+
 @NgModule({
-  imports: [RouterModule.forChild(routes) ],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class PagesRoutingModule { }

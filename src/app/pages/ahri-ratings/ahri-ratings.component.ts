@@ -15,22 +15,9 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 })
 export class AHRIRatingsComponent implements OnInit {
 
-  hiddenHome: boolean = false;
-
   constructor() { }
 
   ngOnInit(): void {
-    this.hiddenHome = false;
-  }
-
-
-  onActivate(eventOutlet : any) {    
-
-    if (eventOutlet = 'CoolingOnlyComponent' || 'HeatingCoolingComponent' || 'KnowModelNrComponent'){
-      this.hiddenHome = true;
-    } else {
-      this.hiddenHome = false;
-    }
   }
 
 }
