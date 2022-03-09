@@ -28,6 +28,11 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'detail/:skus/:ahri_refs/:params',
+        component: DetailComponent,
+        data: { breadcrumb: { skip: true, alias: 'detail' } }
+      },
+      {
         path: 'home',
         data: { breadcrumb: 'Home' },
         children: [
@@ -35,11 +40,6 @@ const routes: Routes = [
             path: '',
             pathMatch: 'full',
             component: HomeComponent
-          },
-          {
-            path: 'detail/:skus/:ahri_refs/:params',
-            component: DetailComponent,
-            data: { breadcrumb: 'View detail' },
           },
 
           // AHRIRatings *************************************
