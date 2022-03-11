@@ -1,32 +1,34 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-// angular Material
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
-// modules
+//app
 import { AppRoutingModule } from './app-routing.module';
-import { PagesModModule } from './pages/pages-mod.module';
-import { PagesRoutingModule } from './pages/pages-routing.module';
-
-// componet
 import { AppComponent } from './app.component';
 
+//pages modules
+import { PagesRoutesModule } from './pages/pages-routes.module';
+import { PagesModule } from './pages/pages.module';
 
+//pages component
+import { PagesComponent } from './pages/pages.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//shared
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    PagesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    PagesRoutesModule,
+    PagesModule,
     BrowserAnimationsModule,
-    PagesModModule,
-    PagesRoutingModule
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {RouterModule} from '@angular/router';
 
 // bradcrumb
 import {BreadcrumbModule} from 'xng-breadcrumb';
@@ -25,52 +26,33 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSliderModule} from '@angular/material/slider';
-
-// components
-import { PagesComponent } from './pages.component';
-import { AHRIRatingsComponent } from './ahri-ratings/ahri-ratings.component';
-import { WholeHouseHPRebateComponent } from './whole-house-hp-rebate/whole-house-hp-rebate.component';
-import { PartialSupplementalHPRebateComponent } from './partial-supplemental-hp-rebate/partial-supplemental-hp-rebate.component';
-import { HomeComponent } from './home/home.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
-import { HeatingCoolingComponent } from './ahri-ratings/heating-cooling/heating-cooling.component';
-import { KnowModelNrComponent } from './ahri-ratings/know-model-nr/know-model-nr.component';
 
-
-
-// module
-import {PagesRoutingModule} from './pages-routing.module';
-import { SharedModModule } from '../shared/shared-mod.module';
-import { CoolingOnlyComponent } from './ahri-ratings/cooling-only/cooling-only.component';
-import { DetailComponent } from './detail/detail.component';
-import { ResultsComponent } from './results/results.component';
-
-
+// components
+import { AhriMatchupComponent } from './ahri-matchup/ahri-matchup.component';
+import { RebateFinderComponent } from './rebate-finder/rebate-finder.component';
+import { ResultsComponent } from './intermediate-components/results/results.component';
+import { DetailComponent } from './intermediate-components/detail/detail.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    PagesComponent,
-    AHRIRatingsComponent,
-    WholeHouseHPRebateComponent,
-    PartialSupplementalHPRebateComponent,
-    HomeComponent,
-    HeatingCoolingComponent,
-    KnowModelNrComponent,
-    CoolingOnlyComponent,
+    AhriMatchupComponent,
+    RebateFinderComponent,
+    ResultsComponent,
     DetailComponent,
-    ResultsComponent
+    HomeComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    PagesRoutingModule,
-    SharedModModule,
     HttpClientModule,
-    NgxPaginationModule,
+    RouterModule,
     BreadcrumbModule,
+    NgxPaginationModule,
     // angular Material
     MatInputModule,
     MatToolbarModule,
@@ -90,9 +72,9 @@ import { ResultsComponent } from './results/results.component';
     MatProgressSpinnerModule,
     MatSlideToggleModule,
     MatSliderModule
-  ],
-  exports:[
+  ], exports:[
     BreadcrumbModule,
+    NgxPaginationModule,
     // angular Material
     MatInputModule,
     MatToolbarModule,
@@ -100,6 +82,7 @@ import { ResultsComponent } from './results/results.component';
     MatIconModule,
     MatGridListModule,
     MatSortModule,
+    MatStepperModule,
     MatFormFieldModule,
     MatCardModule,
     MatTableModule,
@@ -108,8 +91,9 @@ import { ResultsComponent } from './results/results.component';
     MatSelectModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatProgressSpinnerModule,
     MatSlideToggleModule,
     MatSliderModule
   ]
 })
-export class PagesModModule { }
+export class PagesModule { }

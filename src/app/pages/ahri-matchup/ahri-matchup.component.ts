@@ -1,39 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // services
 import { AHRICombinationService } from '../../services/AHRICombinations.service';
 import { paramsDetailService } from '../../services/params-detail.service';
 
-// model
+// models
 import { FormInfo } from '../../models/formInfo.model';
 import { detailParams } from '../../models/detail.model';
 
-
 @Component({
-  selector: 'app-partial-supplemental-hp-rebate',
-  templateUrl: './partial-supplemental-hp-rebate.component.html',
-  styleUrls: ['./partial-supplemental-hp-rebate.component.css']
+  selector: 'app-ahri-matchup',
+  templateUrl: './ahri-matchup.component.html',
+  styleUrls: ['./ahri-matchup.component.css']
 })
-export class PartialSupplementalHPRebateComponent implements OnInit {
- 
+export class AhriMatchupComponent implements OnInit {
+
   formInfo: FormInfo = new FormInfo();
   payloadDetailParams: detailParams = new detailParams();
 
-  formGroup !: FormGroup ;  
   productLines!: any;
+  formGroup !: FormGroup;
   data!: any;
-  selectProductLine!: any;
-
-  // ******* send eligibilityDetail *******
-  /* getpreExistingHeating: any = { "name": "Pre-existing heating type", "value": [ "Electric Resistance Heat" ] };
-  getHPSole: any = { "name": "HP is sole source of heating", "value": "No" }; 
-  getexistingFurnace!: any; */
-  // ******* send eligibilityDetail end *******
-
-  showStep4and5: boolean = false;
-  submintOnlyFurnace: boolean = true;
 
   constructor(
     public _ahriCombinationService: AHRICombinationService,
@@ -43,37 +31,26 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this._formBuilder.group({
+      // Hardcoded for now
+      rebateIds: [[2], Validators.required],
+      storeId: [1, Validators.required],
+      showAllResults: [true, Validators.required],
+      country: ["US", Validators.required],
+      state: ["MA", Validators.required],
 
-        // Hardcoded for now
-        rebateIds: [[1], Validators.required],
-        storeId: [ 1, Validators.required],
-        showAllResults: [ true, Validators.required],
-        country: ["US", Validators.required],
-        state: ["MA" , Validators.required],
-        electricUtilityId: [ 3, Validators.required],
-
-        // data of form
-        nominalSize: this._formBuilder.group({
-          coolingTons: [ , Validators.required],
-          heatingBTUH: [ , Validators.required],
-        }),
-        fuelSource: ['', Validators.required],
-        gasOilUtilityId: [ , Validators.required],
-        existingFurnaceType: ['', Validators.required],
-        eligibilityDetail: ['', Validators.required],
+      // data of form
+      nominalSize: this._formBuilder.group({
+        heatingBTUH: [ , Validators.required],
+        coolingTons: [ , Validators.required],
+      }),
+      fuelSource: ['', Validators.required]
 
     });
-
-
-    // enable or disable option
-    this.fuelSource();
-
-    // json eligibilityDetail
-    //this.getExistingFurnaceType();
   }
 
 
-  // submit info of form to endpoint product line    
+
+  // *** submit info of form to endpoint product line    
   submitForm(f: FormGroup) {
     if (f.invalid) {
       return;
@@ -126,8 +103,8 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   }
 
 
-   // load data in detailParams model
-   loadDataDetailParams(formInfo: any){
+  // *** load data in detailParams model
+  loadDataDetailParams(formInfo: any){
 
     this.payloadDetailParams.rebateIds = formInfo.rebateIds;
     this.payloadDetailParams.storeId = formInfo.storeId;
@@ -143,8 +120,7 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
   }
 
 
-
-  // submint info of product line to endpoint equipment search
+  // *** submint info of product line to endpoint equipment search
   submitProductLine(id: number) {
     // payload 
     this.formInfo = this.formGroup.value;
@@ -164,36 +140,5 @@ export class PartialSupplementalHPRebateComponent implements OnInit {
               alert(err.error)
             });
   }
-
-  // function to capture data in real time 
-   fuelSource(){
-    this.formGroup.get('fuelSource')?.valueChanges.subscribe( (val: any) => {
-
-      if(val === 'Natural Gas' || val === 'Heating Oil' || val === 'Propane'){
-        this.showStep4and5 = true;
-        this.submintOnlyFurnace = false;
-      }
-      else{
-        this.showStep4and5 = false;
-        this.submintOnlyFurnace = true;
-      }
-      
-    });
-  }
-
-  // ******** json eligibilityDetail  *****
- /*  getExistingFurnaceType(){
-    this.formGroup.get('existingFurnaceType')?.valueChanges.subscribe( (val: any) => {
-      switch (val) {
-        case 'Condensing':
-          this.getexistingFurnace = { "name":"Existing furnace type", "value": "Condensing"};
-          break;
-        case 'Non-condensing':
-          this.getexistingFurnace = { "name":"Existing furnace type", "value": "Non-condensing"};
-          break;
-      } 
-    });     
-  } */
-  // ******** json eligibilityDetail end *****
 
 }

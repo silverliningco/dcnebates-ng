@@ -1,81 +1,82 @@
 .rc-card-home {
-  height: 400px;
-  margin: .5rem;
-  text-align: center;
-}
-
-
-@media (max-width: 320px) {
-  .rc-card-home {
-    width: 280px;
+    height: 400px;
+    margin: .5rem;
+    text-align: center;
   }
-}
-
-@media (min-width: 321px) {
-  .rc-card-home {
-    width: 300px;
+  
+  
+  @media (max-width: 320px) {
+    .rc-card-home {
+      width: 280px;
+    }
   }
-}
-
-/* .rc-card-home.mat-card {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-} */
-
-/* .mat-card-title {
-  width: 268px;
-  font-size: 1rem;
-  line-height: 1.4rem;
-  font-weight: 100;
-  text-transform: uppercase;
-  color: #504f4f;
-}
-.mat-card-title:not(:first-child) {
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
-} */
-.rc-card-img {
-  padding: .5rem;
-  width: 100px;
-  height: 100px;
-}
-.rc-card-content p {
-  height: 80px;
-}
-
-
-.rc-divider.mat-divider {
-  border-top-color: var(--rc-primary-color);
-  border-top-width: 3px;
-  border-radius: 30px;
-}
-
-.rc-divider.mat-divider-horizontal {
-  width: 150px;
-  left: 25%;
-}
-
-.green {
-  color: #4b8406;
-  font-weight: 400;
-  letter-spacing: 1px;
-  font-size: 16px;
-}
-
-.rc-img {
-  position: relative;
-}
-
-.rc-right-top {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 50px;
-  height: 50px;
-  margin-top: -1rem;
-  margin-right: -.5rem;
-}
-
-.rc-card-home .mat-flat-button:not([class*="mat-elevation-z"]){
-  width: 180px;
-}
+  
+  @media (min-width: 321px) {
+    .rc-card-home {
+      width: 300px;
+    }
+  }
+  
+  /* .rc-card-home.mat-card {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  } */
+  
+  /* .mat-card-title {
+    width: 268px;
+    font-size: 1rem;
+    line-height: 1.4rem;
+    font-weight: 100;
+    text-transform: uppercase;
+    color: #504f4f;
+  }
+  .mat-card-title:not(:first-child) {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  } */
+  .rc-card-img {
+    padding: .5rem;
+    width: 100px;
+    height: 100px;
+  }
+  .rc-card-content p {
+    height: 80px;
+  }
+  
+  
+  .rc-divider.mat-divider {
+    border-top-color: var(--rc-primary-color);
+    border-top-width: 3px;
+    border-radius: 30px;
+  }
+  
+  .rc-divider.mat-divider-horizontal {
+    width: 150px;
+    left: 25%;
+  }
+  
+  .green {
+    color: #4b8406;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 16px;
+  }
+  
+  .rc-img {
+    position: relative;
+  }
+  
+  .rc-right-top {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50px;
+    height: 50px;
+    margin-top: -1rem;
+    margin-right: -.5rem;
+  }
+  
+  .rc-card-home .mat-flat-button:not([class*="mat-elevation-z"]){
+    width: 180px;
+  }
+  

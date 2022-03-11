@@ -27,26 +27,6 @@ import {URL_SERVICIOS}  from '../config/config';
         })
     )
   }
-
-  // step 1 for to find a combination
- /*  newProductLines(params: any, payloadDetailParams: any){
-
-    // capturando los valores del formilario que se necesitan para luego ser enviados en el detail
-    //this.paramsDetail = payloadDetailParams;
-    paramsDetail  = JSON.stringify( payloadDetailParams);
-    console.log(paramsDetail );
-
-    // enviandos los parametros a product line
-    let url = URL_SERVICIOS + '/product-lines?params=' + params; 
-
-    return this.http.get(url)
-    .pipe(
-        map((resp: any) => {
-          return resp ;
-        })
-    )
-  } */
-  
   
   // step 2 to find a combination
   search (params: any){

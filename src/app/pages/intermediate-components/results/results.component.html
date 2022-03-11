@@ -1,4 +1,3 @@
-<!-- <mat-spinner *ngIf="load"></mat-spinner> -->
 <!-- Filter and number of row in table -->
 <div class="nkn-clear">
     <div class="nkn-left">
@@ -45,7 +44,7 @@
               <td data-title="AFUE">{{ahriCombination.AFUE}}</td>
               <td data-title="Total rebate">{{ahriCombination.totalAvailableRebates}}</td>
               <td>
-                  <a [routerLink]="['/detail/', ahriCombination.SKUs | json, ahriCombination.AHRIReferences  | json, loadDetailParams  | json]" class="navf" fragment="det" target="_blank"   mat-stroked-button color="primary">
+                  <a [routerLink]="['/home/detail/', ahriCombination.SKUs | json, ahriCombination.AHRIReferences  | json, loadDetailParams  | json]" class="navf" fragment="det" target="_blank"   mat-stroked-button color="primary">
                       <label>Detail</label>
                   </a>
               </td>

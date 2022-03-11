@@ -1,33 +1,34 @@
 .header{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: .5rem;
-  background-color: #F5F7F9;
-  height: var(--rc-height-header);
-}
-
-.app-title {
-  color: #667E99;
-  font-size: 1rem;
-}
-
-.logo-dcne {
-  width: 100px;
-  height: auto;
-}
-/* Medium */
-@media (min-width: 768px){
-  .header{
-    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem;
+    background-color: #F5F7F9;
+    height: var(--rc-height-header);
   }
-
+  
   .app-title {
     color: #667E99;
-    font-size: 1.75rem;
+    font-size: 1rem;
   }
+  
   .logo-dcne {
-    width: 200px;
+    width: 100px;
     height: auto;
   }
-}
+  /* Medium */
+  @media (min-width: 768px){
+    .header{
+      padding: 1rem;
+    }
+  
+    .app-title {
+      color: #667E99;
+      font-size: 1.75rem;
+    }
+    .logo-dcne {
+      width: 200px;
+      height: auto;
+    }
+  }
+  

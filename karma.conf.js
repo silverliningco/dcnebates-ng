@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/rebate-calculator-app'),
+      dir: require('path').join(__dirname, './coverage/new-rebate'),
       subdir: '.',
       reporters: [
         { type: 'html' },

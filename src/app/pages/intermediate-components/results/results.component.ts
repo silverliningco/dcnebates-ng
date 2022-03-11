@@ -1,16 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit,  Input } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 // modal color para slider
 import { ThemePalette } from '@angular/material/core';
 
 // model
-import { AHRICombinations } from '../../models/AHRICombinations.model';
-import { detailParams } from '../../models/detail.model';
+import { AHRICombinations } from '../../../models/AHRICombinations.model';
+import { detailParams } from '../../../models/detail.model';
 
 // sevice
-import { AHRICombinationService } from '../../services/AHRICombinations.service';
-import { paramsDetailService } from '../../services/params-detail.service';
+import { AHRICombinationService } from '../../../services/AHRICombinations.service';
+import { paramsDetailService } from '../../../services/params-detail.service';
+
+
 
 @Component({
   selector: 'app-results',
@@ -18,7 +20,6 @@ import { paramsDetailService } from '../../services/params-detail.service';
   styleUrls: ['./results.component.css']
 })
 export class ResultsComponent implements OnInit {
-
 
   DetailParams: detailParams = new detailParams();
   loadDetailParams!: any;
@@ -36,6 +37,7 @@ export class ResultsComponent implements OnInit {
     //console.log(data);
     this.ahriCombinations = data;
   }
+
 
   constructor(
     public _ahriCombinationService: AHRICombinationService,
@@ -72,10 +74,12 @@ export class ResultsComponent implements OnInit {
     this.beginning = this.p === 1 ? 1 : this.rows * (this.p - 1) + 1;
     this.end = this.p === totalPages ? this.ahriCombinations?.length : this.beginning + this.rows - 1
   }
+  
   pageChanged(event: number) {
     this.p = event;
     this.ObtainPaginationText();
   }
+  
   Device() {
     if (this.isMobile === true) {
       this.rows = 3;
@@ -95,5 +99,6 @@ export class ResultsComponent implements OnInit {
     return value;
   }
   // MODAL end
+
 
 }

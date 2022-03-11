@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 // sevice
-import {AHRICombinationService} from '../../services/AHRICombinations.service';
+import {AHRICombinationService} from '../../../services/AHRICombinations.service';
+
 
 @Component({
   selector: 'app-detail',
@@ -41,4 +42,5 @@ export class DetailComponent implements OnInit {
   goToLink(myUrl: string){
     window.open(myUrl, "_blank");    
   }
+
 }

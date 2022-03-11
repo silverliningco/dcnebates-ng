@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// pages 
-import {PagesRoutingModule} from './pages/pages-routing.module';
+
+//pages
+import {PagesRoutesModule} from './pages/pages-routes.module';
 import {PagesComponent} from './pages/pages.component';
 
 const routes: Routes = [
@@ -11,13 +12,12 @@ const routes: Routes = [
 
 //function for AOT compiling
 export function loadChildModule() {
-  return PagesRoutingModule;
+  return PagesRoutesModule;
 }
 
 @NgModule({
   imports: [RouterModule.forRoot(routes),
-    PagesRoutingModule
-  ],
+    PagesRoutesModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
