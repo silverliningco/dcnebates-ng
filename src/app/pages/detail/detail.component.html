@@ -1,0 +1,162 @@
+
+<h2 class="rc-main-title">Details</h2>
+<div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="16" fxLayout.xs="column" fxLayout.sm="column">
+  <!-- User input -->
+      <div fxFlex="45"  fxLayoutAlign="center" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="45">
+        <mat-card class="rc-card-details" fxFlex="100">
+            <mat-card-title>Selected HVAC System</mat-card-title>
+            <mat-card-content>
+                <h3>AHRI Models</h3>
+                <div fxLayout fxLayoutAlign="space-evenly center" >
+                    <div fxFlex="25" fxLayoutAlign="start">
+                        <b>Outdoor unit</b>
+                    </div>
+                    <div fxFlex="65" fxLayoutAlign="start">
+                        {{detail?.outdoorUnitSKU}}
+                    </div>
+                </div>
+                <div fxLayout fxLayoutAlign="space-evenly center" >
+                    <div fxFlex="25" fxLayoutAlign="start">
+                        <b>Indoor unit</b>
+                    </div>
+                    <div fxFlex="65" fxLayoutAlign="start">
+                        {{detail?.indoorUnitSKU}}
+                    </div>
+                </div>
+                <div fxLayout fxLayoutAlign="space-evenly center" >
+                    <div fxFlex="25" fxLayoutAlign="start">
+                        <b>Furnace</b>
+                    </div>
+                    <div fxFlex="65" fxLayoutAlign="start">
+                        {{detail?.furnaceSKU}}
+                    </div>
+                </div>
+                <h3>AHRI Ratings</h3>
+                <div fxLayout fxLayoutAlign="space-evenly center" >
+                    <div fxFlex="25" fxLayoutAlign="start">
+                        <b>Cooling capacity</b>
+                    </div>
+                    <div fxFlex="65" fxLayoutAlign="start">
+                        {{detail?.coolingCapacityRated}}
+                    </div>
+                </div>
+                <div fxLayout fxLayoutAlign="space-evenly center" >
+                    <div fxFlex="25" fxLayoutAlign="start">
+                        <b>SEER</b>
+                    </div>
+                    <div fxFlex="65" fxLayoutAlign="start">
+                        {{detail?.SEER}}
+                    </div>
+                </div>
+                <div fxLayout fxLayoutAlign="space-evenly center" >
+                    <div fxFlex="25" fxLayoutAlign="start">
+                        <b>EER</b>
+                    </div>
+                    <div fxFlex="65" fxLayoutAlign="start">
+                        {{detail?.EER}}
+                    </div>
+                </div>
+                <div fxLayout fxLayoutAlign="space-evenly center" >
+                    <div fxFlex="25" fxLayoutAlign="start">
+                        <b>HSPF</b>
+                    </div>
+                    <div fxFlex="65" fxLayoutAlign="start">
+                        {{detail?.HSPF}}
+                    </div>
+                </div>
+                <div fxLayout fxLayoutAlign="space-evenly center" >
+                    <div fxFlex="25" fxLayoutAlign="start">
+                        <b>HCap 47</b>
+                    </div>
+                    <div fxFlex="65" fxLayoutAlign="start">
+                        {{detail?.Hcap47}}
+                    </div>
+                </div>
+                <div fxLayout fxLayoutAlign="space-evenly center" >
+                    <div fxFlex="25" fxLayoutAlign="start">
+                        <b>HCap 17</b>
+                    </div>
+                    <div fxFlex="65" fxLayoutAlign="start">
+                        {{detail?.Hcap17}}
+                    </div>
+                </div>
+                <div fxLayout fxLayoutAlign="space-evenly center" >
+                    <div fxFlex="25" fxLayoutAlign="start">
+                        <b>AFUE</b>
+                    </div>
+                    <div fxFlex="65" fxLayoutAlign="start">
+                        {{detail?.AFUE}}
+                    </div>
+                </div>
+                <div fxLayout fxLayoutAlign="space-evenly center" >
+                    <div fxFlex="25" fxLayoutAlign="start">
+                        <b>Input BTUH</b>
+                    </div>
+                    <div fxFlex="65" fxLayoutAlign="start">
+                        
+                        {{detail?.furnaceInputBTUH}}
+                    </div>
+                </div>
+                <div fxLayout fxLayoutAlign="space-evenly center" >
+                    <div fxFlex="25" fxLayoutAlign="start">
+                        <b>Output BTUH</b>
+                    </div>
+                    <div fxFlex="65" fxLayoutAlign="start">
+                        
+                        {{detail?.furnaceOutputBTUH}}
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <!--<div fxFlex="55" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="55">
+      <diV fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="16">
+        <mat-card fxFlex="100" fxFlex.sm="100" fxFlex.xs="100" class="rc-card-details">
+            <mat-card-title>MASS SAVE AIR SOURCE HP (WHOLE HOME)</mat-card-title>
+            <mat-card-content>
+                <p>Requires purchase of specified Carrier indoor air quality product(s). See rebate form for details of qualifying products. Sales made between 9/6/2021 to 5/31/2022. Rebate claim must be submitted by 6/30/2022. Rebate offered from participating dealers only.</p>
+                <div fxLayout fxLayoutAlign="start center">
+                    <h4 class="rc-amount-card">$ 10 000</h4>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <div fxLayout fxLayoutAlign="end center" >
+                    <button type="button" mat-raised-button color="secondary">
+                        <mat-icon>download</mat-icon>Form
+                    </button>
+                    <button type="button" mat-raised-button color="secondary">
+                        More Details
+                    </button>
+                </div>
+            </mat-card-actions>
+            <mat-card-footer>
+            </mat-card-footer>
+        </mat-card>
+        <mat-card fxFlex="100" fxFlex.sm="100" fxFlex.xs="100" class="rc-card-details">
+            <mat-card-title>MASS SAVE AIR SOURCE HP (WHOLE HOME)</mat-card-title>
+            <mat-card-content>
+                <p>Requires purchase of specified Carrier indoor air quality product(s). See rebate form for details of qualifying products. Sales made between 9/6/2021 to 5/31/2022. Rebate claim must be submitted by 6/30/2022. Rebate offered from participating dealers only.</p>
+                <div fxLayout fxLayoutAlign="start center">
+                    <h4 class="rc-amount-card">$ 10 000</h4>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <div fxLayout fxLayoutAlign="end center" >
+                    <button type="button" mat-raised-button color="secondary">
+                        <mat-icon>download</mat-icon>Form
+                    </button>
+                    <button type="button" mat-raised-button color="secondary">
+                        More Details
+                    </button>
+                </div>
+            </mat-card-actions>
+            <mat-card-footer>
+            </mat-card-footer>
+        </mat-card>
+      </diV>
+   
+  </div>-->
+</div>
+
+

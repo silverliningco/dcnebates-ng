@@ -1,5 +1,5 @@
 {
-  "name": "new-rebate",
+  "name": "dcnebates-ng13",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -15,21 +15,21 @@
     "@angular/common": "~13.2.0",
     "@angular/compiler": "~13.2.0",
     "@angular/core": "~13.2.0",
+    "@angular/flex-layout": "^13.0.0-beta.38",
     "@angular/forms": "~13.2.0",
     "@angular/material": "^13.2.6",
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
-    "ngx-device-detector": "^3.0.0",
-    "ngx-pagination": "^5.1.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "xng-breadcrumb": "^7.2.0",
+    "ngx-pagination": "^5.1.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.2.5",
-    "@angular/cli": "~13.2.5",
+    "@angular-devkit/build-angular": "~13.2.0",
+    "@angular/cli": "~13.2.0",
     "@angular/compiler-cli": "~13.2.0",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",

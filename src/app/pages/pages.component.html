@@ -1,7 +1,16 @@
-<!-- breadcrumb -->
-<xng-breadcrumb></xng-breadcrumb>
+<main>
+  <app-header></app-header>
 
-<!-- children components -->
-<div class="nkn-container">
-    <router-outlet ></router-outlet>
-</div>
+  <xng-breadcrumb [separator]="iconTemplate">
+  </xng-breadcrumb>
+
+  <ng-template #iconTemplate>
+    <mat-icon>arrow_right</mat-icon>
+  </ng-template>
+  
+  <div class="rc-container">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+
+<app-footer></app-footer>

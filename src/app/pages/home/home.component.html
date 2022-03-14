@@ -1,42 +1,50 @@
-<div class="rc-hero-content">
-    <h1 class="rc-main-title">Rebates</h1>
-    <div class="rc-content-flex">
-  
-      <!-- *** AHRI Matchups *** -->
-      <mat-card class="rc-card rc-card-home" routerLink="AhriMatchup">
-        <!-- icon -->  
-        <div class="rc-img">
-          <img src="./assets/img/whole-house.svg" alt="icon Mass Save whole house HP rebate" class="rc-card-img">
-        </div>
-        <!-- title -->
-        <mat-card-title class="rc-card-title">AHRI Matchups</mat-card-title>
-        <!-- button -->
-        <mat-card-actions>
-          <button routerLink="AhriMatchup" mat-flat-button color="primary">
-            Continue
-            <mat-icon>arrow_forward</mat-icon>
-          </button>
-        </mat-card-actions>
-      </mat-card>
+<h1 class="rc-main-title">Rebates</h1>
 
-      <!-- *** Rebate Finder *** -->
-      <mat-card class="rc-card rc-card-home" routerLink="">
-        <!-- icon -->  
-        <div class="rc-img">
-          <img src="./assets/img/whole-house.svg" alt="icon Mass Save whole house HP rebate" class="rc-card-img">
-        </div>
-        <!-- title -->
-        <mat-card-title class="rc-card-title">Rebate Finder</mat-card-title>
-        <!-- button -->
-        <mat-card-actions>
-          <button routerLink="" mat-flat-button color="primary">
-            Continue
-            <mat-icon>arrow_forward</mat-icon>
-          </button>
-        </mat-card-actions>
-      </mat-card>
+<div fxLayout fxLayoutAlign="center" fxLayoutGap="20px" fxLayout.sm="column" fxLayout.xs="column">
+
+  <!-- AHRI matchups -->
   
+  <mat-card fxFlex="40" fxFlex.sm="80" fxFlex.xs="100" class="rc-card-home" routerLink="ahri-matchups">
+    <div class="rc-card-home-icon" fxLayout fxLayoutAlign="center center">
+      <mat-icon>hvac_icon</mat-icon>
     </div>
-  </div>
+    <mat-card-title>AHRI Matchups</mat-card-title>
+    <mat-card-content>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi quos maiores accusantium non facilis delectus nam vel quae in consequatur! Molestias impedit explicabo adipisci, ab itaque nemo perferendis fuga vel.
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions fxLayout fxLayoutAlign="end">
+      <button>
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  
+  <mat-card fxFlex="40" fxFlex.sm="80" fxFlex.xs="100" class="rc-card-home" routerLink="rebate-finder">
+    <div class="rc-card-home-icon" fxLayout fxLayoutAlign="center center">
+      <mat-icon>discount_icon</mat-icon>
+    </div>
+
+    <mat-card-title>Rebate Finder</mat-card-title>
+    <mat-card-content>
+      <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum eveniet earum aperiam qui perspiciatis nisi magni excepturi magnam amet, quis voluptates eligendi iusto unde! Fuga repudiandae voluptas sequi nam reiciendis!
+      </p>
+    </mat-card-content>
+    <mat-card-actions fxLayout fxLayoutAlign="end">
+      <button>
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Rebate finder -->
+  
+
+  
+</div>
+
 
 

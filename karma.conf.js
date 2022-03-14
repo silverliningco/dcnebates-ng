@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/new-rebate'),
+      dir: require('path').join(__dirname, './coverage/dcnebates-ng13'),
       subdir: '.',
       reporters: [
         { type: 'html' },
