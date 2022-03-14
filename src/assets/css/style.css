@@ -200,6 +200,16 @@ mat-card.rc-card-home mat-card-actions > button:hover {
 }
 
 /* Button styles */
+.rc-btn {
+    line-height: normal;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    cursor: pointer;
+    margin: 0em;
+    padding: 1px 6px;
+}
+
 .rc-btn-primary{
     background-color: var(--rc-primary-color);
     color: white;

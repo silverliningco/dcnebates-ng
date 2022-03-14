@@ -94,18 +94,20 @@
           </mat-radio-group>
         </form>
       </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start" fxLayout.xs="center stretch" fxLayout.sm="center stretch" fxLayoutGap="16">
+      <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16">
         <!-- User input -->
-        <div fxFlex="25" fxLayout="column" fxLayoutAlign="start stretch" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="25" class="rc-filters" fxLayoutGap.sm="16"  fxLayoutGap.xs="16">
+        <div fxFlex="25" fxLayout="column" fxLayoutAlign="start" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="25" class="rc-filters" fxLayoutGap.sm="16"  fxLayoutGap.xs="16">
           <h5>Filters</h5>
           <form [formGroup]="filtersGroup">
-            <mat-form-field appearance="fill" *ngFor="let filter of filters" >
-              <mat-label>{{filter.filterName}}</mat-label>
-              <select matNativeControl required (change)="SelectFilters()" [formControlName]="filter.filterName"> 
-                <option *ngFor="let val of filter.filterValues" [value]="val">{{val}}</option>
-                <option value="">Show all</option>
-              </select>
-            </mat-form-field>
+            <div fxLayout="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16">
+              <mat-form-field appearance="fill" *ngFor="let filter of filters" >
+                <mat-label>{{filter.filterName}}</mat-label>
+                <select matNativeControl required (change)="SelectFilters()" [formControlName]="filter.filterName"> 
+                  <option *ngFor="let val of filter.filterValues" [value]="val">{{val}}</option>
+                  <option value="">Show all</option>
+                </select>
+              </mat-form-field>
+            </div>
            
           </form>
         </div>
@@ -141,9 +143,9 @@
                 <td data-title="AFUE">{{ahriCombination.AFUE}}</td>
                 <!--<td data-title="Total rebate">{{ahriCombination.totalAvailableRebates}}</td>-->
                 <td data-title="Details">
-                  <button class="rc-btn-secondary" [routerLink]="['/home/detail']" [queryParams]="{skus:ahriCombination.SKUs | json, ahri_refs:ahriCombination.AHRIReferences| json, params:{commerceInfo: myCommerInfo} | json}"  target="_blank">
+                  <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']" [queryParams]="{skus:ahriCombination.SKUs | json, ahri_refs:ahriCombination.AHRIReferences| json, params:{commerceInfo: myCommerInfo} | json}"  target="_blank">
                   <mat-icon>search</mat-icon>
-                  </button>
+                  </a>
                 </td>
             </tr>
             <tr *ngIf="results?.length < 1">
