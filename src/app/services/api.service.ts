@@ -11,7 +11,7 @@ export class ApiService {
       private _http: HttpClient
     ) { }
 
-  api_url:string = 'http://localhost:3000'
+  api_url:string = 'https://rebate-calculator-node-2022.herokuapp.com'
 
   ProductLines(params: any): Observable<any> {
 
