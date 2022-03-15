@@ -32,6 +32,16 @@ a{
 h1, h2, h3, h4, h5 {
     font-family: 'Raleway', sans-serif;
 }
+.rc-lead{
+    font-size: 18px;
+}
+.rc-email{
+    color: var(--rc-accent-color);
+}
+.rc-small{
+    font-size: 80%;
+}
+
 /*
 ul {
     list-style: none;
@@ -445,3 +455,36 @@ table tbody tr:nth-of-type(even) {
     background: white;
     color: var(--rc-primary-color);
 }
+
+/*Alerts*/
+.rc-alert{
+    position: relative;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-radius: 0.5rem;
+    color: #640;
+    background-color: #fec;
+    border-color: #FFE5B3
+  ;
+  }
+  .rc-alert p{
+    margin-left: 1rem;
+  }
+  .rc-icon-alert{
+    position: absolute;
+      z-index: 0;
+    color: #66440038;
+    font-size: 3rem;
+    top: .5rem;
+    left: .5rem;
+  }
+  /*Notes*/
+  .rc-note {
+    margin: 1rem 0;
+    padding: 10px;
+    border-left: 6px solid;
+    border-radius: 5px;
+    background-color: white;
+    border-color: var(--rc-primary-color);
+  }

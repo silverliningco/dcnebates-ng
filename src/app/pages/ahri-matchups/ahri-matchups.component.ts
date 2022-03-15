@@ -32,7 +32,7 @@ export class AhriMatchupsComponent implements OnInit {
   productLines!: any;
   filters!: any;
   results!: any;
-
+  noResults!: boolean;
   p: number = 1;
   beginning?: number;
   end?: number;
@@ -110,8 +110,9 @@ export class AhriMatchupsComponent implements OnInit {
           payload.filters = [];
           this.CallFilters(payload);
 
+          this.noResults = false;
         } else {
-          alert("No product lines where found.")
+          this.noResults = true;
         }
       },
       error: (e) => alert(e.error),
@@ -198,7 +199,8 @@ export class AhriMatchupsComponent implements OnInit {
   CallSearch(payload: any) {
     this._api.Search(JSON.stringify(payload)).subscribe({
       next: (resp) => {
-          this.results = resp
+          this.results = resp;
+          this.ObtainPaginationText();
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
