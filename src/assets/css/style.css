@@ -479,22 +479,26 @@ table tbody tr:nth-of-type(even) {
     border-radius: 0.5rem;
     color: #640;
     background-color: #fec;
-    border-color: #FFE5B3
-  ;
-  }
-  .rc-alert p{
+    border-color: #FFE5B3;
+}
+.rc-alert p{
     margin-left: 1rem;
-  }
-  .rc-icon-alert{
+}
+.rc-alert .rc-link {
+    border-bottom: thin dashed;
+    color: #640;
+    font-weight: bold;
+}
+.rc-icon-alert{
     position: absolute;
-      z-index: 0;
+    z-index: 0;
     color: #66440038;
     font-size: 3rem;
     top: .5rem;
     left: .5rem;
-  }
-  /*Notes*/
-  .rc-note {
+}
+/*Notes*/
+.rc-note {
     margin: 1rem 0;
     padding: 10px;
     border-left: 6px solid;
