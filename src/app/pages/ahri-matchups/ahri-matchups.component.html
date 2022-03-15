@@ -52,9 +52,22 @@
         <ng-template matStepLabel>Fossil Fuel</ng-template>
         <h2 class="rc-main-title">Fossil Fuel</h2>
         <!-- Content of step -->
-        <div fxLayout fxLayoutAlign="center">
+        <div fxLayout >
+
+          <!-- note -->
+          <div fxFlex="30" fxLayout="column" fxLayoutAlign="left stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" style="border: 9zpx;">
+            <mat-card>
+              <mat-card-title>Note:</mat-card-title>
+              <mat-card-content>
+                <p>The rebate calculator will show all possible installations, including fully electric HVAC systems.  
+                  Selecting a fossil fuel type only helps us show relevant search results but it is not required that
+                  a fossil fuel component (furnace, boiler) is part of the final HVAC system.</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          
           <!-- User input -->
-          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40">
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="right stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40">
 
             <!-- radio button -->
             <mat-label>Select type of fossil fuel available at the residence.</mat-label>
