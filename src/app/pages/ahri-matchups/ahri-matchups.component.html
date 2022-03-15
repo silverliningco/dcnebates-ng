@@ -21,7 +21,7 @@
                 Cooling tons is <strong>required</strong>
               </mat-error>
             </mat-form-field>
-            
+
 
             <!-- input -->
             <mat-form-field appearance="fill">
@@ -52,23 +52,9 @@
         <ng-template matStepLabel>Fossil Fuel</ng-template>
         <h2 class="rc-main-title">Fossil Fuel</h2>
         <!-- Content of step -->
-        <div fxLayout >
-
-          <!-- note -->
-          <div fxFlex="30" fxLayout="column" fxLayoutAlign="left stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" style="border: 9zpx;">
-            <mat-card>
-              <mat-card-title>Note:</mat-card-title>
-              <mat-card-content>
-                <p>The rebate calculator will show all possible installations, including fully electric HVAC systems.  
-                  Selecting a fossil fuel type only helps us show relevant search results but it is not required that
-                  a fossil fuel component (furnace, boiler) is part of the final HVAC system.</p>
-              </mat-card-content>
-            </mat-card>
-          </div>
-          
+        <div fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="32">
           <!-- User input -->
-          <div fxFlex="40" fxLayout="column" fxLayoutAlign="right stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40">
-
+          <div fxFlex="25" fxLayout="column" fxLayoutAlign="left stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="25">
             <!-- radio button -->
             <mat-label>Select type of fossil fuel available at the residence.</mat-label>
             <mat-radio-group #rGroup formControlName="fuelSource" fxLayout="column">
@@ -89,6 +75,15 @@
               </button>
             </div>
           </div>
+
+          <!-- note -->
+          <div fxLayout fxLayoutAlign="center" fxLayoutGap="16px" fxLayout.sm="column" fxLayout.xs="column">
+            <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="rc-note">
+              <p class="rc-small"> <b>Note: </b> The rebate calculator will show all possible installations, including fully electric HVAC systems.
+                Selecting a fossil fuel type only helps us show relevant search results but it is not required that
+                a fossil fuel component (furnace, boiler) is part of the final HVAC system.</p>
+            </div>
+          </div>
         </div>
       </form>
     </mat-step>
@@ -103,7 +98,7 @@
       <div  *ngIf="!this.noResults">
         <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="16">
           <form [formGroup]="productLinesGroup" class="rc-radio-options">
-            <mat-radio-group aria-label="Select an option" formControlName="productLine"> 
+            <mat-radio-group aria-label="Select an option" formControlName="productLine">
               <mat-radio-button *ngFor="let proLine of productLines" [value]="proLine.id" (click)="SelectProductLine(proLine.id)">{{proLine.title}}</mat-radio-button>
             </mat-radio-group>
           </form>
@@ -116,17 +111,17 @@
               <div fxLayout="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
                 <mat-form-field appearance="fill" *ngFor="let filter of filters" >
                   <mat-label>{{filter.filterName}}</mat-label>
-                  <select matNativeControl required (change)="SelectFilters()" [formControlName]="filter.filterName"> 
+                  <select matNativeControl required (change)="SelectFilters()" [formControlName]="filter.filterName">
                     <option *ngFor="let val of filter.filterValues" [value]="val">{{val}}</option>
                     <option value="">Show all</option>
                   </select>
                 </mat-form-field>
               </div>
-             
+
             </form>
           </div>
           <div fxFlex="75" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="75">
-  
+
             <div fxLayout fxLayoutAlign="end center">
               <span class="rc-nr-pages">{{ beginning }} - {{ end }} of  {{results?.length}}</span>
             </div>
@@ -167,8 +162,8 @@
               </tr>
               </tbody>
           </table>
-  
-  
+
+
           <!-- pagination -->
             <div fxLayout fxLayoutAlign="end center" class="rc-pagination">
               <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
@@ -190,9 +185,9 @@
 
           </div>
         </div>
-        
+
       </div>
-      
+
 
     </mat-step>
     <!-- results end -->
