@@ -99,7 +99,7 @@
         <div fxFlex="25" fxLayout="column" fxLayoutAlign="start" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="25" class="rc-filters" fxLayoutGap.sm="16"  fxLayoutGap.xs="16">
           <h5>Filters</h5>
           <form [formGroup]="filtersGroup">
-            <div fxLayout="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16">
+            <div fxLayout="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
               <mat-form-field appearance="fill" *ngFor="let filter of filters" >
                 <mat-label>{{filter.filterName}}</mat-label>
                 <select matNativeControl required (change)="SelectFilters()" [formControlName]="filter.filterName"> 

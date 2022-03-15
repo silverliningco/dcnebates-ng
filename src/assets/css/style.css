@@ -103,10 +103,16 @@ ul li::before {
       width: 960px;
     }
 }
-  
-@media screen and (min-width: 768px) and (max-width: 991px){
+ 
+@media screen and (min-width: 960px) and (max-width: 991px){
     .rc-container, .xng-breadcrumb-root  .xng-breadcrumb-list{
-      width: 720px;
+      width: 900px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 959px){
+    .rc-container, .xng-breadcrumb-root  .xng-breadcrumb-list{
+      width: 760px;
     }
 }
   
@@ -331,6 +337,10 @@ table tbody tr:nth-of-type(even) {
     border-radius: 4px;
 
 }
+.rc-filters .mat-form-field{
+    width: 100%;
+}
+
 .rc-filters h5{
     margin: 5px 5px 15px 5px;
     color: var(--rc-primary-dark-color);
