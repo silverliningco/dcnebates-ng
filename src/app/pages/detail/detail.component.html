@@ -6,11 +6,7 @@
         <mat-card class="rc-card-details" fxFlex="100">
             <mat-card-title>Selected HVAC System</mat-card-title>
             <mat-card-content>
-              <h3>AHRI References</h3>
-              <ul class="rc-list-details">
-                <li *ngFor="let ahri_ref of detail?.AHRIReferences">{{ahri_ref}}</li>
-              </ul>
-              <h3>AHRI Models</h3>
+              <h3>SKUS</h3>
               <div fxLayout fxLayoutAlign="space-evenly center" >
                 <div fxFlex="50" fxLayoutAlign="start">
                     <span class="rc-details-subtitle">Outdoor unit</span>
@@ -35,6 +31,10 @@
                     {{detail?.furnaceSKU}}
                 </div>
               </div>
+              <h3>AHRI References</h3>
+              <ul class="rc-list-details">
+                <li *ngFor="let ahri_ref of detail?.AHRIReferences">{{ahri_ref}}</li>
+              </ul>
               <h3>AHRI Ratings</h3>
               <div fxLayout fxLayoutAlign="space-evenly center" >
                 <div fxFlex="50" fxLayoutAlign="start">
