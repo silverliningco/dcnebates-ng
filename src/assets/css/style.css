@@ -309,8 +309,9 @@ table tbody tr:nth-of-type(even) {
     }
     table tr {
         display: block;
-        margin: .5rem;
+        margin: .5rem 0;
         border: solid 1px #DEE2E6;
+        border-radius: 4px;
     }
     table td {
         display: -webkit-box;
