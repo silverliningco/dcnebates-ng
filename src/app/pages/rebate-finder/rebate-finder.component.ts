@@ -28,6 +28,7 @@ export class RebateFinderComponent  implements OnInit {
   filtersGroup !: FormGroup;
   stateGroup !: FormGroup;
   utilityGroup !: FormGroup;
+  availableRebaterGroup  !: FormGroup;
 
   stepperOrientation: Observable<StepperOrientation>;
 
@@ -90,6 +91,9 @@ export class RebateFinderComponent  implements OnInit {
       gasOilUtility: ['', Validators.required]
     });
 
+    this.availableRebaterGroup = this._formBuilder.group({
+      
+    });
      
   
 
@@ -298,11 +302,21 @@ export class RebateFinderComponent  implements OnInit {
   }
 
 
-  AvailableRebates(state: string, utilityID: number){
+  AvailableRebates(state: string, utilityIDs: Array<number>){
 
-    
+    console.log(this.stateGroup.value);
+
+    this._api.AvailableRebates(state, utilityIDs).subscribe({
+      next: (resp) => {
+
+      },
+      error: (e) => alert(e.error),
+      complete: () => console.info('complete')
+    })
 
   }
+
+
 
 
 }

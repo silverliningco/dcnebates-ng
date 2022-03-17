@@ -28,9 +28,9 @@ export class ApiService {
     return this._http.get(url);
   }
 
-  AvailableRebates(state: any, utilityProvider:any ): Observable<any> {
+  AvailableRebates(state: any, utilityProviders:any ): Observable<any> {
 
-    let url = URL_SERVICIOS + '/available-rebates?state=' + state + '&utilityProviders=' + utilityProvider; 
+    let url = URL_SERVICIOS + '/available-rebates?state=' + state + '&utilityProviders=' + utilityProviders; 
 
     return this._http.get(url);
   }
