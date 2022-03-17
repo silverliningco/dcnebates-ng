@@ -28,6 +28,13 @@ export class ApiService {
     return this._http.get(url);
   }
 
+  AvailableRebates(state: any, utilityProvider:any ): Observable<any> {
+
+    let url = URL_SERVICIOS + '/available-rebates?state=' + state + '&utilityProviders=' + utilityProvider; 
+
+    return this._http.get(url);
+  }
+
   Search(params: any): Observable<any> {
 
     let url = URL_SERVICIOS + '/search-equipment?params=' + params; 

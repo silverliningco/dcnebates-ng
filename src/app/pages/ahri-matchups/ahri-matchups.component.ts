@@ -26,8 +26,7 @@ export class AhriMatchupsComponent implements OnInit {
   furnaceGroup !: FormGroup;
   productLinesGroup !: FormGroup;
   filtersGroup !: FormGroup;
-  stateGroup !: FormGroup;
-  utilityGroup !: FormGroup;
+
 
   stepperOrientation: Observable<StepperOrientation>;
 
@@ -81,14 +80,6 @@ export class AhriMatchupsComponent implements OnInit {
       furnaceSKU: ['', Validators.required],
     });
 
-    this.stateGroup = this._formBuilder.group({
-      state: ['', Validators.required]
-    });
-
-    this.utilityGroup = this._formBuilder.group({
-      electricUtility: ['', Validators.required],
-      gasOilUtility: ['', Validators.required]
-    });
 
      
   
@@ -111,8 +102,7 @@ export class AhriMatchupsComponent implements OnInit {
     let payload = {
       commerceInfo: this.myCommerInfo,
       nominalSize: this.nominalSizeGroup.value,
-      fuelSource: this.furnaceGroup.controls['fuelSource'].value,
-      state: this.stateGroup.value
+      fuelSource: this.furnaceGroup.controls['fuelSource'].value
     }
     this.CallProductLines(payload);
   }
@@ -238,62 +228,4 @@ export class AhriMatchupsComponent implements OnInit {
     this.ObtainPaginationText();
   }
 
-  // utilities
-  changeState(event:any){
-    let myState = event.value;
-
-    this.sendGasOil= [];
-    this.sendElectric=[];
-
-    this._api.Utilities(myState).subscribe({
-      next: (resp: any) => {
-
-        let newPay: any = [
-          {
-            "utilityId": 1,
-            "title": "Cape Light Compact",
-            "description": "",
-            "states": ["MA"],
-            "country": "US",
-            "fuel":["Electricity"]
-        },
-        {
-            "utilityId": 2,
-            "title": "National Grid",
-            "description": "",
-            "states": ["MA"],
-            "country": "US",
-            "fuel":["Electricity","Natural Gas"]
-        },
-        {
-            "utilityId": 3,
-            "title": "Liberty",
-            "description": "",
-            "states": ["MA"],
-            "country": "US",
-            "fuel":["Natural Gas"]
-        }
-        ];
-        let listUtilitie: Array<utilityInfo> = newPay;
-        this.transform(listUtilitie);                    
-      },
-      error: (e) => alert(e.error),
-      complete: () => console.info('complete')
-    })
-  }
-
-
-  transform(array: Array<utilityInfo>): any[] {
-
-    return array.filter((d: any)=>d.fuel.find((a: any)=>{
-      
-      if (a.includes('Electricity')){
-        this.sendElectric.push(d);
-      } if (a.includes('Natural Gas')) {
-        this.sendGasOil.push(d);
-      }
-      
-    }));
-    
-  }
 }
