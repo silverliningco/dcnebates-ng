@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Attribute, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/material/stepper';
@@ -44,6 +44,9 @@ export class RebateFinderComponent  implements OnInit {
   
   sendElectric: Array<any> = [];
   sendGasOil: Array<any> = [];
+  myState!: string;
+  myElectric!: string;
+  myGasOil!: string;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -109,6 +112,7 @@ export class RebateFinderComponent  implements OnInit {
       });
 
     this.ObtainPaginationText();
+
   }
 
   submitForm() {
@@ -244,12 +248,12 @@ export class RebateFinderComponent  implements OnInit {
 
   // utilities
   changeState(event:any){
-    let myState = event.value;
+    this.myState = event.value;
 
     this.sendGasOil= [];
     this.sendElectric=[];
 
-    this._api.Utilities(myState).subscribe({
+    this._api.Utilities(this.myState).subscribe({
       next: (resp: any) => {
 
         let newPay: any = [
@@ -301,13 +305,63 @@ export class RebateFinderComponent  implements OnInit {
     
   }
 
+  ElectricID(event:any){
+    this.myElectric = event.value;
+  }
 
-  AvailableRebates(state: string, utilityIDs: Array<number>){
+  GasOilID(event:any){
+    this.myGasOil = event.value;
+  }
 
-    console.log(this.stateGroup.value);
+  AvailableRebates(){
 
-    this._api.AvailableRebates(state, utilityIDs).subscribe({
+     let myUtilitiesIDs: Array<any> = [this.myElectric, this.myGasOil];
+
+    this._api.AvailableRebates(this.myState, myUtilitiesIDs).subscribe({
       next: (resp) => {
+
+        let myresp: any = [
+          {
+             "rebateId":1,
+             "title":"Mass Save Heat Pump rebates",
+             "description":"",
+             "period":"2022",
+             "link":"",
+             "rebateCriteria":[
+                "Heat pump(s) are used to replace or supplement existing oil, propane or electric baseboard heating."
+             ],
+             "rebateTiers":[
+                {
+                   "title":"Partial home/supplemental HP",
+                   "rebateTierCriteria":[
+                      "Heat Pumps must be used to supplement the pre-existing heating system during heating season.",
+                      "If pre-existing system is oil or propane, integrated controls must be installed."
+                   ]
+                },
+                {
+                   "title":"Whole house HP",
+                   "rebateTierCriteria":[
+                      "Heat pumps must be used as the sole source of heating during heating season.",
+                      "Whole-home verification form must be completed and signed"
+                   ]
+                }
+             ]
+          },
+          {
+             "rebateId":2,
+             "title":"Mass Save Gas Heating",
+             "description":"",
+             "period":"2022",
+             "link":"",
+             "rebateCriteria":null,
+             "rebateTiers":[
+                {
+                   "title":"Default",
+                   "rebateTierCriteria":null
+                }
+             ]
+          }
+       ]; 
 
       },
       error: (e) => alert(e.error),
