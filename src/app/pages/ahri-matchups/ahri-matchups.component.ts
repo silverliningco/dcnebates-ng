@@ -6,6 +6,8 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from 'src/app/services/api.service';
+import {utilityInfo} from '../../models/utilitie';
+
 
 @Component({
   selector: 'app-ahri-matchups',
@@ -20,11 +22,12 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class AhriMatchupsComponent implements OnInit {
 
-  //formGroup !: FormGroup;
   nominalSizeGroup !: FormGroup;
   furnaceGroup !: FormGroup;
   productLinesGroup !: FormGroup;
   filtersGroup !: FormGroup;
+  stateGroup !: FormGroup;
+  utilityGroup !: FormGroup;
 
   stepperOrientation: Observable<StepperOrientation>;
 
@@ -37,11 +40,15 @@ export class AhriMatchupsComponent implements OnInit {
   beginning?: number;
   end?: number;
   rows!: number;
+  
+  sendElectric: Array<any> = [];
+  sendGasOil: Array<any> = [];
 
   constructor(
     private _formBuilder: FormBuilder,
     public breakpointObserver: BreakpointObserver,
-    private _api: ApiService) {
+    private _api: ApiService
+    ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
       .pipe(
@@ -74,6 +81,18 @@ export class AhriMatchupsComponent implements OnInit {
       furnaceSKU: ['', Validators.required],
     });
 
+    this.stateGroup = this._formBuilder.group({
+      state: ['', Validators.required]
+    });
+
+    this.utilityGroup = this._formBuilder.group({
+      electricUtility: ['', Validators.required],
+      gasOilUtility: ['', Validators.required]
+    });
+
+     
+  
+
     // If small screen, load only 3 rows for results else 10.
     this.breakpointObserver
       .observe(['(min-width: 800px)'])
@@ -92,7 +111,8 @@ export class AhriMatchupsComponent implements OnInit {
     let payload = {
       commerceInfo: this.myCommerInfo,
       nominalSize: this.nominalSizeGroup.value,
-      fuelSource: this.furnaceGroup.controls['fuelSource'].value
+      fuelSource: this.furnaceGroup.controls['fuelSource'].value,
+      state: this.stateGroup.value
     }
     this.CallProductLines(payload);
   }
@@ -218,4 +238,62 @@ export class AhriMatchupsComponent implements OnInit {
     this.ObtainPaginationText();
   }
 
+  // utilities
+  changeState(event:any){
+    let myState = event.value;
+
+    this.sendGasOil= [];
+    this.sendElectric=[];
+
+    this._api.Utilities(myState).subscribe({
+      next: (resp: any) => {
+
+        let newPay: any = [
+          {
+            "utilityId": 1,
+            "title": "Cape Light Compact",
+            "description": "",
+            "states": ["MA"],
+            "country": "US",
+            "fuel":["Electricity"]
+        },
+        {
+            "utilityId": 2,
+            "title": "National Grid",
+            "description": "",
+            "states": ["MA"],
+            "country": "US",
+            "fuel":["Electricity","Natural Gas"]
+        },
+        {
+            "utilityId": 3,
+            "title": "Liberty",
+            "description": "",
+            "states": ["MA"],
+            "country": "US",
+            "fuel":["Natural Gas"]
+        }
+        ];
+        let listUtilitie: Array<utilityInfo> = newPay;
+        this.transform(listUtilitie);                    
+      },
+      error: (e) => alert(e.error),
+      complete: () => console.info('complete')
+    })
+  }
+
+
+  transform(array: Array<utilityInfo>): any[] {
+
+    return array.filter((d: any)=>d.fuel.find((a: any)=>{
+      
+      if (a.includes('Electricity')){
+        this.sendElectric.push(d);
+      } if (a.includes('Natural Gas')) {
+        this.sendGasOil.push(d);
+      }
+      
+    }));
+    
+  }
 }

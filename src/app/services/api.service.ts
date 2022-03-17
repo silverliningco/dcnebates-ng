@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+// url endpoint
+import {URL_SERVICIOS}  from '../confg/config';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,33 +14,39 @@ export class ApiService {
       private _http: HttpClient
     ) { }
 
-  api_url:string = 'https://rebate-calculator-node-2022.herokuapp.com'
-
   ProductLines(params: any): Observable<any> {
 
-    let url = this.api_url + '/product-lines?params=' + params; 
+    let url = URL_SERVICIOS + '/product-lines?params=' + params; 
 
     return this._http.get(url);
   }
 
   Filters(params: any): Observable<any> {
 
-    let url = this.api_url + '/filters?params=' + params; 
+    let url = URL_SERVICIOS + '/filters?params=' + params; 
 
     return this._http.get(url);
   }
 
   Search(params: any): Observable<any> {
 
-    let url = this.api_url + '/search-equipment?params=' + params; 
+    let url = URL_SERVICIOS + '/search-equipment?params=' + params; 
 
     return this._http.get(url);
   }
 
   Detail(skus: any, ahri_refs: any, params: any): Observable<any> {
 
-    let url = this.api_url + '/view-detail?skus='+ skus + '&ahri_refs=' + ahri_refs +'&params=' + params; 
+    let url = URL_SERVICIOS + '/view-detail?skus='+ skus + '&ahri_refs=' + ahri_refs +'&params=' + params; 
 
     return this._http.get(url);
+  }
+
+  Utilities(state: any){
+
+    let url = URL_SERVICIOS + '/load-utilities?country=US&state='+ state;
+
+    return this._http.get(url);
+    
   }
 }

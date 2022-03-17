@@ -10,11 +10,11 @@
     --rc-text-light-color: #606060;
   }
 
-/* Gobal style */ 
+/* Gobal style */
 body {
     background-color: #fcfcfc;
 }
-*, body, p { 
+*, body, p {
     margin: 0;
     font-family: 'Bitter', serif;
     line-height: 1.75rem;
@@ -89,7 +89,7 @@ ul li::before {
 .xng-breadcrumb-root .xng-breadcrumb-link  {
     color:#cfcdcd;
 }
-  
+
 .xng-breadcrumb-root .xng-breadcrumb-trail  {
     color: white;
 }
@@ -114,7 +114,7 @@ ul li::before {
       width: 960px;
     }
 }
- 
+
 @media screen and (min-width: 960px) and (max-width: 991px){
     .rc-container, .xng-breadcrumb-root  .xng-breadcrumb-list{
       width: 900px;
@@ -126,13 +126,13 @@ ul li::before {
       width: 760px;
     }
 }
-  
+
 @media screen and (min-width: 576px) and (max-width: 767px){
     .rc-container, .xng-breadcrumb-root .xng-breadcrumb-list{
       width: 540px;
     }
 }
-  
+
 @media screen and (max-width: 575px){
     .rc-container, .xng-breadcrumb-root  .xng-breadcrumb-list{
       width: 90%;
@@ -156,7 +156,7 @@ footer {
     color: var(--rc-primary-dark-color);
     margin: 2rem 0 !important;
 }
-  
+
 .rc-main-title::after {
     content: '';
     border-bottom: solid 3px var(--rc-accent-color);
@@ -211,7 +211,7 @@ mat-card.rc-card-home mat-card-content{
 
 mat-card.rc-card-home mat-card-actions mat-icon {
     color: var(--rc-accent-color);
-} 
+}
 mat-card.rc-card-home mat-card-actions > button {
     background-color: transparent;
     border: none;
@@ -349,8 +349,8 @@ table tbody tr:nth-of-type(even) {
     margin-top: 1rem;
 }
 .rc-nr-pages {
-    color: #939393; 
-    line-height: 1rem; 
+    color: #939393;
+    line-height: 1rem;
     font-size: .75rem;
 }
 
@@ -393,6 +393,17 @@ table tbody tr:nth-of-type(even) {
     display: block;
 }
 
+.rc-card-details mat-card-content > h3{
+  margin-top: 1.5rem;
+  color: black;
+    text-transform: uppercase;
+}
+
+span.rc-details-subtitle {
+  font-weight: 600;
+  padding-inline-start: 20px;
+}
+
 .rc-amount-card {
     background-color: var(--rc-primary-light-color);
     padding: 0.5rem;
@@ -417,7 +428,7 @@ table tbody tr:nth-of-type(even) {
         margin-top: 2rem !important;
     }
 }
-@media (max-width: 767px) {    
+@media (max-width: 767px) {
     .rc-amount-card {
         padding: 0.25rem;
         width: 110px;
@@ -500,10 +511,24 @@ table tbody tr:nth-of-type(even) {
 }
 /*Notes*/
 .rc-note {
-    margin: 1rem 0;
-    padding: 10px;
-    border-left: 6px solid;
-    border-radius: 5px;
-    background-color: white;
-    border-color: var(--rc-primary-color);
-  }
+  margin: 1rem 0;
+  padding: 10px;
+  border-left: 6px solid;
+  border-radius: 5px;
+  background-color: white;
+  border-color: var(--rc-primary-color);
+}
+
+/*ul style */
+ul.rc-list-details{
+  list-style: none;
+  line-height: 2rem;
+}
+ul.rc-list-details li::before {
+  content: "\2022";
+  color: var(--rc-accent-color);
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
