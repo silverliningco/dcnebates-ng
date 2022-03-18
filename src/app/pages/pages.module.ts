@@ -15,6 +15,7 @@ import { AhriMatchupsComponent } from './ahri-matchups/ahri-matchups.component';
 import { RebateFinderComponent } from './rebate-finder/rebate-finder.component';
 import { DetailComponent } from './detail/detail.component';
 
+// Angular Material 
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
@@ -24,6 +25,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { BreadcrumbModule } from 'xng-breadcrumb';
 
@@ -55,7 +57,7 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
     FlexLayoutModule,
     MatButtonModule,
     MatSelectModule,
-    
+    MatCheckboxModule
   ]
 })
 export class PagesModule { }

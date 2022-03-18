@@ -5,9 +5,11 @@ import { StepperOrientation } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ApiService } from 'src/app/services/api.service';
-import { utilityInfo } from '../../models/utilities';
 
+import { ApiService } from 'src/app/services/api.service';
+
+import { utilityInfo } from '../../models/utilities';
+import { rebateInfo } from '../../models/rebates';
 
 @Component({
   selector: 'app-rebate-finder',
@@ -251,34 +253,34 @@ export class RebateFinderComponent implements OnInit {
 
     this._api.Utilities(this.stateGroup.controls['state'].value).subscribe({
       next: (resp: any) => {
-        /*
-                let newPay: any = [
-                  {
-                    "utilityId": 1,
-                    "title": "Cape Light Compact",
-                    "description": "",
-                    "states": ["MA"],
-                    "country": "US",
-                    "fuel":["Electricity"]
-                },
-                {
-                    "utilityId": 2,
-                    "title": "National Grid",
-                    "description": "",
-                    "states": ["MA"],
-                    "country": "US",
-                    "fuel":["Electricity","Natural Gas"]
-                },
-                {
-                    "utilityId": 3,
-                    "title": "Liberty",
-                    "description": "",
-                    "states": ["MA"],
-                    "country": "US",
-                    "fuel":["Natural Gas"]
-                }
-                ];*/
-        let listUtilities: Array<utilityInfo> = resp;
+        
+        let myresp: any = [
+          {
+            "utilityId": 1,
+            "title": "Cape Light Compact",
+            "description": "",
+            "states": ["MA"],
+            "country": "US",
+            "fuel":["Electricity"]
+        },
+        {
+            "utilityId": 2,
+            "title": "National Grid",
+            "description": "",
+            "states": ["MA"],
+            "country": "US",
+            "fuel":["Electricity","Natural Gas"]
+        },
+        {
+            "utilityId": 3,
+            "title": "Liberty",
+            "description": "",
+            "states": ["MA"],
+            "country": "US",
+            "fuel":["Natural Gas"]
+        }
+        ];
+        let listUtilities: Array<utilityInfo> = myresp;
         this.transform(listUtilities);
       },
       error: (e) => alert(e.error),
@@ -306,58 +308,60 @@ export class RebateFinderComponent implements OnInit {
       this.utilityGroup.controls['electricUtility'].value,
       this.utilityGroup.controls['gasOilUtility'].value
     ];
-   
-    this._api.AvailableRebates(this.stateGroup.controls['state'].value, JSON.stringify(myUtilityIds)).subscribe({
-      next: (resp) => {
 
-        let myresp: any = [
-          {
-             "rebateId":1,
-             "title":"Mass Save Heat Pump rebates",
-             "description":"",
-             "period":"2022",
-             "link":"",
-             "rebateCriteria":[
-                "Heat pump(s) are used to replace or supplement existing oil, propane or electric baseboard heating."
-             ],
-             "rebateTiers":[
-                {
-                   "title":"Partial home/supplemental HP",
-                   "rebateTierCriteria":[
-                      "Heat Pumps must be used to supplement the pre-existing heating system during heating season.",
-                      "If pre-existing system is oil or propane, integrated controls must be installed."
-                   ]
-                },
-                {
-                   "title":"Whole house HP",
-                   "rebateTierCriteria":[
-                      "Heat pumps must be used as the sole source of heating during heating season.",
-                      "Whole-home verification form must be completed and signed"
-                   ]
-                }
-             ]
-          },
-          {
-             "rebateId":2,
-             "title":"Mass Save Gas Heating",
-             "description":"",
-             "period":"2022",
-             "link":"",
-             "rebateCriteria":null,
-             "rebateTiers":[
-                {
-                   "title":"Default",
-                   "rebateTierCriteria":null
-                }
-             ]
-          }
-       ]; 
+    let myresp: any = [
+      {
+         "rebateId":1,
+         "title":"Mass Save Heat Pump rebates",
+         "description":"",
+         "period":"2022",
+         "link":"",
+         "rebateCriteria":[
+            "Heat pump(s) are used to replace or supplement existing oil, propane or electric baseboard heating."
+         ],
+         "rebateTiers":[
+            {
+               "title":"Partial home/supplemental HP",
+               "rebateTierCriteria":[
+                  "Heat Pumps must be used to supplement the pre-existing heating system during heating season.",
+                  "If pre-existing system is oil or propane, integrated controls must be installed."
+               ]
+            },
+            {
+               "title":"Whole house HP",
+               "rebateTierCriteria":[
+                  "Heat pumps must be used as the sole source of heating during heating season.",
+                  "Whole-home verification form must be completed and signed"
+               ]
+            }
+         ]
+      },
+      {
+         "rebateId":2,
+         "title":"Mass Save Gas Heating",
+         "description":"",
+         "period":"2022",
+         "link":"",
+         "rebateCriteria":null,
+         "rebateTiers":[
+            {
+               "title":"Default",
+               "rebateTierCriteria":null
+            }
+         ]
+      }
+   ]; 
+
+   let listRebates: Array<rebateInfo> = myresp;
+
+   
+   /*  this._api.AvailableRebates(this.stateGroup.controls['state'].value, JSON.stringify(myUtilityIds)).subscribe({
+      next: (resp) => {
 
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
-    })
-
+    }) */
   }
 
 

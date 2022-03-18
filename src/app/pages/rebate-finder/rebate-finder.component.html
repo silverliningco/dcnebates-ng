@@ -93,7 +93,25 @@
           <div fxFlex="25" fxLayout="column" fxLayoutAlign="left stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="25">
            
             <!-- inputs-->   
-            <h3>Available Rebates</h3>
+            <!-- <span class="example-list-section">
+              <mat-checkbox class="example-margin"
+                            [checked]="allComplete"
+                            [indeterminate]="someComplete()"
+                            (change)="setAll($event.checked)">
+                {{listRebates.title}}
+              </mat-checkbox>
+            </span>
+            <span class="example-list-section">
+              <ul>
+                <li *ngFor="let subtask of task.subtasks">
+                  <mat-checkbox [(ngModel)]="subtask.completed"
+                                [color]="subtask.color"
+                                (ngModelChange)="updateAllComplete()">
+                    {{subtask.name}}
+                  </mat-checkbox>
+                </li>
+              </ul>
+            </span> -->
 
             <!-- button -->
             <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
