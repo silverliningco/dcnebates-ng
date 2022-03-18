@@ -2,8 +2,8 @@
   <mat-stepper #stepper linear  [orientation]="(stepperOrientation | async)!">
 
     <!-- Step 1 State -->
-    <mat-step [stepControl]="stateGroup" errorMessage="Select a furnace fuel.">
-      <form [formGroup]="stateGroup" (ngSubmit)="submitForm()">
+    <mat-step [stepControl]="stateGroup" errorMessage="Select an state.">
+      <form [formGroup]="stateGroup">
         <!-- Name of step -->
         <ng-template matStepLabel>State</ng-template>
         <h2 class="rc-main-title">State</h2>
@@ -15,7 +15,7 @@
             <!-- selects -->
             <mat-form-field appearance="fill">
               <mat-label>State</mat-label>
-              <mat-select (selectionChange)="changeState($event)" #sGroup formControlName="state">
+              <mat-select (selectionChange)="changeState()" #sGroup formControlName="state">
                   <mat-option  value="MA" radioGroup="sGroup">  MA </mat-option>
                   <mat-option  value="ME" radioGroup="sGroup">  ME </mat-option>
                   <mat-option  value="NH" radioGroup="sGroup">  NH </mat-option>
@@ -36,11 +36,11 @@
     <!-- Step 1 end  -->
 
     <!-- Step 2 Utility Provider -->
-    <mat-step [stepControl]="utilityGroup" errorMessage="Select a furnace fuel.">
-      <form [formGroup]="utilityGroup" (ngSubmit)="submitForm()">
+    <mat-step [stepControl]="utilityGroup" errorMessage="Select utility providers.">
+      <form [formGroup]="utilityGroup">
         <!-- Name of step -->
-        <ng-template matStepLabel>Utility Provider</ng-template>
-        <h2 class="rc-main-title">Utility Provider</h2>
+        <ng-template matStepLabel>Utility Providers</ng-template>
+        <h2 class="rc-main-title">Utility Providers</h2>
         <!-- Content of step -->
         <div fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="32">
           <!-- User input -->
@@ -49,26 +49,29 @@
             <!-- utilities -->
             <mat-form-field appearance="fill">
               <mat-label>Electric Utility</mat-label>
-              <mat-select (selectionChange)="ElectricID($event)" #sGroup formControlName="electricUtility">
+              <mat-select #sGroup formControlName="electricUtility">
                 <mat-option *ngFor ="let elec of sendElectric; let i = index" [value]="sendElectric[i].utilityId" radioGroup="sGroup">
                   {{sendElectric[i].title}}
                   </mat-option>
+                  <!--<mat-option value="" radioGroup="sGroup">Other</mat-option>-->
               </mat-select>
             </mat-form-field>    
           
             <mat-form-field appearance="fill">
               <mat-label>Gas / Oil Utility</mat-label>
-              <mat-select (selectionChange)="GasOilID($event)" #sGroup formControlName="gasOilUtility">
+              <mat-select #sGroup formControlName="gasOilUtility">
                 <mat-option *ngFor ="let elec of sendGasOil; let i = index" [value]="sendGasOil[i].utilityId" radioGroup="sGroup">
                   {{sendGasOil[i].title}}
                   </mat-option>
+                  <!--<mat-option value="" radioGroup="sGroup">Other</mat-option>-->
+
               </mat-select>
             </mat-form-field>
 
             <!-- button -->
             <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
               <button type="button" mat-button matStepperPrevious>Back</button>
-              <button type="button" [disabled]="utilityGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+              <button type="button" (click)="AvailableRebates()" [disabled]="utilityGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
                 <mat-icon>arrow_forward</mat-icon>
               </button>
             </div>
@@ -79,24 +82,23 @@
     <!-- Step 2 end  -->
 
     <!-- Step 3 available rebate  -->
-    <mat-step [stepControl]="availableRebaterGroup" errorMessage="Select a furnace fuel.">
-      <form [formGroup]="availableRebaterGroup" (ngSubmit)="submitForm()">
+    <mat-step [stepControl]="availableRebatesGroup" errorMessage="Complete the form.">
+      <form [formGroup]="availableRebatesGroup">
         <!-- Name of step -->
-        <ng-template matStepLabel>Available Rebate</ng-template>
-        <h2 class="rc-main-title">Available Rebater</h2>
+        <ng-template matStepLabel>Available Rebates</ng-template>
+        <h2 class="rc-main-title">Available Rebates</h2>
         <!-- Content of step -->
         <div fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="32">
           <!-- User input -->
           <div fxFlex="25" fxLayout="column" fxLayoutAlign="left stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="25">
            
             <!-- inputs-->   
-            <h3>Available Rebater</h3>
-
+            <h3>Available Rebates</h3>
 
             <!-- button -->
             <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
               <button type="button" mat-button matStepperPrevious>Back</button>
-              <button type="button" [disabled]="utilityGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+              <button type="button" [disabled]="availableRebatesGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
                 <mat-icon>arrow_forward</mat-icon>
               </button>
             </div>

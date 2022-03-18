@@ -6,7 +6,6 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from 'src/app/services/api.service';
-import {utilityInfo} from '../../models/utilitie';
 
 
 @Component({
@@ -39,9 +38,6 @@ export class AhriMatchupsComponent implements OnInit {
   beginning?: number;
   end?: number;
   rows!: number;
-  
-  sendElectric: Array<any> = [];
-  sendGasOil: Array<any> = [];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -79,10 +75,6 @@ export class AhriMatchupsComponent implements OnInit {
       outdoorUnitSKU: ['', Validators.required],
       furnaceSKU: ['', Validators.required],
     });
-
-
-     
-  
 
     // If small screen, load only 3 rows for results else 10.
     this.breakpointObserver

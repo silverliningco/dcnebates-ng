@@ -1,4 +1,4 @@
-import { Attribute, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/material/stepper';
@@ -6,7 +6,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from 'src/app/services/api.service';
-import {utilityInfo} from '../../models/utilitie';
+import { utilityInfo } from '../../models/utilities';
 
 
 @Component({
@@ -20,7 +20,7 @@ import {utilityInfo} from '../../models/utilitie';
     },
   ]
 })
-export class RebateFinderComponent  implements OnInit {
+export class RebateFinderComponent implements OnInit {
 
   nominalSizeGroup !: FormGroup;
   furnaceGroup !: FormGroup;
@@ -28,7 +28,7 @@ export class RebateFinderComponent  implements OnInit {
   filtersGroup !: FormGroup;
   stateGroup !: FormGroup;
   utilityGroup !: FormGroup;
-  availableRebaterGroup  !: FormGroup;
+  availableRebatesGroup  !: FormGroup;
 
   stepperOrientation: Observable<StepperOrientation>;
 
@@ -41,18 +41,15 @@ export class RebateFinderComponent  implements OnInit {
   beginning?: number;
   end?: number;
   rows!: number;
-  
+
   sendElectric: Array<any> = [];
   sendGasOil: Array<any> = [];
-  myState!: string;
-  myElectric!: string;
-  myGasOil!: string;
 
   constructor(
     private _formBuilder: FormBuilder,
     public breakpointObserver: BreakpointObserver,
     private _api: ApiService
-    ) {
+  ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
       .pipe(
@@ -67,6 +64,19 @@ export class RebateFinderComponent  implements OnInit {
       showAllResults: false
     }
 
+    this.stateGroup = this._formBuilder.group({
+      state: ['', Validators.required]
+    });
+
+    this.utilityGroup = this._formBuilder.group({
+      electricUtility: ['', Validators.required],
+      gasOilUtility: ['', Validators.required]
+    });
+
+    this.availableRebatesGroup = this._formBuilder.group({
+
+    });
+
     this.nominalSizeGroup = this._formBuilder.group({
       heatingBTUH: ['', Validators.compose([Validators.required, Validators.min(0)])],
       coolingTons: ['', Validators.compose([Validators.required, Validators.min(0)])],
@@ -75,6 +85,7 @@ export class RebateFinderComponent  implements OnInit {
     this.furnaceGroup = this._formBuilder.group({
       fuelSource: ['', Validators.required],
     });
+
     this.productLinesGroup = this._formBuilder.group({
       productLine: ['', Validators.required],
     });
@@ -85,20 +96,6 @@ export class RebateFinderComponent  implements OnInit {
       furnaceSKU: ['', Validators.required],
     });
 
-    this.stateGroup = this._formBuilder.group({
-      state: ['', Validators.required]
-    });
-
-    this.utilityGroup = this._formBuilder.group({
-      electricUtility: ['', Validators.required],
-      gasOilUtility: ['', Validators.required]
-    });
-
-    this.availableRebaterGroup = this._formBuilder.group({
-      
-    });
-     
-  
 
     // If small screen, load only 3 rows for results else 10.
     this.breakpointObserver
@@ -148,7 +145,7 @@ export class RebateFinderComponent  implements OnInit {
     })
   }
   // SelectProductLine
-  SelectProductLine(systemTypeId:number) {
+  SelectProductLine(systemTypeId: number) {
     let payload = {
       commerceInfo: {
         storeId: 1,
@@ -156,7 +153,7 @@ export class RebateFinderComponent  implements OnInit {
       },
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
-      systemTypeId:systemTypeId,
+      systemTypeId: systemTypeId,
       filters: []
     }
 
@@ -200,7 +197,7 @@ export class RebateFinderComponent  implements OnInit {
             filterName: key,
             filterValues: [value]
           });
-        } else{
+        } else {
           myfilters.push({
             filterName: key,
             filterValues: ["*"]
@@ -227,8 +224,8 @@ export class RebateFinderComponent  implements OnInit {
   CallSearch(payload: any) {
     this._api.Search(JSON.stringify(payload)).subscribe({
       next: (resp) => {
-          this.results = resp;
-          this.ObtainPaginationText();
+        this.results = resp;
+        this.ObtainPaginationText();
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
@@ -247,43 +244,42 @@ export class RebateFinderComponent  implements OnInit {
   }
 
   // utilities
-  changeState(event:any){
-    this.myState = event.value;
+  changeState() {
 
-    this.sendGasOil= [];
-    this.sendElectric=[];
+    this.sendGasOil = [];
+    this.sendElectric = [];
 
-    this._api.Utilities(this.myState).subscribe({
+    this._api.Utilities(this.stateGroup.controls['state'].value).subscribe({
       next: (resp: any) => {
-
-        let newPay: any = [
-          {
-            "utilityId": 1,
-            "title": "Cape Light Compact",
-            "description": "",
-            "states": ["MA"],
-            "country": "US",
-            "fuel":["Electricity"]
-        },
-        {
-            "utilityId": 2,
-            "title": "National Grid",
-            "description": "",
-            "states": ["MA"],
-            "country": "US",
-            "fuel":["Electricity","Natural Gas"]
-        },
-        {
-            "utilityId": 3,
-            "title": "Liberty",
-            "description": "",
-            "states": ["MA"],
-            "country": "US",
-            "fuel":["Natural Gas"]
-        }
-        ];
-        let listUtilitie: Array<utilityInfo> = newPay;
-        this.transform(listUtilitie);                    
+        /*
+                let newPay: any = [
+                  {
+                    "utilityId": 1,
+                    "title": "Cape Light Compact",
+                    "description": "",
+                    "states": ["MA"],
+                    "country": "US",
+                    "fuel":["Electricity"]
+                },
+                {
+                    "utilityId": 2,
+                    "title": "National Grid",
+                    "description": "",
+                    "states": ["MA"],
+                    "country": "US",
+                    "fuel":["Electricity","Natural Gas"]
+                },
+                {
+                    "utilityId": 3,
+                    "title": "Liberty",
+                    "description": "",
+                    "states": ["MA"],
+                    "country": "US",
+                    "fuel":["Natural Gas"]
+                }
+                ];*/
+        let listUtilities: Array<utilityInfo> = resp;
+        this.transform(listUtilities);
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
@@ -293,31 +289,25 @@ export class RebateFinderComponent  implements OnInit {
 
   transform(array: Array<utilityInfo>): any[] {
 
-    return array.filter((d: any)=>d.fuel.find((a: any)=>{
-      
-      if (a.includes('Electricity')){
+    return array.filter((d: any) => d.fuel.find((a: any) => {
+
+      if (a.includes('Electricity')) {
         this.sendElectric.push(d);
       } if (a.includes('Natural Gas')) {
         this.sendGasOil.push(d);
       }
-      
+
     }));
-    
+
   }
 
-  ElectricID(event:any){
-    this.myElectric = event.value;
-  }
-
-  GasOilID(event:any){
-    this.myGasOil = event.value;
-  }
-
-  AvailableRebates(){
-
-     let myUtilitiesIDs: Array<any> = [this.myElectric, this.myGasOil];
-
-    this._api.AvailableRebates(this.myState, myUtilitiesIDs).subscribe({
+  AvailableRebates() {
+    let myUtilityIds: Array<any> = [
+      this.utilityGroup.controls['electricUtility'].value,
+      this.utilityGroup.controls['gasOilUtility'].value
+    ];
+   
+    this._api.AvailableRebates(this.stateGroup.controls['state'].value, JSON.stringify(myUtilityIds)).subscribe({
       next: (resp) => {
 
         let myresp: any = [
