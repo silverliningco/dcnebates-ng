@@ -9,7 +9,8 @@ import { map } from 'rxjs/operators';
 import { ApiService } from 'src/app/services/api.service';
 
 import { utilityInfo } from '../../models/utilities';
-import { rebateInfo } from '../../models/rebates';
+import { Rebate, RebateTier, Criteria } from '../../models/rebates';
+
 
 @Component({
   selector: 'app-rebate-finder',
@@ -46,6 +47,8 @@ export class RebateFinderComponent implements OnInit {
 
   sendElectric: Array<any> = [];
   sendGasOil: Array<any> = [];
+  availableRebates?: Array<Rebate>;
+
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -253,34 +256,7 @@ export class RebateFinderComponent implements OnInit {
 
     this._api.Utilities(this.stateGroup.controls['state'].value).subscribe({
       next: (resp: any) => {
-        
-        let myresp: any = [
-          {
-            "utilityId": 1,
-            "title": "Cape Light Compact",
-            "description": "",
-            "states": ["MA"],
-            "country": "US",
-            "fuel":["Electricity"]
-        },
-        {
-            "utilityId": 2,
-            "title": "National Grid",
-            "description": "",
-            "states": ["MA"],
-            "country": "US",
-            "fuel":["Electricity","Natural Gas"]
-        },
-        {
-            "utilityId": 3,
-            "title": "Liberty",
-            "description": "",
-            "states": ["MA"],
-            "country": "US",
-            "fuel":["Natural Gas"]
-        }
-        ];
-        let listUtilities: Array<utilityInfo> = myresp;
+        let listUtilities: Array<utilityInfo> = resp;
         this.transform(listUtilities);
       },
       error: (e) => alert(e.error),
@@ -309,62 +285,168 @@ export class RebateFinderComponent implements OnInit {
       this.utilityGroup.controls['gasOilUtility'].value
     ];
 
-    let myresp: any = [
-      {
-         "rebateId":1,
-         "title":"Mass Save Heat Pump rebates",
-         "description":"",
-         "period":"2022",
-         "link":"",
-         "rebateCriteria":[
-            "Heat pump(s) are used to replace or supplement existing oil, propane or electric baseboard heating."
-         ],
-         "rebateTiers":[
-            {
-               "title":"Partial home/supplemental HP",
-               "rebateTierCriteria":[
-                  "Heat Pumps must be used to supplement the pre-existing heating system during heating season.",
-                  "If pre-existing system is oil or propane, integrated controls must be installed."
-               ]
-            },
-            {
-               "title":"Whole house HP",
-               "rebateTierCriteria":[
-                  "Heat pumps must be used as the sole source of heating during heating season.",
-                  "Whole-home verification form must be completed and signed"
-               ]
-            }
-         ]
-      },
-      {
-         "rebateId":2,
-         "title":"Mass Save Gas Heating",
-         "description":"",
-         "period":"2022",
-         "link":"",
-         "rebateCriteria":null,
-         "rebateTiers":[
-            {
-               "title":"Default",
-               "rebateTierCriteria":null
-            }
-         ]
-      }
-   ]; 
-
-   let listRebates: Array<rebateInfo> = myresp;
-
-   
-   /*  this._api.AvailableRebates(this.stateGroup.controls['state'].value, JSON.stringify(myUtilityIds)).subscribe({
+    this._api.AvailableRebates(this.stateGroup.controls['state'].value, JSON.stringify(myUtilityIds)).subscribe({
       next: (resp) => {
 
+        this.availableRebates = [];
+        for (let indx = 0; indx < resp.length; indx++) {
+          const reb = resp[indx];
+
+          let myCriterias: Array<Criteria> = [];
+          reb.rebateCriteria?.forEach(function (element: any) {
+            myCriterias.push({ title: element, completed: false });
+          });
+
+          let myTier: Array<RebateTier> = [];
+          reb.rebateTiers?.forEach(function (element: any) {
+            let myTierCriterias: Array<Criteria> = [];
+            element.rebateTierCriteria?.forEach(function (el: any) {
+              myTierCriterias.push({ title: el, completed: false });
+            });
+
+
+            if(element.title == "Default"){
+            } else {
+              myTier.push({
+                title: element.title,
+                rebateTierId: element.rebateId,
+                rebateTierCriteria: myTierCriterias,
+                indeterminate: false,
+                completed: false
+              });
+
+            }
+          });
+
+          this.availableRebates.push({
+            title: reb.title,
+            rebateId: reb.rebateId,
+            rebateCriteria: myCriterias,
+            rebateTiers: myTier,
+            indeterminate: false,
+            completed: false
+          });
+        }
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
-    }) */
+    })
+  }
+
+  /* Elegibility detail codes */
+  reb_tier_change(rebTier: RebateTier, reb: Rebate) {
+    rebTier.rebateTierCriteria?.forEach(element => {
+      element.completed = rebTier.completed!;
+    });
+
+    // If there are multiple rebate tiers in a given rebate, 
+    // checking one rebate tier should always uncheck the remaining tier(s).
+    this.uncheckRemainingTiers(rebTier, reb);
+  }
+
+  // If there are multiple rebate tiers in a given rebate, 
+  // checking one rebate tier should always uncheck the remaining tier(s).
+  uncheckRemainingTiers(rebTier: RebateTier, reb: Rebate){
+
+
+    const resultTier = reb.rebateTiers?.filter(rt => rt.completed == true);
+    const resultTierCriteria = rebTier?.rebateTierCriteria?.filter(rtc => rtc.completed == true);
+    const resultCriteria = reb.rebateCriteria?.filter(rc => rc.completed == true);
+    
+    if(resultTier!.length > 0 && resultCriteria!.length == reb.rebateCriteria?.length && resultTierCriteria!.length == rebTier.rebateTierCriteria!.length) {
+      reb.indeterminate = false;
+      reb.completed = true;
+    } else {
+      reb.indeterminate = false;
+      reb.completed = false;
+    }
+
+    reb.rebateTiers?.forEach(element => {
+      
+      if( element.title != rebTier.title){
+        // Uncheck rebate tier.
+        element.completed = false;
+        element.indeterminate = false;
+        element.rebateTierCriteria?.forEach(el2 => {
+          // Uncheck rebate tier criterias.
+          if(el2.completed)
+          el2.completed = false;
+        });
+      }
+    });
+  }
+
+  reb_tier_criteria_change(rebTier: RebateTier, reb: Rebate) {
+    let checked_count = 0;
+
+    //Get total checked items
+    rebTier.rebateTierCriteria?.forEach(element => {
+      if (element.completed)
+        checked_count++;
+    });
+
+    if (checked_count > 0 && checked_count < rebTier.rebateTierCriteria!.length) {
+      // If some checkboxes are checked but not all; then set Indeterminate state of the master to true.
+      rebTier.indeterminate = true;
+    } else if (checked_count == rebTier.rebateTierCriteria!.length) {
+      //If checked count is equal to total items; then check the master checkbox and also set Indeterminate state to false.
+      rebTier.indeterminate = false;
+      rebTier.completed = true;
+    } else {
+      //If none of the checkboxes in the list is checked then uncheck master also set Indeterminate to false.
+      rebTier.indeterminate = false;
+      rebTier.completed = false;
+    }
+
+    // If there are multiple rebate tiers in a given rebate, 
+    // checking one rebate tier should always uncheck the remaining tier(s).
+    this.uncheckRemainingTiers(rebTier, reb);
+
   }
 
 
+  rebate_change(reb: Rebate) {
+    reb.rebateCriteria?.forEach(element => {
+      element.completed = reb.completed!;
+    });
+  }
 
+  reb_criteria_change(reb: Rebate) {
+    let checked_count = 0;
+    //Get total checked items
+
+    reb.rebateCriteria?.forEach(element => {
+      if (element.completed)
+        checked_count++;
+    });
+
+    if (checked_count > 0 && checked_count < reb.rebateCriteria!.length) {
+      // If some checkboxes are checked but not all; then set Indeterminate state of the master to true.
+      reb.indeterminate = true;
+      reb.completed = false;
+    } else if (checked_count == reb.rebateCriteria!.length) {
+      //If checked count is equal to total items; then check the master checkbox and also set Indeterminate state to false.
+      reb.indeterminate = false;
+      reb.completed = true;
+
+    } else {
+      //If none of the checkboxes in the list is checked then uncheck master also set Indeterminate to false.
+      reb.indeterminate = false;
+      reb.completed = false;
+    }
+
+      // When the user checks all of the rebate_criteria for a given rebate 
+      // AND one of the rebate tiers is checked, the rebate itself will be selected.
+    const resultTier = reb.rebateTiers?.filter(rtc => rtc.completed == true);
+    const resultCriteria = reb.rebateCriteria?.filter(rc => rc.completed == true);
+      if(resultTier!.length > 0 && resultCriteria!.length == reb.rebateCriteria?.length ) {
+        reb.indeterminate = false;
+        reb.completed = true;
+      } else {
+        reb.indeterminate = false;
+        reb.completed = false;
+
+      }
+  }
 
 }

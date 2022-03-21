@@ -92,51 +92,71 @@
       </form>
     </mat-step>
     <!-- Step 2 end  -->
-
+    
     <!-- Step 3 available rebate  -->
     <mat-step [stepControl]="availableRebatesGroup" errorMessage="Complete the form.">
-      <form [formGroup]="availableRebatesGroup">
-        <!-- Name of step -->
-        <ng-template matStepLabel>Available Rebates</ng-template>
-        <h2 class="rc-main-title">Available Rebates</h2>
-        <!-- Content of step -->
-        <div fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="32">
-          <!-- User input -->
-          <div fxFlex="25" fxLayout="column" fxLayoutAlign="left stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="25">
+      
+      <!-- Name of step -->
+      <ng-template matStepLabel>Available Rebates</ng-template>
+      <h2 class="rc-main-title">Available Rebates</h2>
+      <!-- Content of step -->
+      <div fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="32">
+        <!-- User input -->
+        <div fxFlex="25" fxLayout="column" fxLayoutAlign="left stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="25">
+          
+          <!-- inputs-->
 
-            <!-- inputs-->
-            <!-- <span class="example-list-section">
-              <mat-checkbox class="example-margin"
-                            [checked]="allComplete"
-                            [indeterminate]="someComplete()"
-                            (change)="setAll($event.checked)">
-                {{listRebates.title}}
+          <ul>
+            <li *ngFor ="let reb of availableRebates">
+              <mat-checkbox class="example-margin" 
+                [(ngModel)]="reb.completed"
+                [(indeterminate)]="reb.indeterminate"
+                (change)="rebate_change(reb)">
+                {{reb.title}}
               </mat-checkbox>
-            </span>
-            <span class="example-list-section">
               <ul>
-                <li *ngFor="let subtask of task.subtasks">
-                  <mat-checkbox [(ngModel)]="subtask.completed"
-                                [color]="subtask.color"
-                                (ngModelChange)="updateAllComplete()">
-                    {{subtask.name}}
-                  </mat-checkbox>
+                <li *ngFor ="let rebCriteria of reb.rebateCriteria">
+                  <mat-checkbox class="example-margin" 
+                  [(ngModel)] = "rebCriteria.completed" 
+                  (change)="reb_criteria_change(reb)"
+                  >{{rebCriteria.title}}</mat-checkbox>
+                </li>
+                <li>
+                  <ol>
+                    <li *ngFor ="let rebTier of reb.rebateTiers">
+                      <mat-checkbox class="example-margin" 
+                        [(ngModel)]="rebTier.completed"
+                        [(indeterminate)]="rebTier.indeterminate"
+                        (change)="reb_tier_change(rebTier, reb)">
+                        {{rebTier.title}}
+                      </mat-checkbox>
+                      <ol>
+                        <li *ngFor ="let rebTierCriteria of rebTier.rebateTierCriteria">
+                          <mat-checkbox class="example-margin"
+                            [(ngModel)] = "rebTierCriteria.completed"
+                            (change)="reb_tier_criteria_change(rebTier, reb)"
+                            >{{rebTierCriteria.title}}</mat-checkbox>
+                        </li>
+                      </ol>
+                    </li>
+                  </ol>
                 </li>
               </ul>
-            </span> -->
 
-            <!-- button -->
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
-              <button type="button" mat-button matStepperPrevious>Back</button>
-              <button type="button" [disabled]="availableRebatesGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
-                <mat-icon>arrow_forward</mat-icon>
-              </button>
-            </div>
+            </li>
+          </ul>
+
+          <!-- button -->
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
+            <button type="button" mat-button matStepperPrevious>Back</button>
+            <button type="button" [disabled]="availableRebatesGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
           </div>
         </div>
-      </form>
-    </mat-step>
-    <!-- Step 3 end  -->
+      </div>
+  </mat-step>
+  <!-- Step 3 end  -->
 
     <!-- Step 4 Equipment Size -->
     <mat-step [stepControl]="nominalSizeGroup" errorMessage="Complete all fields.">
