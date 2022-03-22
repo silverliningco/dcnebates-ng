@@ -1,8 +1,8 @@
 export class utilityInfo {
     constructor(
         public utilityId?: any,
-        public title?: boolean,
-        public description?: boolean,
+        public title?: string,
+        public description?: string,
         public state?: number,
         public country?: string,
         public fuel?: Array<string>
