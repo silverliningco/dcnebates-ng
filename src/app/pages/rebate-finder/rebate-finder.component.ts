@@ -42,12 +42,14 @@ export class RebateFinderComponent implements OnInit {
   noResults!: boolean;
   p: number = 1;
   beginning?: number;
-  end?: number;
+  end!: number;
   rows!: number;
 
   sendElectric: Array<any> = [];
   sendGasOil: Array<any> = [];
-  availableRebates?: Array<Rebate>;
+  myUtilityIds!: Array<any>;
+  myState!: string;
+  availableRebates!: Array<Rebate>;
 
 
   constructor(
@@ -256,7 +258,97 @@ export class RebateFinderComponent implements OnInit {
 
     this._api.Utilities(this.stateGroup.controls['state'].value).subscribe({
       next: (resp: any) => {
-        let listUtilities: Array<utilityInfo> = resp;
+        let myResp = [
+          {
+             "utilityId":1,
+             "title":"Berkshire Gas",
+             "description":"",
+             "states":[
+                "MA"
+             ],
+             "country":"US",
+             "fuel":[
+                "Natural Gas"
+             ]
+          },
+          {
+             "utilityId":2,
+             "title":"Cape Light Compact",
+             "description":"",
+             "states":[
+                "MA"
+             ],
+             "country":"US",
+             "fuel":[
+                "Electricity"
+             ]
+          },
+          {
+             "utilityId":3,
+             "title":"Eversource",
+             "description":"",
+             "states":[
+                "MA"
+             ],
+             "country":"US",
+             "fuel":[
+                "Electricity",
+                "Natural Gas"
+             ]
+          },
+          {
+             "utilityId":4,
+             "title":"Liberty",
+             "description":"",
+             "states":[
+                "MA"
+             ],
+             "country":"US",
+             "fuel":[
+                "Natural Gas"
+             ]
+          },
+          {
+             "utilityId":5,
+             "title":"National Grid",
+             "description":"",
+             "states":[
+                "MA",
+                "RI"
+             ],
+             "country":"US",
+             "fuel":[
+                "Electricity",
+                "Natural Gas"
+             ]
+          },
+          {
+             "utilityId":6,
+             "title":"Unitil",
+             "description":"",
+             "states":[
+                "MA"
+             ],
+             "country":"US",
+             "fuel":[
+                "Electricity",
+                "Natural Gas"
+             ]
+          },
+          {
+             "utilityId":7,
+             "title":"Marblehead Municipal Light Department",
+             "description":"",
+             "states":[
+                "MA"
+             ],
+             "country":"US",
+             "fuel":[
+                "Electricity"
+             ]
+          }
+       ];
+        let listUtilities: Array<utilityInfo> = myResp;
         this.transform(listUtilities);
       },
       error: (e) => alert(e.error),
@@ -264,7 +356,8 @@ export class RebateFinderComponent implements OnInit {
     })
   }
 
-
+  /* classifies the utility-objects in the sendElectric and sendGasOil arrays depending on 
+  the values that each object has in the "fuel" field */
   transform(array: Array<utilityInfo>): any[] {
 
     return array.filter((d: any) => d.fuel.find((a: any) => {
@@ -279,58 +372,111 @@ export class RebateFinderComponent implements OnInit {
 
   }
 
-  AvailableRebates() {
-    let myUtilityIds: Array<any> = [
+  PrepareAvailableRebates(){
+    this.myUtilityIds = [
       this.utilityGroup.controls['electricUtility'].value,
       this.utilityGroup.controls['gasOilUtility'].value
     ];
 
-    this._api.AvailableRebates(this.stateGroup.controls['state'].value, JSON.stringify(myUtilityIds)).subscribe({
-      next: (resp) => {
+    this.myState = this.stateGroup.controls['state'].value;
 
-        this.availableRebates = [];
-        for (let indx = 0; indx < resp.length; indx++) {
-          const reb = resp[indx];
+  }
 
-          let myCriterias: Array<Criteria> = [];
-          reb.rebateCriteria?.forEach(function (element: any) {
-            myCriterias.push({ title: element, completed: false });
-          });
+  GetAvailableRebates() {
+    
+    /* this._api.AvailableRebates(this.myState, JSON.stringify(this.myUtilityIds)).subscribe({
+      next: (resp) => { */
 
-          let myTier: Array<RebateTier> = [];
-          reb.rebateTiers?.forEach(function (element: any) {
-            let myTierCriterias: Array<Criteria> = [];
-            element.rebateTierCriteria?.forEach(function (el: any) {
-              myTierCriterias.push({ title: el, completed: false });
-            });
+        let myResp = [
+          {
+             "rebateId":1,
+             "title":"Mass Save Heat Pump rebates",
+             "description":"",
+             "period":"2022",
+             "link":"",
+             "rebateCriteria":[
+                "Heat pump(s) are used to replace or supplement existing oil, propane or electric baseboard heating."
+             ],
+             "rebateTiers":[
+                {
+                   "title":"Partial home/supplemental HP",
+                   "rebateTierCriteria":[
+                      "Heat Pumps must be used to supplement the pre-existing heating system during heating season.",
+                      "If pre-existing system is oil or propane, integrated controls must be installed."
+                   ]
+                },
+                {
+                   "title":"Whole house HP",
+                   "rebateTierCriteria":[
+                      "Heat pumps must be used as the sole source of heating during heating season.",
+                      "Whole-home verification form must be completed and signed"
+                   ]
+                }
+             ]
+          },
+          {
+             "rebateId":2,
+             "title":"Mass Save Gas Heating",
+             "description":"",
+             "period":"2022",
+             "link":"",
+             "rebateCriteria":null,
+             "rebateTiers":[
+                {
+                   "title":"Default",
+                   "rebateTierCriteria":null
+                }
+             ]
+          }
+       ];
+
+       this.processingAvailableRebates(myResp);
+      /* },
+      error: (e) => alert(e.error),
+      complete: () => console.info('complete')
+    }) */
+  }
+
+  processingAvailableRebates(myResp: any){
+    this.availableRebates = [];
+    for (let indx = 0; indx < myResp.length; indx++) {
+      const reb = myResp[indx];
+
+      let myCriterias: Array<Criteria> = [];
+      reb.rebateCriteria?.forEach(function (element: any) {
+        myCriterias.push({ title: element, completed: false });
+      });
+
+      let myTier: Array<RebateTier> = [];
+      reb.rebateTiers?.forEach(function (element: any) {
+        let myTierCriterias: Array<Criteria> = [];
+        element.rebateTierCriteria?.forEach(function (el: any) {
+          myTierCriterias.push({ title: el, completed: false });
+        });
 
 
-            if(element.title == "Default"){
-            } else {
-              myTier.push({
-                title: element.title,
-                rebateTierId: element.rebateId,
-                rebateTierCriteria: myTierCriterias,
-                indeterminate: false,
-                completed: false
-              });
-
-            }
-          });
-
-          this.availableRebates.push({
-            title: reb.title,
-            rebateId: reb.rebateId,
-            rebateCriteria: myCriterias,
-            rebateTiers: myTier,
+        if(element.title == "Default"){
+        } else {
+          myTier.push({
+            title: element.title,
+            rebateTierId: element.rebateId,
+            rebateTierCriteria: myTierCriterias,
             indeterminate: false,
             completed: false
           });
+
         }
-      },
-      error: (e) => alert(e.error),
-      complete: () => console.info('complete')
-    })
+      });
+
+      this.availableRebates.push({
+        title: reb.title,
+        rebateId: reb.rebateId,
+        rebateCriteria: myCriterias,
+        rebateTiers: myTier,
+        indeterminate: false,
+        completed: false
+      });
+    }
   }
 
   /* Elegibility detail codes */
@@ -409,6 +555,35 @@ export class RebateFinderComponent implements OnInit {
     reb.rebateCriteria?.forEach(element => {
       element.completed = reb.completed!;
     });
+
+    this.uncheckRemainingRebate(reb);
+
+  }
+
+  uncheckRemainingRebate(reb: any){
+
+    this.availableRebates?.forEach( element => {
+      console.log(element.rebateCriteria);
+      if(element.title != reb.title){
+        // Uncheck rebate
+        element.completed = false;
+        element.indeterminate = false;
+        element.rebateCriteria?.forEach(el2 => {
+          // Uncheck rebate criterias
+          el2.completed = false;
+        })
+        element.rebateTiers?.forEach(el3 => {
+          // Uncheck rebate tier
+          el3.completed = false;
+          el3.indeterminate = false;
+          el3.rebateTierCriteria?.forEach(el4 => {
+            // Uncheck rebate tier criterias
+            el4.completed = false;
+          })
+        })
+      }
+    })
+
   }
 
   reb_criteria_change(reb: Rebate) {
@@ -448,5 +623,5 @@ export class RebateFinderComponent implements OnInit {
 
       }
   }
-
+ 
 }
