@@ -16,7 +16,6 @@ export class ApiInterceptorService implements HttpInterceptor{
 
     request = request.clone({
       setHeaders: {
-        
         'x-api-key': API_KEY
       }
     });
