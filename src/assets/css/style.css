@@ -57,7 +57,9 @@ h1, h2, h3, h4, h5 {
 .rc-header img{
   width: 150px;
 }
-
+.rc-spacing{
+  line-height: 1.75rem;
+}
 /* breadcrumb*/
 .xng-breadcrumb-root {
   padding: 16px 16px;
@@ -142,6 +144,7 @@ footer {
 /* Card home */
 mat-card.rc-card-home {
   padding: 3rem 2rem;
+  line-height: 1.75rem;
 }
 mat-card.rc-card-home:hover {
   cursor: pointer;
@@ -466,6 +469,7 @@ padding-inline-start: 20px;
   color: #640;
   background-color: #fec;
   border-color: #FFE5B3;
+  line-height: 1.75rem;
 }
 .rc-alert p{
   margin-left: 1rem;
@@ -491,6 +495,7 @@ padding-inline-start: 20px;
   border-radius: 5px;
   background-color: white;
   border-color: var(--rc-primary-color);
+  line-height: 1.75rem;
 }
 
 /*ul style */
