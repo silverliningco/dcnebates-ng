@@ -42,14 +42,12 @@ export class RebateFinderComponent implements OnInit {
   noResults!: boolean;
   p: number = 1;
   beginning?: number;
-  end!: number;
+  end?: number;
   rows!: number;
 
   sendElectric: Array<any> = [];
   sendGasOil: Array<any> = [];
-  myUtilityIds!: Array<any>;
-  myState!: string;
-  availableRebates!: Array<Rebate>;
+  availableRebates?: Array<Rebate>;
 
 
   constructor(
@@ -258,7 +256,6 @@ export class RebateFinderComponent implements OnInit {
 
     this._api.Utilities(this.stateGroup.controls['state'].value).subscribe({
       next: (resp: any) => {
-
         let listUtilities: Array<utilityInfo> = resp;
         this.transform(listUtilities);
       },
@@ -267,8 +264,7 @@ export class RebateFinderComponent implements OnInit {
     })
   }
 
-  /* classifies the utility-objects in the sendElectric and sendGasOil arrays depending on 
-  the values that each object has in the "fuel" field */
+
   transform(array: Array<utilityInfo>): any[] {
 
     return array.filter((d: any) => d.fuel.find((a: any) => {
@@ -283,68 +279,66 @@ export class RebateFinderComponent implements OnInit {
 
   }
 
-  PrepareAvailableRebates(){
-    this.myUtilityIds = [
+  AvailableRebates() {
+    let myUtilityIds: Array<any> = [
       this.utilityGroup.controls['electricUtility'].value,
       this.utilityGroup.controls['gasOilUtility'].value
     ];
 
-    this.myState = this.stateGroup.controls['state'].value;
-
-  }
-
-  GetAvailableRebates() {
-    
-    this._api.AvailableRebates(this.myState, JSON.stringify(this.myUtilityIds)).subscribe({
+    this._api.AvailableRebates(this.stateGroup.controls['state'].value, JSON.stringify(myUtilityIds)).subscribe({
       next: (resp) => {
 
-       this.processingAvailableRebates(resp);
+        this.availableRebates = [];
+        for (let indx = 0; indx < resp.length; indx++) {
+          const reb = resp[indx];
+
+          let myCriterias: Array<Criteria> = [];
+          reb.rebateCriteria?.forEach(function (element: any) {
+            myCriterias.push({ title: element, completed: false });
+          });
+
+          let myTier: Array<RebateTier> = [];
+          reb.rebateTiers?.forEach(function (element: any) {
+            let myTierCriterias: Array<Criteria> = [];
+            element.rebateTierCriteria?.forEach(function (el: any) {
+              myTierCriterias.push({ title: el, completed: false });
+            });
+
+
+            if(element.title == "Default"){
+            } else {
+              myTier.push({
+                title: element.title,
+                rebateTierId: element.rebateId,
+                rebateTierCriteria: myTierCriterias,
+                indeterminate: false,
+                completed: false
+              });
+
+            }
+          });
+
+          let mycompletedRebate = false;
+          if(myCriterias.length == 0 ){
+
+            if(reb.rebateTiers.length == 1 && reb.rebateTiers[0].title == "Default") {
+              mycompletedRebate = true;
+            }
+          }
+
+          this.availableRebates.push({
+            title: reb.title,
+            rebateId: reb.rebateId,
+            rebateCriteria: myCriterias,
+            rebateTiers: myTier,
+            indeterminate: false,
+            completed: mycompletedRebate
+          });
+        }
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
     })
-  }
-
-  processingAvailableRebates(myResp: any){
-    this.availableRebates = [];
-    for (let indx = 0; indx < myResp.length; indx++) {
-      const reb = myResp[indx];
-
-      let myCriterias: Array<Criteria> = [];
-      reb.rebateCriteria?.forEach(function (element: any) {
-        myCriterias.push({ title: element, completed: false });
-      });
-
-      let myTier: Array<RebateTier> = [];
-      reb.rebateTiers?.forEach(function (element: any) {
-        let myTierCriterias: Array<Criteria> = [];
-        element.rebateTierCriteria?.forEach(function (el: any) {
-          myTierCriterias.push({ title: el, completed: false });
-        });
-
-
-        if(element.title == "Default"){
-        } else {
-          myTier.push({
-            title: element.title,
-            rebateTierId: element.rebateId,
-            rebateTierCriteria: myTierCriterias,
-            indeterminate: false,
-            completed: false
-          });
-
-        }
-      });
-
-      this.availableRebates.push({
-        title: reb.title,
-        rebateId: reb.rebateId,
-        rebateCriteria: myCriterias,
-        rebateTiers: myTier,
-        indeterminate: false,
-        completed: false
-      });
-    }
   }
 
   /* Elegibility detail codes */
@@ -353,12 +347,12 @@ export class RebateFinderComponent implements OnInit {
       element.completed = rebTier.completed!;
     });
 
-    // If there are multiple rebate tiers in a given rebate, 
+    // If there are multiple rebate tiers in a given rebate,
     // checking one rebate tier should always uncheck the remaining tier(s).
     this.uncheckRemainingTiers(rebTier, reb);
   }
 
-  // If there are multiple rebate tiers in a given rebate, 
+  // If there are multiple rebate tiers in a given rebate,
   // checking one rebate tier should always uncheck the remaining tier(s).
   uncheckRemainingTiers(rebTier: RebateTier, reb: Rebate){
 
@@ -366,7 +360,7 @@ export class RebateFinderComponent implements OnInit {
     const resultTier = reb.rebateTiers?.filter(rt => rt.completed == true);
     const resultTierCriteria = rebTier?.rebateTierCriteria?.filter(rtc => rtc.completed == true);
     const resultCriteria = reb.rebateCriteria?.filter(rc => rc.completed == true);
-    
+
     if(resultTier!.length > 0 && resultCriteria!.length == reb.rebateCriteria?.length && resultTierCriteria!.length == rebTier.rebateTierCriteria!.length) {
       reb.indeterminate = false;
       reb.completed = true;
@@ -376,7 +370,7 @@ export class RebateFinderComponent implements OnInit {
     }
 
     reb.rebateTiers?.forEach(element => {
-      
+
       if( element.title != rebTier.title){
         // Uncheck rebate tier.
         element.completed = false;
@@ -402,19 +396,34 @@ export class RebateFinderComponent implements OnInit {
     if (checked_count > 0 && checked_count < rebTier.rebateTierCriteria!.length) {
       // If some checkboxes are checked but not all; then set Indeterminate state of the master to true.
       rebTier.indeterminate = true;
+
+      const resultTier = reb.rebateTiers?.filter(rt => rt.completed == true);
+      const resultTierCriteria = rebTier?.rebateTierCriteria?.filter(rtc => rtc.completed == true);
+      const resultCriteria = reb.rebateCriteria?.filter(rc => rc.completed == true);
+
+      if(resultTier!.length > 0 && resultCriteria!.length == reb.rebateCriteria?.length && resultTierCriteria!.length == rebTier.rebateTierCriteria!.length) {
+        reb.indeterminate = false;
+        reb.completed = true;
+      } else {
+        reb.indeterminate = false;
+        reb.completed = false;
+      }
+
     } else if (checked_count == rebTier.rebateTierCriteria!.length) {
       //If checked count is equal to total items; then check the master checkbox and also set Indeterminate state to false.
       rebTier.indeterminate = false;
       rebTier.completed = true;
+
+      // If there are multiple rebate tiers in a given rebate,
+      // checking one rebate tier should always uncheck the remaining tier(s).
+      this.uncheckRemainingTiers(rebTier, reb);
+
     } else {
       //If none of the checkboxes in the list is checked then uncheck master also set Indeterminate to false.
       rebTier.indeterminate = false;
       rebTier.completed = false;
     }
 
-    // If there are multiple rebate tiers in a given rebate, 
-    // checking one rebate tier should always uncheck the remaining tier(s).
-    this.uncheckRemainingTiers(rebTier, reb);
 
   }
 
@@ -423,40 +432,12 @@ export class RebateFinderComponent implements OnInit {
     reb.rebateCriteria?.forEach(element => {
       element.completed = reb.completed!;
     });
-
-    this.uncheckRemainingRebate(reb);
-
-  }
-
-  uncheckRemainingRebate(reb: any){
-
-    this.availableRebates?.forEach( element => {
-      if(element.title != reb.title){
-        // Uncheck rebate
-        element.completed = false;
-        element.indeterminate = false;
-        element.rebateCriteria?.forEach(el2 => {
-          // Uncheck rebate criterias
-          el2.completed = false;
-        })
-        element.rebateTiers?.forEach(el3 => {
-          // Uncheck rebate tier
-          el3.completed = false;
-          el3.indeterminate = false;
-          el3.rebateTierCriteria?.forEach(el4 => {
-            // Uncheck rebate tier criterias
-            el4.completed = false;
-          })
-        })
-      }
-    })
-
   }
 
   reb_criteria_change(reb: Rebate) {
     let checked_count = 0;
-    //Get total checked items
 
+    //Get total checked items
     reb.rebateCriteria?.forEach(element => {
       if (element.completed)
         checked_count++;
@@ -477,7 +458,7 @@ export class RebateFinderComponent implements OnInit {
       reb.completed = false;
     }
 
-      // When the user checks all of the rebate_criteria for a given rebate 
+      // When the user checks all of the rebate_criteria for a given rebate
       // AND one of the rebate tiers is checked, the rebate itself will be selected.
     const resultTier = reb.rebateTiers?.filter(rtc => rtc.completed == true);
     const resultCriteria = reb.rebateCriteria?.filter(rc => rc.completed == true);
@@ -490,5 +471,5 @@ export class RebateFinderComponent implements OnInit {
 
       }
   }
- 
+
 }

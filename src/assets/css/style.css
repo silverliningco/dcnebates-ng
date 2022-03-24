@@ -17,8 +17,6 @@ body {
 *, body, p {
   margin: 0;
   font-family: 'Bitter', serif;
-  line-height: 1.75rem;
-  text-align: justify;
 }
 
 main{
@@ -42,26 +40,6 @@ h1, h2, h3, h4, h5 {
 .rc-small{
   font-size: 80%;
 }
-
-/*
-ul {
-  list-style: none;
-}
-
-ul > li{
-  font-family: 'Bitter', serif;
-  margin-bottom: 1rem;
-}
-
-ul li::before {
-  content: "\2022";
-  color: var(--rc-accent-color);
-  font-weight: bold;
-  display: inline-block;
-  width: 1em;
-  margin-left: -1em;
-}
-*/
 /* header */
 .rc-header {
   padding: 16px;
@@ -114,25 +92,21 @@ ul li::before {
     width: 960px;
   }
 }
-
 @media screen and (min-width: 960px) and (max-width: 991px){
   .rc-container, .xng-breadcrumb-root  .xng-breadcrumb-list{
     width: 900px;
   }
 }
-
 @media screen and (min-width: 768px) and (max-width: 959px){
   .rc-container, .xng-breadcrumb-root  .xng-breadcrumb-list{
     width: 760px;
   }
 }
-
 @media screen and (min-width: 576px) and (max-width: 767px){
   .rc-container, .xng-breadcrumb-root .xng-breadcrumb-list{
     width: 540px;
   }
 }
-
 @media screen and (max-width: 575px){
   .rc-container, .xng-breadcrumb-root  .xng-breadcrumb-list{
     width: 90%;
@@ -533,6 +507,7 @@ ul.rc-list-details li::before {
   margin-left: -1em;
 }
 
+/* ---------- Rebate Finder ---------- */
 /*Image radio button*/
 .rc-img-rb span.mat-radio-container{
   display: none;
@@ -580,3 +555,133 @@ ul.rc-list-details li::before {
   display: inline-block;
 }
 
+/*Check List Levels*/
+span.rc-info-title-ar {
+  font-size: 10px;
+  color: #c7c7c7;
+  text-transform: uppercase;
+  font-family: 'Raleway',sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin: 8px 0;
+  display: block;
+}
+.rc-checklist-n1{
+  position: relative;
+  list-style: none;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  color: var(--rc-text-light-color);
+}
+.mat-checkbox-layout { white-space: normal !important; }
+.rc-checklist-icon mat-icon {
+  display: none;
+  width: 50px;
+  height: 50px;
+  font-size: 50px;
+  color: white;
+}
+.rc-checklist-icon {
+  display: none;
+  position: absolute;
+  top: -25px;
+  right: -25px;
+  background-color: var(--rc-accent-color);
+  border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+@media screen and (max-width: 767px){
+  .rc-checklist-icon mat-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 32px;
+    color: white;
+  }
+  .rc-checklist-icon {
+    top: -16px;
+    right: -16px;
+      width: 32px;
+      height: 32px;
+  }
+}
+@media screen and (max-width: 374px){
+  /*no se si va*/
+}
+/*Nivel 1*/
+.rc-hide-checkbox span.mat-checkbox-inner-container {display: none;}
+
+.rc-checklist-n1 > mat-checkbox span.mat-checkbox-label{
+  font-size: 24px;
+  text-align: center;
+  font-family: 'Raleway',sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #606060;
+}
+/*on checked*/
+.rc-checklist-n1.checked {
+  border-color: var(--rc-accent-color);
+}
+.rc-checklist-n1 > mat-checkbox.mat-checkbox-checked mat-icon, .rc-checklist-n1 > mat-checkbox.mat-checkbox-checked .rc-checklist-icon {
+  display: inline-block;
+}
+.rc-checklist-n1 > mat-checkbox.mat-checkbox-checked span.mat-checkbox-label{
+  color: var(--rc-accent-color);
+}
+.rc-checklist-n1 > mat-checkbox.mat-checkbox-checked ~ .rc-checklist-n1 > mat-checkbox span.mat-checkbox-label{
+  border-color: var(--rc-primary-color);
+}
+@media screen and (max-width: 767px){
+  .rc-checklist-n1 span.mat-checkbox-inner-container {
+    margin: 0 8px;
+  }
+}
+/*Nivel 2*/
+.rc-checklist-n2{
+  padding-left: 2rem;
+}
+.rc-checklist-n2 > .ng-star-inserted {
+  background-color: transparent;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+@media screen and (max-width: 767px){
+  .rc-checklist-n2{
+    padding-left: 0;
+  }
+  .rc-checklist-n2 > .ng-star-inserted {
+    padding: 5px;
+  }
+}
+.rc-checklist-n2 > p.ng-star-inserted, .rc-checklist-n2 > div.ng-star-inserted {
+  margin-bottom: 1.5rem;
+}
+.rc-checklist-n2 > div.ng-star-inserted > mat-checkbox .mat-checkbox-label{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+}
+/*on checked*/
+.rc-checklist-n2 > div.ng-star-inserted > mat-checkbox.mat-checkbox-checked{
+  color: var(--rc-accent-color);
+}
+.rc-checklist-n2 > .ng-star-inserted.checked {
+  background-color: #fff5cf;
+  border: 1px solid #ffa0005c;
+}
+/*Nivel 3*/
+.rc-checklist-n3{
+  padding-left: 2rem;
+}
+@media screen and (max-width: 767px){
+  .rc-checklist-n3{
+    padding-left: .5rem;
+  }
+}
+.rc-checklist-n3 .mat-checkbox{
+  font-size: 14px;
+  margin-bottom: .5rem;
+}
