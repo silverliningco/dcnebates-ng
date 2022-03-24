@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
@@ -47,8 +47,14 @@ export class RebateFinderComponent implements OnInit {
 
   sendElectric: Array<any> = [];
   sendGasOil: Array<any> = [];
-  availableRebates?: Array<Rebate>;
+  myUtilityIds!: Array<any>;
+  myState!: string;
 
+  availableRebates!: Array<Rebate>;
+  myRebateId!: Array<number>;
+  myRebateTierId!: Array<number>;
+  allRebateId!: Array<number>;
+  allRebateTierId!: Array<number>;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -79,7 +85,8 @@ export class RebateFinderComponent implements OnInit {
     });
 
     this.availableRebatesGroup = this._formBuilder.group({
-
+      /* rebateIds: ['', Validators.required],
+      rebateTierIds: ['', Validators.required], */
     });
 
     this.nominalSizeGroup = this._formBuilder.group({
@@ -122,7 +129,11 @@ export class RebateFinderComponent implements OnInit {
       commerceInfo: this.myCommerInfo,
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
-      state: this.stateGroup.value
+      state: this.stateGroup.value,
+      requiredRebateIds: this.myRebateId,
+      requiredRebateTierIds: this.myRebateTierId,
+      availableRebateIds: this.allRebateId,
+      availableRebateTierIds: this.allRebateTierId
     }
     this.CallProductLines(payload);
   }
@@ -159,7 +170,11 @@ export class RebateFinderComponent implements OnInit {
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       systemTypeId: systemTypeId,
-      filters: []
+      filters: [],
+      requiredRebateIds: this.myRebateId,
+      requiredRebateTierIds: this.myRebateTierId,
+      availableRebateIds: this.allRebateId,
+      availableRebateTierIds: this.allRebateTierId
     }
 
     // Call Filters with selected product line
@@ -264,7 +279,8 @@ export class RebateFinderComponent implements OnInit {
     })
   }
 
-
+  /* classifies the utility-objects in the sendElectric and sendGasOil arrays depending on 
+  the values that each object has in the "fuel" field */
   transform(array: Array<utilityInfo>): any[] {
 
     return array.filter((d: any) => d.fuel.find((a: any) => {
@@ -279,66 +295,68 @@ export class RebateFinderComponent implements OnInit {
 
   }
 
-  AvailableRebates() {
-    let myUtilityIds: Array<any> = [
+  PrepareAvailableRebates(){
+    this.myUtilityIds = [
       this.utilityGroup.controls['electricUtility'].value,
       this.utilityGroup.controls['gasOilUtility'].value
     ];
 
-    this._api.AvailableRebates(this.stateGroup.controls['state'].value, JSON.stringify(myUtilityIds)).subscribe({
+    this.myState = this.stateGroup.controls['state'].value;
+
+    this.GetAvailableRebates(this.myState, this.myUtilityIds);
+  }
+
+  GetAvailableRebates(state: any, utilityIds: any) {
+    
+    this._api.AvailableRebates(state, JSON.stringify(utilityIds)).subscribe({
       next: (resp) => {
-
-        this.availableRebates = [];
-        for (let indx = 0; indx < resp.length; indx++) {
-          const reb = resp[indx];
-
-          let myCriterias: Array<Criteria> = [];
-          reb.rebateCriteria?.forEach(function (element: any) {
-            myCriterias.push({ title: element, completed: false });
-          });
-
-          let myTier: Array<RebateTier> = [];
-          reb.rebateTiers?.forEach(function (element: any) {
-            let myTierCriterias: Array<Criteria> = [];
-            element.rebateTierCriteria?.forEach(function (el: any) {
-              myTierCriterias.push({ title: el, completed: false });
-            });
-
-
-            if(element.title == "Default"){
-            } else {
-              myTier.push({
-                title: element.title,
-                rebateTierId: element.rebateId,
-                rebateTierCriteria: myTierCriterias,
-                indeterminate: false,
-                completed: false
-              });
-
-            }
-          });
-
-          let mycompletedRebate = false;
-          if(myCriterias.length == 0 ){
-
-            if(reb.rebateTiers.length == 1 && reb.rebateTiers[0].title == "Default") {
-              mycompletedRebate = true;
-            }
-          }
-
-          this.availableRebates.push({
-            title: reb.title,
-            rebateId: reb.rebateId,
-            rebateCriteria: myCriterias,
-            rebateTiers: myTier,
-            indeterminate: false,
-            completed: mycompletedRebate
-          });
-        }
+       this.processingAvailableRebates(resp);
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
     })
+  }
+
+  processingAvailableRebates(myResp: any){
+    this.availableRebates = [];
+    for (let indx = 0; indx < myResp.length; indx++) {
+      const reb = myResp[indx];
+
+      let myCriterias: Array<Criteria> = [];
+      reb.rebateCriteria?.forEach( (element: any) =>{
+        myCriterias.push({ title: element, completed: false });
+      });
+
+      let myTier: Array<RebateTier> = [];
+      reb.rebateTiers?.forEach( (element: any) => {
+
+        let myTierCriterias: Array<Criteria> = [];
+        element.rebateTierCriteria?.forEach((el: any) =>{
+          myTierCriterias.push({ title: el, completed: false });
+        });
+
+
+        if(element.title == "Default"){
+        } else {
+          myTier.push({
+            title: element.title,
+            rebateTierId: element.rebateTierId,
+            rebateTierCriteria: myTierCriterias,
+            indeterminate: false,
+            completed: false
+          });
+        }
+      });
+
+      this.availableRebates.push({
+        title: reb.title,
+        rebateId: reb.rebateId,
+        rebateCriteria: myCriterias,
+        rebateTiers: myTier,
+        indeterminate: false,
+        completed: false
+      });
+    }
   }
 
   /* Elegibility detail codes */
@@ -434,6 +452,7 @@ export class RebateFinderComponent implements OnInit {
     });
   }
 
+
   reb_criteria_change(reb: Rebate) {
     let checked_count = 0;
 
@@ -470,6 +489,51 @@ export class RebateFinderComponent implements OnInit {
         reb.completed = false;
 
       }
+  }
+
+
+  onSubmit() { 
+
+    this.myRebateId = [];
+    this.myRebateTierId = [];
+
+    // available Rebates selected (completed = true)
+    this.availableRebates?.filter( e =>{
+
+      if (e.completed = true){
+        this.myRebateId.push(e.rebateId);
+      }
+
+      // available Rebates Tier selected (completed = true)
+      e.rebateTiers?.filter(e2 => {
+        if (e2.completed = true){
+          this.myRebateTierId.push(e2.rebateTierId);
+        }
+      })
+    });
+
+    this.AllavailableRebatesIDS(this.availableRebates);
+       
+  }
+
+  AllavailableRebatesIDS(availableRebates: any){
+
+    console.log(availableRebates);
+
+    this.allRebateId = [];
+    this.allRebateTierId = [];
+
+    availableRebates?.forEach( (e: any) =>{
+      console.log(e);
+      this.allRebateId.push(e.rebateId);
+
+      e.rebateTiers?.forEach((e2: any) => {
+          this.allRebateTierId.push(e2.rebateTierId);
+      })
+    });
+
+    console.log(this.allRebateId);
+    console.log(this.allRebateTierId);
   }
 
 }
