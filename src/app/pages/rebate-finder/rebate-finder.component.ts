@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
@@ -53,8 +53,6 @@ export class RebateFinderComponent implements OnInit {
   availableRebates!: Array<Rebate>;
   myRebateId!: Array<number>;
   myRebateTierId!: Array<number>;
-  allRebateId!: Array<number>;
-  allRebateTierId!: Array<number>;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -85,8 +83,7 @@ export class RebateFinderComponent implements OnInit {
     });
 
     this.availableRebatesGroup = this._formBuilder.group({
-      /* rebateIds: ['', Validators.required],
-      rebateTierIds: ['', Validators.required], */
+
     });
 
     this.nominalSizeGroup = this._formBuilder.group({
@@ -131,9 +128,7 @@ export class RebateFinderComponent implements OnInit {
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       state: this.stateGroup.value,
       requiredRebateIds: this.myRebateId,
-      requiredRebateTierIds: this.myRebateTierId,
-      availableRebateIds: this.allRebateId,
-      availableRebateTierIds: this.allRebateTierId
+      requiredRebateTierIds: this.myRebateTierId
     }
     this.CallProductLines(payload);
   }
@@ -172,9 +167,7 @@ export class RebateFinderComponent implements OnInit {
       systemTypeId: systemTypeId,
       filters: [],
       requiredRebateIds: this.myRebateId,
-      requiredRebateTierIds: this.myRebateTierId,
-      availableRebateIds: this.allRebateId,
-      availableRebateTierIds: this.allRebateTierId
+      requiredRebateTierIds: this.myRebateTierId
     }
 
     // Call Filters with selected product line
@@ -500,40 +493,17 @@ export class RebateFinderComponent implements OnInit {
     // available Rebates selected (completed = true)
     this.availableRebates?.filter( e =>{
 
-      if (e.completed = true){
+      if (e.completed == true){
         this.myRebateId.push(e.rebateId);
       }
 
       // available Rebates Tier selected (completed = true)
       e.rebateTiers?.filter(e2 => {
-        if (e2.completed = true){
+        if (e2.completed == true){
           this.myRebateTierId.push(e2.rebateTierId);
         }
       })
     });
-
-    this.AllavailableRebatesIDS(this.availableRebates);
-       
-  }
-
-  AllavailableRebatesIDS(availableRebates: any){
-
-    console.log(availableRebates);
-
-    this.allRebateId = [];
-    this.allRebateTierId = [];
-
-    availableRebates?.forEach( (e: any) =>{
-      console.log(e);
-      this.allRebateId.push(e.rebateId);
-
-      e.rebateTiers?.forEach((e2: any) => {
-          this.allRebateTierId.push(e2.rebateTierId);
-      })
-    });
-
-    console.log(this.allRebateId);
-    console.log(this.allRebateTierId);
   }
 
 }

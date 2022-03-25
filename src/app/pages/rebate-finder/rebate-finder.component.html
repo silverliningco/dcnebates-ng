@@ -314,7 +314,7 @@
                 <td data-title="AFUE">{{ahriCombination.AFUE}}</td>
                 <!--<td data-title="Total rebate">{{ahriCombination.totalAvailableRebates}}</td>-->
                 <td data-title="Details">
-                  <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']" [queryParams]="{skus:ahriCombination.SKUs | json, ahri_refs:ahriCombination.AHRIReferences| json, params:{commerceInfo: myCommerInfo, requiredRebateIds:myRebateId, requiredRebateTierIds:myRebateTierId, availableRebateIds:allRebateId, availableRebateTierIds:allRebateTierId } | json}"  target="_blank">
+                  <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']" [queryParams]="{skus:ahriCombination.SKUs | json, ahri_refs:ahriCombination.AHRIReferences| json, params:{commerceInfo: myCommerInfo, requiredRebateIds:myRebateId, requiredRebateTierIds:myRebateTierId } | json}"  target="_blank">
                   <mat-icon>search</mat-icon>
                   </a>
                 </td>
