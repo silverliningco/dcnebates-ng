@@ -57,8 +57,12 @@ h1, h2, h3, h4, h5 {
 .rc-header img{
   width: 150px;
 }
-.rc-spacing{
-  line-height: 1.75rem;
+/*Spacin radio button*/
+.mat-radio-group{
+  margin: 15px 0;
+}
+.mat-radio-group mat-radio-button{
+  margin: 5px;
 }
 /* breadcrumb*/
 .xng-breadcrumb-root {
@@ -448,6 +452,7 @@ padding-inline-start: 20px;
   font-size: .75rem;
   text-transform: uppercase;
   letter-spacing: .1rem;
+  padding: 5px;
 }
 .rc-radio-options label .mat-radio-container{
   font-family: 'Raleway', sans-serif !important;
@@ -591,12 +596,12 @@ span.rc-info-title-ar {
 .rc-checklist-icon {
   display: none;
   position: absolute;
-  top: -25px;
-  right: -25px;
-  background-color: var(--rc-accent-color);
+  top: -10px;
+  right: -10px;
+  background-color: var(--rc-primary-color);
   border-radius: 50%;
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 @media screen and (max-width: 767px){
   .rc-checklist-icon mat-icon {
@@ -629,13 +634,13 @@ span.rc-info-title-ar {
 }
 /*on checked*/
 .rc-checklist-n1.checked {
-  border-color: var(--rc-accent-color);
+  border-color: var(--rc-primary-color);
 }
 .rc-checklist-n1 > mat-checkbox.mat-checkbox-checked mat-icon, .rc-checklist-n1 > mat-checkbox.mat-checkbox-checked .rc-checklist-icon {
   display: inline-block;
 }
 .rc-checklist-n1 > mat-checkbox.mat-checkbox-checked span.mat-checkbox-label{
-  color: var(--rc-accent-color);
+  color: var(--rc-primary-color);
 }
 .rc-checklist-n1 > mat-checkbox.mat-checkbox-checked ~ .rc-checklist-n1 > mat-checkbox span.mat-checkbox-label{
   border-color: var(--rc-primary-color);
@@ -649,33 +654,55 @@ span.rc-info-title-ar {
 .rc-checklist-n2{
   padding-left: 2rem;
 }
-.rc-checklist-n2 > .ng-star-inserted {
+.rc-checklist-n2 > div > div.ng-star-inserted > .rc-rt-container {
   background-color: transparent;
-  padding: 10px 15px;
+  padding: 15px 15px 0px 15px;
   border-radius: 4px;
+  border: 1px solid #c8c8c8;
+  min-height: 93%;
+  position: relative;
 }
 @media screen and (max-width: 767px){
   .rc-checklist-n2{
     padding-left: 0;
   }
-  .rc-checklist-n2 > .ng-star-inserted {
+  .rc-checklist-n2 > div > div.ng-star-inserted > .rc-rt-container {
     padding: 5px;
   }
 }
 .rc-checklist-n2 > p.ng-star-inserted, .rc-checklist-n2 > div.ng-star-inserted {
   margin-bottom: 1.5rem;
 }
-.rc-checklist-n2 > div.ng-star-inserted > mat-checkbox .mat-checkbox-label{
+.rc-checklist-n2 > div > div.ng-star-inserted > .rc-rt-container > mat-checkbox span.mat-checkbox-label{
   font-family: 'Raleway', sans-serif;
   font-weight: 600;
 }
+.rc-rt-icon {
+  display: none;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: #fcfcfc;
+  border-radius: 64%;
+  width: 30px;
+  height: 30px;
+}
+.rc-rt-icon mat-icon {
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+}
+
 /*on checked*/
-.rc-checklist-n2 > div.ng-star-inserted > mat-checkbox.mat-checkbox-checked{
+.rc-checklist-n2 > div > div.ng-star-inserted.checked > .rc-rt-container > mat-checkbox span.mat-checkbox-label{
   color: var(--rc-accent-color);
 }
-.rc-checklist-n2 > .ng-star-inserted.checked {
-  background-color: #fff5cf;
-  border: 1px solid #ffa0005c;
+.rc-checklist-n2 > div > div.ng-star-inserted.checked > .rc-rt-container{
+  border: 2px solid #ffa0005c;
+}
+.rc-checklist-n2 > div > div.ng-star-inserted.checked >  .rc-rt-container > .rc-rt-icon{
+  display: inline-block;
+  color: var(--rc-accent-color);
 }
 /*Nivel 3*/
 .rc-checklist-n3{
