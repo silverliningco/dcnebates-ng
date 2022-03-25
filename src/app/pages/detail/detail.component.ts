@@ -17,6 +17,7 @@ export class DetailComponent implements OnInit {
       let skus = params['skus'];
       let ahri_refs = params['ahri_refs'];
       let detailParams = params['params']; 
+      console.log(detailParams);
       
       this._api.Detail(skus, ahri_refs, detailParams).subscribe({
         next: (resp) => this.detail = resp,

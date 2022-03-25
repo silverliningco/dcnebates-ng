@@ -517,6 +517,9 @@ export class RebateFinderComponent implements OnInit {
   }
 
   AllavailableRebatesIDS(availableRebates: any){
+
+    console.log(availableRebates);
+
     this.allRebateId = [];
     this.allRebateTierId = [];
 
@@ -529,6 +532,8 @@ export class RebateFinderComponent implements OnInit {
       })
     });
 
+    console.log(this.allRebateId);
+    console.log(this.allRebateTierId);
   }
 
 }
