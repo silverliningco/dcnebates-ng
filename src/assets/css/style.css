@@ -396,6 +396,9 @@ table tbody tr:nth-of-type(even) {
   .rc-header img {
       width: 115px;
   }
+}
+@media (max-width: 599px) {
+
   .rc-card-details .price{
     border-right: none;
     border-bottom: 2px solid rgb(231, 231, 231);
@@ -405,12 +408,12 @@ table tbody tr:nth-of-type(even) {
     padding-left: 0;
     padding-top: 1.25rem;
   }
-}
-
-@media (max-width: 575px) {
   .rc-card-details mat-card-title {
       margin-top: 2rem !important;
   }
+}
+
+@media (max-width: 575px) {
   .rc-card-details .price h1{
     font-size: 40px;
   }
