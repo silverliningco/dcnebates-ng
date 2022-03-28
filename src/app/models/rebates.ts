@@ -10,7 +10,6 @@ export class RebateTier {
     public rebateTierId: number,
     public title: string,
     public rebateTierCriteria?: Array<Criteria>,
-    public indeterminate?: boolean,
     public completed?: boolean
     ) {}
 }
@@ -21,7 +20,6 @@ export class RebateTier {
     public title: string,
     public rebateCriteria?: Array<Criteria>,
     public rebateTiers?: Array<RebateTier>,
-    public indeterminate?: boolean,
     public completed?: boolean
     ) {}
   }

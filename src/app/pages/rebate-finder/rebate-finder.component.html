@@ -102,15 +102,22 @@
       <div fxFlex="80" fxFlex.sm="80" fxFlex.xs="80">
         <div *ngFor ="let reb of availableRebates" class="rc-checklist-n1"  [ngClass]="reb.completed ? 'checked' : ''">
           <mat-checkbox class="rc-hide-checkbox"
-            [disabled]="true"
-            [(ngModel)]="reb.completed"
-            [(indeterminate)]="reb.indeterminate"
-            (change)="rebate_change(reb)">
+          [disabled]="true"
+            [(ngModel)]="reb.completed">
             <div class="rc-checklist-icon">
               <mat-icon>done</mat-icon>
             </div>
             {{reb.title}}
           </mat-checkbox>
+
+          <div *ngIf="reb.rebateCriteria!.length == 0">
+            <div class="rc-checklist-n2">
+              <mat-checkbox
+                (change)="rebate_change(reb)">
+                Select this rebate.
+              </mat-checkbox>
+            </div>
+          </div>
             <div class="rc-checklist-n2">
               <span class="rc-info-title-ar" *ngIf="reb.rebateCriteria!.length >0">Rebate Criteria:</span>
               <p *ngFor ="let rebCriteria of reb.rebateCriteria">
@@ -126,7 +133,6 @@
                   <div class="rc-rt-container">
                     <mat-checkbox class="rc-hide-checkbox"
                       [(ngModel)]="rebTier.completed"
-                      [(indeterminate)]="rebTier.indeterminate"
                       (change)="reb_tier_change(rebTier, reb)">
                       {{rebTier.title}}
                     </mat-checkbox>
@@ -153,7 +159,7 @@
         <!-- button -->
         <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
           <button type="button" mat-button matStepperPrevious>Back</button>
-          <button type="button" (click)="onSubmit()" [disabled]="availableRebatesGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+          <button type="button" (click)="onSubmit()" [disabled]="!IsValidAvailabeRebates" mat-raised-button color="primary" matStepperNext>Continue
             <mat-icon>arrow_forward</mat-icon>
           </button>
         </div>
