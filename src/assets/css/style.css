@@ -354,16 +354,17 @@ table tbody tr:nth-of-type(even) {
 
 /*Details Card*/
 .rc-card-details {
-  padding: 1.5rem 1rem !important;
+  padding: 2rem 2rem 1rem 2rem !important;
   border-radius: 4px;
   font-family: 'Bitter', serif !important;
   color: var(--rc-text-light-color) !important;
+  line-height: 1.5rem;
 }
 .rc-card-details mat-card-title{
   color: var(--rc-primary-color);
   text-transform: uppercase;
   font-size: 18px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   font-family: 'Raleway', sans-serif;
   font-weight: bold;
 }
@@ -374,46 +375,20 @@ table tbody tr:nth-of-type(even) {
   display: block;
 }
 
-.rc-card-details mat-card-content > h3{
-margin-top: 1.5rem;
-color: black;
-  text-transform: uppercase;
+.rc-card-details .price{
+  border-right: 2px solid rgb(231, 231, 231);
+}
+.rc-card-details .price h1{
+  font-size: 40px;
+  margin-top: 0.5rem;
+}
+.rc-card-details .description{
+  padding-left: 1.25rem;
 }
 
-span.rc-details-subtitle {
-font-weight: 600;
-padding-inline-start: 20px;
-}
-
-.rc-amount-card {
-  background-color: var(--rc-primary-light-color);
-  padding: 0.5rem;
-  width: 150px;
-  text-align: center;
-  color: white;
-  font-size: 22px;
-  margin: 0;
-  border-radius: 0 4px 0 4px;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-@media (min-width: 960px) and (max-width: 1199px) {
-  .rc-card-details mat-card-title {
-      width: 50%;
-  }
-}
-@media (max-width: 575px) {
-  .rc-card-details mat-card-title {
-      margin-top: 2rem !important;
-  }
-}
 @media (max-width: 767px) {
-  .rc-amount-card {
-      padding: 0.25rem;
-      width: 110px;
-      font-size: 18px;
+  .rc-card-details .price h1{
+      font-size: 32px;
   }
   .rc-header h1{
       font-size: 18px;
@@ -421,8 +396,25 @@ padding-inline-start: 20px;
   .rc-header img {
       width: 115px;
   }
+  .rc-card-details .price{
+    border-right: none;
+    border-bottom: 2px solid rgb(231, 231, 231);
+    padding-bottom: 1rem;
+  }
+  .rc-card-details .description{
+    padding-left: 0;
+    padding-top: 1.25rem;
+  }
 }
 
+@media (max-width: 575px) {
+  .rc-card-details mat-card-title {
+      margin-top: 2rem !important;
+  }
+  .rc-card-details .price h1{
+    font-size: 40px;
+  }
+}
 /*Radio options*/
 .rc-radio-options{
   margin-bottom: 1rem;
