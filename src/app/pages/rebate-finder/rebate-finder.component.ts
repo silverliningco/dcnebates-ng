@@ -51,8 +51,7 @@ export class RebateFinderComponent implements OnInit {
   myState!: string;
 
   availableRebates!: Array<Rebate>;
-  myRebateId!: Array<number>;
-  myRebateTierId!: Array<number>;
+  payloadRebates!: string;
   IsValidAvailabeRebates: boolean = false;
 
   constructor(
@@ -128,8 +127,7 @@ export class RebateFinderComponent implements OnInit {
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       state: this.stateGroup.value,
-      requiredRebateIds: this.myRebateId,
-      requiredRebateTierIds: this.myRebateTierId
+      requiredRebates: this.payloadRebates
     }
     this.CallProductLines(payload);
   }
@@ -167,8 +165,7 @@ export class RebateFinderComponent implements OnInit {
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       systemTypeId: systemTypeId,
       filters: [],
-      requiredRebateIds: this.myRebateId,
-      requiredRebateTierIds: this.myRebateTierId
+      requiredRebates: this.payloadRebates
     }
 
     // Call Filters with selected product line
@@ -487,23 +484,137 @@ export class RebateFinderComponent implements OnInit {
 
   onSubmit() { 
 
-    this.myRebateId = [];
-    this.myRebateTierId = [];
+    let proRebateId: Array<any> = [];
+    let proRebateTierId: Array<number> = [];
 
     // available Rebates selected (completed = true)
     this.availableRebates?.filter( e =>{
 
       if (e.completed == true){
-        this.myRebateId.push(e.rebateId);
+        proRebateId.push(e.rebateId);
       }
 
       // available Rebates Tier selected (completed = true)
       e.rebateTiers?.filter(e2 => {
         if (e2.completed == true){
-          this.myRebateTierId.push(e2.rebateTierId);
+          proRebateTierId.push(e2.rebateTierId);
         }
       })
     });
+
+    this.PrepareFormatAvailableRebates(proRebateId, proRebateTierId);
   }
+
+/* the  availableRebates has this format 
+[ { "rebateId": 1, "rebateTierId": 1, "required": true },
+  { "rebateId": 2, "rebateTierId": 4, "required": true } ]
+*/
+  PrepareFormatAvailableRebates(rebateId: Array<number>, rebateTierId: Array<number>){
+    let a!: any;
+    let b: Array<JSON> = [];
+    this.payloadRebates= '';
+    
+    rebateId.forEach( e=>{
+
+      switch (e) {
+        case 1:
+          if (rebateTierId.length == 0) {
+            a =  {"rebateId": 1, "required": true};
+            b.push(a);
+          } else {
+            let e1 = rebateTierId[0];
+              switch (e1) {
+                case 1:
+                  a =  {"rebateId": 1, "rebateTierId": 1, "required": true};
+                  b.push(a);
+                  break;
+                case 2:
+                  a =  {"rebateId": 1, "rebateTierId": 2, "required": true};
+                  b.push(a);
+                  break;
+              }
+          }          
+          break;         
+          
+        case 2:
+          if (rebateTierId.length == 1 || rebateTierId.length == 0) {
+            a =  {"rebateId": 2, "required": true};
+            b.push(a);
+          } else {
+            let e1 = rebateTierId[1];
+              switch (e1) {
+                case 1:
+                  a =  {"rebateId": 2, "rebateTierId": 1, "required": true};
+                  b.push(a);
+                  break;
+                case 2:
+                  a =  [{"rebateId": 2, "rebateTierId": 2, "required": true}];
+                  b.push(a);
+                  break;
+              } 
+          }          
+          break;
+        case 3:
+          if (rebateTierId.length == 2 || rebateTierId.length == 0) {
+            a =  {"rebateId": 3, "required": true};
+            b.push(a);
+          } else {
+            let e1 = rebateTierId[1];
+              switch (e1) {
+                case 1:
+                  a =  {"rebateId": 3, "rebateTierId": 1, "required": true};
+                  b.push(a);
+                  break;
+                case 2:
+                  a =  [{"rebateId": 3, "rebateTierId": 2, "required": true}];
+                  b.push(a);
+                  break;
+              }           
+            }          
+          break;
+
+        case 4:
+          if (rebateTierId.length == 3 || rebateTierId.length == 0) {
+            a =  {"rebateId": 4, "required": true};
+            b.push(a);
+          } else {
+            let e1 = rebateTierId[1];
+              switch (e1) {
+                case 1:
+                  a =  {"rebateId": 4, "rebateTierId": 1, "required": true};
+                  b.push(a);
+                  break;
+                case 2:
+                  a =  [{"rebateId": 4, "rebateTierId": 2, "required": true}];
+                  b.push(a);
+              }   
+          }          
+          break;
+
+        case 5:
+          if (rebateTierId.length == 4 || rebateTierId.length == 0) {
+            a =  {"rebateId": 5, "required": true};
+            b.push(a);
+          } else {
+            let e1 = rebateTierId[1];
+              switch (e1) {
+                case 1:
+                  a =  {"rebateId": 5, "rebateTierId": 1, "required": true};
+                  b.push(a);
+                  break;
+                case 2:
+                  a =  [{"rebateId": 5, "rebateTierId": 2, "required": true}];
+              }   
+          }          
+          break;
+      }  
+
+    })
+
+    console.log(b);
+
+    this.payloadRebates = JSON.stringify(b);
+  }
+ 
 
 }
