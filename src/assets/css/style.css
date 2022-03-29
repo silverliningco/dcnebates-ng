@@ -13,6 +13,7 @@
 /* Gobal style */
 body {
   background-color: #fcfcfc;
+  line-height: 1.5rem;
 }
 *, body, p {
   margin: 0;
@@ -148,7 +149,6 @@ footer {
 /* Card home */
 mat-card.rc-card-home {
   padding: 3rem 2rem;
-  line-height: 1.75rem;
 }
 mat-card.rc-card-home:hover {
   cursor: pointer;
@@ -262,6 +262,12 @@ table tbody tr:nth-of-type(odd) {
 table tbody tr:nth-of-type(even) {
   background-color: white;
 }
+@media (min-width: 768px) and (max-width: 1199px){
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}
 @media (min-width: 768px) {
   table th:not(.nkn-hide-s):not(.nkn-hide-m):not(.nkn-hide-l),
   table td:not(.nkn-hide-s):not(.nkn-hide-m):not(.nkn-hide-l) {
@@ -358,7 +364,6 @@ table tbody tr:nth-of-type(even) {
   border-radius: 4px;
   font-family: 'Bitter', serif !important;
   color: var(--rc-text-light-color) !important;
-  line-height: 1.5rem;
 }
 .rc-card-details mat-card-title{
   color: var(--rc-primary-color);
@@ -402,7 +407,7 @@ table tbody tr:nth-of-type(even) {
   .rc-card-details .price{
     border-right: none;
     border-bottom: 2px solid rgb(231, 231, 231);
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
   }
   .rc-card-details .description{
     padding-left: 0;
@@ -469,7 +474,6 @@ table tbody tr:nth-of-type(even) {
   color: #640;
   background-color: #fec;
   border-color: #FFE5B3;
-  line-height: 1.75rem;
 }
 .rc-alert p{
   margin-left: 1rem;
@@ -495,7 +499,6 @@ table tbody tr:nth-of-type(even) {
   border-radius: 5px;
   background-color: white;
   border-color: var(--rc-primary-color);
-  line-height: 1.75rem;
 }
 
 /*ul style */
