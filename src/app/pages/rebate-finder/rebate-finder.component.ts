@@ -482,139 +482,40 @@ export class RebateFinderComponent implements OnInit {
 
   }
 
+  /* PAYLOAD FORMART -> [ { "rebateId": 1, "rebateTierId": 1, "required": true },
+                          { "rebateId": 2, "required": true } ] */
   onSubmit() { 
 
-    let proRebateId: Array<any> = [];
-    let proRebateTierId: Array<number> = [];
+    let getformat!: any;
+    let collectFormat: Array<JSON> = [];  
 
     // available Rebates selected (completed = true)
     this.availableRebates?.filter( e =>{
 
-      if (e.completed == true){
-        proRebateId.push(e.rebateId);
+      if (e.completed == true){       
+
+        // available Rebates Tier selected (completed = true)
+        if (e.rebateTiers?.length == 0){
+          getformat =  {"rebateId": e.rebateId, "required": true};
+          collectFormat.push(getformat);
+        } else {
+          e.rebateTiers?.filter(e2 => {
+            if (e2.completed == true){
+              getformat =  {"rebateId": e.rebateId, "rebateTierId": e2.rebateTierId, "required": true};
+              collectFormat.push(getformat);
+            }
+          });
+        }
+        
       }
 
-      // available Rebates Tier selected (completed = true)
-      e.rebateTiers?.filter(e2 => {
-        if (e2.completed == true){
-          proRebateTierId.push(e2.rebateTierId);
-        }
-      })
     });
-
-    this.PrepareFormatAvailableRebates(proRebateId, proRebateTierId);
-  }
-
-/* the  availableRebates has this format 
-[ { "rebateId": 1, "rebateTierId": 1, "required": true },
-  { "rebateId": 2, "rebateTierId": 4, "required": true } ]
-*/
-  PrepareFormatAvailableRebates(rebateId: Array<number>, rebateTierId: Array<number>){
-    let a!: any;
-    let b: Array<JSON> = [];
-    this.payloadRebates= '';
+    console.log(collectFormat);
+    this.payloadRebates = JSON.stringify(collectFormat);
     
-    rebateId.forEach( e=>{
-
-      switch (e) {
-        case 1:
-          if (rebateTierId.length == 0) {
-            a =  {"rebateId": 1, "required": true};
-            b.push(a);
-          } else {
-            let e1 = rebateTierId[0];
-              switch (e1) {
-                case 1:
-                  a =  {"rebateId": 1, "rebateTierId": 1, "required": true};
-                  b.push(a);
-                  break;
-                case 2:
-                  a =  {"rebateId": 1, "rebateTierId": 2, "required": true};
-                  b.push(a);
-                  break;
-              }
-          }          
-          break;         
-          
-        case 2:
-          if (rebateTierId.length == 1 || rebateTierId.length == 0) {
-            a =  {"rebateId": 2, "required": true};
-            b.push(a);
-          } else {
-            let e1 = rebateTierId[1];
-              switch (e1) {
-                case 1:
-                  a =  {"rebateId": 2, "rebateTierId": 1, "required": true};
-                  b.push(a);
-                  break;
-                case 2:
-                  a =  [{"rebateId": 2, "rebateTierId": 2, "required": true}];
-                  b.push(a);
-                  break;
-              } 
-          }          
-          break;
-        case 3:
-          if (rebateTierId.length == 2 || rebateTierId.length == 0) {
-            a =  {"rebateId": 3, "required": true};
-            b.push(a);
-          } else {
-            let e1 = rebateTierId[1];
-              switch (e1) {
-                case 1:
-                  a =  {"rebateId": 3, "rebateTierId": 1, "required": true};
-                  b.push(a);
-                  break;
-                case 2:
-                  a =  [{"rebateId": 3, "rebateTierId": 2, "required": true}];
-                  b.push(a);
-                  break;
-              }           
-            }          
-          break;
-
-        case 4:
-          if (rebateTierId.length == 3 || rebateTierId.length == 0) {
-            a =  {"rebateId": 4, "required": true};
-            b.push(a);
-          } else {
-            let e1 = rebateTierId[1];
-              switch (e1) {
-                case 1:
-                  a =  {"rebateId": 4, "rebateTierId": 1, "required": true};
-                  b.push(a);
-                  break;
-                case 2:
-                  a =  [{"rebateId": 4, "rebateTierId": 2, "required": true}];
-                  b.push(a);
-              }   
-          }          
-          break;
-
-        case 5:
-          if (rebateTierId.length == 4 || rebateTierId.length == 0) {
-            a =  {"rebateId": 5, "required": true};
-            b.push(a);
-          } else {
-            let e1 = rebateTierId[1];
-              switch (e1) {
-                case 1:
-                  a =  {"rebateId": 5, "rebateTierId": 1, "required": true};
-                  b.push(a);
-                  break;
-                case 2:
-                  a =  [{"rebateId": 5, "rebateTierId": 2, "required": true}];
-              }   
-          }          
-          break;
-      }  
-
-    })
-
-    console.log(b);
-
-    this.payloadRebates = JSON.stringify(b);
+    
   }
+
  
 
 }
