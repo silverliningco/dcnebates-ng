@@ -51,7 +51,7 @@ export class RebateFinderComponent implements OnInit {
   myState!: string;
 
   availableRebates!: Array<Rebate>;
-  payloadRebates!: string;
+  payloadRebates!: any;
   IsValidAvailabeRebates: boolean = false;
 
   constructor(
@@ -510,9 +510,7 @@ export class RebateFinderComponent implements OnInit {
       }
 
     });
-    console.log(collectFormat);
-    this.payloadRebates = JSON.stringify(collectFormat);
-    
+    this.payloadRebates = collectFormat;
     
   }
 
