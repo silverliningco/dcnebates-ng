@@ -1,3 +1,4 @@
+/* used for both rebateCriteria and TierCriteria*/
 export class Criteria {
     constructor(
         public title: string,
@@ -5,6 +6,7 @@ export class Criteria {
     ) {}
   }
   
+/*  defaultTier = true is for selected the TierCriteria with the most benefits by default */
 export class RebateTier {
     constructor(
     public rebateTierId: number,

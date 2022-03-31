@@ -313,14 +313,17 @@ export class RebateFinderComponent implements OnInit {
     for (let indx = 0; indx < myResp.length; indx++) {
       const reb = myResp[indx];
 
+      /* matches the level rebateCriteria in the defined model */
       let myCriterias: Array<Criteria> = [];
       reb.rebateCriteria?.forEach( (element: any) =>{
         myCriterias.push({ title: element, completed: true });
       });
 
+      /* matches the level RebateTier in the defined model */
       let myTier: Array<RebateTier> = [];
       reb.rebateTiers?.forEach( (element: any) => {
 
+        /* matches the level Tier Criterias in the defined model */
         let myTierCriterias: Array<Criteria> = [];
         element.rebateTierCriteria?.forEach((el: any) =>{
           myTierCriterias.push({ title: el, completed: element.default });
@@ -328,6 +331,7 @@ export class RebateFinderComponent implements OnInit {
 
 
         if(element.title == "Default"){
+          /* nothing is added because it comes without data */
         } else {
           myTier.push({
             title: element.title,
