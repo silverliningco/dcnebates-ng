@@ -52,7 +52,7 @@ export class RebateFinderComponent implements OnInit {
 
   availableRebates!: Array<Rebate>;
   payloadRebates!: any;
-  IsValidAvailabeRebates: boolean = false;
+  IsValidAvailabeRebates: boolean = true;
 
   constructor(
     private _formBuilder: FormBuilder,
