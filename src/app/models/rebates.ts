@@ -10,7 +10,8 @@ export class RebateTier {
     public rebateTierId: number,
     public title: string,
     public rebateTierCriteria?: Array<Criteria>,
-    public completed?: boolean
+    public completed?: boolean,
+    public defaultTier?: boolean,
     ) {}
 }
 

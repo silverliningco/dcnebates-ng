@@ -102,7 +102,7 @@
       <div fxFlex="80" fxFlex.sm="80" fxFlex.xs="80">
         <div *ngFor ="let reb of availableRebates" class="rc-checklist-n1"  [ngClass]="reb.completed ? 'checked' : ''">
           <mat-checkbox class="rc-hide-checkbox"
-          [disabled]="true"
+            (change)="rebate_change(reb)"
             [(ngModel)]="reb.completed">
             <div class="rc-checklist-icon">
               <mat-icon>done</mat-icon>
@@ -110,14 +110,6 @@
             {{reb.title}}
           </mat-checkbox>
 
-          <div *ngIf="reb.rebateCriteria!.length == 0">
-            <div class="rc-checklist-n2">
-              <mat-checkbox
-                (change)="rebate_change(reb)">
-                Select this rebate.
-              </mat-checkbox>
-            </div>
-          </div>
             <div class="rc-checklist-n2">
               <span class="rc-info-title-ar" *ngIf="reb.rebateCriteria!.length >0">Rebate Criteria:</span>
               <p *ngFor ="let rebCriteria of reb.rebateCriteria">

@@ -315,7 +315,7 @@ export class RebateFinderComponent implements OnInit {
 
       let myCriterias: Array<Criteria> = [];
       reb.rebateCriteria?.forEach( (element: any) =>{
-        myCriterias.push({ title: element, completed: false });
+        myCriterias.push({ title: element, completed: true });
       });
 
       let myTier: Array<RebateTier> = [];
@@ -323,7 +323,7 @@ export class RebateFinderComponent implements OnInit {
 
         let myTierCriterias: Array<Criteria> = [];
         element.rebateTierCriteria?.forEach((el: any) =>{
-          myTierCriterias.push({ title: el, completed: false });
+          myTierCriterias.push({ title: el, completed: element.default });
         });
 
 
@@ -333,7 +333,9 @@ export class RebateFinderComponent implements OnInit {
             title: element.title,
             rebateTierId: element.rebateTierId,
             rebateTierCriteria: myTierCriterias,
-            completed: false
+            completed: element.default,
+            defaultTier: element.default,
+
           });
         }
       });
@@ -343,7 +345,7 @@ export class RebateFinderComponent implements OnInit {
         rebateId: reb.rebateId,
         rebateCriteria: myCriterias,
         rebateTiers: myTier,
-        completed: false
+        completed: true
       });
     }
   }
@@ -431,7 +433,25 @@ export class RebateFinderComponent implements OnInit {
 
 
   rebate_change(reb: Rebate) {
-    reb.completed = !reb.completed;
+    reb.rebateCriteria?.forEach(element => {
+      element.completed = reb.completed!;
+    });
+    // add rebate tier  selections TODO
+    //...
+    reb.rebateTiers?.forEach(tier => {
+      if(!reb.completed) {
+
+        tier.completed = reb.completed!;
+      } else {
+        tier.completed = tier.defaultTier;
+
+      }
+
+      tier.rebateTierCriteria?.forEach(element => {
+        element.completed = tier.completed!;
+      });
+     })
+
 
     // validate if at least one rebate is selected
     this.validateSelection();
