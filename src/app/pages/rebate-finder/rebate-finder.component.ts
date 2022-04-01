@@ -225,7 +225,8 @@ export class RebateFinderComponent implements OnInit {
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       systemTypeId: this.productLinesGroup.controls['productLine'].value,
-      filters: myfilters
+      filters: myfilters,
+      requiredRebates: this.payloadRebates
     }
     this.CallFilters(payload);
     this.CallSearch(payload);
@@ -520,12 +521,12 @@ export class RebateFinderComponent implements OnInit {
 
         // available Rebates Tier selected (completed = true)
         if (e.rebateTiers?.length == 0){
-          getformat =  {"rebateId": e.rebateId, "required": true};
+          getformat =  {"rebateId": e.rebateId, "isRequired": true};
           collectFormat.push(getformat);
         } else {
           e.rebateTiers?.filter(e2 => {
             if (e2.completed == true){
-              getformat =  {"rebateId": e.rebateId, "rebateTierId": e2.rebateTierId, "required": true};
+              getformat =  {"rebateId": e.rebateId, "rebateTierId": e2.rebateTierId, "isRequired": true};
               collectFormat.push(getformat);
             }
           });
