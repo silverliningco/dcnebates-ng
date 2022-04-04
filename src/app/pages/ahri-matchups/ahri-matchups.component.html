@@ -16,8 +16,7 @@
             <!-- input -->
             <mat-form-field appearance="fill">
               <mat-label>Cooling tons</mat-label>
-              <input matInput placeholder="Cooling tons" type="number" formControlName="coolingTons" required
-                    CoolingTonsValidatorDirective >
+              <input matInput placeholder="Cooling tons" type="number" formControlName="coolingTons" required>
                     <!-- [class.is-invalid]="(nominalSizeGroup.get('coolingTons')?.touched || (nominalSizeGroup.get('coolingTons')?.dirty) && (nominalSizeGroup.get('coolingTons')?.invalid"> -->
               <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('required') && nominalSizeGroup.get('coolingTons')?.touched">
                 Cooling tons is <strong>required</strong>

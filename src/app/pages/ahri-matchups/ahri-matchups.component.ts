@@ -7,8 +7,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from 'src/app/services/api.service';
 
-import { CoolingTonsValidatorDirective } from "../validators/cooling-tons-validator.directive";
-
 
 @Component({
   selector: 'app-ahri-matchups',
@@ -23,7 +21,6 @@ import { CoolingTonsValidatorDirective } from "../validators/cooling-tons-valida
 })
 export class AhriMatchupsComponent implements OnInit {
 
-  coolingTonsValidatorDirective?: CoolingTonsValidatorDirective;
 
   nominalSizeGroup !: FormGroup;
   furnaceGroup !: FormGroup;
@@ -65,8 +62,7 @@ export class AhriMatchupsComponent implements OnInit {
 
     this.nominalSizeGroup = this._formBuilder.group({
       heatingBTUH: ['', Validators.compose([Validators.required, Validators.min(0)])],
-     /*  coolingTons: ['', Validators.compose([Validators.required]), this.coolingTonsValidatorDirective], */
-      coolingTons: ['', this.coolingTonsValidatorDirective],
+       coolingTons: ['', Validators.compose([Validators.required])],
     });
 
     this.furnaceGroup = this._formBuilder.group({
