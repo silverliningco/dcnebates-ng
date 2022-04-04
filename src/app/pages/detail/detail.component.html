@@ -2,118 +2,118 @@
 <h2 class="rc-main-title">Detail</h2>
 <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="16" fxLayout.xs="column" fxLayout.sm="column">
   <!-- User input -->
-      <div fxFlex="45"  fxLayoutAlign="center" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="45">
-        <mat-card class="rc-card-details" fxFlex="100">
-            <mat-card-title>Selected HVAC System</mat-card-title>
-            <mat-card-content>
-              <h3>SKUS</h3>
-              <div fxLayout fxLayoutAlign="space-evenly center" >
-                <div fxFlex="50" fxLayoutAlign="start">
-                    <span class="rc-details-subtitle">Outdoor unit</span>
-                </div>
-                <div fxFlex="50"fxLayoutAlign="start">
-                    {{detail?.outdoorUnitSKU}}
-                </div>
+    <div fxFlex="45" fxLayoutAlign="center" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="45">
+      <mat-card class="rc-card-details" fxFlex="100">
+          <mat-card-title>Selected HVAC System</mat-card-title>
+          <mat-card-content>
+            <h3>SKUS</h3>
+            <div fxLayout fxLayoutAlign="space-evenly center" >
+              <div fxFlex="50" fxLayoutAlign="start">
+                  <span class="rc-details-subtitle">Outdoor unit</span>
               </div>
-              <div fxLayout fxLayoutAlign="space-evenly center" >
-                <div fxFlex="50" fxLayoutAlign="start">
-                    <span class="rc-details-subtitle">Indoor unit</span>
-                </div>
-                <div fxFlex="50"fxLayoutAlign="start">
-                    {{detail?.indoorUnitSKU}}
-                </div>
+              <div fxFlex="50"fxLayoutAlign="start">
+                  {{detail?.outdoorUnitSKU}}
               </div>
-              <div fxLayout fxLayoutAlign="space-evenly center" >
-                <div fxFlex="50" fxLayoutAlign="start">
-                    <span class="rc-details-subtitle">Furnace</span>
-                </div>
-                <div fxFlex="50"fxLayoutAlign="start">
-                    {{detail?.furnaceSKU}}
-                </div>
+            </div>
+            <div fxLayout fxLayoutAlign="space-evenly center" >
+              <div fxFlex="50" fxLayoutAlign="start">
+                  <span class="rc-details-subtitle">Indoor unit</span>
               </div>
-              <h3>AHRI References</h3>
-              <ul class="rc-list-details">
-                <li *ngFor="let ahri_ref of detail?.AHRIReferences">{{ahri_ref}}</li>
-              </ul>
-              <h3>AHRI Ratings</h3>
-              <div fxLayout fxLayoutAlign="space-evenly center" >
-                <div fxFlex="50" fxLayoutAlign="start">
-                    <span class="rc-details-subtitle">Cooling capacity</span>
-                </div>
-                <div fxFlex="50"fxLayoutAlign="start">
-                    {{detail?.coolingCapacityRated}}
-                </div>
+              <div fxFlex="50"fxLayoutAlign="start">
+                  {{detail?.indoorUnitSKU}}
               </div>
-              <div fxLayout fxLayoutAlign="space-evenly center" >
-                <div fxFlex="50" fxLayoutAlign="start">
-                    <span class="rc-details-subtitle">SEER</span>
-                </div>
-                <div fxFlex="50"fxLayoutAlign="start">
-                    {{detail?.SEER}}
-                </div>
+            </div>
+            <div fxLayout fxLayoutAlign="space-evenly center" >
+              <div fxFlex="50" fxLayoutAlign="start">
+                  <span class="rc-details-subtitle">Furnace</span>
               </div>
-              <div fxLayout fxLayoutAlign="space-evenly center" >
-                <div fxFlex="50" fxLayoutAlign="start">
-                    <span class="rc-details-subtitle">EER</span>
-                </div>
-                <div fxFlex="50"fxLayoutAlign="start">
-                    {{detail?.EER}}
-                </div>
+              <div fxFlex="50"fxLayoutAlign="start">
+                  {{detail?.furnaceSKU}}
               </div>
-              <div fxLayout fxLayoutAlign="space-evenly center" >
-                <div fxFlex="50" fxLayoutAlign="start">
-                    <span class="rc-details-subtitle">HSPF</span>
-                </div>
-                <div fxFlex="50"fxLayoutAlign="start">
-                    {{detail?.HSPF}}
-                </div>
+            </div>
+            <h3>AHRI References</h3>
+            <ul class="rc-list-details">
+              <li *ngFor="let ahri_ref of detail?.AHRIReferences">{{ahri_ref}}</li>
+            </ul>
+            <h3>AHRI Ratings</h3>
+            <div fxLayout fxLayoutAlign="space-evenly center" >
+              <div fxFlex="50" fxLayoutAlign="start">
+                  <span class="rc-details-subtitle">Cooling capacity</span>
               </div>
-              <div fxLayout fxLayoutAlign="space-evenly center" >
-                <div fxFlex="50" fxLayoutAlign="start">
-                    <span class="rc-details-subtitle">HCap 47</span>
-                </div>
-                <div fxFlex="50"fxLayoutAlign="start">
-                    {{detail?.Hcap47}}
-                </div>
+              <div fxFlex="50"fxLayoutAlign="start">
+                  {{detail?.coolingCapacityRated}}
               </div>
-              <div fxLayout fxLayoutAlign="space-evenly center" >
-                <div fxFlex="50" fxLayoutAlign="start">
-                    <span class="rc-details-subtitle">HCap 17</span>
-                </div>
-                <div fxFlex="50"fxLayoutAlign="start">
-                    {{detail?.Hcap17}}
-                </div>
+            </div>
+            <div fxLayout fxLayoutAlign="space-evenly center" >
+              <div fxFlex="50" fxLayoutAlign="start">
+                  <span class="rc-details-subtitle">SEER</span>
               </div>
-              <div fxLayout fxLayoutAlign="space-evenly center" >
-                <div fxFlex="50" fxLayoutAlign="start">
-                    <span class="rc-details-subtitle">AFUE</span>
-                </div>
-                <div fxFlex="50"fxLayoutAlign="start">
-                    {{detail?.AFUE}}
-                </div>
+              <div fxFlex="50"fxLayoutAlign="start">
+                  {{detail?.SEER}}
               </div>
-              <div fxLayout fxLayoutAlign="space-evenly center" >
-                <div fxFlex="50" fxLayoutAlign="start">
-                    <span class="rc-details-subtitle">Input BTUH</span>
-                </div>
-                <div fxFlex="50"fxLayoutAlign="start">
-                    {{detail?.furnaceInputBTUH}}
-                </div>
+            </div>
+            <div fxLayout fxLayoutAlign="space-evenly center" >
+              <div fxFlex="50" fxLayoutAlign="start">
+                  <span class="rc-details-subtitle">EER</span>
               </div>
-              <div fxLayout fxLayoutAlign="space-evenly center" >
-                <div fxFlex="50" fxLayoutAlign="start">
-                    <span class="rc-details-subtitle">Output BTUH</span>
-                </div>
-                <div fxFlex="50"fxLayoutAlign="start">
+              <div fxFlex="50"fxLayoutAlign="start">
+                  {{detail?.EER}}
+              </div>
+            </div>
+            <div fxLayout fxLayoutAlign="space-evenly center" >
+              <div fxFlex="50" fxLayoutAlign="start">
+                  <span class="rc-details-subtitle">HSPF</span>
+              </div>
+              <div fxFlex="50"fxLayoutAlign="start">
+                  {{detail?.HSPF}}
+              </div>
+            </div>
+            <div fxLayout fxLayoutAlign="space-evenly center" >
+              <div fxFlex="50" fxLayoutAlign="start">
+                  <span class="rc-details-subtitle">HCap 47</span>
+              </div>
+              <div fxFlex="50"fxLayoutAlign="start">
+                  {{detail?.Hcap47}}
+              </div>
+            </div>
+            <div fxLayout fxLayoutAlign="space-evenly center" >
+              <div fxFlex="50" fxLayoutAlign="start">
+                  <span class="rc-details-subtitle">HCap 17</span>
+              </div>
+              <div fxFlex="50"fxLayoutAlign="start">
+                  {{detail?.Hcap17}}
+              </div>
+            </div>
+            <div fxLayout fxLayoutAlign="space-evenly center" >
+              <div fxFlex="50" fxLayoutAlign="start">
+                  <span class="rc-details-subtitle">AFUE</span>
+              </div>
+              <div fxFlex="50"fxLayoutAlign="start">
+                  {{detail?.AFUE}}
+              </div>
+            </div>
+            <div fxLayout fxLayoutAlign="space-evenly center" >
+              <div fxFlex="50" fxLayoutAlign="start">
+                  <span class="rc-details-subtitle">Input BTUH</span>
+              </div>
+              <div fxFlex="50"fxLayoutAlign="start">
+                  {{detail?.furnaceInputBTUH}}
+              </div>
+            </div>
+            <div fxLayout fxLayoutAlign="space-evenly center" >
+              <div fxFlex="50" fxLayoutAlign="start">
+                  <span class="rc-details-subtitle">Output BTUH</span>
+              </div>
+              <div fxFlex="50"fxLayoutAlign="start">
 
-                    {{detail?.furnaceOutputBTUH}}
-                </div>
+                  {{detail?.furnaceOutputBTUH}}
               </div>
-            </mat-card-content>
-        </mat-card>
+            </div>
+          </mat-card-content>
+      </mat-card>
     </div>
 
-    <div fxFlex="55" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="55">
+    <div fxFlex="55" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="55"  *ngIf="detail?.availableRebates?.length > 0">
       <diV fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="16">
         <mat-card *ngFor="let reb of detail?.availableRebates" fxFlex="100" fxFlex.sm="100" fxFlex.xs="100" class="rc-card-details">
             <mat-card-title>{{reb.rebateTitle}} ({{reb.rebateTierTitle}})</mat-card-title>
@@ -126,7 +126,8 @@
                   </div>
                 </div>
                 <div fxFlex="60" fxLayoutAlign="center center"  class="description">
-                  <p>{{reb.description}}</p>
+                  <p *ngIf="reb.description == ''">No description yet.</p>
+                  <p *ngIf="reb.description != ''">{{reb.description}}</p>
                 </div>
               </div>
 
@@ -143,8 +144,7 @@
             </mat-card-footer>
         </mat-card>
       </diV>
-
-  </div>
+    </div>
 </div>
 
 
