@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from 'src/app/services/api.service';
 
+import { CoolingTonsValidatorDirective } from "../validators/cooling-tons-validator.directive";
+
 
 @Component({
   selector: 'app-ahri-matchups',
@@ -21,10 +23,13 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class AhriMatchupsComponent implements OnInit {
 
+  coolingTonsValidatorDirective?: CoolingTonsValidatorDirective;
+
   nominalSizeGroup !: FormGroup;
   furnaceGroup !: FormGroup;
   productLinesGroup !: FormGroup;
   filtersGroup !: FormGroup;
+  payloadRebates: Array<any> = [];
 
 
   stepperOrientation: Observable<StepperOrientation>;
@@ -60,7 +65,8 @@ export class AhriMatchupsComponent implements OnInit {
 
     this.nominalSizeGroup = this._formBuilder.group({
       heatingBTUH: ['', Validators.compose([Validators.required, Validators.min(0)])],
-      coolingTons: ['', Validators.compose([Validators.required, Validators.min(0)])],
+     /*  coolingTons: ['', Validators.compose([Validators.required]), this.coolingTonsValidatorDirective], */
+      coolingTons: ['', this.coolingTonsValidatorDirective],
     });
 
     this.furnaceGroup = this._formBuilder.group({
@@ -94,7 +100,8 @@ export class AhriMatchupsComponent implements OnInit {
     let payload = {
       commerceInfo: this.myCommerInfo,
       nominalSize: this.nominalSizeGroup.value,
-      fuelSource: this.furnaceGroup.controls['fuelSource'].value
+      fuelSource: this.furnaceGroup.controls['fuelSource'].value,
+      requiredRebates: this.payloadRebates
     }
     this.CallProductLines(payload);
   }
@@ -131,7 +138,8 @@ export class AhriMatchupsComponent implements OnInit {
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       systemTypeId:systemTypeId,
-      filters: []
+      filters: [],
+      requiredRebates: this.payloadRebates   
     }
 
     // Call Filters with selected product line
@@ -191,7 +199,8 @@ export class AhriMatchupsComponent implements OnInit {
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       systemTypeId: this.productLinesGroup.controls['productLine'].value,
-      filters: myfilters
+      filters: myfilters,
+      requiredRebates: this.payloadRebates
     }
     this.CallFilters(payload);
     this.CallSearch(payload);

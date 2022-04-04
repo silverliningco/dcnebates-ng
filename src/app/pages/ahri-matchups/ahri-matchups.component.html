@@ -16,10 +16,15 @@
             <!-- input -->
             <mat-form-field appearance="fill">
               <mat-label>Cooling tons</mat-label>
-              <input matInput placeholder="Cooling tons" type="number" formControlName="coolingTons" required>
+              <input matInput placeholder="Cooling tons" type="number" formControlName="coolingTons" required
+                    CoolingTonsValidatorDirective >
+                    <!-- [class.is-invalid]="(nominalSizeGroup.get('coolingTons')?.touched || (nominalSizeGroup.get('coolingTons')?.dirty) && (nominalSizeGroup.get('coolingTons')?.invalid"> -->
               <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('required') && nominalSizeGroup.get('coolingTons')?.touched">
                 Cooling tons is <strong>required</strong>
               </mat-error>
+              <!-- <mat-error *ngIf="(nominalSizeGroup.get('coolingTons')?.touched || nominalSizeGroup.get('coolingTons')?.dirty) && nominalSizeGroup.get('coolingTons')?.invalid">
+                Cooling tons must be 3 characters
+              </mat-error> -->
             </mat-form-field>
 
 
@@ -152,7 +157,7 @@
                   <td data-title="AFUE">{{ahriCombination.AFUE}}</td>
                   <td data-title="Total rebate">{{ahriCombination.totalAvailableRebates}}</td>
                   <td data-title="Details">
-                    <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']" [queryParams]="{skus:ahriCombination.SKUs | json, ahri_refs:ahriCombination.AHRIReferences| json, params:{commerceInfo: myCommerInfo} | json}"  target="_blank">
+                    <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']" [queryParams]="{skus:ahriCombination.SKUs | json, ahri_refs:ahriCombination.AHRIReferences| json, params:{commerceInfo: myCommerInfo, requiredRebates: payloadRebates} | json}"  target="_blank">
                     <mat-icon>search</mat-icon>
                     </a>
                   </td>
