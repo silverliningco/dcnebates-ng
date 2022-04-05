@@ -53,6 +53,7 @@ export class RebateFinderComponent implements OnInit {
   availableRebates!: Array<Rebate>;
   payloadRebates!: any;
   IsValidAvailabeRebates: boolean = true;
+  TierCriteria!: boolean;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -302,6 +303,7 @@ export class RebateFinderComponent implements OnInit {
     
     this._api.AvailableRebates(state, JSON.stringify(utilityIds)).subscribe({
       next: (resp) => {
+        console.log(resp);
        this.processingAvailableRebates(resp);
       },
       error: (e) => alert(e.error),
@@ -330,19 +332,17 @@ export class RebateFinderComponent implements OnInit {
           myTierCriterias.push({ title: el, completed: element.default });
         });
 
-
-        if(element.title == "Default"){
-          /* nothing is added because it comes without data */
-        } else {
           myTier.push({
-            title: element.title,
-            rebateTierId: element.rebateTierId,
-            rebateTierCriteria: myTierCriterias,
-            completed: element.default,
-            defaultTier: element.default,
+          title: element.title,
+          rebateTierId: element.rebateTierId,
+          rebateTierCriteria: myTierCriterias,
+          completed: element.default,
+          defaultTier: element.default,
 
-          });
-        }
+        });
+        
+
+        
       });
 
       this.availableRebates.push({
@@ -514,28 +514,28 @@ export class RebateFinderComponent implements OnInit {
     let getformat!: any;
     let collectFormat: Array<JSON> = [];  
 
+    console.log(this.availableRebates);
+
     // available Rebates selected (completed = true)
     this.availableRebates?.filter( e =>{
 
       if (e.completed == true){       
 
         // available Rebates Tier selected (completed = true)
-        if (e.rebateTiers?.length == 0){
-          getformat =  {"rebateId": e.rebateId, "isRequired": true};
-          collectFormat.push(getformat);
-        } else {
           e.rebateTiers?.filter(e2 => {
             if (e2.completed == true){
               getformat =  {"rebateId": e.rebateId, "rebateTierId": e2.rebateTierId, "isRequired": true};
               collectFormat.push(getformat);
             }
           });
-        }
+        
         
       }
 
     });
     this.payloadRebates = collectFormat;
+
+    console.log(this.payloadRebates);
     
   }
 

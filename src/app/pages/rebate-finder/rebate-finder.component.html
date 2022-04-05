@@ -119,10 +119,10 @@
                   {{rebCriteria.title}}
                 </mat-checkbox>
               </p>
-              <span class="rc-info-title-ar"  *ngIf="reb.rebateTiers!.length > 0">Rebate Tiers:</span>
-              <div fxLayout="row column" fxLayoutAlign="center" fxLayoutGap="20px grid" fxLayout.sm="column" fxLayoutAlign.sm="center stretch" fxLayoutGap.sm="16px grid" fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="16px grid">
+              <span class="rc-info-title-ar"   *ngIf="reb.rebateTiers!.length > 0">Rebate Tiers:</span>
+              <div fxLayout="row column"  fxLayoutAlign="center" fxLayoutGap="20px grid" fxLayout.sm="column" fxLayoutAlign.sm="center stretch" fxLayoutGap.sm="16px grid" fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="16px grid">
                 <div *ngFor ="let rebTier of reb.rebateTiers" [ngClass]="rebTier.completed ? 'checked' : ''" fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
-                  <div class="rc-rt-container">
+                  <div class="rc-rt-container" *ngIf="rebTier.title != 'Default'" >
                     <mat-checkbox class="rc-hide-checkbox"
                       [(ngModel)]="rebTier.completed"
                       (change)="reb_tier_change(rebTier, reb)">
@@ -131,7 +131,7 @@
 
 
                     <div class="rc-checklist-n3">
-                      <span class="rc-info-title-ar"  *ngIf="rebTier.rebateTierCriteria!.length >0">Rebate Tier Criteria:</span>
+                      <span class="rc-info-title-ar"   *ngIf="rebTier.rebateTierCriteria!.length >0">Rebate Tier Criteria:</span>
                       <p *ngFor ="let rebTierCriteria of rebTier.rebateTierCriteria">
                         <mat-checkbox
                           [(ngModel)] = "rebTierCriteria.completed"
