@@ -53,7 +53,6 @@ export class RebateFinderComponent implements OnInit {
   availableRebates!: Array<Rebate>;
   payloadRebates!: any;
   IsValidAvailabeRebates: boolean = true;
-  TierCriteria!: boolean;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -303,7 +302,6 @@ export class RebateFinderComponent implements OnInit {
     
     this._api.AvailableRebates(state, JSON.stringify(utilityIds)).subscribe({
       next: (resp) => {
-        console.log(resp);
        this.processingAvailableRebates(resp);
       },
       error: (e) => alert(e.error),
@@ -514,7 +512,6 @@ export class RebateFinderComponent implements OnInit {
     let getformat!: any;
     let collectFormat: Array<JSON> = [];  
 
-    console.log(this.availableRebates);
 
     // available Rebates selected (completed = true)
     this.availableRebates?.filter( e =>{
@@ -534,8 +531,6 @@ export class RebateFinderComponent implements OnInit {
 
     });
     this.payloadRebates = collectFormat;
-
-    console.log(this.payloadRebates);
     
   }
 
