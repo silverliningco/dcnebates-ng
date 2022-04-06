@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
@@ -61,8 +61,8 @@ export class AhriMatchupsComponent implements OnInit {
     }
 
     this.nominalSizeGroup = this._formBuilder.group({
-      heatingBTUH: ['', Validators.compose([Validators.required, Validators.min(0)])],
-       coolingTons: ['', Validators.compose([Validators.required])],
+      heatingBTUH: ['', [Validators.compose([Validators.required, Validators.min(0)]), this.ValidateHeatingBTUH]],
+      coolingTons: ['', [ Validators.compose([Validators.required, Validators.min(0)]), this.ValidateCoolingToms]],
     });
 
     this.furnaceGroup = this._formBuilder.group({
@@ -223,6 +223,67 @@ export class AhriMatchupsComponent implements OnInit {
   pageChanged(event: number) {
     this.p = event;
     this.ObtainPaginationText();
+  }
+
+   /* validators */
+   ValidateCoolingToms(control: AbstractControl) : ValidationErrors | null  {
+
+    let coolingToms = control.value;
+    let lengthCoolingToms!: string;
+
+    if (coolingToms != null){
+      lengthCoolingToms = coolingToms.toString();
+    }else {
+      return  { 'Coling tons invalid!': true };
+    }
+
+    if (lengthCoolingToms.length == 1 || lengthCoolingToms.length == 3 ) {
+      if (coolingToms == 0.5 || coolingToms == 1.0 || coolingToms == 1.5 || coolingToms == 2.0 || coolingToms == 2.5 ||
+          coolingToms == 3.0 || coolingToms == 3.5 || coolingToms == 4.0 || coolingToms == 4.5 || coolingToms == 5.0 ||
+          coolingToms == 1 || coolingToms == 2 || coolingToms == 3 || coolingToms == 4 || coolingToms == 5){
+
+        return null;
+      } else {
+        return  { 'Coling tons invalid!': true };
+      }
+    } if (lengthCoolingToms.length == null){
+      return  { 'Coling tons invalid!': true };
+    }
+    else {
+      return  { 'Coling tons invalid!': true };
+    }
+  }
+
+  ValidateHeatingBTUH(control: AbstractControl) : ValidationErrors | null  {
+
+    let heatingBTUH = control.value;
+    let lengthHeatingBTUH!: string;
+
+    if (heatingBTUH != null){
+      lengthHeatingBTUH = heatingBTUH.toString();
+    }else {
+      return  { 'Coling tons invalid!': true };
+    }
+
+    // first verify if the number is integer
+     if (heatingBTUH % 1 == 0){
+      if (lengthHeatingBTUH.length == 4 || lengthHeatingBTUH.length == 5 || lengthHeatingBTUH.length == 6) {
+
+        if (heatingBTUH >= 8000 || heatingBTUH <= 135000 ){
+
+        return null;
+      } else {
+        return  { 'Coling tons invalid!': true };
+      }
+
+      } else {
+        return  { 'Coling tons invalid!': true };
+      }
+
+    } else {
+      return  { 'Coling tons invalid!': true };
+    }
+
   }
 
 }

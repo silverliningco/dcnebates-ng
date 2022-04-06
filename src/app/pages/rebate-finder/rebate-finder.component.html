@@ -180,6 +180,9 @@
             <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('required') && nominalSizeGroup.get('coolingTons')?.touched">
               Cooling tons is <strong>required</strong>
             </mat-error>
+            <mat-error *ngIf="(nominalSizeGroup.get('coolingTons')?.touched || nominalSizeGroup.get('coolingTons')?.dirty) && nominalSizeGroup.get('coolingTons')?.invalid">
+              Cooling tons must be 1 or 3 characters or you have entered an incorrect value.
+            </mat-error>
           </mat-form-field>
 
 
@@ -189,6 +192,9 @@
             <input matInput placeholder="Heating BTUH" type="number" formControlName="heatingBTUH" required>
             <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('required') && nominalSizeGroup.get('heatingBTUH')?.touched">
               Heating BTUH is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="(nominalSizeGroup.get('heatingBTUH')?.touched || nominalSizeGroup.get('heatingBTUH')?.dirty) && nominalSizeGroup.get('heatingBTUH')?.invalid">
+              Cooling tons must be 4 or 6 characters or you have entered an incorrect value.
             </mat-error>
           </mat-form-field>
 
