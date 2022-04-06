@@ -359,40 +359,45 @@ table tbody tr:nth-of-type(even) {
 }
 
 /*Details Card*/
-.rc-card-details {
+.rc-available-rebates {
   padding: 2rem 2rem 1rem 2rem !important;
   border-radius: 4px;
   font-family: 'Bitter', serif !important;
   color: var(--rc-text-light-color) !important;
 }
-.rc-card-details mat-card-title{
-  color: var(--rc-primary-color);
+@media (min-width: 960px) and (max-width: 1199px){
+  .rc-available-rebates {
+    min-height: 210px;
+  }
+}
+.rc-available-rebates mat-card-title{
+  color: var(--rc-text-color);
   text-transform: uppercase;
   font-size: 18px;
   margin-bottom: 1.5rem;
   font-family: 'Raleway', sans-serif;
   font-weight: bold;
 }
-.rc-card-details mat-card-title::after {
-  content: '';
-  border-bottom: solid 3px var(--rc-accent-color);
-  width: 30px;
-  display: block;
-}
 
-.rc-card-details .price{
+.rc-available-rebates .price{
   border-right: 2px solid rgb(231, 231, 231);
 }
-.rc-card-details .price h1{
+
+.rc-available-rebates .price h1{
+  color: var(--rc-primary-color);
   font-size: 40px;
   margin-top: 0.5rem;
 }
-.rc-card-details .description{
+.rc-available-rebates .price h1::before{
+  content: "$ ";
+  font-size: 25px;
+}
+.rc-available-rebates .description{
   padding-left: 1.25rem;
 }
 
 @media (max-width: 767px) {
-  .rc-card-details .price h1{
+  .rc-available-rebates .price h1{
       font-size: 32px;
   }
   .rc-header h1{
@@ -404,22 +409,22 @@ table tbody tr:nth-of-type(even) {
 }
 @media (max-width: 599px) {
 
-  .rc-card-details .price{
+  .rc-available-rebates .price{
     border-right: none;
     border-bottom: 2px solid rgb(231, 231, 231);
     padding-bottom: 2rem;
   }
-  .rc-card-details .description{
+  .rc-available-rebates .description{
     padding-left: 0;
     padding-top: 1.25rem;
   }
-  .rc-card-details mat-card-title {
+  .rc-available-rebates mat-card-title {
       margin-top: 2rem !important;
   }
 }
 
 @media (max-width: 575px) {
-  .rc-card-details .price h1{
+  .rc-available-rebates .price h1{
     font-size: 40px;
   }
 }
@@ -725,4 +730,41 @@ span.rc-info-title-ar {
   width: 70px;
   height: auto;
   transform: rotate(50deg);
+}
+
+/*Notepad style*/
+hr{
+  border-top: 0.5px solid #e5e5e5;
+  margin: 1.5rem 0;
+}
+.rc-hvac-detail {
+  padding: 2rem 1.5rem;
+  border-radius: 8px;
+  color: var(--rc-text-light-color);
+  background: #f3f3f3;
+}
+.rc-hvac-detail h2{
+  margin: .75rem 0;
+  color: var(--rc-primary-dark-color);
+}
+.rc-hvac-detail span{
+  margin: 0 1rem;
+}
+
+
+.letter {
+  background: #fafafa;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3), 0 0 300px 25px rgba(255,255,255,0.7) inset;
+  width: 60%;
+  margin: 0 auto;
+  padding: 24px;
+  position: relative;
+  line-height: 1.75rem;
+}
+
+@media screen and (max-width: 767px){
+  .letter {
+    margin-top: 2rem;
+    width: 85%;
+  }
 }
