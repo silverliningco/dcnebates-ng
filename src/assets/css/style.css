@@ -732,11 +732,6 @@ span.rc-info-title-ar {
   transform: rotate(50deg);
 }
 
-/*Notepad style*/
-hr{
-  border-top: 0.5px solid #e5e5e5;
-  margin: 1.5rem 0;
-}
 .rc-hvac-detail {
   padding: 2rem 1.5rem;
   border-radius: 8px;
@@ -750,8 +745,6 @@ hr{
 .rc-hvac-detail span{
   margin: 0 1rem;
 }
-
-
 .letter {
   background: #fafafa;
   box-shadow: 0 0 10px rgba(0,0,0,0.3), 0 0 300px 25px rgba(255,255,255,0.7) inset;
