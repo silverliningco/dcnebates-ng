@@ -17,12 +17,16 @@
             <mat-form-field appearance="fill">
               <mat-label>Cooling tons</mat-label>
               <input matInput placeholder="Cooling tons" type="number" formControlName="coolingTons" required>
-                    <!-- [class.is-invalid]="(nominalSizeGroup.get('coolingTons')?.touched || (nominalSizeGroup.get('coolingTons')?.dirty) && (nominalSizeGroup.get('coolingTons')?.invalid"> -->
-              <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('required') && nominalSizeGroup.get('coolingTons')?.touched">
+
+              <!-- error -->
+              <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('null_not_permit') && nominalSizeGroup.get('coolingTons')?.touched">
                 Cooling tons is <strong>required</strong>
               </mat-error>
-              <mat-error *ngIf="(nominalSizeGroup.get('coolingTons')?.touched || nominalSizeGroup.get('coolingTons')?.dirty) && nominalSizeGroup.get('coolingTons')?.invalid">
-                Cooling tons must be 1 or 3 characters or you have entered an incorrect value.
+              <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('need_1_or_3_characters') && nominalSizeGroup.get('coolingTons')?.touched">
+                Cooling tons must be 1 or 3 characters.
+              </mat-error>
+              <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('CT_invalid_value') && nominalSizeGroup.get('coolingTons')?.touched">
+                Invalid value (value between 0.5 and 5.0).
               </mat-error>
             </mat-form-field>
 
@@ -31,11 +35,19 @@
             <mat-form-field appearance="fill">
               <mat-label>Heating BTUH</mat-label>
               <input matInput placeholder="Heating BTUH" type="number" formControlName="heatingBTUH" required>
-              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('required') && nominalSizeGroup.get('heatingBTUH')?.touched">
+              
+              <!-- error -->
+              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('null_not_permit') && nominalSizeGroup.get('heatingBTUH')?.touched">
                 Heating BTUH is <strong>required</strong>
               </mat-error>
-              <mat-error *ngIf="(nominalSizeGroup.get('heatingBTUH')?.touched || nominalSizeGroup.get('heatingBTUH')?.dirty) && nominalSizeGroup.get('heatingBTUH')?.invalid">
-                Cooling tons must be 4 or 6 characters or you have entered an incorrect value.
+              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('need_between_4_6_characters') && nominalSizeGroup.get('heatingBTUH')?.touched">
+                Heating BTUH must be between 4 and 6 characters.
+              </mat-error>
+              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('Hbtuh_invalid_value') && nominalSizeGroup.get('heatingBTUH')?.touched">
+                Invalid value (value between 8000 and 135000).
+              </mat-error>
+              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('it_not_integer') && nominalSizeGroup.get('heatingBTUH')?.touched">
+                the value is not integer.
               </mat-error>
             </mat-form-field>
 

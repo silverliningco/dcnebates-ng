@@ -61,8 +61,8 @@ export class AhriMatchupsComponent implements OnInit {
     }
 
     this.nominalSizeGroup = this._formBuilder.group({
-      heatingBTUH: ['', [Validators.compose([Validators.required, Validators.min(0)]), this.ValidateHeatingBTUH]],
-      coolingTons: ['', [ Validators.compose([Validators.required, Validators.min(0)]), this.ValidateCoolingToms]],
+      heatingBTUH: ['', [this.ValidateHeatingBTUH]],
+      coolingTons: ['', [this.ValidateCoolingToms]],
     });
 
     this.furnaceGroup = this._formBuilder.group({
@@ -225,8 +225,8 @@ export class AhriMatchupsComponent implements OnInit {
     this.ObtainPaginationText();
   }
 
-   /* validators */
-   ValidateCoolingToms(control: AbstractControl) : ValidationErrors | null  {
+  /* validators */
+  ValidateCoolingToms(control: AbstractControl) : ValidationErrors | null  {
 
     let coolingToms = control.value;
     let lengthCoolingToms!: string;
@@ -234,25 +234,25 @@ export class AhriMatchupsComponent implements OnInit {
     if (coolingToms != null){
       lengthCoolingToms = coolingToms.toString();
     }else {
-      return  { 'Coling tons invalid!': true };
+      return  { null_not_permit : true };
     }
 
-    if (lengthCoolingToms.length == 1 || lengthCoolingToms.length == 3 ) {
-      if (coolingToms == 0.5 || coolingToms == 1.0 || coolingToms == 1.5 || coolingToms == 2.0 || coolingToms == 2.5 ||
-          coolingToms == 3.0 || coolingToms == 3.5 || coolingToms == 4.0 || coolingToms == 4.5 || coolingToms == 5.0 ||
-          coolingToms == 1 || coolingToms == 2 || coolingToms == 3 || coolingToms == 4 || coolingToms == 5){
+    if (lengthCoolingToms.length === 1 || lengthCoolingToms.length === 3 ) {
 
-        return null;
-      } else {
-        return  { 'Coling tons invalid!': true };
-      }
-    } if (lengthCoolingToms.length == null){
-      return  { 'Coling tons invalid!': true };
+        if (coolingToms === 0.5 || coolingToms === 1.0 || coolingToms === 1.5 || coolingToms === 2.0 || coolingToms === 2.5 ||
+          coolingToms === 3.0 || coolingToms === 3.5 || coolingToms === 4.0 || coolingToms === 4.5 || coolingToms === 5.0 ||
+          coolingToms === 1 || coolingToms === 2 || coolingToms === 3 || coolingToms === 4 || coolingToms === 5){
+          return null;
+        }
+        else {
+          return  { CT_invalid_value: true };
+        }
     }
     else {
-      return  { 'Coling tons invalid!': true };
+      return  { need_1_or_3_characters: true };
     }
   }
+
 
   ValidateHeatingBTUH(control: AbstractControl) : ValidationErrors | null  {
 
@@ -262,26 +262,26 @@ export class AhriMatchupsComponent implements OnInit {
     if (heatingBTUH != null){
       lengthHeatingBTUH = heatingBTUH.toString();
     }else {
-      return  { 'Coling tons invalid!': true };
+      return  { null_not_permit: true };
     }
 
     // first verify if the number is integer
-     if (heatingBTUH % 1 == 0){
-      if (lengthHeatingBTUH.length == 4 || lengthHeatingBTUH.length == 5 || lengthHeatingBTUH.length == 6) {
+     if (heatingBTUH % 1 === 0){
+      if (lengthHeatingBTUH.length === 4 || lengthHeatingBTUH.length === 5 || lengthHeatingBTUH.length === 6) {
 
         if (heatingBTUH >= 8000 || heatingBTUH <= 135000 ){
 
-        return null;
-      } else {
-        return  { 'Coling tons invalid!': true };
-      }
+          return null;
+        } else {
+          return  { Hbtuh_invalid_value: true };
+        }
 
       } else {
-        return  { 'Coling tons invalid!': true };
+        return  {  need_between_4_6_characters: true };
       }
 
     } else {
-      return  { 'Coling tons invalid!': true };
+      return  { it_not_integer: true };
     }
 
   }
