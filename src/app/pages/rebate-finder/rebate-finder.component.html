@@ -186,7 +186,7 @@
               Cooling tons must be 1 or 3 characters.
             </mat-error>
             <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('CT_invalid_value') && nominalSizeGroup.get('coolingTons')?.touched">
-              Invalid value (value between 0.5 and 5.0).
+              Invalid value (the value must be between 0.5 and 5.0).
             </mat-error>
           </mat-form-field>
 
@@ -204,7 +204,7 @@
               Heating BTUH must be between 4 and 6 characters.
             </mat-error>
             <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('Hbtuh_invalid_value') && nominalSizeGroup.get('heatingBTUH')?.touched">
-              Invalid value (value between 8000 and 135000).
+              Invalid value (the value must be between 8000 and 135000).
             </mat-error>
             <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('it_not_integer') && nominalSizeGroup.get('heatingBTUH')?.touched">
               the value is not integer.
