@@ -19,7 +19,7 @@
               <input matInput placeholder="Cooling tons" type="number" formControlName="coolingTons" required>
 
               <!-- error -->
-              <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('is_not_number') ">
+              <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('is_not_number')  && nominalSizeGroup.get('coolingTons')?.touched">
                 Cooling tons <strong>must be a number.</strong>
               </mat-error>
               <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('null_not_permit') && nominalSizeGroup.get('coolingTons')?.touched">
