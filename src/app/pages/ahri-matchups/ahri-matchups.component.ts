@@ -269,7 +269,7 @@ export class AhriMatchupsComponent implements OnInit {
      if (heatingBTUH % 1 === 0){
       if (lengthHeatingBTUH.length === 4 || lengthHeatingBTUH.length === 5 || lengthHeatingBTUH.length === 6) {
 
-        if (heatingBTUH >= 8000 || heatingBTUH <= 135000 ){
+        if (heatingBTUH >= 8000 && heatingBTUH <= 135000 ){
 
           return null;
         } else {
