@@ -87,8 +87,8 @@ export class RebateFinderComponent implements OnInit {
     });
 
     this.nominalSizeGroup = this._formBuilder.group({
-      heatingBTUH: ['', [this.ValidateHeatingBTUH]],
-      coolingTons: ['', [this.ValidateCoolingToms]],
+      heatingBTUH: ['', [this.ValidateHeatingBTUH, this.ValidateNumber]],
+      coolingTons: ['', [this.ValidateCoolingToms, this.ValidateNumber]],
     });
 
     this.furnaceGroup = this._formBuilder.group({
@@ -534,20 +534,44 @@ export class RebateFinderComponent implements OnInit {
     
   }
 
-   /* validators */
-   ValidateCoolingToms(control: AbstractControl) : ValidationErrors | null  {
+  /* validators */
+  /* note: it will always show the error: "Cooling tons is required"
+     when "e" is entered as input, because its type = object and its value = null */
+     ValidateNumber(control: AbstractControl) : ValidationErrors | null  {
 
-    let coolingToms = control.value;
-    let lengthCoolingToms!: string;
-
-    if (coolingToms != null){
-      lengthCoolingToms = coolingToms.toString();
-    }else {
-      return  { null_not_permit : true };
+      let coolingToms = control.value;
+      let typeCT = typeof coolingToms;
+  
+      if (typeCT === 'number' ){
+        return null;
+      } 
+      else {
+        if (typeCT === 'object' &&  coolingToms === null){
+          return  { null_not_permit : true };
+        } if (typeCT === 'string' &&  coolingToms === ''){
+          return  { need_1_or_3_characters : true };
+        } 
+        else{
+          return  { is_not_number : true };
+        }
+        
+      }
+     
     }
-
-    if (lengthCoolingToms.length === 1 || lengthCoolingToms.length === 3 ) {
-
+  
+    ValidateCoolingToms(control: AbstractControl) : ValidationErrors | null  {
+  
+      let coolingToms = control.value;
+      let lengthCoolingToms!: string;
+  
+      if (coolingToms != null){
+        lengthCoolingToms = coolingToms.toString();
+      }else {
+        return  { null_not_permit : true };
+      }
+      
+      
+      if (lengthCoolingToms.length === 1 || lengthCoolingToms.length === 3 ) {
         if (coolingToms === 0.5 || coolingToms === 1.0 || coolingToms === 1.5 || coolingToms === 2.0 || coolingToms === 2.5 ||
           coolingToms === 3.0 || coolingToms === 3.5 || coolingToms === 4.0 || coolingToms === 4.5 || coolingToms === 5.0 ||
           coolingToms === 1 || coolingToms === 2 || coolingToms === 3 || coolingToms === 4 || coolingToms === 5){
@@ -556,45 +580,49 @@ export class RebateFinderComponent implements OnInit {
         else {
           return  { CT_invalid_value: true };
         }
-    }
-    else {
-      return  { need_1_or_3_characters: true };
-    }
-  }
-
-
-  ValidateHeatingBTUH(control: AbstractControl) : ValidationErrors | null  {
-
-    let heatingBTUH = control.value;
-    let lengthHeatingBTUH!: string;
-
-    if (heatingBTUH != null){
-      lengthHeatingBTUH = heatingBTUH.toString();
-    }else {
-      return  { null_not_permit: true };
-    }
-
-    // first verify if the number is integer
-     if (heatingBTUH % 1 === 0){
-      if (lengthHeatingBTUH.length === 4 || lengthHeatingBTUH.length === 5 || lengthHeatingBTUH.length === 6) {
-
-        if (heatingBTUH >= 8000 && heatingBTUH <= 135000 ){
-
-          return null;
-        } else {
-          return  { Hbtuh_invalid_value: true };
-        }
-
-      } else {
-        return  {  need_between_4_6_characters: true };
       }
-
-    } else {
-      return  { it_not_integer: true };
+      else {
+        return  { need_1_or_3_characters: true };
+      }
+  
+  
+      
     }
-
-  }
-
+  
+  
+    ValidateHeatingBTUH(control: AbstractControl) : ValidationErrors | null  {
+  
+      let heatingBTUH = control.value;
+      let lengthHeatingBTUH!: string;  
+  
+  
+      if (heatingBTUH != null){
+        lengthHeatingBTUH = heatingBTUH.toString();
+      }else {
+        return  { null_not_permit: true };
+      }
+      
+  
+      // first verify if the number is integer
+       if (heatingBTUH % 1 === 0){
+        if (lengthHeatingBTUH.length === 4 || lengthHeatingBTUH.length === 5 || lengthHeatingBTUH.length === 6) {
+  
+          if (heatingBTUH >= 8000 && heatingBTUH <= 135000 ){
+  
+            return null;
+          } else {
+            return  { Hbtuh_invalid_value: true };
+          }
+  
+        } else {
+          return  {  need_between_4_6_characters: true };
+        }
+  
+      } else {
+        return  { it_not_integer: true };
+      }
+  
+    }
+  
 }
-
-
+  
