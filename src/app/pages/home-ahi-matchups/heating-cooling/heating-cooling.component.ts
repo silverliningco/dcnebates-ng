@@ -7,11 +7,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from 'src/app/services/api.service';
 
-
 @Component({
-  selector: 'app-ahri-matchups',
-  templateUrl: './ahri-matchups.component.html',
-  styleUrls: ['./ahri-matchups.component.css'],
+  selector: 'app-heating-cooling',
+  templateUrl: './heating-cooling.component.html',
+  styleUrls: ['./heating-cooling.component.css'],
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
@@ -19,9 +18,10 @@ import { ApiService } from 'src/app/services/api.service';
     },
   ]
 })
-export class AhriMatchupsComponent implements OnInit {
 
+export class HeatingCoolingComponent implements OnInit {
 
+  
   nominalSizeGroup !: FormGroup;
   furnaceGroup !: FormGroup;
   productLinesGroup !: FormGroup;
@@ -316,3 +316,4 @@ export class AhriMatchupsComponent implements OnInit {
   }
 
 }
+
