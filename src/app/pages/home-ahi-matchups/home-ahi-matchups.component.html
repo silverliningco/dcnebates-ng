@@ -1,39 +1,53 @@
-<!-- cooling-only -->
-<mat-card fxFlex="39" fxFlex.sm="80" fxFlex.xs="100" class="rc-card-home" routerLink="cooling-only">
-    <div class="rc-card-home-icon" fxLayout fxLayoutAlign="center center">
-      <mat-icon>discount_icon</mat-icon>
-    </div>
-    <mat-card-title>Cooling only</mat-card-title>
-</mat-card>
 
-<!-- furnace-only-install -->
-<mat-card fxFlex="39" fxFlex.sm="80" fxFlex.xs="100" class="rc-card-home" routerLink="furnace-only-install">
-    <div class="rc-card-home-icon" fxLayout fxLayoutAlign="center center">
-      <mat-icon>discount_icon</mat-icon>
-    </div>
-    <mat-card-title>Furnace only installations</mat-card-title>
-</mat-card>
+<div fxLayout="row column" fxLayoutAlign="center stretch" fxLayoutGap="16px grid">
+  
+  <!-- heating-cooling -->
+  <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100">
+    <mat-card class="rc-card h-ahri" routerLink="heating-cooling">
+      <div class="icon" fxLayout fxLayoutAlign="center center">
+        <mat-icon>discount_icon</mat-icon>
+      </div>
+      <mat-card-title>Heating and cooling</mat-card-title>
+    </mat-card>
+  </div>
 
-<!-- know-model-nbr -->
-<mat-card fxFlex="39" fxFlex.sm="80" fxFlex.xs="100" class="rc-card-home" routerLink="know-model-nbr">
-    <div class="rc-card-home-icon" fxLayout fxLayoutAlign="center center">
-      <mat-icon>discount_icon</mat-icon>
-    </div>
-    <mat-card-title>I know my model</mat-card-title>
-</mat-card>
+  <!-- cooling-only -->
+  <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100">
+    <mat-card class="rc-card h-ahri" routerLink="cooling-only">
+      <div class="icon" fxLayout fxLayoutAlign="center center">
+        <mat-icon>ac_unit</mat-icon>
+      </div>
+      <mat-card-title>Cooling only</mat-card-title>
+    </mat-card>
+  </div> 
 
-<!-- exis-non-ECM-furnace -->
-<mat-card fxFlex="39" fxFlex.sm="80" fxFlex.xs="100" class="rc-card-home" routerLink="exis-non-ECM-furnace">
-    <div class="rc-card-home-icon" fxLayout fxLayoutAlign="center center">
-      <mat-icon>discount_icon</mat-icon>
-    </div>
-    <mat-card-title>Existing or non-ECM furnace instalation</mat-card-title>
-</mat-card>
+  <!-- furnace-only-install -->
+  <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100">
+    <mat-card class="rc-card h-ahri" routerLink="furnace-only-install">
+      <div class="icon" fxLayout fxLayoutAlign="center center">
+        <mat-icon>inbox</mat-icon>
+      </div>
+      <mat-card-title>Furnace only installations</mat-card-title>
+    </mat-card>
+  </div>
 
-<!-- heating-cooling -->
-<mat-card fxFlex="39" fxFlex.sm="80" fxFlex.xs="100" class="rc-card-home" routerLink="heating-cooling">
-    <div class="rc-card-home-icon" fxLayout fxLayoutAlign="center center">
-      <mat-icon>discount_icon</mat-icon>
-    </div>
-    <mat-card-title>Heating and cooling</mat-card-title>
-</mat-card>
+  <!-- exis-non-ECM-furnace -->
+  <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100">
+    <mat-card class="rc-card h-ahri" routerLink="exis-non-ECM-furnace">
+      <div class="icon" fxLayout fxLayoutAlign="center center">
+        <mat-icon>inbox</mat-icon>
+      </div>
+      <mat-card-title>Existing or non-ECM furnace instalation</mat-card-title>
+    </mat-card>
+  </div>
+
+  <!-- know-model-nbr -->
+  <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100">
+    <mat-card class="rc-card h-ahri" routerLink="know-model-nbr">
+      <div class="icon" fxLayout fxLayoutAlign="center center">
+        <mat-icon>discount_icon</mat-icon>
+      </div>
+      <mat-card-title>I know my model</mat-card-title>
+    </mat-card>
+  </div>
+</div>

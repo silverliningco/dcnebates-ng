@@ -285,7 +285,7 @@ footer {
 
 /* Home Page*/
 /* Card home */
-mat-card.rc-card-home {
+mat-card.rc-card, mat-card.rc-card-home {
   padding: 3rem 2rem;
 }
 mat-card.rc-card-home:hover {
@@ -746,5 +746,36 @@ span.rc-info-title-ar {
   @media screen and (max-width: 767px){
     .letter {
       width: 85%;
+    }
+  }
+
+  /*Page AHRI Matchups home*/
+  .rc-card{
+    text-align: center;
+  }
+  .rc-card .icon{
+    margin: 0 auto 20px auto;
+
+  }
+  .rc-card .icon mat-icon{
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+    color: var(--rc-primary-light-color);
+  }
+
+  .rc-card .mat-card-title{
+    color: var(--rc-primary-color);
+    font-size: 20px;
+    text-align: center;
+    padding-top: 20px;
+    font-weight: bold;
+  }
+  .rc-card.h-ahri{
+    min-height: 140px;
+  }
+  @media (max-width: 599px) {
+    .rc-card.h-ahri{
+      min-height: auto;
     }
   }
