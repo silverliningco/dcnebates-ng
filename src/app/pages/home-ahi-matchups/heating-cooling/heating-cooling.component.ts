@@ -20,14 +20,12 @@ import { ApiService } from 'src/app/services/api.service';
 })
 
 export class HeatingCoolingComponent implements OnInit {
-
   
   nominalSizeGroup !: FormGroup;
   furnaceGroup !: FormGroup;
   productLinesGroup !: FormGroup;
   filtersGroup !: FormGroup;
   payloadRebates: Array<any> = [];
-
 
   stepperOrientation: Observable<StepperOrientation>;
 
@@ -51,7 +49,6 @@ export class HeatingCoolingComponent implements OnInit {
       .pipe(
         map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
   }
-
 
   ngOnInit(): void {
 

@@ -14,7 +14,7 @@
 
             <!-- input -->
             <mat-form-field appearance="fill"  >
-                <mat-label>Outdoor unit</mat-label>
+                <mat-label>Outdoor unit</mat-label> 
                 <mat-select  #sGroup formControlName="outdoorUnit">
                     <mat-option [value]="'MA'" radioGroup="sGroup"> MA </mat-option>
                     <mat-option [value]="'ME'" radioGroup="sGroup"> ME  </mat-option>
@@ -33,17 +33,7 @@
                     <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
                 </mat-select>
               </mat-form-field>
-  
-              <!-- radio button -->
-              <mat-label>Replace / Displace fuel</mat-label>
-              <mat-radio-group #rGroup formControlName="replaceDisplaceFuel" class="rc-radio-group">
-                <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>  <br>
-                <mat-radio-button [value]="'propane'" radioGroup="rGroup">propane</mat-radio-button> <br>
-                <mat-radio-button [value]="'electric heat'" radioGroup="rGroup">Electric Heat</mat-radio-button>  <br>
-                <mat-radio-button [value]="'existing or n/a'" radioGroup="rGroup">Existing or N/A</mat-radio-button>
-              </mat-radio-group>
-  
-              <!-- selects -->
+
               <mat-form-field appearance="fill"  >
                 <mat-label>Furnace</mat-label>
                 <mat-select  #sGroup formControlName="furnace">
@@ -53,16 +43,8 @@
                     <mat-option [value]="'RI'" radioGroup="sGroup"> RI </mat-option>
                 </mat-select>
               </mat-form-field>
-  
-              <mat-checkbox class="nkn-my-medium" formControlName="existing_nonECM">Existing or Non-ECM</mat-checkbox>
 
-              <mat-label>Fuel (If applicable)</mat-label>
-              <mat-radio-group #rGroup formControlName="fuel" class="rc-radio-group">
-                <mat-radio-button [value]="'natural gas'" radioGroup="rGroup">Natural Gas</mat-radio-button>  <br>
-                <mat-radio-button [value]="'propane'" radioGroup="rGroup">propane</mat-radio-button> <br>
-                <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>
-              </mat-radio-group>
-
+              
             <!-- button -->
             <div fxLayout="column" fxLayoutAlign="center end" class="rc-stepper-buttons">
                 <button type="button" [disabled]="modelNumberGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
@@ -80,61 +62,32 @@
     <mat-step [stepControl]="eligibilityDetail" errorMessage="Complete all fields.">
         <form [formGroup]="eligibilityDetail">
         <!-- Name of step -->
-        <ng-template matStepLabel>Location</ng-template>
-        <h2 class="rc-main-title">Location</h2>
+        <ng-template matStepLabel>System detail</ng-template>
+        <h2 class="rc-main-title">System detail</h2>
 
         <!-- Content of step -->
         <div fxLayout fxLayoutAlign="center">
             <!-- User input -->
             <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
                 <!-- User input -->
-                <mat-form-field appearance="fill"  >
-                    <mat-label>State</mat-label>
-                    <mat-select  #sGroup formControlName="state">
-                        <mat-option >
-                        q
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-    
-                <mat-form-field appearance="fill"  >
-                    <mat-label>Electric Utility Provider</mat-label>
-                    <mat-select  #sGroup formControlName="electricProvider">
-                    <mat-option >
-                        e
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-    
-                <mat-form-field appearance="fill"  >
-                    <mat-label>Gas / Oil Utility</mat-label>
-                    <mat-select  #sGroup formControlName="gasOilUtility">
-                    <mat-option >
-                        e
-                    </mat-option>
-                    </mat-select>
-                </mat-form-field>
-    
-                <!-- radio buttons -->
-                <mat-label> Existing furnace type?</mat-label>
-                <mat-radio-group #rGroup formControlName="existingFurnaceType" class="rc-radio-group">
-                <mat-radio-button [value]="'condensing'" radioGroup="rGroup">Condensing</mat-radio-button>  <br>
-                <mat-radio-button [value]="'none - condensing'" radioGroup="rGroup">None - condensing</mat-radio-button>
-                </mat-radio-group>
-    
-                <mat-label> HP System is the sole source of heat?</mat-label>
-                <mat-radio-group #rGroup formControlName="hpSystem" class="rc-radio-group">
-                <mat-radio-button [value]="'yes'" radioGroup="rGroup">Yes</mat-radio-button>  <br>
-                <mat-radio-button [value]="'no'" radioGroup="rGroup">No</mat-radio-button>
-                </mat-radio-group>
-    
-                <mat-label> Replace / displace fuel type?</mat-label>
+                
+                <mat-checkbox class="nkn-my-medium" formControlName="existing_nonECM">Existing or Non-ECM</mat-checkbox>
+  
+                <!-- radio button -->
+                <mat-label>Replace / Displace fuel</mat-label>
                 <mat-radio-group #rGroup formControlName="replaceDisplaceFuel" class="rc-radio-group">
-                <mat-radio-button [value]="'Natural gas'" radioGroup="rGroup">Natutal gas</mat-radio-button>
-                <mat-radio-button [value]="'Propane'" radioGroup="rGroup">Propane</mat-radio-button>
-                <mat-radio-button [value]="'Oil'" radioGroup="rGroup">Oil</mat-radio-button>
-                <mat-radio-button [value]="'Electric resistance heat'" radioGroup="rGroup">Electric resistance heat</mat-radio-button>
+                    <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>  <br>
+                    <mat-radio-button [value]="'propane'" radioGroup="rGroup">propane</mat-radio-button> <br>
+                    <mat-radio-button [value]="'electric heat'" radioGroup="rGroup">Electric Heat</mat-radio-button>  <br>
+                    <mat-radio-button [value]="'existing or n/a'" radioGroup="rGroup">Existing or N/A</mat-radio-button>
                 </mat-radio-group>
+
+                <mat-label>Fuel (If applicable)</mat-label>
+                <mat-radio-group #rGroup formControlName="fuel" class="rc-radio-group">
+                    <mat-radio-button [value]="'natural gas'" radioGroup="rGroup">Natural Gas</mat-radio-button>  <br>
+                    <mat-radio-button [value]="'propane'" radioGroup="rGroup">propane</mat-radio-button> <br>
+                    <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>
+                </mat-radio-group>                      
 
                 <!-- button -->
                 <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
@@ -149,14 +102,5 @@
         </form>
     </mat-step>
     <!-- Step 2 end -->
-
-    <!-- results  -->
-    <mat-step>
-        <ng-template matStepLabel>AHRI Combinations</ng-template>
-
-      <h2 class="rc-main-title">AHRI Combinations</h2>
-    </mat-step>
-    <!-- results end -->
-
 
 </mat-stepper>
