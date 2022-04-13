@@ -301,6 +301,31 @@
                   <option value="">Show all</option>
                 </select>
               </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Configuration</mat-label>
+                <select matNativeControl required>
+                  <option value="Horizontal">Horizontal</option>
+                  <option value="Multipoise">Multipoise</option>
+                  <option value="Upflow">Upflow</option>
+                  <option value="Vertical">Vertical</option>
+                  <option value="None">None</option>
+                </select>
+              </mat-form-field>
+              
+                <!--radio button-->
+                <div>
+                  <mat-label class="rc-radio-label">Configuration</mat-label>
+                  <mat-radio-group #configuration  fxLayout="column">
+                    <mat-radio-button [value]="'Horizontal'" radioGroup="configuration">Horizontal</mat-radio-button>
+                    <mat-radio-button [value]="'Multipoise'" radioGroup="configuration">Multipoise</mat-radio-button>
+                    <mat-radio-button [value]="'Upflow'" radioGroup="configuration">Upflow</mat-radio-button>
+                    <mat-radio-button [value]="'Vertical'" radioGroup="configuration">Vertical</mat-radio-button>
+                    <mat-radio-button [value]="'None'" radioGroup="configuration">None</mat-radio-button>
+                    <!--<mat-error *ngIf="furnaceGroup.get('sizeFor')?.hasError('required') && furnaceGroup.get('configuration')?.touched">
+                      Furnace Fuel is <strong>required</strong>
+                    </mat-error>-->
+                  </mat-radio-group>
+                </div>
             </div>
 
           </form>
@@ -317,6 +342,7 @@
                     <th>Outdoor Unit</th>
                     <th>Indoor Unit</th>
                     <th>FURNACE</th>
+                    <th>Configuration</th>
                     <th>SEER</th>
                     <th>EER</th>
                     <th>HSPF</th>
@@ -331,6 +357,7 @@
                 <td data-title="Outdoor unit">{{ahriCombination.outdoorUnitSKU}}</td>
                 <td data-title="Indoor unit">{{ahriCombination.indoorUnitSKU}}</td>
                 <td data-title="Furnace">{{ahriCombination.furnaceSKU}}</td>
+                <td data-title="Configuration"></td>
                 <td data-title="SEER">{{ahriCombination.SEER}}</td>
                 <td data-title="EER">{{ahriCombination.EER}}</td>
                 <td data-title="HSPF">{{ahriCombination.HSPF}}</td>

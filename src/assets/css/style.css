@@ -117,7 +117,7 @@ h1, h2, h3, h4, h5 {
 
 /*Radio button*/
 .mat-radio-group{
-  margin: 15px 0;
+  margin-bottom: 15px;
 }
 .mat-radio-group mat-radio-button{
   margin: 5px;
@@ -771,11 +771,22 @@ span.rc-info-title-ar {
     padding-top: 20px;
     font-weight: bold;
   }
+  .rc-card .mat-card-title::before{
+    content: '';
+    border-top: solid 3px var(--rc-accent-color);
+    width: 50px;
+    display: block;
+    margin: 0.75rem auto;
+  }
   .rc-card.h-ahri{
-    min-height: 140px;
+    min-height: 180px;
   }
   @media (max-width: 599px) {
     .rc-card.h-ahri{
       min-height: auto;
     }
+  }
+  .rc-radio-label{
+    color: var(--rc-text-light-color);
+    font-size: 12px;
   }
