@@ -16,7 +16,7 @@ import { ApiService } from 'src/app/services/api.service';
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: { showError: true },
     },
-  ]
+  ] 
 })
 
 export class KnowModelNbrComponent implements OnInit {
@@ -48,19 +48,14 @@ export class KnowModelNbrComponent implements OnInit {
     this.modelNumberGroup = this._formBuilder.group({
       outdoorUnit: ['', ],
       indoorUnit: ['', ],
-      replaceDisplaceFuel: ['', ],
       furnace: ['', ],
-      existing_nonECM: ['', ],
-      fuel: ['', ],
+      
     });
 
     this.eligibilityDetail = this._formBuilder.group({
-      state: ['', ],
-      electricProvider: ['', ],
-      gasOilUtility: ['', ],
-      existingFurnaceType: ['', ],
-      hpSystem: ['', ],
       replaceDisplaceFuel: ['', ],
+      existing_nonECM: ['', ],
+      fuel: ['', ],
     });
 
     

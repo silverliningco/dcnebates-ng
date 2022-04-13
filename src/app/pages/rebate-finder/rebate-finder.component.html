@@ -186,7 +186,7 @@
               Cooling tons is <strong>required</strong>
             </mat-error>
             <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('need_1_or_3_characters') && nominalSizeGroup.get('coolingTons')?.touched">
-              Cooling tons must be <strong>between 1 and 3 digits</strong>.
+              Cooling tons must be <strong> 1 or 2 digits</strong>.
             </mat-error>
             <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('CT_invalid_value') && nominalSizeGroup.get('coolingTons')?.touched">
               Cooling tons must be a number <strong>between 0.5 and 5.0</strong>.
@@ -247,6 +247,8 @@
             <mat-radio-button [value]="'Propane'" radioGroup="rGroup">Propane</mat-radio-button>
             <mat-radio-button [value]="'Heating Oil'" radioGroup="rGroup">Heating Oil</mat-radio-button>
             <mat-radio-button [value]="'None'" radioGroup="rGroup">None</mat-radio-button>
+
+            <!-- error -->
             <mat-error *ngIf="furnaceGroup.get('fuelSource')?.hasError('required') && furnaceGroup.get('fuelSource')?.touched">
               Furnace Fuel is <strong>required</strong>
             </mat-error>
@@ -281,6 +283,8 @@
 
     <h2 class="rc-main-title">AHRI Combinations</h2>
     <div  *ngIf="!this.noResults">
+
+      <!-- product lines -->
       <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="16">
         <form [formGroup]="productLinesGroup" class="rc-radio-options">
           <mat-radio-group aria-label="Select an option" formControlName="productLine">
@@ -288,8 +292,11 @@
           </mat-radio-group>
         </form>
       </div>
+      <!-- product lines end -->
+
       <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16">
-        <!-- User input -->
+        
+        <!-- filters -->
         <div fxFlex="25" fxLayout="column" fxLayoutAlign="start" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="25" class="rc-filters" fxLayoutGap.sm="16"  fxLayoutGap.xs="16">
           <h5>Filters</h5>
           <form [formGroup]="filtersGroup">
@@ -327,14 +334,18 @@
                   </mat-radio-group>
                 </div>
             </div>
-
           </form>
         </div>
+        <!-- filters end -->
+
         <div fxFlex="75" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="75">
 
+          <!-- data of pagination -->
           <div fxLayout fxLayoutAlign="end center">
             <span class="rc-nr-pages">{{ beginning }} - {{ end }} of  {{results?.length}}</span>
           </div>
+
+          <!-- table -->
           <table>
             <thead>
                 <tr>
@@ -374,7 +385,7 @@
             </tr>
             </tbody>
         </table>
-
+        <!-- table end -->
 
         <!-- pagination -->
           <div fxLayout fxLayoutAlign="end center" class="rc-pagination">
@@ -384,6 +395,8 @@
         </div>
       </div>
     </div>
+
+    <!-- message no results -->
     <div *ngIf="this.noResults">
       <div fxLayout fxLayoutAlign="center center" fxLayoutGap="16px" fxLayout.sm="column" fxLayout.xs="column">
         <div fxFlex="80" fxFlex.sm="80" fxFlex.xs="80" class="rc-alert">
@@ -394,12 +407,10 @@
           <div fxLayout fxLayoutAlign="end">
             <button mat-button matStepperPrevious type="button">Back</button>
           </div>
-
         </div>
       </div>
-
     </div>
-
+    <!-- message no resultsa end -->
 
   </mat-step>
   <!-- results end -->
