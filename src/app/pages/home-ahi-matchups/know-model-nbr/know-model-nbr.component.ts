@@ -27,6 +27,7 @@ export class KnowModelNbrComponent implements OnInit {
   stepperOrientation: Observable<StepperOrientation>;
 
   myCommerInfo !: any;
+  payload!: any;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -46,18 +47,22 @@ export class KnowModelNbrComponent implements OnInit {
     }
 
     this.modelNumberGroup = this._formBuilder.group({
-      outdoorUnit: ['', ],
-      indoorUnit: ['', ],
-      furnace: ['', ],
+      outdoorUnit: ['', Validators.required],
+      indoorUnit: ['', Validators.required],
+      furnace: ['', Validators.required],
       
     });
+    
+  }
 
-    this.eligibilityDetail = this._formBuilder.group({
-      replaceDisplaceFuel: ['', ],
-      existing_nonECM: ['', ],
-      fuel: ['', ],
-    });
 
+  findModel(){
+    /* It does not have an endpoint yet in golang, the names of the fields that are sent must also be verified. */
+    this.payload = {
+      commerceInfo: this.myCommerInfo,
+      nominalSize: this.modelNumberGroup.value
+    }
+    
     
   }
 

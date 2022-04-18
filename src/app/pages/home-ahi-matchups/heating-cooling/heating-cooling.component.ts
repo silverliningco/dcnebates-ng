@@ -60,6 +60,7 @@ export class HeatingCoolingComponent implements OnInit {
     this.nominalSizeGroup = this._formBuilder.group({
       heatingBTUH: ['', [this.ValidateHeatingBTUH, this.ValidateNumber]],
       coolingTons: ['', [this.ValidateCoolingToms, this.ValidateNumber]],
+      equipmentSize: ['', Validators.required],
     });
 
     this.furnaceGroup = this._formBuilder.group({
@@ -96,6 +97,7 @@ export class HeatingCoolingComponent implements OnInit {
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       requiredRebates: this.payloadRebates
     }
+    console.log(payload);
     this.CallProductLines(payload);
   }
 

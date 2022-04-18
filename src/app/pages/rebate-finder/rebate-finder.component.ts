@@ -236,6 +236,7 @@ export class RebateFinderComponent implements OnInit {
   CallSearch(payload: any) {
     this._api.Search(JSON.stringify(payload)).subscribe({
       next: (resp) => {
+        console.log(resp);
         this.results = resp;
         this.ObtainPaginationText();
       },

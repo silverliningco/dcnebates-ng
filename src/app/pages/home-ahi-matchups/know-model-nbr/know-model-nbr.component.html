@@ -2,7 +2,7 @@
 
     <!-- Step 1 -->
     <mat-step [stepControl]="modelNumberGroup" errorMessage="Complete all fields.">
-        <form [formGroup]="modelNumberGroup">
+        <form [formGroup]="modelNumberGroup"  (ngSubmit)="findModel()">
         <!-- Name of step -->
         <ng-template matStepLabel>Model Numbers</ng-template>
         <h2 class="rc-main-title">Model Numbers</h2>
@@ -47,7 +47,9 @@
               
             <!-- button -->
             <div fxLayout="column" fxLayoutAlign="center end" class="rc-stepper-buttons">
-                <button type="button" [disabled]="modelNumberGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+                <button type="submit" [disabled]="modelNumberGroup.invalid" mat-raised-button color="primary" matStepperNext
+                [routerLink]="['/home/detail']" [queryParams]="{skus:[] | json, ahri_refs:[] | json, params:{commerceInfo: myCommerInfo, modelNumberGroup: payload} | json}"  target="_blank">
+                Continue
                 <mat-icon>arrow_forward</mat-icon>
                 </button>
             </div>
@@ -57,50 +59,5 @@
         </form>
     </mat-step>
     <!-- Step 1 end  -->
-
-    <!-- Step 2 -->
-    <mat-step [stepControl]="eligibilityDetail" errorMessage="Complete all fields.">
-        <form [formGroup]="eligibilityDetail">
-        <!-- Name of step -->
-        <ng-template matStepLabel>System detail</ng-template>
-        <h2 class="rc-main-title">System detail</h2>
-
-        <!-- Content of step -->
-        <div fxLayout fxLayoutAlign="center">
-            <!-- User input -->
-            <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
-                <!-- User input -->
-                
-                <mat-checkbox class="nkn-my-medium" formControlName="existing_nonECM">Existing or Non-ECM</mat-checkbox>
-  
-                <!-- radio button -->
-                <mat-label>Replace / Displace fuel</mat-label>
-                <mat-radio-group #rGroup formControlName="replaceDisplaceFuel" class="rc-radio-group">
-                    <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>  <br>
-                    <mat-radio-button [value]="'propane'" radioGroup="rGroup">propane</mat-radio-button> <br>
-                    <mat-radio-button [value]="'electric heat'" radioGroup="rGroup">Electric Heat</mat-radio-button>  <br>
-                    <mat-radio-button [value]="'existing or n/a'" radioGroup="rGroup">Existing or N/A</mat-radio-button>
-                </mat-radio-group>
-
-                <mat-label>Fuel (If applicable)</mat-label>
-                <mat-radio-group #rGroup formControlName="fuel" class="rc-radio-group">
-                    <mat-radio-button [value]="'natural gas'" radioGroup="rGroup">Natural Gas</mat-radio-button>  <br>
-                    <mat-radio-button [value]="'propane'" radioGroup="rGroup">propane</mat-radio-button> <br>
-                    <mat-radio-button [value]="'oil'" radioGroup="rGroup">Oil</mat-radio-button>
-                </mat-radio-group>                      
-
-                <!-- button -->
-                <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
-                    <button type="button" mat-button matStepperPrevious>Back</button>
-                    <button type="submit" [disabled]="eligibilityDetail.invalid" mat-raised-button color="primary" matStepperNext>Continue
-                    <mat-icon>arrow_forward</mat-icon>
-                    </button>
-                </div>
-
-            </div>
-        </div>
-        </form>
-    </mat-step>
-    <!-- Step 2 end -->
 
 </mat-stepper>

@@ -59,13 +59,13 @@
 
             <!--radio button-->
             <div>
-              <mat-label class="rc-radio-label">Select type of fossil fuel available at the residence.</mat-label>
-              <mat-radio-group #typeFossil  fxLayout="column">
-                <mat-radio-button [value]="'Cooling Capacity'" radioGroup="typeFossil">Cooling Capacity</mat-radio-button>
-                <mat-radio-button [value]="'HP Heating Capacity'" radioGroup="typeFossil">HP Heating Capacity</mat-radio-button>
-                <!--<mat-error *ngIf="furnaceGroup.get('typeFossil')?.hasError('required') && furnaceGroup.get('typeFossil')?.touched">
-                  Furnace Fuel is <strong>required</strong>
-                </mat-error>-->
+              <mat-label class="rc-radio-label">Equipment search based on:</mat-label>
+              <mat-radio-group #rGroup formControlName="equipmentSize"  fxLayout="column">
+                <mat-radio-button [value]="'Cooling Capacity'" radioGroup="rGroup">Cooling Capacity</mat-radio-button>
+                <mat-radio-button [value]="'HP Heating Capacity'" radioGroup="rGroup">HP Heating Capacity</mat-radio-button>
+                <mat-error *ngIf="furnaceGroup.get('equipmentSize')?.hasError('required') && furnaceGroup.get('equipmentSize')?.touched">
+                  Equipment Size <strong>required</strong>
+                </mat-error>
               </mat-radio-group>
             </div>
 
