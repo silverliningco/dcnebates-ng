@@ -142,7 +142,6 @@ h1, h2, h3, h4, h5 {
 
 /*container*/
 .rc-container, .xng-breadcrumb-root .xng-breadcrumb-list {
-  width: 1140px;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
@@ -150,6 +149,11 @@ h1, h2, h3, h4, h5 {
 }
 .rc-container {
   padding-top: 1.5rem;
+}
+@media screen and (min-width: 1400px){
+  .rc-container, .xng-breadcrumb-root .xng-breadcrumb-list{
+    width: 1320px;
+  }
 }
 @media screen and (min-width: 992px) and (max-width: 1199px){
   .rc-container, .xng-breadcrumb-root .xng-breadcrumb-list{
