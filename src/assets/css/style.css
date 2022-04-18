@@ -188,6 +188,11 @@ h1, h2, h3, h4, h5 {
   display: block;
   overflow-x: auto;
 }
+@media screen and (max-width: 767px){
+  .table-overflow{
+    overflow-x: initial;
+  }
+}
 table {
   border-collapse: collapse;
   border-spacing: 0;
