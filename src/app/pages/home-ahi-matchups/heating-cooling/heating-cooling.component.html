@@ -136,15 +136,17 @@
 
         <!-- product lines -->
         <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="16">
-          <form [formGroup]="productLinesGroup" class="rc-radio-options">
-            <mat-radio-group aria-label="Select an option" formControlName="productLine">
-              <mat-radio-button *ngFor="let proLine of productLines" [value]="proLine.id" (click)="SelectProductLine(proLine.id)">{{proLine.title}}</mat-radio-button>
-            </mat-radio-group>
-          </form>
+          <div class="rc-radio-options">
+            <form [formGroup]="productLinesGroup"> 
+                <mat-radio-group aria-label="Select an option" formControlName="productLine">
+                  <mat-radio-button *ngFor="let proLine of productLines" [value]="proLine.id" (click)="SelectProductLine(proLine.id)">{{proLine.title}}</mat-radio-button>
+                </mat-radio-group>            
+            </form>            
+          </div>
         </div>
         <!-- product lines end -->
 
-        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16">
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16"  class="rc-tab-content">
           
           <!-- filters -->
           <div fxFlex="25" fxLayout="column" fxLayoutAlign="start" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="25" class="rc-filters" fxLayoutGap.sm="16"  fxLayoutGap.xs="16">

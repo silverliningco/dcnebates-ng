@@ -24,6 +24,7 @@ body {
 main{
   min-height: calc(100% - 84px);
   padding-bottom: 1.5rem;
+  background-color: #fbfbfb;
 }
 
 a{
@@ -407,43 +408,92 @@ mat-card.rc-card-home mat-card-actions > button:hover {
 }
 
 /*Radio button type options*/
+.rc-tab-content{
+  padding: 2rem 1rem;
+  background-color: white;
+}
 .rc-radio-options{
-  margin-bottom: 1rem;
-  text-align: center;
+  clear: both;
+  display: inline-block;
+  width: 100%;
+  border-bottom: 1px solid var(--rc-primary-color);
+  padding: 0 10px;
+  position: relative;
+  height: 41px;
 }
 .rc-radio-options mat-radio-button {
   margin: 0 .65rem
 }
 .rc-radio-options span.mat-radio-container {
-  display: none;
+  position: absolute;
+  left: -99999em;
+  top: -99999em;
 }
 .rc-radio-options label{
-  background: white;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  margin: 5px;
-  border-radius: 5px;
   cursor: pointer;
-  padding: 0 5px;
-  border: 1px solid var(--rc-text-light-color);
-  transition: all 0.3s ease;
-  color: var(--rc-text-light-color);
-  font-size: .75rem;
-  text-transform: uppercase;
-  letter-spacing: .1rem;
-  padding: 5px;
+  float: left;
+  border: 1px solid #aaa;
+  border-bottom: 0;
+  background-color: #eeeeee;
+  margin-right: -1px;
+  padding: 0.5em 1em;
+  position: relative;
+  color: #444;
 }
 .rc-radio-options label .mat-radio-container{
   font-family: 'Raleway', sans-serif !important;
 }
 .rc-radio-options .mat-radio-checked label.mat-radio-label{
-  border: 2px solid var(--rc-primary-color);
-  background: white;
-  color: var(--rc-primary-color);
+  box-shadow: 0 3px 0 -1px #fff, inset 0 5px 0 -1px var(--rc-primary-color);
+    background-color: #fff;
+    border-color: var(--rc-primary-color);
+    z-index: 1;
+    color: var(--rc-primary-color);
 }
+@media screen and (max-width: 767px){
+  .rc-radio-options{
+    border-bottom: none;
+    padding: 0;
+    height: auto;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .rc-radio-options mat-radio-button {
+    margin: 0 .65rem
+  }
+  .rc-radio-options span.mat-radio-container {
+    display: none;
+  }
+  .rc-radio-options label{
+    background: white;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0 5px;
+    border: 1px solid var(--rc-text-light-color);
+    transition: all 0.3s ease;
+    color: var(--rc-text-light-color);
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+    padding: 5px;
+  }
+  .rc-radio-options label .mat-radio-container{
+    font-family: 'Raleway', sans-serif !important;
+  }
+  .rc-radio-options .mat-radio-checked label.mat-radio-label{
+    border: 2px solid var(--rc-primary-color);
+    background: white;
+    color: var(--rc-primary-color);
+    box-shadow: none;
+  }
+}
+
 
 /*ul style */
 ul.rc-list-details{
