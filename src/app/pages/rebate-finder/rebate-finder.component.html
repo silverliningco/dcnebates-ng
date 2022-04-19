@@ -174,23 +174,20 @@
         <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
 
           <!-- input -->
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="fill"  >
             <mat-label>Cooling tons</mat-label>
-            <input matInput placeholder="Cooling tons" type="number" formControlName="coolingTons" required>
-            
-            <!-- error -->
-            <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('is_not_number') && nominalSizeGroup.get('coolingTons')?.touched">
-              Cooling tons <strong>must be a number.</strong>
-            </mat-error>
-            <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('null_not_permit') && nominalSizeGroup.get('coolingTons')?.touched">
-              Cooling tons is <strong>required</strong>
-            </mat-error>
-            <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('need_1_or_3_characters') && nominalSizeGroup.get('coolingTons')?.touched">
-              Cooling tons must be <strong> 1 or 2 digits</strong>.
-            </mat-error>
-            <mat-error *ngIf="nominalSizeGroup.get('coolingTons')?.hasError('CT_invalid_value') && nominalSizeGroup.get('coolingTons')?.touched">
-              Cooling tons must be a number <strong>between 0.5 and 5.0</strong>.
-            </mat-error>
+            <mat-select  #sGroup formControlName="coolingTons">
+                <mat-option [value]="0.5" radioGroup="sGroup"> < 1.0 </mat-option>
+                <mat-option [value]="1.0" radioGroup="sGroup"> 1.0  </mat-option>
+                <mat-option [value]="1.5" radioGroup="sGroup"> 1.5 </mat-option>
+                <mat-option [value]="2.0" radioGroup="sGroup"> 2.0 </mat-option>
+                <mat-option [value]="2.5" radioGroup="sGroup"> 2.5 </mat-option>
+                <mat-option [value]="3.0" radioGroup="sGroup"> 3.0 </mat-option>
+                <mat-option [value]="3.5" radioGroup="sGroup"> 3.5 </mat-option>
+                <mat-option [value]="4.0" radioGroup="sGroup"> 4.0 </mat-option>
+                <mat-option [value]="4.5" radioGroup="sGroup"> 4.5 </mat-option>
+                <mat-option [value]="5.0" radioGroup="sGroup"> 5.0 </mat-option>
+            </mat-select>
           </mat-form-field>
 
 

@@ -59,7 +59,7 @@ export class HeatingCoolingComponent implements OnInit {
 
     this.nominalSizeGroup = this._formBuilder.group({
       heatingBTUH: ['', [this.ValidateHeatingBTUH, this.ValidateNumber]],
-      coolingTons: ['', [this.ValidateCoolingToms, this.ValidateNumber]],
+      coolingTons: ['', Validators.required],
       equipmentSize: ['', Validators.required],
     });
 
@@ -248,37 +248,6 @@ export class HeatingCoolingComponent implements OnInit {
     }
    
   }
-
-  ValidateCoolingToms(control: AbstractControl) : ValidationErrors | null  {
-
-    let coolingToms = control.value;
-    let lengthCoolingToms!: string;
-
-    if (coolingToms != null){
-      lengthCoolingToms = coolingToms.toString();
-    }else {
-      return  { null_not_permit : true };
-    }
-    
-    
-    if (lengthCoolingToms.length === 1 || lengthCoolingToms.length === 3 ) {
-      if (coolingToms === 0.5 || coolingToms === 1.0 || coolingToms === 1.5 || coolingToms === 2.0 || coolingToms === 2.5 ||
-        coolingToms === 3.0 || coolingToms === 3.5 || coolingToms === 4.0 || coolingToms === 4.5 || coolingToms === 5.0 ||
-        coolingToms === 1 || coolingToms === 2 || coolingToms === 3 || coolingToms === 4 || coolingToms === 5){
-        return null;
-      }
-      else {
-        return  { CT_invalid_value: true };
-      }
-    }
-    else {
-      return  { need_1_or_3_characters: true };
-    }
-
-
-    
-  }
-
 
   ValidateHeatingBTUH(control: AbstractControl) : ValidationErrors | null  {
 

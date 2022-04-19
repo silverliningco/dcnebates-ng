@@ -59,7 +59,7 @@ export class FurnaceOnlyInstallComponent implements OnInit {
     }
 
     this.nominalSizeGroup = this._formBuilder.group({
-      furnaceBTUH: ['', ],
+      furnaceBTUH: ['', [this.ValidateFurnace, this.ValidateNumber]],
     });
 
     this.furnaceGroup = this._formBuilder.group({
@@ -224,16 +224,16 @@ export class FurnaceOnlyInstallComponent implements OnInit {
      when "e" is entered as input, because its type = object and its value = null */
      ValidateNumber(control: AbstractControl) : ValidationErrors | null  {
 
-      let coolingToms = control.value;
-      let typeCT = typeof coolingToms;
+      let furnace = control.value;
+      let typeF = typeof furnace;
   
-      if (typeCT === 'number' ){
+      if (typeF === 'number' ){
         return null;
       } 
       else {
-        if (typeCT === 'object' &&  coolingToms === null){
+        if (typeF === 'object' &&  furnace === null){
           return  { null_not_permit : true };
-        } if (typeCT === 'string' &&  coolingToms === ''){
+        } if (typeF === 'string' &&  furnace === ''){
           return  { need_1_or_3_characters : true };
         } 
         else{
@@ -244,31 +244,38 @@ export class FurnaceOnlyInstallComponent implements OnInit {
      
     }
   
-    ValidateCoolingToms(control: AbstractControl) : ValidationErrors | null  {
+    ValidateFurnace(control: AbstractControl) : ValidationErrors | null  {
   
-      let coolingToms = control.value;
-      let lengthCoolingToms!: string;
+      let furnace = control.value;
+      let lengthFurnace!: string;  
   
-      if (coolingToms != null){
-        lengthCoolingToms = coolingToms.toString();
+  
+      if (furnace != null){
+        lengthFurnace = furnace.toString();
       }else {
-        return  { null_not_permit : true };
+        return  { null_not_permit: true };
       }
       
-      
-      if (lengthCoolingToms.length === 1 || lengthCoolingToms.length === 3 ) {
-        if (coolingToms === 0.5 || coolingToms === 1.0 || coolingToms === 1.5 || coolingToms === 2.0 || coolingToms === 2.5 ||
-          coolingToms === 3.0 || coolingToms === 3.5 || coolingToms === 4.0 || coolingToms === 4.5 || coolingToms === 5.0 ||
-          coolingToms === 1 || coolingToms === 2 || coolingToms === 3 || coolingToms === 4 || coolingToms === 5){
-          return null;
+  
+      // first verify if the number is integer
+       if (furnace % 1 === 0){
+        if (lengthFurnace.length === 4 || lengthFurnace.length === 5 || lengthFurnace.length === 6) {
+  
+          if (furnace >= 8000 && furnace <= 154000 ){
+  
+            return null;
+          } else {
+            return  { Fbtuh_invalid_value: true };
+          }
+  
+        } else {
+          return  {  need_between_4_6_characters: true };
         }
-        else {
-          return  { CT_invalid_value: true };
-        }
+  
+      } else {
+        return  { it_not_integer: true };
       }
-      else {
-        return  { need_1_or_3_characters: true };
-      }
+  
     }
 
 }
