@@ -70,6 +70,11 @@ export class ExisNonEcmComponent implements OnInit {
       indoorUnitSKU: ['', Validators.required],
       outdoorUnitSKU: ['', Validators.required],
       furnaceSKU: ['', Validators.required],
+
+      coilType: ['', Validators.required],
+      flushCoils: ['', Validators.required],
+      coilCasing: ['', Validators.required],
+      configuration: ['', Validators.required],
     });
 
     // If small screen, load only 3 rows for results else 10.
@@ -133,6 +138,10 @@ export class ExisNonEcmComponent implements OnInit {
     this.filtersGroup.controls['indoorUnitSKU'].setValue("");
     this.filtersGroup.controls['outdoorUnitSKU'].setValue("");
     this.filtersGroup.controls['furnaceSKU'].setValue("");
+    this.filtersGroup.controls['coilType'].setValue("");
+    this.filtersGroup.controls['flushCoils'].setValue("");
+    this.filtersGroup.controls['coilCasing'].setValue("");
+    this.filtersGroup.controls['configuration'].setValue("");
     this.CallFilters(payload)
 
     this.results = [];
