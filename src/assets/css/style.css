@@ -301,9 +301,11 @@ footer {
 /* Card home */
 mat-card.rc-card, mat-card.rc-card-home {
   padding: 3rem 2rem;
+  transition: box-shadow .3s;
 }
-mat-card.rc-card-home:hover {
+mat-card.rc-card:hover, mat-card.rc-card-home:hover {
   cursor: pointer;
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
 }
 .rc-card-home-icon {
   background-color: #f6f6f6;
@@ -395,16 +397,35 @@ mat-card.rc-card-home mat-card-actions > button:hover {
 /*HVAC Filters*/
 .rc-filters{
   background-color: white;
-  padding: 0 15px;
   border: 1px solid lightgrey;
   border-radius: 4px;
+  margin-top: 1rem;
+}
+.rc-filters-header{
+  padding: 0.75rem 1rem;
+  margin-bottom: 0;
+  background-color: rgba(0,0,0,.03);
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  color: var(--rc-primary-dark-color);
+  font-size: 14px;
+}
+.rc-filters-header h4{ 
+  padding-left: .5rem;
+}
+.rc-filters-body{
+  padding: 1rem;
+}
+.rc-filter-group{
+  padding-left: 1rem;
 }
 .rc-filters .mat-form-field{
   width: 100%;
 }
-.rc-filters h5{
-  margin: 5px 5px 15px 5px;
-  color: var(--rc-primary-dark-color);
+.rc-filters-body h5{
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  font-family: 'Bitter',sans-serif;
 }
 
 /*Radio button type options*/
@@ -419,10 +440,7 @@ mat-card.rc-card-home mat-card-actions > button:hover {
   border-bottom: 1px solid var(--rc-primary-color);
   padding: 0 10px;
   position: relative;
-  height: 41px;
-}
-.rc-radio-options mat-radio-button {
-  margin: 0 .65rem
+  height: 46px;
 }
 .rc-radio-options span.mat-radio-container {
   position: absolute;
@@ -431,14 +449,13 @@ mat-card.rc-card-home mat-card-actions > button:hover {
 }
 .rc-radio-options label{
   cursor: pointer;
-  float: left;
   border: 1px solid #aaa;
   border-bottom: 0;
   background-color: #eeeeee;
-  margin-right: -1px;
-  padding: 0.5em 1em;
+  padding: 0.5rem;
   position: relative;
   color: #444;
+  font-size: 14px;
 }
 .rc-radio-options label .mat-radio-container{
   font-family: 'Raleway', sans-serif !important;
@@ -449,6 +466,11 @@ mat-card.rc-card-home mat-card-actions > button:hover {
     border-color: var(--rc-primary-color);
     z-index: 1;
     color: var(--rc-primary-color);
+}
+@media screen and (min-width: 768px) and (max-width: 959px){
+  .rc-radio-options label{
+    padding: 0.5rem 0.25rem;
+  }
 }
 @media screen and (max-width: 767px){
   .rc-radio-options{
@@ -494,7 +516,6 @@ mat-card.rc-card-home mat-card-actions > button:hover {
   }
 }
 
-
 /*ul style */
 ul.rc-list-details{
   list-style: none;
@@ -532,6 +553,9 @@ ul.rc-list-details li::before {
   padding: 25px 5px 20px 5px;
   border-radius: 5px;
   text-align: center;
+}
+.rc-img-rb label.mat-radio-label:hover{  
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
 }
 .rc-img-rb label.mat-radio-label .mat-radio-label-content {
   margin: 0 auto;
@@ -843,6 +867,7 @@ span.rc-info-title-ar {
   }
   .rc-card.h-ahri{
     min-height: 180px;
+    cursor: pointer;
   }
   @media (max-width: 599px) {
     .rc-card.h-ahri{
