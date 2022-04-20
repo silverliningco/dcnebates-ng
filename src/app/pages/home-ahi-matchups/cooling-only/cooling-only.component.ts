@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
@@ -39,6 +39,10 @@ export class CoolingOnlyComponent implements OnInit {
   beginning?: number;
   end?: number;
   rows!: number;
+
+  /* display columns when they have data */
+  showAFUE: boolean = true;
+  showFurnace: boolean = true;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -161,6 +165,7 @@ export class CoolingOnlyComponent implements OnInit {
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
     })
+
   }
 
   SelectFilters() {
@@ -203,13 +208,40 @@ export class CoolingOnlyComponent implements OnInit {
   CallSearch(payload: any) {
     this._api.Search(JSON.stringify(payload)).subscribe({
       next: (resp) => {
-        console.log(resp);
           this.results = resp;
+          this.showColum(this.results);
           this.ObtainPaginationText();
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
     })
+  }
+
+  showColum(resp: any){
+
+    let  countAFUE: number = 0;
+    let  countFurnace: number = 0;
+
+    resp.forEach((element:any) => {
+      if (element.AFUE != null){
+        countAFUE = countAFUE + 1;
+      }
+    });
+
+    if (countAFUE === 0 ){
+      this.showAFUE = false;
+    }
+
+    resp.forEach((element:any) => {
+      if (element.furnaceSKU != null){
+        countFurnace = countFurnace + 1;
+      }
+    });
+
+    if (countFurnace === 0 ){
+      this.showFurnace = false;
+    }
+
   }
 
    // Pagination funtions

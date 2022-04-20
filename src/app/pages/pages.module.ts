@@ -11,7 +11,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
 // Components
 import { PagesComponent } from './pages.component';
 import { HomeComponent } from './home/home.component';
-import { RebateFinderComponent } from './rebate-finder/rebate-finder.component';
 import { DetailComponent } from './detail/detail.component';
 import { HomeAhiMatchupsComponent } from './home-ahi-matchups/home-ahi-matchups.component';
 import { CoolingOnlyComponent } from './home-ahi-matchups/cooling-only/cooling-only.component';
@@ -34,20 +33,25 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { BreadcrumbModule } from 'xng-breadcrumb';
+import { HomeRebateFinderComponent } from './home-rebate-finder/home-rebate-finder.component';
+import { HeatingCoolingRComponent } from './home-rebate-finder/heating-cooling-r/heating-cooling-r.component';
+import { CoolingOnlyRComponent } from './home-rebate-finder/cooling-only-r/cooling-only-r.component';
 
 
 @NgModule({
   declarations: [
     PagesComponent,
     HomeComponent,
-    RebateFinderComponent,
     DetailComponent,
     HomeAhiMatchupsComponent,
     CoolingOnlyComponent,
     FurnaceOnlyInstallComponent,
     KnowModelNbrComponent,
     ExisNonEcmComponent,
-    HeatingCoolingComponent
+    HeatingCoolingComponent,
+    HomeRebateFinderComponent,
+    HeatingCoolingRComponent,
+    CoolingOnlyRComponent
   ],
   imports: [
     CommonModule,

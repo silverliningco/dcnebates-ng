@@ -39,6 +39,11 @@ export class HeatingCoolingComponent implements OnInit {
   end?: number;
   rows!: number;
 
+  /* display columns when they have data */
+  showAFUE: boolean = true;
+  showFurnace: boolean = true;
+  showconfiguration: boolean = true;
+
   constructor(
     private _formBuilder: FormBuilder,
     public breakpointObserver: BreakpointObserver,
@@ -215,11 +220,53 @@ export class HeatingCoolingComponent implements OnInit {
     this._api.Search(JSON.stringify(payload)).subscribe({
       next: (resp) => {
           this.results = resp;
+          this.showColum(this.results);
           this.ObtainPaginationText();
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
     })
+  }
+
+  showColum(resp: any){
+
+    let countAFUE: number = 0;
+    let countFurnace: number = 0;
+    let countConfig: number = 0;
+
+    /* AFU */
+    resp.forEach((element:any) => {
+      if (element.AFUE != null){
+        countAFUE = countAFUE + 1;
+      }
+    });
+
+    if (countAFUE === 0 ){
+      this.showAFUE = false;
+    }
+
+    /* furnaceSKU */
+    resp.forEach((element:any) => {
+      if (element.furnaceSKU != null){
+        countFurnace = countFurnace + 1;
+      }
+    });
+
+    if (countFurnace === 0 ){
+      this.showFurnace = false;
+    }
+
+    /* furnaceConfigurations */
+    resp.forEach((element:any) => {
+      if (element.furnaceConfigurations != null){
+        countConfig = countConfig + 1;
+      }
+    });
+
+    if (countConfig === 0 ){
+      this.showconfiguration = false;
+    }
+
   }
 
   // Pagination funtions

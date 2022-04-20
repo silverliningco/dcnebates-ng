@@ -1,0 +1,424 @@
+<p>heating-cooling-r works!</p><mat-stepper #stepper linear  [orientation]="(stepperOrientation | async)!">
+
+    <!-- Step 1 State -->
+    <mat-step [stepControl]="stateGroup" errorMessage="Select an state.">
+      <form [formGroup]="stateGroup">
+        <!-- Name of step -->
+        <ng-template matStepLabel>State</ng-template>
+        <h2 class="rc-main-title">State</h2>
+        <!-- Content of step -->
+        <!-- selects -->
+        <mat-radio-group #stateIdGroup (change)="changeState()" formControlName="state"class="rc-img-rb">
+          <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="20px grid">
+            <mat-radio-button [value]="'ME'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
+              <div style="text-align: center;">
+                <img src="../../../assets/images/state-icons/me-icon.png" alt="" class="unchecked">
+                <img src="../../../assets/images/state-icons/me-icon-active.png" alt="" class="checked">
+                <p>ME</p>
+              </div>
+            </mat-radio-button>
+  
+            <mat-radio-button [value]="'NH'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
+              <img src="../../../assets/images/state-icons/nh-icon.png" alt="" class="unchecked">
+              <img src="../../../assets/images/state-icons/nh-icon-active.png" alt="" class="checked">
+              <p>NH</p>
+            </mat-radio-button>
+            <mat-radio-button [value]="'MA'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
+              <img src="../../../assets/images/state-icons/ma-icon.png" alt="" class="unchecked">
+              <img src="../../../assets/images/state-icons/ma-icon-active.png" alt="" class="checked">
+              <p>MA</p>
+            </mat-radio-button>
+            <mat-radio-button [value]="'RI'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
+              <img src="../../../assets/images/state-icons/ri-icon.png" alt="" class="unchecked">
+              <img src="../../../assets/images/state-icons/ri-icon-active.png" alt="" class="checked">
+              <p>RI</p>
+            </mat-radio-button>
+          </div>
+        </mat-radio-group>
+        <!-- button -->
+        <div fxLayout="column" fxLayoutAlign="center end" class="rc-stepper-buttons">
+          <button type="button" [disabled]="stateGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </div>
+  
+      </form>
+    </mat-step>
+    <!-- Step 1 end  -->
+  
+    <!-- Step 2 Utility Provider -->
+    <mat-step [stepControl]="utilityGroup" errorMessage="Select utility providers.">
+      <form [formGroup]="utilityGroup">
+        <!-- Name of step -->
+        <ng-template matStepLabel>Utility Providers</ng-template>
+        <h2 class="rc-main-title">Utility Providers</h2>
+        <!-- Content of step -->
+        <div fxLayout fxLayoutAlign="center">
+          <!-- User input -->
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
+  
+            <!-- utilities -->
+            <mat-form-field appearance="fill">
+              <mat-label>Electric Utility</mat-label>
+              <mat-select #sGroup formControlName="electricUtility">
+                <mat-option *ngFor ="let elec of sendElectric; let i = index" [value]="sendElectric[i].utilityId" radioGroup="sGroup">
+                  {{sendElectric[i].title}}
+                  </mat-option>
+                  <!--<mat-option value="" radioGroup="sGroup">Other</mat-option>-->
+              </mat-select>
+            </mat-form-field>
+  
+            <mat-form-field appearance="fill">
+              <mat-label>Gas / Oil Utility</mat-label>
+              <mat-select #sGroup formControlName="gasOilUtility">
+                <mat-option *ngFor ="let elec of sendGasOil; let i = index" [value]="sendGasOil[i].utilityId" radioGroup="sGroup">
+                  {{sendGasOil[i].title}}
+                  </mat-option>
+                  <!--<mat-option value="" radioGroup="sGroup">Other</mat-option>-->
+  
+              </mat-select>
+            </mat-form-field>
+  
+            <!-- button -->
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
+              <button type="button" mat-button matStepperPrevious>Back</button>
+              <button type="button" (click)="PrepareAvailableRebates()" [disabled]="utilityGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+                <mat-icon>arrow_forward</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <!-- Step 2 end  -->
+  
+    <!-- Step 3 available rebate  -->
+    <mat-step [stepControl]="availableRebatesGroup" errorMessage="Complete the form.">
+  
+      <!-- Name of step -->
+      <ng-template matStepLabel>Available Rebates</ng-template>
+      <h2 class="rc-main-title">Available Rebates</h2>
+      <div fxLayout fxLayoutAlign="center center" fxLayoutGap="16px" fxLayout.sm="column" fxLayout.xs="column">
+        <div fxFlex="80" fxFlex.sm="80" fxFlex.xs="80">
+          <div *ngFor ="let reb of availableRebates" class="rc-checklist-n1"  [ngClass]="reb.completed ? 'checked' : ''">
+            <mat-checkbox class="rc-hide-checkbox"
+              (change)="rebate_change(reb)"
+              [(ngModel)]="reb.completed">
+              <div class="rc-checklist-icon">
+                <mat-icon>done</mat-icon>
+              </div>
+              {{reb.title}}
+            </mat-checkbox>
+  
+              <div class="rc-checklist-n2">
+                <span class="rc-info-title-ar" *ngIf="reb.rebateCriteria!.length >0">Rebate Criteria:</span>
+                <p *ngFor ="let rebCriteria of reb.rebateCriteria">
+                  <mat-checkbox
+                    [(ngModel)] = "rebCriteria.completed"
+                    (change)="reb_criteria_change(reb)">
+                    {{rebCriteria.title}}
+                  </mat-checkbox>
+                </p>
+                <span class="rc-info-title-ar"   *ngIf="reb.rebateTiers!.length > 0 && reb.rebateTiers![0].title != 'Default'">Rebate Tiers:</span>
+                <div fxLayout="row column"  fxLayoutAlign="center" fxLayoutGap="20px grid" fxLayout.sm="column" fxLayoutAlign.sm="center stretch" fxLayoutGap.sm="16px grid" fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="16px grid">
+                  <div *ngFor ="let rebTier of reb.rebateTiers" [ngClass]="rebTier.completed ? 'checked' : ''" fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
+                    <div class="rc-rt-container" *ngIf="rebTier.title != 'Default'" >
+                      <mat-checkbox class="rc-hide-checkbox"
+                        [(ngModel)]="rebTier.completed"
+                        (change)="reb_tier_change(rebTier, reb)">
+                        {{rebTier.title}}
+                      </mat-checkbox>
+  
+  
+                      <div class="rc-checklist-n3">
+                        <span class="rc-info-title-ar"   *ngIf="rebTier.rebateTierCriteria!.length >0">Rebate Tier Criteria:</span>
+                        <p *ngFor ="let rebTierCriteria of rebTier.rebateTierCriteria">
+                          <mat-checkbox
+                            [(ngModel)] = "rebTierCriteria.completed"
+                            (change)="reb_tier_criteria_change(rebTier, reb)"
+                            >{{rebTierCriteria.title}}</mat-checkbox>
+                        </p>
+                      </div>
+                      <div class="rc-rt-icon">
+                        <mat-icon>check_circle_outline</mat-icon>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+  
+          </div>
+          <!-- button -->
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
+            <button type="button" mat-button matStepperPrevious>Back</button>
+            <button type="button" (click)="onSubmit()" [disabled]="!IsValidAvailabeRebates" mat-raised-button color="primary" matStepperNext>Continue
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Content of step -->
+  </mat-step>
+  <!-- Step 3 end  -->
+  
+  
+    <!-- Step 4 Equipment Size -->
+    <mat-step [stepControl]="nominalSizeGroup" errorMessage="Complete all fields.">
+      <form [formGroup]="nominalSizeGroup">
+        <!-- Name of step -->
+        <ng-template matStepLabel>Equipment Size</ng-template>
+        <h2 class="rc-main-title">Equipment Size</h2>
+        <!-- Content of step -->
+        <div fxLayout fxLayoutAlign="center">
+          <!-- User input -->
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
+  
+            <!-- input -->
+            <mat-form-field appearance="fill"  >
+              <mat-label>Cooling tons</mat-label>
+              <mat-select  #sGroup formControlName="coolingTons">
+                  <mat-option [value]="0.5" radioGroup="sGroup"> < 1.0 </mat-option>
+                  <mat-option [value]="1.0" radioGroup="sGroup"> 1.0  </mat-option>
+                  <mat-option [value]="1.5" radioGroup="sGroup"> 1.5 </mat-option>
+                  <mat-option [value]="2.0" radioGroup="sGroup"> 2.0 </mat-option>
+                  <mat-option [value]="2.5" radioGroup="sGroup"> 2.5 </mat-option>
+                  <mat-option [value]="3.0" radioGroup="sGroup"> 3.0 </mat-option>
+                  <mat-option [value]="3.5" radioGroup="sGroup"> 3.5 </mat-option>
+                  <mat-option [value]="4.0" radioGroup="sGroup"> 4.0 </mat-option>
+                  <mat-option [value]="4.5" radioGroup="sGroup"> 4.5 </mat-option>
+                  <mat-option [value]="5.0" radioGroup="sGroup"> 5.0 </mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+  
+            <!-- input -->
+            <mat-form-field appearance="fill">
+              <mat-label>Heating BTUH</mat-label>
+              <input matInput placeholder="Heating BTUH" type="number" formControlName="heatingBTUH" required>
+              
+              <!-- error -->
+              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('is_not_number') && nominalSizeGroup.get('heatingBTUH')?.touched">
+                Heating BTUH <strong>must be a number.</strong>
+              </mat-error>
+              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('null_not_permit') && nominalSizeGroup.get('heatingBTUH')?.touched">
+                Heating BTUH is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('need_between_4_6_characters') && nominalSizeGroup.get('heatingBTUH')?.touched">
+                Heating BTUH must be <strong>between 4 and 6 digits</strong>.
+              </mat-error>
+              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('Hbtuh_invalid_value') && nominalSizeGroup.get('heatingBTUH')?.touched">               
+                Heating BTUH must be a whole number <strong>between 8,000 and 135,000</strong>.
+              </mat-error>
+              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('it_not_integer') && nominalSizeGroup.get('heatingBTUH')?.touched">
+                Heating BTUH is not <strong>integer</strong>.
+              </mat-error>
+            </mat-form-field>
+  
+            <!-- button -->
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
+              <button type="button" mat-button matStepperPrevious>Back</button>
+              <button type="button" [disabled]="nominalSizeGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+                <mat-icon>arrow_forward</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <!-- Step 4 end  -->
+  
+    <!-- Step 5 Fossil Fuel -->
+    <mat-step [stepControl]="furnaceGroup" errorMessage="Select a furnace fuel.">
+      <form [formGroup]="furnaceGroup" (ngSubmit)="submitForm()">
+        <!-- Name of step -->
+        <ng-template matStepLabel>Fossil Fuel</ng-template>
+        <h2 class="rc-main-title">Fossil Fuel</h2>
+        <!-- Content of step -->
+        <div fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="32">
+          <!-- User input -->
+          <div fxFlex="25" fxLayout="column" fxLayoutAlign="left stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="25">
+            <!-- radio button -->
+            <mat-label>Select type of fossil fuel available at the residence.</mat-label>
+            <mat-radio-group #rGroup formControlName="fuelSource" fxLayout="column">
+              <mat-radio-button [value]="'Natural Gas'" radioGroup="rGroup">Natural Gas</mat-radio-button>
+              <mat-radio-button [value]="'Propane'" radioGroup="rGroup">Propane</mat-radio-button>
+              <mat-radio-button [value]="'Heating Oil'" radioGroup="rGroup">Heating Oil</mat-radio-button>
+              <mat-radio-button [value]="'None'" radioGroup="rGroup">None</mat-radio-button>
+  
+              <!-- error -->
+              <mat-error *ngIf="furnaceGroup.get('fuelSource')?.hasError('required') && furnaceGroup.get('fuelSource')?.touched">
+                Furnace Fuel is <strong>required</strong>
+              </mat-error>
+            </mat-radio-group>
+  
+            <!-- button -->
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
+              <button type="button" mat-button matStepperPrevious>Back</button>
+              <button type="submit" [disabled]="furnaceGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+                <mat-icon>arrow_forward</mat-icon>
+              </button>
+            </div>
+          </div>
+  
+          <!-- note -->
+          <div fxLayout fxLayoutAlign="center" fxLayoutGap="16px" fxLayout.sm="column" fxLayout.xs="column">
+            <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="rc-note">
+              <p class="rc-small"> <b>Note: </b> The rebate calculator will show all possible installations, including fully electric HVAC systems.
+                Selecting a fossil fuel type only helps us show relevant search results but it is not required that
+                a fossil fuel component (furnace, boiler) is part of the final HVAC system.</p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <!-- Step 5 end  -->
+  
+    <!-- results -->
+    <mat-step>
+  
+      <ng-template matStepLabel>AHRI Combinations</ng-template>
+  
+      <h2 class="rc-main-title">AHRI Combinations</h2>
+      <div  *ngIf="!this.noResults">
+  
+        <!-- product lines -->
+        <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="16">
+          <form [formGroup]="productLinesGroup" class="rc-radio-options">
+            <mat-radio-group aria-label="Select an option" formControlName="productLine">
+              <mat-radio-button *ngFor="let proLine of productLines" [value]="proLine.id" (click)="SelectProductLine(proLine.id)">{{proLine.title}}</mat-radio-button>
+            </mat-radio-group>
+          </form>
+        </div>
+        <!-- product lines end -->
+  
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16"  class="rc-tab-content">
+          
+          <!-- filters -->
+          <div fxFlex="25" fxLayout="column" fxLayoutAlign="start" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="25" class="rc-filters" fxLayoutGap.sm="16"  fxLayoutGap.xs="16">
+            <h5>Filters</h5>
+            <form [formGroup]="filtersGroup">
+                <div fxLayout="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
+                    
+                    <!-- outdoorUnitSKU, indoorUnitSKU, furnaceSKU -->
+                    <div *ngFor="let filter of filters">
+                        <div *ngIf = "filter.filterName === 'outdoorUnitSKU' || filter.filterName === 'indoorUnitSKU' || filter.filterName === 'furnaceSKU' ">
+                            <mat-form-field appearance="fill" >
+                                <mat-label>{{filter.filterName}}</mat-label>
+                                <select matNativeControl required (change)="SelectFilters()" [formControlName]="filter.filterName">
+                                    <option *ngFor="let val of filter.filterValues" [value]="val">{{val}}</option>
+                                    <option value="">Show all</option>
+                                </select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- coilType, flushCoils, coilCasing -->
+                    <div *ngFor="let filter of filters">
+                        <div *ngIf = "filter.filterName === 'coilType' || filter.filterName === 'flushCoils' || filter.filterName === 'coilCasing' ">
+                            <mat-form-field appearance="fill" >
+                                <mat-label>{{filter.filterName}}</mat-label>
+                                <select matNativeControl required (change)="SelectFilters()" [formControlName]="filter.filterName">
+                                    <option *ngFor="let val of filter.filterValues" [value]="val">{{val}}</option>
+                                    <option value="">Show all</option>
+                                </select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- configuration -->
+                    <div *ngFor="let filter of filters">
+                        <div *ngIf = "filter.filterName === 'configuration'">
+                            <mat-label>{{filter.filterName}}</mat-label>
+                            <mat-radio-group #configuration fxLayout="column" (change)="SelectFilters()"  [formControlName]="filter.filterName" >
+                                <mat-radio-button *ngFor="let val of filter.filterValues" [value]="val">{{val}}</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+        <!-- filters end -->
+  
+          <div fxFlex="75" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="75">
+  
+            <!-- data of pagination -->
+            <div fxLayout fxLayoutAlign="end center">
+              <span class="rc-nr-pages">{{ beginning }} - {{ end }} of  {{results?.length}}</span>
+            </div>
+  
+            <!-- table -->
+            <div class="table-overflow">
+              <table>
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Outdoor Unit</th>
+                        <th>Indoor Unit</th>
+                        <th *ngIf = "showFurnace">FURNACE</th>
+                        <th *ngIf = "showconfiguration">Configuration</th>
+                        <th>SEER</th>
+                        <th>EER</th>
+                        <th>HSPF</th>
+                        <th *ngIf = "showAFUE">AFUE</th>
+                        <th>Total Rebate</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ahriCombination of results | paginate: { itemsPerPage: rows, currentPage: p } , let i=index">
+                    <td data-title="n°">{{ rows * (p - 1) + i  + 1}}</td>
+                    <td data-title="Outdoor unit">{{ahriCombination.outdoorUnitSKU}}</td>
+                    <td data-title="Indoor unit">{{ahriCombination.indoorUnitSKU}}</td>
+                    <td data-title="Furnace" *ngIf = "showFurnace">{{ahriCombination.furnaceSKU}}</td>
+                    <td data-title="Configuration" *ngIf = "showconfiguration"></td>
+                    <td data-title="SEER">{{ahriCombination.SEER}}</td>
+                    <td data-title="EER">{{ahriCombination.EER}}</td>
+                    <td data-title="HSPF">{{ahriCombination.HSPF}}</td>
+                    <td data-title="AFUE" *ngIf = "showAFUE">{{ahriCombination.AFUE}}</td>
+                    <td data-title="Total rebate">{{ahriCombination.totalAvailableRebates}}</td>
+                    <td data-title="Details">
+                      <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']" [queryParams]="{skus:ahriCombination.SKUs | json, ahri_refs:ahriCombination.AHRIReferences| json, params:{commerceInfo: myCommerInfo, requiredRebates: payloadRebates} | json}"  target="_blank">
+                      <mat-icon>search</mat-icon>
+                      </a>
+                    </td>
+                </tr>
+                <tr *ngIf="results?.length < 1">
+                  <td colspan ="10"></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            
+          <!-- table end -->
+  
+          <!-- pagination -->
+            <div fxLayout fxLayoutAlign="end center" class="rc-pagination">
+              <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+          </div>
+          <!-- End pagination -->
+          </div>
+        </div>
+      </div>
+  
+      <!-- message no results -->
+      <div *ngIf="this.noResults">
+        <div fxLayout fxLayoutAlign="center center" fxLayoutGap="16px" fxLayout.sm="column" fxLayout.xs="column">
+          <div fxFlex="80" fxFlex.sm="80" fxFlex.xs="80" class="rc-alert">
+            <p>
+              <span class="rc-lead">We're sorry, no results were found for your search.
+              </span>
+            </p>
+            <div fxLayout fxLayoutAlign="end">
+              <button mat-button matStepperPrevious type="button">Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- message no resultsa end -->
+  
+    </mat-step>
+    <!-- results end -->
+  
+  </mat-stepper>
+  

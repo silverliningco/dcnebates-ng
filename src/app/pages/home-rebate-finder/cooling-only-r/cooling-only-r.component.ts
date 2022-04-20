@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
@@ -8,14 +9,13 @@ import { map } from 'rxjs/operators';
 
 import { ApiService } from 'src/app/services/api.service';
 
-import { utilityInfo } from '../../models/utilities';
-import { Rebate, RebateTier, Criteria } from '../../models/rebates';
-
+import { utilityInfo } from '../../../models/utilities';
+import { Rebate, RebateTier, Criteria } from '../../../models/rebates';
 
 @Component({
-  selector: 'app-rebate-finder',
-  templateUrl: './rebate-finder.component.html',
-  styleUrls: ['./rebate-finder.component.css'],
+  selector: 'app-cooling-only-r',
+  templateUrl: './cooling-only-r.component.html',
+  styleUrls: ['./cooling-only-r.component.css'],
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
@@ -23,7 +23,8 @@ import { Rebate, RebateTier, Criteria } from '../../models/rebates';
     },
   ]
 })
-export class RebateFinderComponent implements OnInit {
+
+export class CoolingOnlyRComponent implements OnInit {
 
   nominalSizeGroup !: FormGroup;
   furnaceGroup !: FormGroup;
@@ -54,6 +55,11 @@ export class RebateFinderComponent implements OnInit {
   payloadRebates!: any;
   IsValidAvailabeRebates: boolean = true;
 
+  /* display columns when they have data */
+  showAFUE: boolean = true;
+  showFurnace: boolean = true;
+  showconfiguration: boolean = true;
+
   constructor(
     private _formBuilder: FormBuilder,
     public breakpointObserver: BreakpointObserver,
@@ -78,8 +84,7 @@ export class RebateFinderComponent implements OnInit {
     });
 
     this.utilityGroup = this._formBuilder.group({
-      electricUtility: ['', Validators.required],
-      gasOilUtility: ['', Validators.required]
+      electricUtility: ['', Validators.required]
     });
 
     this.availableRebatesGroup = this._formBuilder.group({
@@ -246,13 +251,54 @@ export class RebateFinderComponent implements OnInit {
   CallSearch(payload: any) {
     this._api.Search(JSON.stringify(payload)).subscribe({
       next: (resp) => {
-        console.log(resp);
         this.results = resp;
+        this.showColum(this.results);
         this.ObtainPaginationText();
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
     })
+  }
+
+  showColum(resp: any){
+
+    let countAFUE: number = 0;
+    let countFurnace: number = 0;
+    let countConfig: number = 0;
+
+    /* AFU */
+    resp.forEach((element:any) => {
+      if (element.AFUE != null){
+        countAFUE = countAFUE + 1;
+      }
+    });
+
+    if (countAFUE === 0 ){
+      this.showAFUE = false;
+    }
+
+    /* furnaceSKU */
+    resp.forEach((element:any) => {
+      if (element.furnaceSKU != null){
+        countFurnace = countFurnace + 1;
+      }
+    });
+
+    if (countFurnace === 0 ){
+      this.showFurnace = false;
+    }
+
+    /* furnaceConfigurations */
+    resp.forEach((element:any) => {
+      if (element.furnaceConfigurations != null){
+        countConfig = countConfig + 1;
+      }
+    });
+
+    if (countConfig === 0 ){
+      this.showconfiguration = false;
+    }
+
   }
 
   // Pagination funtions
@@ -300,8 +346,7 @@ export class RebateFinderComponent implements OnInit {
 
   PrepareAvailableRebates(){
     this.myUtilityIds = [
-      this.utilityGroup.controls['electricUtility'].value,
-      this.utilityGroup.controls['gasOilUtility'].value
+      this.utilityGroup.controls['electricUtility'].value
     ];
 
     this.myState = this.stateGroup.controls['state'].value;
