@@ -103,11 +103,11 @@ export class HeatingCoolingComponent implements OnInit {
   submitForm() {
     let payload = {
       commerceInfo: this.myCommerInfo,
+      searchType: "Heating and Cooling",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       requiredRebates: this.payloadRebates
     }
-    console.log(payload);
     this.CallProductLines(payload);
   }
 
@@ -140,6 +140,7 @@ export class HeatingCoolingComponent implements OnInit {
         storeId: 1,
         showAllResults: false
       },
+      searchType: "Heating and Cooling",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       systemTypeId:systemTypeId,
@@ -205,6 +206,7 @@ export class HeatingCoolingComponent implements OnInit {
         storeId: 1,
         showAllResults: false
       },
+      searchType: "Heating and Cooling",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       systemTypeId: this.productLinesGroup.controls['productLine'].value,
@@ -219,6 +221,7 @@ export class HeatingCoolingComponent implements OnInit {
   CallSearch(payload: any) {
     this._api.Search(JSON.stringify(payload)).subscribe({
       next: (resp) => {
+        console.log(resp);
           this.results = resp;
           this.showColum(this.results);
           this.ObtainPaginationText();

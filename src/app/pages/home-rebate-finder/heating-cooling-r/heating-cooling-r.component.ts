@@ -134,6 +134,7 @@ export class HeatingCoolingRComponent implements OnInit {
   submitForm() {
     let payload = {
       commerceInfo: this.myCommerInfo,
+      searchType: "Heating and Cooling",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       state: this.stateGroup.value,
@@ -171,6 +172,7 @@ export class HeatingCoolingRComponent implements OnInit {
         storeId: 1,
         showAllResults: false
       },
+      searchType: "Heating and Cooling",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       systemTypeId: systemTypeId,
@@ -237,6 +239,7 @@ export class HeatingCoolingRComponent implements OnInit {
         storeId: 1,
         showAllResults: false
       },
+      searchType: "Heating and Cooling",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       systemTypeId: this.productLinesGroup.controls['productLine'].value,

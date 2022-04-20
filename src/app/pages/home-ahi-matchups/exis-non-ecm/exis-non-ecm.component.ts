@@ -41,9 +41,10 @@ export class ExisNonEcmComponent implements OnInit {
   end?: number;
   rows!: number;
 
-  /* display columns when they have data */
-  showAFUE: boolean = true;
-  showFurnace: boolean = true;
+ /* display columns when they have data */
+ showAFUE: boolean = true;
+ showFurnace: boolean = true;
+ showconfiguration: boolean = true;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -98,6 +99,7 @@ export class ExisNonEcmComponent implements OnInit {
   submitForm() {
     let payload = {
       commerceInfo: this.myCommerInfo,
+      searchType: "Existing or non-ECM furnace installations",
       nominalSize: this.nominalSizeGroup.value,
       requiredRebates: this.payloadRebates
     }
@@ -132,6 +134,7 @@ export class ExisNonEcmComponent implements OnInit {
         storeId: 1,
         showAllResults: false
       },
+      searchType: "Existing or non-ECM furnace installations",
       nominalSize: this.nominalSizeGroup.value,
       systemTypeId:systemTypeId,
       filters: [],
@@ -194,6 +197,7 @@ export class ExisNonEcmComponent implements OnInit {
         storeId: 1,
         showAllResults: false
       },
+      searchType: "Existing or non-ECM furnace installations",
       nominalSize: this.nominalSizeGroup.value,
       systemTypeId: this.productLinesGroup.controls['productLine'].value,
       filters: myfilters,
@@ -217,9 +221,11 @@ export class ExisNonEcmComponent implements OnInit {
 
   showColum(resp: any){
 
-    let  countAFUE: number = 0;
-    let  countFurnace: number = 0;
+    let countAFUE: number = 0;
+    let countFurnace: number = 0;
+    let countConfig: number = 0;
 
+    /* AFU */
     resp.forEach((element:any) => {
       if (element.AFUE != null){
         countAFUE = countAFUE + 1;
@@ -230,6 +236,7 @@ export class ExisNonEcmComponent implements OnInit {
       this.showAFUE = false;
     }
 
+    /* furnaceSKU */
     resp.forEach((element:any) => {
       if (element.furnaceSKU != null){
         countFurnace = countFurnace + 1;
@@ -238,6 +245,17 @@ export class ExisNonEcmComponent implements OnInit {
 
     if (countFurnace === 0 ){
       this.showFurnace = false;
+    }
+
+    /* furnaceConfigurations */
+    resp.forEach((element:any) => {
+      if (element.furnaceConfigurations != null){
+        countConfig = countConfig + 1;
+      }
+    });
+
+    if (countConfig === 0 ){
+      this.showconfiguration = false;
     }
 
   }
