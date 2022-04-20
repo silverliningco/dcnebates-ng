@@ -42,9 +42,8 @@ export class ExisNonEcmComponent implements OnInit {
   rows!: number;
 
  /* display columns when they have data */
- showAFUE: boolean = true;
  showFurnace: boolean = true;
- showconfiguration: boolean = true;
+ showHSPF: boolean = true;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -221,43 +220,39 @@ export class ExisNonEcmComponent implements OnInit {
 
   showColum(resp: any){
 
-    let countAFUE: number = 0;
+    /* If no values are received for the furnaceSKU, then the columns should not be displayed:
+        furnaceSKU, furnaceConfigurations, AFU.
+       In the case of the HSPF column, it is handled independently
+    */
+
     let countFurnace: number = 0;
-    let countConfig: number = 0;
-
-    /* AFU */
-    resp.forEach((element:any) => {
-      if (element.AFUE != null){
-        countAFUE = countAFUE + 1;
-      }
-    });
-
-    if (countAFUE === 0 ){
-      this.showAFUE = false;
-    }
+    let countHSPF: number = 0;
 
     /* furnaceSKU */
     resp.forEach((element:any) => {
       if (element.furnaceSKU != null){
-        countFurnace = countFurnace + 1;
+        countFurnace += 1;
       }
     });
 
     if (countFurnace === 0 ){
       this.showFurnace = false;
-    }
+    } else {
+      this.showFurnace = true;
+    } 
 
-    /* furnaceConfigurations */
+    /* HSPF */
     resp.forEach((element:any) => {
-      if (element.furnaceConfigurations != null){
-        countConfig = countConfig + 1;
+      if (element.HSPF != null){
+        countHSPF += 1;
       }
     });
 
-    if (countConfig === 0 ){
-      this.showconfiguration = false;
-    }
-
+    if (countHSPF === 0 ){
+      this.showHSPF = false;
+    } else {
+      this.showHSPF = true;
+    } 
   }
 
    // Pagination funtions
