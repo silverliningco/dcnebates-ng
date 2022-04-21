@@ -176,11 +176,13 @@
                 <!-- coilType, configuration, coilCasing -->
                 <h5 class="rc-filter-group-title" *ngIf ="showIndoorUnit" >Indoor Unit</h5>
                 <div *ngFor="let filter of filters" class="rc-filter-group">
-                    <div *ngIf = "filter.filterName === 'coilType' || filter.filterName === 'coilCasing' || filter.filterName === 'configuration'">
+                    <div *ngIf = "filter.filterName === 'coilType' || filter.filterName === 'coilCasing' || filter.filterName === 'configuration'" class="rc-filters-radio">
                       <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                      <mat-radio-group #configuration fxLayout="column" (change)="SelectFilters()"  [formControlName]="filter.filterName" >
-                          <mat-radio-button *ngFor="let val of filter.filterValues" [value]="val">{{val}}</mat-radio-button>
-                          <mat-radio-button [value]="">Show all</mat-radio-button>
+                      <mat-radio-group #configuration (change)="SelectFilters()"  [formControlName]="filter.filterName" >
+                        <mat-radio-button *ngFor="let val of filter.filterValues" [value]="val">
+                          {{val}} <div class="close" (click)="unselect(filter.filterName)"><mat-icon>cancel</mat-icon></div>
+                        </mat-radio-button>
+                        <option value="" style="display: none;">Show all</option>
                       </mat-radio-group>
                     </div>
                 </div>
@@ -188,11 +190,13 @@
                 <!-- flushCoils -->
                 <h5 class="rc-filter-group-title" *ngIf ="showOptions" >Options</h5>
                 <div *ngFor="let filter of filters" class="rc-filter-group">
-                    <div *ngIf = "filter.filterName === 'flushCoils'">
+                    <div *ngIf = "filter.filterName === 'flushCoils'" class="rc-filters-radio">
                         <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                        <mat-radio-group #configuration fxLayout="column" (change)="SelectFilters()"  [formControlName]="filter.filterName" >
-                            <mat-radio-button *ngFor="let val of filter.filterValues" [value]="val">{{val}}</mat-radio-button>
-                            <mat-radio-button [value]="">Show all</mat-radio-button>
+                        <mat-radio-group #configuration (change)="SelectFilters()"  [formControlName]="filter.filterName" >
+                          <mat-radio-button *ngFor="let val of filter.filterValues" [value]="val">
+                            {{val}} <div class="close" (click)="unselect(filter.filterName)"><mat-icon>cancel</mat-icon></div>
+                          </mat-radio-button>
+                          <option value="" style="display: none;">Show all</option>
                         </mat-radio-group>
                     </div>
                 </div>

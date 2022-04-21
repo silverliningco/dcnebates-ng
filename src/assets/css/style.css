@@ -877,4 +877,49 @@ span.rc-info-title-ar {
   .rc-radio-label{
     color: var(--rc-text-light-color);
     font-size: 12px;
+    display: block;
+  }
+
+  /*Style for radio buttons in filters*/
+  .rc-filters-radio mat-radio-button{
+    margin-right: 12px;
+  }
+  .rc-filters-radio mat-radio-button .mat-radio-container{
+    display: none;
+
+  }
+  .rc-filters-radio mat-radio-button > label.mat-radio-label{
+    border: 1px solid #c1c1c1;
+    border-radius: 2rem;
+    padding: 2px 5px;
+    font-size: 14px;
+  }
+  .rc-filters-radio mat-radio-button div.close {
+    display: none;
+  }
+  .rc-filters-radio mat-radio-button div.close mat-icon {
+    color: #858585;
+    font-size: 22px;
+    
+  }
+      /*checked*/
+  .rc-filters-radio mat-radio-button.mat-radio-checked > label.mat-radio-label{
+    background-color: #f3f3f3;
+    color: #858585;
+    border: 1px solid #858585;
+    font-weight: bold;
+    padding-right: 0;
+  }
+
+  .rc-filters-radio mat-radio-button.mat-radio-checked > label.mat-radio-label > span.mat-radio-label-content{
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: space-between;
+  }
+  
+  
+  .rc-filters-radio mat-radio-button.mat-radio-checked div.close {
+    display: flex;
+    padding-left: .5rem;
   }

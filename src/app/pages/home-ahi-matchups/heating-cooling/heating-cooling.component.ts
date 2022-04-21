@@ -204,6 +204,28 @@ export class HeatingCoolingComponent implements OnInit {
     });
   }
 
+  //UnselectFilters
+  unselect(myFilter:any){
+    switch (myFilter) {
+      case 'coilType':
+        this.filtersGroup.controls['coilType'].setValue("");
+        break;
+      case 'flushCoils':
+        this.filtersGroup.controls['flushCoils'].setValue("");
+        break;
+      case 'coilCasing':
+        this.filtersGroup.controls['coilCasing'].setValue("");
+        break;
+      case 'configuration':
+        this.filtersGroup.controls['configuration'].setValue("");
+        break;
+    
+      default:
+        break;
+    }
+    this.SelectFilters();
+  }
+
   //selectFilters
   SelectFilters() {
 
