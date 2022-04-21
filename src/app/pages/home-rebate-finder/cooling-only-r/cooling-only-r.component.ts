@@ -55,9 +55,14 @@ export class CoolingOnlyRComponent implements OnInit {
   payloadRebates!: any;
   IsValidAvailabeRebates: boolean = true;
 
-  /* display columns when they have data */
+  /* display columns when they have data in table of results */
   showFurnace: boolean = true;
   showHSPF: boolean = true;
+
+  /* display title when exist filter in the filters */
+  showModelNrs: boolean = false;
+  showIndoorUnit: boolean = false;
+  showOptions: boolean = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -199,6 +204,7 @@ export class CoolingOnlyRComponent implements OnInit {
       next: (resp) => {
         if (resp.length > 0) {
           this.filters = resp;
+          this.showTitleFilter(this.filters);
           this.CallSearch(payload);
         } else {
           alert("No filters where found.")
@@ -207,6 +213,28 @@ export class CoolingOnlyRComponent implements OnInit {
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
     })
+  }
+
+  showTitleFilter(filters: any){
+
+    this.showModelNrs = false;
+    this.showIndoorUnit = false;
+    this.showOptions = false;
+
+    filters.forEach((ele : any) => {
+      if (ele.filterValues.length >= 1 && ele.filterName === 'outdoorUnitSKU' || ele.filterName === 'indoorUnitSKU' || ele.filterName === 'furnaceSKU' ){
+        this.showModelNrs = true
+      }
+
+      if (ele.filterValues.length >= 1 && ele.filterName === 'coilType' || ele.filterName === 'configuration' || ele.filterName === 'coilCasing' ){
+        this.showIndoorUnit = true
+      }
+
+      if (ele.filterValues.length >= 1 && ele.filterName === 'flushCoils' ){
+        this.showOptions = true
+      }
+
+    });
   }
 
   //selectFilters

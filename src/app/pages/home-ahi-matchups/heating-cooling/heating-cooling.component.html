@@ -55,7 +55,7 @@
             </mat-form-field>
 
             <!--radio button-->
-            <div>
+            <!-- <div>
               <mat-label class="rc-radio-label">Equipment search based on:</mat-label>
               <mat-radio-group #rGroup formControlName="equipmentSize"  fxLayout="column">
                 <mat-radio-button [value]="'Cooling Capacity'" radioGroup="rGroup">Cooling Capacity</mat-radio-button>
@@ -64,7 +64,7 @@
                   Equipment Size <strong>required</strong>
                 </mat-error>
               </mat-radio-group>
-            </div>
+            </div> -->
 
             <!-- button -->
             <div fxLayout="column" fxLayoutAlign="center end" class="rc-stepper-buttons">
@@ -160,8 +160,7 @@
               <form [formGroup]="filtersGroup" fxLayout="column" fxLayoutAlign="center" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
                     
                 <!-- outdoorUnitSKU, indoorUnitSKU, furnaceSKU -->
-                
-                <h5 class="rc-filter-group-title">Model nrs</h5>
+                <h5 class="rc-filter-group-title" *ngIf ="showModelNrs" >Model nrs</h5>
                 <div *ngFor="let filter of filters" class="rc-filter-group">
                     <div *ngIf = "filter.filterName === 'outdoorUnitSKU' || filter.filterName === 'indoorUnitSKU' || filter.filterName === 'furnaceSKU' ">
                         <mat-form-field appearance="fill" >
@@ -175,7 +174,7 @@
                 </div>
 
                 <!-- coilType, configuration, coilCasing -->
-                <h5 class="rc-filter-group-title">Indoor Unit</h5>
+                <h5 class="rc-filter-group-title" *ngIf ="showIndoorUnit" >Indoor Unit</h5>
                 <div *ngFor="let filter of filters" class="rc-filter-group">
                     <div *ngIf = "filter.filterName === 'coilType' || filter.filterName === 'coilCasing' || filter.filterName === 'configuration'">
                       <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
@@ -187,7 +186,7 @@
                 </div>
 
                 <!-- flushCoils -->
-                <h5 class="rc-filter-group-title">Options</h5>
+                <h5 class="rc-filter-group-title" *ngIf ="showOptions" >Options</h5>
                 <div *ngFor="let filter of filters" class="rc-filter-group">
                     <div *ngIf = "filter.filterName === 'flushCoils'">
                         <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>

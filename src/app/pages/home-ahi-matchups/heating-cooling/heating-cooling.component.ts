@@ -39,9 +39,14 @@ export class HeatingCoolingComponent implements OnInit {
   end?: number;
   rows!: number;
 
-  /* display columns when they have data */
+  /* display columns when they have data in table of results */
   showFurnace: boolean = true;
   showHSPF: boolean = true;
+
+  /* display title when exist filter in the filters */
+  showModelNrs: boolean = false;
+  showIndoorUnit: boolean = false;
+  showOptions: boolean = false;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -64,7 +69,7 @@ export class HeatingCoolingComponent implements OnInit {
     this.nominalSizeGroup = this._formBuilder.group({
       heatingBTUH: ['', [this.ValidateHeatingBTUH, this.ValidateNumber]],
       coolingTons: ['', Validators.required],
-      equipmentSize: ['', Validators.required],
+      /* equipmentSize: ['', Validators.required], */
     });
 
     this.furnaceGroup = this._formBuilder.group({
@@ -166,6 +171,7 @@ export class HeatingCoolingComponent implements OnInit {
       next: (resp) => {
         if (resp.length > 0) {
           this.filters = resp;
+          this.showTitleFilter(this.filters);
           this.CallSearch(payload);
         } else {
           alert("No filters where found.")
@@ -174,6 +180,28 @@ export class HeatingCoolingComponent implements OnInit {
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
     })
+  }
+
+  showTitleFilter(filters: any){
+
+    this.showModelNrs = false;
+    this.showIndoorUnit = false;
+    this.showOptions = false;
+
+    filters.forEach((ele : any) => {
+      if (ele.filterValues.length >= 1 && ele.filterName === 'outdoorUnitSKU' || ele.filterName === 'indoorUnitSKU' || ele.filterName === 'furnaceSKU' ){
+        this.showModelNrs = true
+      }
+
+      if (ele.filterValues.length >= 1 && ele.filterName === 'coilType' || ele.filterName === 'configuration' || ele.filterName === 'coilCasing' ){
+        this.showIndoorUnit = true
+      }
+
+      if (ele.filterValues.length >= 1 && ele.filterName === 'flushCoils' ){
+        this.showOptions = true
+      }
+
+    });
   }
 
   //selectFilters
@@ -220,7 +248,6 @@ export class HeatingCoolingComponent implements OnInit {
   CallSearch(payload: any) {
     this._api.Search(JSON.stringify(payload)).subscribe({
       next: (resp) => {
-        console.log(resp);
           this.results = resp;
           this.showColum(this.results);
           this.ObtainPaginationText();

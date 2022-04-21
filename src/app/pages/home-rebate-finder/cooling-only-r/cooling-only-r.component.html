@@ -237,48 +237,55 @@
           
           <!-- filters -->
           <div fxFlex="25" fxLayout="column" fxLayoutAlign="start" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="25" class="rc-filters" fxLayoutGap.sm="16"  fxLayoutGap.xs="16">
-            <h5>Filters</h5>
-            <form [formGroup]="filtersGroup">
-                <div fxLayout="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
+            <div class="rc-filters-header">
+            <div fxLayout="row" fxLayoutAlign="start center" >
+                <mat-icon>filter_list</mat-icon>
+                <h4>Filters</h4>
+            </div>
+            </div>
+            <div class="rc-filters-body">
+            <form [formGroup]="filtersGroup" fxLayout="column" fxLayoutAlign="center" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
                     
-                    <!-- outdoorUnitSKU, indoorUnitSKU, furnaceSKU -->
-                    <div *ngFor="let filter of filters">
-                        <div *ngIf = "filter.filterName === 'outdoorUnitSKU' || filter.filterName === 'indoorUnitSKU' || filter.filterName === 'furnaceSKU' ">
-                            <mat-form-field appearance="fill" >
-                                <mat-label>{{filter.filterName}}</mat-label>
-                                <select matNativeControl required (change)="SelectFilters()" [formControlName]="filter.filterName">
-                                    <option *ngFor="let val of filter.filterValues" [value]="val">{{val}}</option>
-                                    <option value="">Show all</option>
-                                </select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <!-- coilType, flushCoils, coilCasing -->
-                    <div *ngFor="let filter of filters">
-                        <div *ngIf = "filter.filterName === 'coilType' || filter.filterName === 'flushCoils' || filter.filterName === 'coilCasing' ">
-                            <mat-form-field appearance="fill" >
-                                <mat-label>{{filter.filterName}}</mat-label>
-                                <select matNativeControl required (change)="SelectFilters()" [formControlName]="filter.filterName">
-                                    <option *ngFor="let val of filter.filterValues" [value]="val">{{val}}</option>
-                                    <option value="">Show all</option>
-                                </select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-                    <!-- configuration -->
-                    <div *ngFor="let filter of filters">
-                        <div *ngIf = "filter.filterName === 'configuration'">
+                <!-- outdoorUnitSKU, indoorUnitSKU, furnaceSKU -->
+                <h5 class="rc-filter-group-title" *ngIf ="showModelNrs" >Model nrs</h5>
+                <div *ngFor="let filter of filters" class="rc-filter-group">
+                    <div *ngIf = "filter.filterName === 'outdoorUnitSKU' || filter.filterName === 'indoorUnitSKU' || filter.filterName === 'furnaceSKU' ">
+                        <mat-form-field appearance="fill" >
                             <mat-label>{{filter.filterName}}</mat-label>
-                            <mat-radio-group #configuration fxLayout="column" (change)="SelectFilters()"  [formControlName]="filter.filterName" >
-                                <mat-radio-button *ngFor="let val of filter.filterValues" [value]="val">{{val}}</mat-radio-button>
-                            </mat-radio-group>
-                        </div>
+                            <select matNativeControl required (change)="SelectFilters()" [formControlName]="filter.filterName">
+                                <option *ngFor="let val of filter.filterValues" [value]="val">{{val}}</option>
+                                <option value="">Show all</option>
+                            </select>
+                        </mat-form-field>
                     </div>
-                    
+                </div>
+
+                <!-- coilType, configuration, coilCasing -->
+                <h5 class="rc-filter-group-title" *ngIf ="showIndoorUnit" >Indoor Unit</h5>
+                <div *ngFor="let filter of filters" class="rc-filter-group">
+                    <div *ngIf = "filter.filterName === 'coilType' || filter.filterName === 'coilCasing' || filter.filterName === 'configuration'">
+                    <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
+                    <mat-radio-group #configuration fxLayout="column" (change)="SelectFilters()"  [formControlName]="filter.filterName" >
+                        <mat-radio-button *ngFor="let val of filter.filterValues" [value]="val">{{val}}</mat-radio-button>
+                        <mat-radio-button [value]="">Show all</mat-radio-button>
+                    </mat-radio-group>
+                    </div>
+                </div>
+
+                <!-- flushCoils -->
+                <h5 class="rc-filter-group-title" *ngIf ="showOptions" >Options</h5>
+                <div *ngFor="let filter of filters" class="rc-filter-group">
+                    <div *ngIf = "filter.filterName === 'flushCoils'">
+                        <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
+                        <mat-radio-group #configuration fxLayout="column" (change)="SelectFilters()"  [formControlName]="filter.filterName" >
+                            <mat-radio-button *ngFor="let val of filter.filterValues" [value]="val">{{val}}</mat-radio-button>
+                            <mat-radio-button [value]="">Show all</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
                 </div>
             </form>
+
+            </div>
         </div>
         <!-- filters end -->
   
