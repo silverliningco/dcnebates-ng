@@ -289,6 +289,11 @@ table tbody tr:nth-of-type(even) {
   }
 }
 
+    /*List in table without paddin start*/
+    .rc-list-in-table{
+      padding-inline-start: 20px;
+    }
+
 /* footer */
 footer {
   height: 60px;
@@ -880,35 +885,42 @@ span.rc-info-title-ar {
     display: block;
   }
 
-  /*Style for radio buttons in filters*/
-  .rc-filters-radio mat-radio-button{
-    margin-right: 12px;
-  }
-  .rc-filters-radio mat-radio-button .mat-radio-container{
-    display: none;
+/*Style for radio buttons in filters*/
+.rc-filters-radio{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
+.rc-filters-radio mat-radio-button{
+  margin-right: 12px;
+}
 
-  }
-  .rc-filters-radio mat-radio-button > label.mat-radio-label{
-    border: 1px solid #c1c1c1;
-    border-radius: 2rem;
-    padding: 2px 5px;
-    font-size: 14px;
-  }
-  .rc-filters-radio mat-radio-button div.close {
-    display: none;
-  }
-  .rc-filters-radio mat-radio-button div.close mat-icon {
-    color: #858585;
-    font-size: 22px;
-    
-  }
-      /*checked*/
+.rc-filters-radio mat-radio-button .mat-radio-container{
+  display: none;
+}
+.rc-filters-radio mat-radio-button > label.mat-radio-label{
+  border: 1px solid #c1c1c1;
+  border-radius: 1rem;
+  padding: 2px 5px;
+  font-size: 14px;
+  transition: display 0s, opacity 0.5s linear;
+}
+div.close {
+  display: none;
+}
+.rc-filters-radio mat-radio-button div.close mat-icon {
+  color: #858585;
+  font-size: 22px;
+  
+}
+  /*checked*/
   .rc-filters-radio mat-radio-button.mat-radio-checked > label.mat-radio-label{
     background-color: #f3f3f3;
     color: #858585;
     border: 1px solid #858585;
     font-weight: bold;
-    padding-right: 0;
+    border-radius: 1rem 0 0 1rem;
   }
 
   .rc-filters-radio mat-radio-button.mat-radio-checked > label.mat-radio-label > span.mat-radio-label-content{
@@ -918,8 +930,12 @@ span.rc-info-title-ar {
     justify-content: space-between;
   }
   
-  
-  .rc-filters-radio mat-radio-button.mat-radio-checked div.close {
-    display: flex;
-    padding-left: .5rem;
+  .rc-filters-radio mat-radio-button.mat-radio-checked + div.close {
+    display: inline-flex;
+    border: 1px solid #858585;
+    padding: 2px 5px 2px 2px;
+    border-radius: 0 1rem 1rem 0;
+    border-left: none;
+    background-color: #f3f3f3;
+    color: #858585
   }

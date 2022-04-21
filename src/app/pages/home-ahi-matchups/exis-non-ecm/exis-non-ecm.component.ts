@@ -195,6 +195,12 @@ export class ExisNonEcmComponent implements OnInit {
 
     });
   }
+  
+  //UnselectFilters
+  unselect(myFilter:any){
+    this.filtersGroup.controls[myFilter].setValue("");
+    this.SelectFilters();
+  }
 
   SelectFilters() {
 

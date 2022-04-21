@@ -197,6 +197,12 @@ export class CoolingOnlyComponent implements OnInit {
     });
   }
 
+  //UnselectFilters
+  unselect(myFilter:any){
+    this.filtersGroup.controls[myFilter].setValue("");
+    this.SelectFilters();
+  }  
+
   SelectFilters() {
 
     let myfilters: {

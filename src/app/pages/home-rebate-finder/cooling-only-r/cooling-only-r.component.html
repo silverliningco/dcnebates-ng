@@ -238,13 +238,13 @@
           <!-- filters -->
           <div fxFlex="25" fxLayout="column" fxLayoutAlign="start" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="25" class="rc-filters" fxLayoutGap.sm="16"  fxLayoutGap.xs="16">
             <div class="rc-filters-header">
-            <div fxLayout="row" fxLayoutAlign="start center" >
-                <mat-icon>filter_list</mat-icon>
-                <h4>Filters</h4>
-            </div>
+              <div fxLayout="row" fxLayoutAlign="start center" >
+                  <mat-icon>filter_list</mat-icon>
+                  <h4>Filters</h4>
+              </div>
             </div>
             <div class="rc-filters-body">
-            <form [formGroup]="filtersGroup" fxLayout="column" fxLayoutAlign="center" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
+              <form [formGroup]="filtersGroup" fxLayout="column" fxLayoutAlign="center" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
                     
                 <!-- outdoorUnitSKU, indoorUnitSKU, furnaceSKU -->
                 <h5 class="rc-filter-group-title" *ngIf ="showModelNrs" >Model nrs</h5>
@@ -264,11 +264,15 @@
                 <h5 class="rc-filter-group-title" *ngIf ="showIndoorUnit" >Indoor Unit</h5>
                 <div *ngFor="let filter of filters" class="rc-filter-group">
                     <div *ngIf = "filter.filterName === 'coilType' || filter.filterName === 'coilCasing' || filter.filterName === 'configuration'">
-                    <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                    <mat-radio-group #configuration fxLayout="column" (change)="SelectFilters()"  [formControlName]="filter.filterName" >
-                        <mat-radio-button *ngFor="let val of filter.filterValues" [value]="val">{{val}}</mat-radio-button>
-                        <mat-radio-button [value]="">Show all</mat-radio-button>
-                    </mat-radio-group>
+                      <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
+                      <mat-radio-group #configuration (change)="SelectFilters()"  [formControlName]="filter.filterName" >
+                        <div *ngFor="let val of filter.filterValues" class="rc-filters-radio">
+                          <mat-radio-button [value]="val">
+                            {{val}} 
+                          </mat-radio-button>
+                          <div class="close" (click)="unselect(filter.filterName)"><mat-icon>close</mat-icon></div>
+                        </div>                        
+                      </mat-radio-group>
                     </div>
                 </div>
 
@@ -277,13 +281,18 @@
                 <div *ngFor="let filter of filters" class="rc-filter-group">
                     <div *ngIf = "filter.filterName === 'flushCoils'">
                         <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                        <mat-radio-group #configuration fxLayout="column" (change)="SelectFilters()"  [formControlName]="filter.filterName" >
-                            <mat-radio-button *ngFor="let val of filter.filterValues" [value]="val">{{val}}</mat-radio-button>
-                            <mat-radio-button [value]="">Show all</mat-radio-button>
+                        <mat-radio-group #configuration (change)="SelectFilters()"  [formControlName]="filter.filterName" >
+                          <div  *ngFor="let val of filter.filterValues" class="rc-filters-radio">
+                            <mat-radio-button [value]="val">
+                              {{val}}
+                            </mat-radio-button>
+                            <div class="close" (click)="unselect(filter.filterName)"><mat-icon>close</mat-icon></div>
+                          </div>
+                          
                         </mat-radio-group>
                     </div>
                 </div>
-            </form>
+              </form>
 
             </div>
         </div>
@@ -321,7 +330,7 @@
                     <td data-title="Indoor unit">{{ahriCombination.indoorUnitSKU}}</td>
                     <td data-title="Furnace" *ngIf = "showFurnace">{{ahriCombination.furnaceSKU}}</td>
                     <td data-title="Configuration" *ngIf = "showFurnace">
-                        <ul  *ngFor="let configuration of ahriCombination.furnaceConfigurations">
+                        <ul  *ngFor="let configuration of ahriCombination.furnaceConfigurations" class="rc-list-in-table">
                           <li>{{configuration}}</li>
                         </ul>
                       </td>
