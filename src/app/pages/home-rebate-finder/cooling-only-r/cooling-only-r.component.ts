@@ -59,7 +59,7 @@ export class CoolingOnlyRComponent implements OnInit {
   showFurnace: boolean = true;
   showHSPF: boolean = true;
 
-  /* display title when exist filter in the filters */
+  /* display title when exist filter */
   showModelNrs: boolean = false;
   showIndoorUnit: boolean = false;
   showOptions: boolean = false;
