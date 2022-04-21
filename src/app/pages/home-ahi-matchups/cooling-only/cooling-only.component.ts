@@ -244,7 +244,6 @@ export class CoolingOnlyComponent implements OnInit {
   CallSearch(payload: any) {
     this._api.Search(JSON.stringify(payload)).subscribe({
       next: (resp) => {
-        console.log(resp);
           this.results = resp;
           this.showColum(this.results);
           this.ObtainPaginationText();
