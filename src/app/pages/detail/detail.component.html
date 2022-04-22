@@ -1,72 +1,170 @@
 <h2 class="rc-main-title">HVAC System Detail</h2>
+<mat-card class="rc-card detail">
+  <div fxLayout="row column">
+    <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="rc-details-model-nrs">
+      <div fxLayout fxLayoutAlign="center center" >
+        <div fxFlex="80">
+          <!-- Start SKUS-->
+          <div class="rc-card-detail-title">
+            <h2>SKUS</h2>
+          </div>            
+          <div class="rc-card-detail-body">
+            <div fxLayout fxLayoutGap="16px grid" class="rc-detail-list-info">
+              <div fxFlex.xs="100" fxLayoutAlign="end center">
+                <b>Outdoor unit:</b>                  
+              </div>
+              <div fxFlex.xs="100" fxLayoutAlign="start center">
+                {{detail?.outdoorUnitSKU}}
+              </div>
+            </div>
+      
+            <div fxLayout fxLayoutGap="16px grid" class="rc-detail-list-info">
+              <div fxFlex.xs="100" fxLayoutAlign="end center">
+                <b>Indoor unit:</b>                  
+              </div>
+              <div fxFlex.xs="100" fxLayoutAlign="start center">
+                {{detail?.indoorUnitSKU}}
+              </div>
+            </div>
+      
+            <div fxLayout fxLayoutGap="16px grid" class="rc-detail-list-info">
+              <div fxFlex.xs="100" fxLayoutAlign="end center">
+                <b>Furnace:</b>                  
+              </div>
+              <div fxFlex.xs="100" fxLayoutAlign="start center">
+                {{detail?.furnaceSKU || "-" }}
+              </div>
+            </div>
+          </div>
+          <!-- End SKUS-->
+          <!-- Start AHRI References-->
+          <div class="rc-card-detail-title">
+            <h2>AHRI References</h2>
+          </div>          
+          <div class="rc-card-detail-body">
+            <ul class="rc-list-details">
+              <li *ngFor="let ahri_ref of detail?.AHRIReferences">{{ahri_ref}}</li>
+            </ul>
+          </div>
+          <!-- End AHRI References-->
+        </div>
 
-<div fxLayout="row colum" fxLayoutAlign="center" class="rc-hvac-detail">
-  <div fxFlex="35" fxFlex.sm="100" fxFlex.xs="100">
-    <h2>SKUS</h2>
-    <div>
-      <span><b>Outdoor unit: </b></span>
-      {{detail?.outdoorUnitSKU}}
+      </div>
     </div>
-    <div>
-      <span><b>Indoor unit: </b></span>
-      {{detail?.indoorUnitSKU}}
-    </div>
-    <div>
-      <span><b>Furnace: </b></span>
-      {{detail?.furnaceSKU}}
-    </div>
-    <h2>AHRI References</h2>
-    <ul class="rc-list-details">
-      <li *ngFor="let ahri_ref of detail?.AHRIReferences">{{ahri_ref}}</li>
-    </ul>
+    <div fxFlex="50"  fxFlex.sm="100" fxFlex.xs="100">
+      <div fxLayout fxLayoutAlign="center center" >
+        <div fxFlex="80">
+          <div class="rc-detail-ahri-rating">
+            <!--AHRI Ratings-->
+            <div class="rc-detail-ahri-rating-title">
+              <h3>AHRI Ratings</h3>
+            </div>
+            <div class="rc-detail-ahri-rating-body">
+              <div fxLayout fxLayoutGap="16px grid" class="rc-detail-list-info">
+                <div fxFlex.xs="100" fxLayoutAlign="end center">
+                  <b>Cooling capacity:</b>                  
+                </div>
+                <div fxFlex.xs="100" fxLayoutAlign="start center">
+                  {{detail?.coolingCapacityRated | number}}
+                </div>
+              </div>
+      
+              <div fxLayout fxLayoutGap="16px grid" class="rc-detail-list-info">
+                <div fxFlex.xs="100" fxLayoutAlign="end center">
+                  <b>SEER:</b>                  
+                </div>
+                <div fxFlex.xs="100" fxLayoutAlign="start center">
+                  {{detail?.SEER}}
+                </div>
+              </div>
+      
+              <div fxLayout fxLayoutGap="16px grid" class="rc-detail-list-info">
+                <div fxFlex.xs="100" fxLayoutAlign="end center">
+                  <b>EER:</b>                  
+                </div>
+                <div fxFlex.xs="100" fxLayoutAlign="start center">
+                  {{detail?.EER}}
+                </div>
+              </div>
+      
+              <div fxLayout fxLayoutGap="16px grid" class="rc-detail-list-info">
+                <div fxFlex.xs="100" fxLayoutAlign="end center">
+                  <b>HSPF:</b>                  
+                </div>
+                <div fxFlex.xs="100" fxLayoutAlign="start center">
+                  {{detail?.HSPF}}
+                </div>
+              </div>
+      
+              <div fxLayout fxLayoutGap="16px grid" class="rc-detail-list-info">
+                <div fxFlex.xs="100" fxLayoutAlign="end center">
+                  <b>HCap 47:</b>                  
+                </div>
+                <div fxFlex.xs="100" fxLayoutAlign="start center">
+                  {{detail?.Hcap47 | number}}
+                </div>
+              </div>
+      
+              <div fxLayout fxLayoutGap="16px grid" class="rc-detail-list-info">
+                <div fxFlex.xs="100" fxLayoutAlign="end center">
+                  <b>HCap 17:</b>                  
+                </div>
+                <div fxFlex.xs="100" fxLayoutAlign="start center">
+                  {{detail?.Hcap17 | number}}
+                </div>
+              </div>
+      
+              <div fxLayout fxLayoutGap="16px grid" class="rc-detail-list-info">
+                <div fxFlex.xs="100" fxLayoutAlign="end center">
+                  <b>AFUE:</b>                  
+                </div>
+                <div fxFlex.xs="100" fxLayoutAlign="start center">
+                  {{detail?.AFUE}}
+                </div>
+              </div>
+      
+              <div fxLayout fxLayoutGap="16px grid" class="rc-detail-list-info">
+                <div fxFlex.xs="100" fxLayoutAlign="end center">
+                  <b>Input BTUH:</b>                  
+                </div>
+                <div fxFlex.xs="100" fxLayoutAlign="start center">
+                  {{detail?.furnaceInputBTUH | number}}
+                </div>
+              </div>
+      
+              <div fxLayout fxLayoutGap="16px grid" class="rc-detail-list-info">
+                <div fxFlex.xs="100" fxLayoutAlign="end center">
+                  <b>Output BTUH:</b>                  
+                </div>
+                <div fxFlex.xs="100" fxLayoutAlign="start center">
+                  {{detail?.furnaceOutputBTUH | number}}
+                </div>
+              </div>
+            </div>
+  
+            <!-- Start Configuration -->
+            <div *ngIf="detail?.furnaceConfigurations.length > 0">
+              <div class="rc-detail-ahri-rating-title">
+                <h3>Configuration</h3>
+              </div>
+              <div class="rc-detail-ahri-rating-body">
+                <ul>
+                  <li *ngFor="let configuration of detail?.furnaceConfigurations">{{configuration}}</li>
+                </ul>
+              </div>
+            </div>
+            <!-- End Configuration -->     
+          </div>  
+        </div>
+      </div>
+    </div>  
+  </div>   
+</mat-card>
 
-  </div>
-  <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
-    <div class="letter">
-      <h3>AHRI Ratings</h3>
-      <div>
-            <span><b>Cooling capacity: </b></span>
-            {{detail?.coolingCapacityRated}}
-      </div>
-      <div>
-            <span><b>SEER: </b></span>
-            {{detail?.SEER}}
-      </div>
-      <div>
-            <span><b>EER: </b></span>
-            {{detail?.EER}}
-      </div>
-      <div>
-            <span><b>HSPF: </b></span>
-            {{detail?.HSPF}}
-      </div>
-      <div>
-            <span><b>HCap 47: </b></span>
-            {{detail?.Hcap47}}
-      </div>
-      <div>
-            <span><b>HCap 17: </b></span>
-            {{detail?.Hcap17}}
-      </div>
-      <div>
-            <span><b>AFUE: </b></span>
-            {{detail?.AFUE}}
-      </div>
-      <div>
-            <span><b>Input BTUH: </b></span>
-            {{detail?.furnaceInputBTUH}}
-      </div>
-      <div>
-            <span><b>Output BTUH: </b></span>
-            {{detail?.furnaceOutputBTUH}}
-      </div>
-     </div>
-  </div>
-</div>
-
+<!--Available Rebates-->
 <div *ngIf="detail?.availableRebates?.length > 0">
   <h2 class="rc-main-title">Available Rebates</h2>
-  <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center stretch" fxLayoutGap="16px grid">
+  <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center stretch" fxLayoutGap="16px grid" fxLayoutGap.sm="0 0" fxLayoutGap.xs="0 0">
     <div *ngFor="let reb of detail?.availableRebates" fxFlex="100" fxFlex.sm="100" fxFlex.xs="100" >
       <mat-card class="rc-available-rebates">
         <mat-card-title>{{reb.rebateTitle}} <span *ngIf="reb.rebateTierTitle !='Default'">({{reb.rebateTierTitle}})</span></mat-card-title>
@@ -75,7 +173,7 @@
             <div fxLayout fxFlex="55"  fxFlex.sm="55" fxFlex.xs="100" fxLayoutAlign="center center" class="price">
               <div>
                 <span>Up to</span>
-                <h1> {{reb.amount}}</h1>
+                <h1> {{reb.amount | currency:"USD":"symbol" : '1.0-0'}}</h1>
               </div>
             </div>
             <div fxFlex="45"  fxFlex.sm="45" fxFlex.xs="100" fxLayoutAlign="center center"  class="description">
