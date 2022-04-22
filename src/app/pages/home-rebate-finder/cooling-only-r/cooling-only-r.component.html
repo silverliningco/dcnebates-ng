@@ -338,7 +338,7 @@
                     <td data-title="EER">{{ahriCombination.EER}}</td>
                     <td data-title="HSPF" *ngIf = "showHSPF">{{ahriCombination.HSPF}}</td>
                     <td data-title="AFUE" *ngIf = "showFurnace">{{ahriCombination.AFUE}}</td>
-                    <td data-title="Total rebate">{{ahriCombination.totalAvailableRebates}}</td>
+                    <td data-title="Total rebate">{{ahriCombination.totalAvailableRebates|currency:"USD":"symbol" : '1.0-0' }}</td>
                     <td data-title="Details">
                     <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']" [queryParams]="{skus:ahriCombination.SKUs | json, ahri_refs:ahriCombination.AHRIReferences| json, params:{commerceInfo: myCommerInfo, requiredRebates: payloadRebates} | json}"  target="_blank">
                     <mat-icon>search</mat-icon>
@@ -346,7 +346,7 @@
                     </td>
                 </tr>
                 <tr *ngIf="results?.length < 1">
-                <td colspan ="10"></td>
+                <td colspan ="11"></td>
                 </tr>
                 </tbody>
             </table>
