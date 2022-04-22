@@ -31,7 +31,7 @@ export class CoolingOnlyComponent implements OnInit {
 
   myCommerInfo !: any;
   productLines!: any;
-  filters!: any;
+  filters: Array<any> = [];
   
   results!: any;
   noResults!: boolean;
@@ -121,7 +121,7 @@ export class CoolingOnlyComponent implements OnInit {
           this.productLinesGroup.controls['productLine'].setValue(resp[0].id);
           payload.systemTypeId = this.productLinesGroup.controls['productLine'].value;
           payload.filters = [];
-          this.CallFilters(payload);
+          this.CallFilters(payload, '');
 
           this.noResults = false;
         } else {
@@ -154,16 +154,34 @@ export class CoolingOnlyComponent implements OnInit {
     this.filtersGroup.controls['flushCoils'].setValue("");
     this.filtersGroup.controls['coilCasing'].setValue("");
     this.filtersGroup.controls['configuration'].setValue("");
-    this.CallFilters(payload)
+    this.CallFilters(payload,'')
 
     this.results = [];
   }
 
-  CallFilters(payload: any) {
+  CallFilters(payload: any, mySelectedFilter:any) {
     this._api.Filters(JSON.stringify(payload)).subscribe({
-      next: (resp) => {
+      next: (resp:Array<any>) => {
         if (resp.length > 0) {
-          this.filters = resp;
+
+          // in selected filter value is empty, rdont filter response
+          if (mySelectedFilter !="" && this.filtersGroup.controls[mySelectedFilter].value != "") {
+            const mySelectedOptions = this.filters.filter(f => f.filterName == mySelectedFilter);
+            const respFilters:Array<any> =[];
+
+            resp.forEach(element => {
+              if(element.filterName== mySelectedFilter){
+                element = mySelectedOptions[0];
+              }
+              respFilters.push(element);
+            });
+            this.filters = respFilters;
+
+          } else{
+            // else, filter 
+            this.filters = resp;
+          }
+
           this.showTitleFilter(this.filters);
           this.CallSearch(payload);
         } else {
@@ -197,13 +215,8 @@ export class CoolingOnlyComponent implements OnInit {
     });
   }
 
-  //UnselectFilters
-  unselect(myFilter:any){
-    this.filtersGroup.controls[myFilter].setValue("");
-    this.SelectFilters();
-  }  
 
-  SelectFilters() {
+  SelectFilters(myFilterName:any) {
 
     let myfilters: {
       filterName: string;
@@ -237,8 +250,7 @@ export class CoolingOnlyComponent implements OnInit {
       filters: myfilters,
       requiredRebates: this.payloadRebates
     }
-    this.CallFilters(payload);
-    this.CallSearch(payload);
+    this.CallFilters(payload, myFilterName);
   }
 
   CallSearch(payload: any) {
