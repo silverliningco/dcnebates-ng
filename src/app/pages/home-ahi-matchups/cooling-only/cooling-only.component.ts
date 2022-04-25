@@ -21,6 +21,7 @@ import { ApiService } from 'src/app/services/api.service';
 
 export class CoolingOnlyComponent implements OnInit {
 
+  commerceInfoGroup !: FormGroup;
   nominalSizeGroup !: FormGroup;
   locationGroup !: FormGroup;
   productLinesGroup !: FormGroup;
@@ -29,7 +30,6 @@ export class CoolingOnlyComponent implements OnInit {
 
   stepperOrientation: Observable<StepperOrientation>;
 
-  myCommerInfo !: any;
   productLines!: any;
   filters: Array<any> = [];
   
@@ -62,10 +62,10 @@ export class CoolingOnlyComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.myCommerInfo = {
+    this.commerceInfoGroup = this._formBuilder.group({
       storeId: 1,
-      showAllResults: false
-    }
+      showAllResults: [false, Validators.required],
+    });
 
     this.nominalSizeGroup = this._formBuilder.group({
       coolingTons: ['', Validators.required],
@@ -103,7 +103,7 @@ export class CoolingOnlyComponent implements OnInit {
 
   submitForm() {
     let payload = {
-      commerceInfo: this.myCommerInfo,
+      commerceInfo: this.commerceInfoGroup.value,
       searchType: "Cooling Only",
       nominalSize: this.nominalSizeGroup.value,
       requiredRebates: this.payloadRebates
@@ -135,10 +135,7 @@ export class CoolingOnlyComponent implements OnInit {
 
   SelectProductLine(systemTypeId:number) {
     let payload = {
-      commerceInfo: {
-        storeId: 1,
-        showAllResults: false
-      }, 
+      commerceInfo: this.commerceInfoGroup.value,
       searchType: "Cooling Only",
       nominalSize: this.nominalSizeGroup.value,
       systemTypeId:systemTypeId,
@@ -244,10 +241,7 @@ export class CoolingOnlyComponent implements OnInit {
     );
 
     let payload = {
-      commerceInfo: {
-        storeId: 1,
-        showAllResults: false
-      },
+      commerceInfo: this.commerceInfoGroup.value,
       searchType: "Cooling Only",
       nominalSize: this.nominalSizeGroup.value,
       systemTypeId: this.productLinesGroup.controls['productLine'].value,

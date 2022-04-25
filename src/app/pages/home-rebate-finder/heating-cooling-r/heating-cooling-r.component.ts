@@ -24,7 +24,7 @@ import { Rebate, RebateTier, Criteria } from '../../../models/rebates';
 })
 
 export class HeatingCoolingRComponent implements OnInit {
-
+  commerceInfoGroup !: FormGroup;
   nominalSizeGroup !: FormGroup;
   furnaceGroup !: FormGroup;
   productLinesGroup !: FormGroup;
@@ -35,7 +35,6 @@ export class HeatingCoolingRComponent implements OnInit {
 
   stepperOrientation: Observable<StepperOrientation>;
 
-  myCommerInfo !: any;
   productLines!: any;
   filters: Array<any> = [];
   results!: any;
@@ -77,10 +76,10 @@ export class HeatingCoolingRComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.myCommerInfo = {
+    this.commerceInfoGroup = this._formBuilder.group({
       storeId: 1,
-      showAllResults: false
-    }
+      showAllResults: [false, Validators.required],
+    });
 
     this.stateGroup = this._formBuilder.group({
       state: ['', Validators.required]
@@ -137,7 +136,7 @@ export class HeatingCoolingRComponent implements OnInit {
 
   submitForm() {
     let payload = {
-      commerceInfo: this.myCommerInfo,
+      commerceInfo: this.commerceInfoGroup.value,
       searchType: "Heating and Cooling",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
@@ -172,10 +171,7 @@ export class HeatingCoolingRComponent implements OnInit {
   // SelectProductLine
   SelectProductLine(systemTypeId: number) {
     let payload = {
-      commerceInfo: {
-        storeId: 1,
-        showAllResults: false
-      },
+      commerceInfo: this.commerceInfoGroup.value,
       searchType: "Heating and Cooling",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
@@ -284,10 +280,7 @@ export class HeatingCoolingRComponent implements OnInit {
     );
 
     let payload = {
-      commerceInfo: {
-        storeId: 1,
-        showAllResults: false
-      },
+      commerceInfo: this.commerceInfoGroup.value,
       searchType: "Heating and Cooling",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,

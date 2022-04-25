@@ -22,6 +22,7 @@ import { ApiService } from 'src/app/services/api.service';
 
 export class ExisNonEcmComponent implements OnInit {
 
+  commerceInfoGroup !: FormGroup;
   nominalSizeGroup !: FormGroup;
   locationGroup !: FormGroup;
   productLinesGroup !: FormGroup;
@@ -30,7 +31,6 @@ export class ExisNonEcmComponent implements OnInit {
 
   stepperOrientation: Observable<StepperOrientation>;
 
-  myCommerInfo !: any;
   productLines!: any;
   filters: Array<any> = [];
   
@@ -62,10 +62,10 @@ export class ExisNonEcmComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.myCommerInfo = {
+    this.commerceInfoGroup = this._formBuilder.group({
       storeId: 1,
-      showAllResults: false
-    }
+      showAllResults: [false, Validators.required],
+    });
 
     this.nominalSizeGroup = this._formBuilder.group({
       coolingTons: ['', Validators.required],
@@ -102,7 +102,7 @@ export class ExisNonEcmComponent implements OnInit {
 
   submitForm() {
     let payload = {
-      commerceInfo: this.myCommerInfo,
+      commerceInfo: this.commerceInfoGroup.value,
       searchType: "Existing or non-ECM furnace installations",
       nominalSize: this.nominalSizeGroup.value,
       requiredRebates: this.payloadRebates
@@ -243,10 +243,7 @@ export class ExisNonEcmComponent implements OnInit {
     );
 
     let payload = {
-      commerceInfo: {
-        storeId: 1,
-        showAllResults: false
-      },
+      commerceInfo: this.commerceInfoGroup.value,
       searchType: "Existing or non-ECM furnace installations",
       nominalSize: this.nominalSizeGroup.value,
       systemTypeId: this.productLinesGroup.controls['productLine'].value,

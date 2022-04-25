@@ -20,7 +20,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 
 export class FurnaceOnlyInstallComponent implements OnInit {
-
+  commerceInfoGroup !: FormGroup;
   nominalSizeGroup !: FormGroup;
   furnaceGroup !: FormGroup;
   productLinesGroup !: FormGroup;
@@ -29,7 +29,6 @@ export class FurnaceOnlyInstallComponent implements OnInit {
 
   stepperOrientation: Observable<StepperOrientation>;
 
-  myCommerInfo !: any;
   productLines!: any;
   filters: Array<any> = [];
   
@@ -62,10 +61,10 @@ export class FurnaceOnlyInstallComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.myCommerInfo = {
+    this.commerceInfoGroup = this._formBuilder.group({
       storeId: 1,
-      showAllResults: false
-    }
+      showAllResults: [false, Validators.required],
+    });
 
     this.nominalSizeGroup = this._formBuilder.group({
       furnaceBTUH: ['', [this.ValidateFurnace, this.ValidateNumber]],
@@ -105,7 +104,7 @@ export class FurnaceOnlyInstallComponent implements OnInit {
 
   submitForm() {
     let payload = {
-      commerceInfo: this.myCommerInfo,
+      commerceInfo: this.commerceInfoGroup.value,
       searchType: "Furnace only",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
@@ -138,10 +137,7 @@ export class FurnaceOnlyInstallComponent implements OnInit {
 
   SelectProductLine(systemTypeId:number) {
     let payload = {
-      commerceInfo: {
-        storeId: 1,
-        showAllResults: false
-      },
+      commerceInfo: this.commerceInfoGroup.value,
       searchType: "Furnace only",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
@@ -247,10 +243,7 @@ export class FurnaceOnlyInstallComponent implements OnInit {
     );
 
     let payload = {
-      commerceInfo: {
-        storeId: 1,
-        showAllResults: false
-      },
+      commerceInfo: this.commerceInfoGroup.value,
       searchType: "Furnace only",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
