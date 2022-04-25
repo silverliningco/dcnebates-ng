@@ -160,6 +160,8 @@ export class FurnaceOnlyInstallComponent implements OnInit {
     this.filtersGroup.controls['configuration'].setValue("");
     this.CallFilters(payload,'')
 
+    this.p = 1;
+
     this.results = [];
   }
 
@@ -233,11 +235,13 @@ export class FurnaceOnlyInstallComponent implements OnInit {
             filterName: key,
             filterValues: [value]
           });
+          this.p = 1;
         } else{
           myfilters.push({
             filterName: key,
             filterValues: ["*"]
           });
+          this.p = 1;
         }
       }
     );

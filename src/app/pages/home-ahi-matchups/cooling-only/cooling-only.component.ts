@@ -138,7 +138,7 @@ export class CoolingOnlyComponent implements OnInit {
       commerceInfo: {
         storeId: 1,
         showAllResults: false
-      },
+      }, 
       searchType: "Cooling Only",
       nominalSize: this.nominalSizeGroup.value,
       systemTypeId:systemTypeId,
@@ -155,6 +155,8 @@ export class CoolingOnlyComponent implements OnInit {
     this.filtersGroup.controls['coilCasing'].setValue("");
     this.filtersGroup.controls['configuration'].setValue("");
     this.CallFilters(payload,'')
+
+    this.p = 1;
 
     this.results = [];
   }
@@ -230,11 +232,13 @@ export class CoolingOnlyComponent implements OnInit {
             filterName: key,
             filterValues: [value]
           });
+          this.p = 1;
         } else{
           myfilters.push({
             filterName: key,
             filterValues: ["*"]
           });
+          this.p = 1;
         }
       }
     );
