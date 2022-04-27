@@ -213,7 +213,11 @@ export class CoolingOnlyComponent implements OnInit {
 
     });
   }
-
+  // function to remove selections filters from my filters.
+  removeFilter(myFilter:any): void {
+    this.filtersGroup.controls[myFilter].setValue("");
+    this.SelectFilters(myFilter)
+  }
 
   SelectFilters(myFilterName:any) {
 

@@ -129,9 +129,25 @@
 
                 <div fxFlex="75" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="75">
 
-                     <!-- data of pagination -->
-                    <div fxLayout fxLayoutAlign="end center">
-                        <span class="rc-nr-pages">{{ beginning }} - {{ end }} of  {{results?.length}}</span>
+                    <div fxLayout="row column" fxLayoutAlign="space-between center" class="rc-filters-selected">
+                        <div fxFlex="85" fxFlex.sm="100" fxFlex.xs="100" class="rc-f">
+                            <h5 class="rc-filter-group-title">My filters:</h5>
+                           
+                            <mat-chip-list aria-label="Applied filters">
+                                <ng-container *ngFor="let selectedFilter of this.filtersGroup.value | keyvalue"> 
+                                    <mat-chip  color="primary" *ngIf="selectedFilter.value !=''" (removed)="removeFilter(selectedFilter.key)">{{selectedFilter.value}}
+                                        <button matChipRemove>
+                                            <mat-icon>cancel</mat-icon>
+                                        </button>
+                                    </mat-chip>
+                                </ng-container> 
+                            </mat-chip-list>
+                        </div>
+
+                        <!-- data of pagination -->
+                        <div  fxFlex="15" fxFlex.sm="100" fxFlex.xs="100" fxLayout fxLayoutAlign="end center">
+                            <span class="rc-nr-pages">{{ beginning }} - {{ end }} of  {{results?.length}}</span>
+                        </div>
                     </div>
         
                     <!-- table -->

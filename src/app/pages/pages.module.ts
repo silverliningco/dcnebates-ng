@@ -32,6 +32,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatListModule} from '@angular/material/list'; 
+import {MatChipsModule} from '@angular/material/chips'; 
 
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { HomeRebateFinderComponent } from './home-rebate-finder/home-rebate-finder.component';
@@ -73,7 +74,8 @@ import { CoolingOnlyRComponent } from './home-rebate-finder/cooling-only-r/cooli
     MatButtonModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatListModule
+    MatListModule,
+    MatChipsModule
 
   ]
 })
