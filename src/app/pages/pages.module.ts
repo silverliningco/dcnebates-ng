@@ -31,6 +31,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatListModule} from '@angular/material/list'; 
 
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { HomeRebateFinderComponent } from './home-rebate-finder/home-rebate-finder.component';
@@ -71,7 +72,9 @@ import { CoolingOnlyRComponent } from './home-rebate-finder/cooling-only-r/cooli
     FlexLayoutModule,
     MatButtonModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatListModule
+
   ]
 })
 export class PagesModule { }

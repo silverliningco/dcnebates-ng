@@ -233,7 +233,7 @@ export class HeatingCoolingComponent implements OnInit {
         if (value && value != "") {
           myfilters.push({
             filterName: key,
-            filterValues: [value]
+            filterValues: (Array.isArray(value)) ? value :[value]
           });
           this.p = 1;
         } else{

@@ -275,12 +275,11 @@
                 <div *ngFor="let filter of filters" class="rc-filter-group">
                     <div *ngIf = "filter.filterName === 'coilType' || filter.filterName === 'coilCasing' || filter.filterName === 'configuration'">
                       <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                      <mat-radio-group #configuration (change)="SelectFilters(filter.filterName)" [formControlName]="filter.filterName" fxLayout="column">
-                        <mat-radio-button *ngFor="let val of filter.filterValues" [value]="val">
-                        {{val}} 
-                        </mat-radio-button>
-                        <mat-radio-button [value]="''">All</mat-radio-button>                 
-                      </mat-radio-group>
+                      <mat-selection-list [formControlName]="filter.filterName" (selectionChange)="SelectFilters(filter.filterName)">
+                        <mat-list-option *ngFor="let val of filter.filterValues" [value]="val">
+                        {{val}}
+                        </mat-list-option>
+                      </mat-selection-list>
                     </div>
                 </div>
 
@@ -292,8 +291,7 @@
                         <mat-radio-group #configuration (change)="SelectFilters(filter.filterName)" [formControlName]="filter.filterName" >
                             <mat-radio-button *ngFor="let val of filter.filterValues" [value]="val">
                               {{val}}
-                            </mat-radio-button> 
-                            <mat-radio-button [value]="''">All</mat-radio-button>  
+                            </mat-radio-button>
                         </mat-radio-group>
                     </div>
                 </div>
