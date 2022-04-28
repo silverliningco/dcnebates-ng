@@ -401,25 +401,52 @@ h1, h2, h3, h4, h5 {
       border-radius: 4px;
       margin-top: 1rem;
     }
-    .rc-filters-header{
+    .rc-filters .mat-expansion-panel-header{
       padding: 0.75rem 1rem;
       margin-bottom: 0;
       background-color: rgba(0,0,0,.03);
       border-bottom: 1px solid rgba(0,0,0,.125);
-      color: var(--rc-primary-dark-color);
       font-size: 14px;
     }
-    .rc-filters-header h4{ 
-      padding-left: .5rem;
+    .rc-filters .mat-expansion-panel-header,
+    .rc-filters .mat-expansion-panel-header.mat-expanded{      
+      height: auto;
+      pointer-events: none;
     }
-    .rc-filters-body{
+    .rc-filters .mat-expansion-panel-header .mat-expansion-indicator{
+      display: none;
+    }
+    .rc-filters .mat-expansion-panel-header h4{ 
+      padding-left: .5rem;
+      color: var(--rc-primary-dark-color);
+    }
+    .rc-filters .mat-expansion-panel-header mat-icon{
+      color: var(--rc-primary-dark-color);
+    }
+      @media (max-width: 959px){
+        .rc-filters .mat-expansion-panel-header,
+        .rc-filters .mat-expansion-panel-header.mat-expanded{
+          pointer-events: initial;
+        }
+        .rc-filters .mat-expansion-panel-header .mat-expansion-indicator{
+          display: initial;
+        }
+      }
+    .rc-filters .mat-expanded .mat-expansion-panel-content{
       padding: 1rem;
+      font-size: initial;
+    }
+    .rc-filters .mat-expansion-panel-content{
+      padding: 0;
+    }
+    .rc-filters .mat-expansion-panel-content .mat-expansion-panel-body{
+      padding: 0;
+    }
+    .rc-filters .mat-expansion-panel-content .mat-form-field{
+      width: 100%;
     }
     .rc-filter-group{
       padding-left: 1rem;
-    }
-    .rc-filters .mat-form-field{
-      width: 100%;
     }
     .rc-filters-body h5{
       text-transform: uppercase;
@@ -525,10 +552,10 @@ h1, h2, h3, h4, h5 {
     
   /* Checkbox filters */
   .rc-filter-group .mat-list-base{
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.85rem;
   }
   .rc-filter-group .mat-list-base .mat-list-item, .mat-list-base .mat-list-option{
-    height: auto;
+    height: 30px;
   }
   .rc-filter-group .mat-pseudo-checkbox{
       position: absolute;
