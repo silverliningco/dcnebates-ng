@@ -1,0 +1,56 @@
+<mat-stepper #stepper linear  [orientation]="(stepperOrientation | async)!">
+
+    <!-- Step 1 -->
+    <mat-step [stepControl]="nominalSizeGroup" errorMessage="Complete all fields.">
+        <form [formGroup]="nominalSizeGroup" (ngSubmit)="submitForm()">
+        <!-- Name of step -->
+        <ng-template matStepLabel>Equipment Size</ng-template>
+        <h2 class="rc-main-title">Equipment Size</h2>
+
+        <!-- Content of step -->
+        <div fxLayout fxLayoutAlign="center">
+            <!-- User input -->
+            <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
+
+            <!-- input -->
+            <mat-form-field appearance="fill"  > 
+                <mat-label>Cooling tons</mat-label>
+                <mat-select  #sGroup formControlName="coolingTons">
+                    <mat-option [value]="0.5" radioGroup="sGroup"> < 1.0 </mat-option>
+                    <mat-option [value]="1.0" radioGroup="sGroup"> 1.0  </mat-option>
+                    <mat-option [value]="1.5" radioGroup="sGroup"> 1.5 </mat-option>
+                    <mat-option [value]="2.0" radioGroup="sGroup"> 2.0 </mat-option>
+                    <mat-option [value]="2.5" radioGroup="sGroup"> 2.5 </mat-option>
+                    <mat-option [value]="3.0" radioGroup="sGroup"> 3.0 </mat-option>
+                    <mat-option [value]="3.5" radioGroup="sGroup"> 3.5 </mat-option>
+                    <mat-option [value]="4.0" radioGroup="sGroup"> 4.0 </mat-option>
+                    <mat-option [value]="4.5" radioGroup="sGroup"> 4.5 </mat-option>
+                    <mat-option [value]="5.0" radioGroup="sGroup"> 5.0 </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- button -->
+            <div fxLayout="column" fxLayoutAlign="center end" class="rc-stepper-buttons">
+                <button type="submit" [disabled]="nominalSizeGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+                <mat-icon>arrow_forward</mat-icon>
+                </button>
+            </div>
+
+            </div>
+        </div>
+        </form>
+    </mat-step>
+    <!-- Step 1 end  -->
+
+    <!-- results  -->
+    <mat-step>
+        <ng-template matStepLabel>AHRI Combinations</ng-template>
+        <h2 class="rc-main-title">AHRI Combinations</h2>
+
+        <!-- reusable component -->
+        <app-results></app-results>
+
+    </mat-step>
+    <!-- results end -->
+
+</mat-stepper>
