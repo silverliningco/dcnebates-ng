@@ -81,9 +81,9 @@ export class ResultsComponent implements OnInit {
         furnaceSKU: [''],
   
         coilType: [''],
-        flushCoils: [''],
+        coilAndFurnaceWidthMatch: [''],
         coilCasing: [''],
-        configuration: [''],
+        indoorUnitConfiguration: [''],
       });
 
       // If small screen, load only 3 rows for results else 10.
@@ -110,7 +110,7 @@ export class ResultsComponent implements OnInit {
           this.productLinesGroup.controls['productLine'].setValue(resp[0].id);
           payload.systemTypeId = this.productLinesGroup.controls['productLine'].value;
           payload.filters = [];
-          this.CallFilters(payload, '');
+          this.CallFilters(payload);
  
           this.noResults = false;
         } else {
@@ -138,10 +138,10 @@ export class ResultsComponent implements OnInit {
     this.filtersGroup.controls['outdoorUnitSKU'].setValue("");
     this.filtersGroup.controls['furnaceSKU'].setValue("");
     this.filtersGroup.controls['coilType'].setValue("");
-    this.filtersGroup.controls['flushCoils'].setValue("");
+    this.filtersGroup.controls['coilAndFurnaceWidthMatch'].setValue("");
     this.filtersGroup.controls['coilCasing'].setValue("");
-    this.filtersGroup.controls['configuration'].setValue("");
-    this.CallFilters(payload,'')
+    this.filtersGroup.controls['indoorUnitConfiguration'].setValue("");
+    this.CallFilters(payload)
 
     this.p = 1;
 
@@ -149,29 +149,11 @@ export class ResultsComponent implements OnInit {
   }
 
 
-  CallFilters(payload: any, mySelectedFilter:any) {
+  CallFilters(payload: any) {
     this._api.Filters(JSON.stringify(payload)).subscribe({
-      next: (resp:Array<any>) => {
+      next: (resp) => {
         if (resp.length > 0) {
-
-          // in selected filter value is empty, rdont filter response
-          if (mySelectedFilter !="" && this.filtersGroup.controls[mySelectedFilter].value != "") {
-            const mySelectedOptions = this.filters.filter(f => f.filterName == mySelectedFilter);
-            const respFilters:Array<any> =[];
-
-            resp.forEach(element => {
-              if(element.filterName== mySelectedFilter){
-                element = mySelectedOptions[0];
-              }
-              respFilters.push(element);
-            });
-            this.filters = respFilters;
-
-          } else{
-            // else, filter 
-            this.filters = resp;
-          }
-
+          this.filters = resp;
           this.showTitleFilter(this.filters);
           this.CallSearch(payload);
         } else {
@@ -190,15 +172,15 @@ export class ResultsComponent implements OnInit {
     this.showOptions = false;
 
     filters.forEach((ele : any) => {
-      if (ele.filterValues.length >= 1 && ele.filterName === 'outdoorUnitSKU' || ele.filterName === 'indoorUnitSKU' || ele.filterName === 'furnaceSKU' ){
+      if (ele.options.length >= 1 && ele.filterName === 'outdoorUnitSKU' || ele.filterName === 'indoorUnitSKU' || ele.filterName === 'furnaceSKU' ){
         this.showModelNrs = true
       }
 
-      if (ele.filterValues.length >= 1 && ele.filterName === 'coilType' || ele.filterName === 'configuration' || ele.filterName === 'coilCasing' ){
+      if (ele.options.length >= 1 && ele.filterName === 'coilType' || ele.filterName === 'indoorUnitConfiguration' || ele.filterName === 'coilCasing' ){
         this.showIndoorUnit = true
       }
 
-      if (ele.filterValues.length >= 1 && ele.filterName === 'flushCoils' ){
+      if (ele.options.length >= 1 && ele.filterName === 'coilAndFurnaceWidthMatch' ){
         this.showOptions = true
       }
 
@@ -208,14 +190,14 @@ export class ResultsComponent implements OnInit {
   // function to remove selections filters from my filters.
   removeFilter(myFilter:any): void {
     this.filtersGroup.controls[myFilter].setValue("");
-    this.SelectFilters(myFilter)
+    this.SelectFilters()
   }
 
-  SelectFilters(myFilterName:any) {
+  SelectFilters() {
 
     let myfilters: {
       filterName: string;
-      filterValues: any[];
+      selectedValues: any[];
     }[] = [];
 
     Object.entries(this.filtersGroup.value).forEach(
@@ -223,13 +205,13 @@ export class ResultsComponent implements OnInit {
         if (value && value != "") {
           myfilters.push({
             filterName: key,
-            filterValues: (Array.isArray(value)) ? value :[value]
+            selectedValues: (Array.isArray(value)) ? value :[value]
           });
           this.p = 1;
         } else{
           myfilters.push({
             filterName: key,
-            filterValues: ["*"]
+            selectedValues: ["*"]
           });
           this.p = 1;
         }
@@ -245,7 +227,7 @@ export class ResultsComponent implements OnInit {
       filters: myfilters,
       requiredRebates: this.myPayloadForm.requiredRebates  
     }
-    this.CallFilters(payload, myFilterName);
+    this.CallFilters(payload);
   }
 
   CallSearch(payload: any) {

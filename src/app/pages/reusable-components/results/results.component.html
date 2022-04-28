@@ -30,7 +30,7 @@
                 <form [formGroup]="commerceInfoGroup">
                     <!-- Stock status -->
                     <h5 class="rc-filter-group-title">Stock status</h5>
-                    <mat-radio-group #rGroup formControlName="showAllResults" fxLayout="column" (change)="SelectFilters('')">
+                    <mat-radio-group #rGroup formControlName="showAllResults" fxLayout="column" (change)="SelectFilters()">
                         <mat-radio-button [value]="false" radioGroup="rGroup">Stock items only</mat-radio-button>
                         <mat-radio-button [value]="true" radioGroup="rGroup">Show all</mat-radio-button>
                     </mat-radio-group>
@@ -44,8 +44,8 @@
                         <div *ngIf = "filter.filterName === 'outdoorUnitSKU' || filter.filterName === 'indoorUnitSKU' || filter.filterName === 'furnaceSKU' ">
                             <mat-form-field appearance="fill" >
                                 <mat-label>{{filter.filterName}}</mat-label>
-                                <select matNativeControl required (change)="SelectFilters(filter.filterName)" [formControlName]="filter.filterName">
-                                    <option *ngFor="let val of filter.filterValues" [value]="val">{{val}}</option>
+                                <select matNativeControl required (change)="SelectFilters()" [formControlName]="filter.filterName">
+                                    <option *ngFor="let val of filter.availableOptions" [value]="val" [selected]="filter.selectedValues.indexOf(val) != -1 ? true:false">{{val}}</option>
                                     <option value="">Show all</option>
                                 </select>
                             </mat-form-field>
@@ -55,24 +55,24 @@
                     <!-- coilType, configuration, coilCasing -->
                     <h5 class="rc-filter-group-title" *ngIf ="showIndoorUnit" >Indoor Unit</h5>
                     <div *ngFor="let filter of filters" class="rc-filter-group">
-                        <div *ngIf = "filter.filterName === 'coilType' || filter.filterName === 'coilCasing' || filter.filterName === 'configuration'">
+                        <div *ngIf = "filter.filterName === 'indoorUnitConfiguration' || filter.filterName === 'coilType' || filter.filterName === 'coilCasing'">
                             <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                            <mat-selection-list [formControlName]="filter.filterName" (selectionChange)="SelectFilters(filter.filterName)">
-                                <mat-list-option *ngFor="let val of filter.filterValues" [value]="val">
+                            <mat-selection-list [formControlName]="filter.filterName" (selectionChange)="SelectFilters()">
+                                <mat-list-option *ngFor="let val of filter.options" [value]="val" [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"  [selected]="filter.selectedValues.indexOf(val) != -1 ? true:false">
                                 {{val}}
                                 </mat-list-option>
                             </mat-selection-list>
                         </div>
                     </div>
     
-                    <!-- flushCoils -->
+                    <!-- coilAndFurnaceWidthMatch -->
                     <h5 class="rc-filter-group-title" *ngIf ="showOptions" >Options</h5>
                     <div *ngFor="let filter of filters" class="rc-filter-group">
-                        <div *ngIf = "filter.filterName === 'flushCoils'">
+                        <div *ngIf = "filter.filterName === 'coilAndFurnaceWidthMatch'">
                             <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                            <mat-radio-group #configuration (change)="SelectFilters(filter.filterName)" [formControlName]="filter.filterName" >
-                                <mat-radio-button *ngFor="let val of filter.filterValues" [value]="val">
-                                {{val}}
+                            <mat-radio-group #configuration (change)="SelectFilters()" [formControlName]="filter.filterName" >
+                                <mat-radio-button *ngFor="let val of filter.options" [value]="val" [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"  [checked]="filter.selectedValues.indexOf(val) != -1 ? true:false">
+                                  {{val}}
                                 </mat-radio-button>
                             </mat-radio-group>
                         </div>
