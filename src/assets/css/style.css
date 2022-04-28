@@ -303,6 +303,11 @@ h1, h2, h3, h4, h5 {
       padding: 3rem 2rem;
       transition: box-shadow .3s;
     }
+      @media (max-width: 767px){
+        mat-card.rc-card, mat-card.rc-card-home {
+          padding: 0;
+        }
+      }
     mat-card.rc-card:hover, mat-card.rc-card-home:hover {
       cursor: pointer;
       box-shadow: 0 0 11px rgba(33,33,33,.2); 
