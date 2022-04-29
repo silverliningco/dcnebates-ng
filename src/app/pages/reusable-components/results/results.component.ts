@@ -39,13 +39,12 @@ export class ResultsComponent implements OnInit {
   showIndoorUnit: boolean = false;
   showOptions: boolean = false;
 
-
   constructor(
     public breakpointObserver: BreakpointObserver,
     private _formBuilder: FormBuilder,
     private _api: ApiService,
     public _bridge: bridgeService
-  ) {   }
+  ) { }
 
   ngOnInit(): void {
 
@@ -60,44 +59,42 @@ export class ResultsComponent implements OnInit {
         this.myPayloadForm.searchType = payload.data.searchType;
         this.myPayloadForm.state = payload.data.state;
 
-
         this.CallProductLines(this.myPayloadForm);
       });
 
 
-      /* form control */
-      this.commerceInfoGroup = this._formBuilder.group({
-        storeId: 1,
-        showAllResults: [false],
-      });
-
-      this.productLinesGroup = this._formBuilder.group({
-        productLine: [''],
-      });
-
-      this.filtersGroup = this._formBuilder.group({
-        indoorUnitSKU: [''],
-        outdoorUnitSKU: [''],
-        furnaceSKU: [''],
-  
-        coilType: [''],
-        coilAndFurnaceWidthMatch: [''],
-        coilCasing: [''],
-        indoorUnitConfiguration: [''],
-      });
-
-      // If small screen, load only 3 rows for results else 10.
-    this.breakpointObserver
-    .observe(['(min-width: 800px)'])
-    .subscribe((state: BreakpointState) => {
-      if (state.matches) {
-        this.rows = 10;
-      } else {
-        this.rows = 3;
-      }
+    /* form control */
+    this.commerceInfoGroup = this._formBuilder.group({
+      storeId: 1,
+      showAllResults: [false],
     });
 
-      this.ObtainPaginationText();
+    this.productLinesGroup = this._formBuilder.group({
+      productLine: [''],
+    });
+
+    this.filtersGroup = this._formBuilder.group({
+      indoorUnitSKU: [''],
+      outdoorUnitSKU: [''],
+      furnaceSKU: [''],
+      coilType: [null],
+      coilAndFurnaceWidthMatch: [null],
+      coilCasing: [null],
+      indoorUnitConfiguration: [null],
+    });
+
+    // If small screen, load only 3 rows for results else 10.
+    this.breakpointObserver
+      .observe(['(min-width: 800px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.rows = 10;
+        } else {
+          this.rows = 3;
+        }
+      });
+
+    this.ObtainPaginationText();
   }
 
   CallProductLines(payload: any) {
@@ -108,10 +105,8 @@ export class ResultsComponent implements OnInit {
 
           // Call Filters with selected product line
           this.productLinesGroup.controls['productLine'].setValue(resp[0].id);
-          payload.systemTypeId = this.productLinesGroup.controls['productLine'].value;
-          payload.filters = [];
-          this.CallFilters(payload);
- 
+          this.CallFilters();
+
           this.noResults = false;
         } else {
           this.noResults = true;
@@ -122,89 +117,14 @@ export class ResultsComponent implements OnInit {
     })
   }
 
-  SelectProductLine(systemTypeId:number) {
-    let payload = {
-      commerceInfo: this.myPayloadForm.commerceInfo,
-      searchType: this.myPayloadForm.searchType,
-      nominalSize: this.myPayloadForm.nominalSize,
-      fuelSource: this.myPayloadForm.fuelSource,
-      systemTypeId:systemTypeId,
-      filters: [],
-      requiredRebates: this.myPayloadForm.requiredRebates   
-    }
-
-    // Call Filters with selected product line
-    this.filtersGroup.controls['indoorUnitSKU'].setValue("");
-    this.filtersGroup.controls['outdoorUnitSKU'].setValue("");
-    this.filtersGroup.controls['furnaceSKU'].setValue("");
-    this.filtersGroup.controls['coilType'].setValue("");
-    this.filtersGroup.controls['coilAndFurnaceWidthMatch'].setValue("");
-    this.filtersGroup.controls['coilCasing'].setValue("");
-    this.filtersGroup.controls['indoorUnitConfiguration'].setValue("");
-    this.CallFilters(payload)
-
-    this.p = 1;
-
-    this.results = [];
+  // Function that reset filters and load filters with selected product line
+  SelectProductLine() {
+    this.filtersGroup.reset();
+    this.CallFilters()
   }
 
-
-  CallFilters(payload: any) {
-    this.filtersGroup.disable();
-    this._api.Filters(JSON.stringify(payload)).subscribe({
-      next: (resp) => {
-        if (resp.length > 0) {
-          this.filters = resp;
-          resp.forEach((filter: any) => {
-            if(filter.filterName == 'outdoorUnitSKU' || filter.filterName == 'indoorUnitSKU' || filter.filterName == 'furnaceSKU' || filter.filterName == 'coilAndFurnaceWidthMatch'){
-              this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues[0]);
-            } else {
-              this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
-            }
-          });
-
-          this.filtersGroup.enable();
-          this.showTitleFilter(this.filters);
-          this.CallSearch(payload);
-        } else {
-          alert("No filters where found.")
-        }
-      },
-      error: (e) => alert(e.error),
-      complete: () => console.info('complete')
-    })
-  }
-
-  showTitleFilter(filters: any){
-
-    this.showModelNrs = false;
-    this.showIndoorUnit = false;
-    this.showOptions = false;
-
-    filters.forEach((ele : any) => {
-      if (ele.options.length >= 1 && ele.filterName === 'outdoorUnitSKU' || ele.filterName === 'indoorUnitSKU' || ele.filterName === 'furnaceSKU' ){
-        this.showModelNrs = true
-      }
-
-      if (ele.options.length >= 1 && ele.filterName === 'coilType' || ele.filterName === 'indoorUnitConfiguration' || ele.filterName === 'coilCasing' ){
-        this.showIndoorUnit = true
-      }
-
-      if (ele.options.length >= 1 && ele.filterName === 'coilAndFurnaceWidthMatch' ){
-        this.showOptions = true
-      }
-
-    });
-  }
-
-  // function to remove selections filters from my filters.
-  removeFilter(myFilter:any): void {
-    this.filtersGroup.controls[myFilter].setValue("");
-    this.SelectFilters()
-  }
-
-  SelectFilters() {
-
+  // Function that gets input values from UI and returns payload.
+  Payload() {
     let myfilters: {
       filterName: string;
       selectedValues: any[];
@@ -215,18 +135,12 @@ export class ResultsComponent implements OnInit {
         if (value && value != "") {
           myfilters.push({
             filterName: key,
-            selectedValues: (Array.isArray(value)) ? value :[value]
+            selectedValues: (Array.isArray(value)) ? value : [value]
           });
-          this.p = 1;
-        } /*else{
-          myfilters.push({
-            filterName: key,
-            selectedValues: ["*"]
-          });
-          this.p = 1;
-        }*/
+        }
       }
     );
+
     let payload = {
       commerceInfo: this.myPayloadForm.commerceInfo,
       searchType: this.myPayloadForm.searchType,
@@ -234,24 +148,88 @@ export class ResultsComponent implements OnInit {
       fuelSource: this.myPayloadForm.fuelSource,
       systemTypeId: this.productLinesGroup.controls['productLine'].value,
       filters: myfilters,
-      requiredRebates: this.myPayloadForm.requiredRebates  
+      requiredRebates: this.myPayloadForm.requiredRebates
     }
-    this.CallFilters(payload);
+    return JSON.stringify(payload);
   }
 
-  CallSearch(payload: any) {
-    this._api.Search(JSON.stringify(payload)).subscribe({
+  // Function that call filters from API and update UI. 
+  // also calls Search function to load results.
+  CallFilters() {
+    this.filtersGroup.disable();
+
+    this._api.Filters(this.Payload()).subscribe({
       next: (resp) => {
-          this.results = resp;
-          this.showColum(this.results);
-          this.ObtainPaginationText();
+        if (resp.length > 0) {
+          this.filters = resp;
+          
+          // Set selected values
+          resp.forEach((filter: any) => {
+            if (filter.filterName == 'outdoorUnitSKU' || filter.filterName == 'indoorUnitSKU' || filter.filterName == 'furnaceSKU' || filter.filterName == 'coilAndFurnaceWidthMatch') {
+              this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues[0]);
+            } else {
+              console.log(filter.selectedValues)
+              this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
+            }
+          });
+
+          this.filtersGroup.enable();
+          this.showTitleFilter(this.filters);
+
+          // Call search.
+          this.CallSearch();
+        } else {
+          alert("No filters where found.")
+        }
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
     })
   }
 
-  showColum(resp: any){
+  // Function that call Search results from API and update UI. 
+  CallSearch() {
+    this._api.Search(this.Payload()).subscribe({
+      next: (resp) => {
+        this.results = resp;
+        this.showColum(this.results);
+        this.ObtainPaginationText();
+        this.p = 1;
+      },
+      error: (e) => alert(e.error),
+      complete: () => console.info('complete')
+    })
+  }
+
+  // function to remove selections filters from my filters.
+  removeFilter(myFilter: any): void {
+    this.filtersGroup.controls[myFilter].reset();
+    this.CallFilters()
+  }
+
+  showTitleFilter(filters: any) {
+
+    this.showModelNrs = false;
+    this.showIndoorUnit = false;
+    this.showOptions = false;
+
+    filters.forEach((ele: any) => {
+      if (ele.options.length >= 1 && ele.filterName === 'outdoorUnitSKU' || ele.filterName === 'indoorUnitSKU' || ele.filterName === 'furnaceSKU') {
+        this.showModelNrs = true
+      }
+
+      if (ele.options.length >= 1 && ele.filterName === 'coilType' || ele.filterName === 'indoorUnitConfiguration' || ele.filterName === 'coilCasing') {
+        this.showIndoorUnit = true
+      }
+
+      if (ele.options.length >= 1 && ele.filterName === 'coilAndFurnaceWidthMatch') {
+        this.showOptions = true
+      }
+
+    });
+  }
+
+  showColum(resp: any) {
 
     /* If no values are received for the furnaceSKU, then the columns should not be displayed:
         furnaceSKU, furnaceConfigurations, AFU.
@@ -262,30 +240,30 @@ export class ResultsComponent implements OnInit {
     let countHSPF: number = 0;
 
     /* furnaceSKU */
-    resp.forEach((element:any) => {
-      if (element.furnaceSKU != null){
+    resp.forEach((element: any) => {
+      if (element.furnaceSKU != null) {
         countFurnace += 1;
       }
     });
 
-    if (countFurnace === 0 ){
+    if (countFurnace === 0) {
       this.showFurnace = false;
     } else {
       this.showFurnace = true;
-    } 
+    }
 
     /* HSPF */
-    resp.forEach((element:any) => {
-      if (element.HSPF != null){
+    resp.forEach((element: any) => {
+      if (element.HSPF != null) {
         countHSPF += 1;
       }
     });
 
-    if (countHSPF === 0 ){
+    if (countHSPF === 0) {
       this.showHSPF = false;
     } else {
       this.showHSPF = true;
-    } 
+    }
   }
 
   // Pagination funtions
@@ -299,6 +277,4 @@ export class ResultsComponent implements OnInit {
     this.ObtainPaginationText();
   }
 
-
 }
-
