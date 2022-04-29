@@ -150,10 +150,20 @@ export class ResultsComponent implements OnInit {
 
 
   CallFilters(payload: any) {
+    this.filtersGroup.disable();
     this._api.Filters(JSON.stringify(payload)).subscribe({
       next: (resp) => {
         if (resp.length > 0) {
           this.filters = resp;
+          resp.forEach((filter: any) => {
+            if(filter.filterName == 'outdoorUnitSKU' || filter.filterName == 'indoorUnitSKU' || filter.filterName == 'furnaceSKU' || filter.filterName == 'coilAndFurnaceWidthMatch'){
+              this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues[0]);
+            } else {
+              this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
+            }
+          });
+
+          this.filtersGroup.enable();
           this.showTitleFilter(this.filters);
           this.CallSearch(payload);
         } else {
@@ -208,16 +218,15 @@ export class ResultsComponent implements OnInit {
             selectedValues: (Array.isArray(value)) ? value :[value]
           });
           this.p = 1;
-        } else{
+        } /*else{
           myfilters.push({
             filterName: key,
             selectedValues: ["*"]
           });
           this.p = 1;
-        }
+        }*/
       }
     );
-
     let payload = {
       commerceInfo: this.myPayloadForm.commerceInfo,
       searchType: this.myPayloadForm.searchType,
