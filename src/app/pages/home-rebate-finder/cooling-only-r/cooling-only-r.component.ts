@@ -176,10 +176,10 @@ export class CoolingOnlyRComponent implements OnInit {
   }
 
   /* classifies the utility-objects in the sendElectric and sendGasOil arrays depending on 
-  the values that each object has in the "fuel" field */
+  the values that each object has in the "utilitiesProvided" field */
   transform(array: Array<utilityInfo>): any[] {
 
-    return array.filter((d: any) => d.fuel.find((a: any) => {
+    return array.filter((d: any) => d.utilitiesProvided.find((a: any) => {
 
       if (a.includes('Electricity')) {
         this.sendElectric.push(d);

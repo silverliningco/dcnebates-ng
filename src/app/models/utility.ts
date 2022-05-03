@@ -5,6 +5,6 @@ export class utilityInfo {
         public description?: string,
         public state?: number,
         public country?: string,
-        public fuel?: Array<string>
+        public utilitiesProvided?: Array<string>
     ) {}
 }
