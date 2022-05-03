@@ -73,10 +73,10 @@
                            
                         </div>
                     </div>
-                    <!-- coilAndFurnaceWidthMatch -->
+                    <!-- coastal -->
                     <h5 class="rc-filter-group-title" *ngIf ="showOptions" >Options</h5>
                     <div *ngFor="let filter of filters" class="rc-filter-group">
-                        <div *ngIf = "filter.filterName === 'coilAndFurnaceWidthMatch'">
+                        <div *ngIf = "filter.filterName === 'coastal'">
                             <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
                             <mat-radio-group #configuration (change)="CallFilters()" [formControlName]="filter.filterName" >
                                 <mat-radio-button *ngFor="let val of filter.options" [value]="val" [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false">

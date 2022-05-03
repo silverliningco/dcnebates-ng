@@ -78,7 +78,7 @@ export class ResultsComponent implements OnInit {
       outdoorUnitSKU: [''],
       furnaceSKU: [''],
       coilType: [null],
-      coilAndFurnaceWidthMatch: [null],
+      coastal: [null],
       coilCasing: [null],
       indoorUnitConfiguration: [null],
     });
@@ -165,7 +165,7 @@ export class ResultsComponent implements OnInit {
           
           // Set selected values
           resp.forEach((filter: any) => {
-            if (filter.filterName == 'outdoorUnitSKU' || filter.filterName == 'indoorUnitSKU' || filter.filterName == 'furnaceSKU' || filter.filterName == 'coilAndFurnaceWidthMatch') {
+            if (filter.filterName == 'outdoorUnitSKU' || filter.filterName == 'indoorUnitSKU' || filter.filterName == 'furnaceSKU' || filter.filterName == 'coastal') {
               this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues[0]);
             } else {
               console.log(filter.selectedValues)
@@ -222,7 +222,7 @@ export class ResultsComponent implements OnInit {
         this.showIndoorUnit = true
       }
 
-      if (ele.options.length >= 1 && ele.filterName === 'coilAndFurnaceWidthMatch') {
+      if (ele.options.length >= 1 && ele.filterName === 'coastal') {
         this.showOptions = true
       }
 
