@@ -19,8 +19,7 @@ export class DetailComponent implements OnInit {
     activatedRoute.queryParams.subscribe( params => {
       let skus = params['skus'];
       let ahri_refs = params['ahri_refs'];
-      let detailParams = params['params']; 
-      console.log(detailParams);
+      let detailParams = params['params'];
       
       this._api.Detail(skus, ahri_refs, detailParams).subscribe({
         next: (resp) => this.detail = resp,
