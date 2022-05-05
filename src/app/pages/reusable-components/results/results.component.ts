@@ -120,6 +120,7 @@ export class ResultsComponent implements OnInit {
   // Function that reset filters and load filters with selected product line
   SelectProductLine() {
     this.filtersGroup.reset();
+    this.commerceInfoGroup.controls['showAllResults'].setValue(false);
     this.CallFilters()
   }
 
@@ -142,7 +143,7 @@ export class ResultsComponent implements OnInit {
     );
 
     let payload = {
-      commerceInfo: this.myPayloadForm.commerceInfo,
+      commerceInfo: this.commerceInfoGroup.value,
       searchType: this.myPayloadForm.searchType,
       nominalSize: this.myPayloadForm.nominalSize,
       fuelSource: this.myPayloadForm.fuelSource,
@@ -162,13 +163,12 @@ export class ResultsComponent implements OnInit {
       next: (resp) => {
         if (resp.length > 0) {
           this.filters = resp;
-          
+          this.filtersGroup.reset();
           // Set selected values
           resp.forEach((filter: any) => {
             if (filter.filterName == 'outdoorUnitSKU' || filter.filterName == 'indoorUnitSKU' || filter.filterName == 'furnaceSKU' || filter.filterName == 'coastal') {
               this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues[0]);
             } else {
-              console.log(filter.selectedValues)
               this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
             }
           });
@@ -202,8 +202,12 @@ export class ResultsComponent implements OnInit {
   }
 
   // function to remove selections filters from my filters.
-  removeFilter(myFilter: any): void {
-    this.filtersGroup.controls[myFilter].reset();
+  removeFilter(myFilter: any, option:any): void {
+    if(option){
+      this.filtersGroup.controls[myFilter].setValue(this.filtersGroup.controls[myFilter].value.filter((e: string) => e !== option))
+    } else {
+      this.filtersGroup.controls[myFilter].reset();
+    }
     this.CallFilters()
   }
 
@@ -277,4 +281,12 @@ export class ResultsComponent implements OnInit {
     this.ObtainPaginationText();
   }
 
+  isArray(obj:any){
+    if (Array.isArray(obj)) {
+      return true
+
+    } else {
+      return false
+    }
+  }
 }
