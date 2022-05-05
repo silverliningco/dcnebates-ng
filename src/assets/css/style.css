@@ -305,7 +305,7 @@ h1, h2, h3, h4, h5 {
     }
       @media (max-width: 767px){
         mat-card.rc-card, mat-card.rc-card-home {
-          padding: 0;
+          padding: 1rem;
         }
       }
     mat-card.rc-card:hover, mat-card.rc-card-home:hover {
