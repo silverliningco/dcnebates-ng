@@ -58,18 +58,11 @@
                 </div>
               </div>
 
-              <!-- coilType, configuration, coilCasing -->
+              <!-- indoorUnitConfiguration -->
               <h5 class="rc-filter-group-title" *ngIf="showIndoorUnit">Indoor Unit</h5>
               <div *ngFor="let filter of filters" class="rc-filter-group">
                 <div
-                  *ngIf="filter.filterName === 'indoorUnitConfiguration' ">
-                 <!--  *ngIf="filter.filterName === 'indoorUnitConfiguration' || filter.filterName === 'coilType' || filter.filterName === 'coilCasing'"> -->
-
-                  <!--<mat-selection-list [formControlName]="filter.filterName" (selectionChange)="CallFilters()">
-                                <mat-list-option *ngFor="let val of filter.options" [value]="val" [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false">
-                                {{val}}
-                                </mat-list-option>
-                            </mat-selection-list>-->
+                  *ngIf="filter.filterName === 'indoorUnitConfiguration'">
 
                   <mat-form-field appearance="fill">
                     <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
@@ -78,23 +71,9 @@
                         [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
                     </mat-select>
                   </mat-form-field>
-
-
                 </div>
               </div>
-              <!-- coastal -->
-              <h5 class="rc-filter-group-title" *ngIf="showOptions">Options</h5>
-              <div *ngFor="let filter of filters" class="rc-filter-group">
-                <div *ngIf="filter.filterName === 'coastal'">
-                  <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                  <mat-radio-group #configuration (change)="CallFilters()" [formControlName]="filter.filterName">
-                    <mat-radio-button *ngFor="let val of filter.options" [value]="val"
-                      [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false">
-                      {{val}}
-                    </mat-radio-button>
-                  </mat-radio-group>
-                </div>
-              </div>
+              
             </form>
           </div>
         </mat-expansion-panel>
@@ -157,7 +136,7 @@
               <th>EER</th>
               <th *ngIf="showHSPF">HSPF</th>
               <th *ngIf="showFurnace">AFUE</th>
-              <!--<th>Total Rebate</th>-->
+              <th *ngIf="showTotal">Total Rebate</th>
               <th></th>
             </tr>
           </thead>
@@ -177,7 +156,7 @@
               <td data-title="EER">{{ahriCombination.EER}}</td>
               <td data-title="HSPF" *ngIf="showHSPF">{{ahriCombination.HSPF}}</td>
               <td data-title="AFUE" *ngIf="showFurnace">{{ahriCombination.AFUE}}</td>
-              <!--<td data-title="Total rebate">{{ahriCombination.totalAvailableRebates | currency:"USD":"symbol" : '1.0-0'}}</td>-->
+              <td data-title="Total rebate" *ngIf="showTotal">{{ahriCombination.totalAvailableRebates | currency:"USD":"symbol" : '1.0-0'}}</td>
               <td data-title="Details">
                 <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']"
                   [queryParams]="{skus:ahriCombination.SKUs | json, ahri_refs:ahriCombination.AHRIReferences| json, params:{commerceInfo: myPayloadForm.commerceInfo  , requiredRebates: myPayloadForm.requiredRebates  } | json}"

@@ -33,6 +33,7 @@ export class ResultsComponent implements OnInit {
   /* display columns when they have data in table of results */
   showFurnace: boolean = true;
   showHSPF: boolean = true;
+  showTotal: boolean = true;
 
   /* display title when exist filter */
   showModelNrs: boolean = false;
@@ -77,9 +78,6 @@ export class ResultsComponent implements OnInit {
       indoorUnitSKU: [''],
       outdoorUnitSKU: [''],
       furnaceSKU: [''],
-      coilType: [null],
-      coastal: [null],
-      coilCasing: [null],
       indoorUnitConfiguration: [null],
     });
 
@@ -121,6 +119,7 @@ export class ResultsComponent implements OnInit {
   SelectProductLine() {
     this.filtersGroup.reset();
     this.commerceInfoGroup.controls['showAllResults'].setValue(false);
+    this.filters = [];
     this.CallFilters()
   }
 
@@ -174,13 +173,13 @@ export class ResultsComponent implements OnInit {
           });
 
           this.filtersGroup.enable();
-          this.showTitleFilter(this.filters);
 
-          // Call search.
-          this.CallSearch();
-        } else {
-          alert("No filters where found.")
         }
+
+        this.showTitleFilter(this.filters);
+
+        // Call search.
+        this.CallSearch();
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
@@ -222,12 +221,8 @@ export class ResultsComponent implements OnInit {
         this.showModelNrs = true
       }
 
-      if (ele.options.length >= 1 && ele.filterName === 'coilType' || ele.filterName === 'indoorUnitConfiguration' || ele.filterName === 'coilCasing') {
+      if (ele.filterName === 'indoorUnitConfiguration') {
         this.showIndoorUnit = true
-      }
-
-      if (ele.options.length >= 1 && ele.filterName === 'coastal') {
-        this.showOptions = true
       }
 
     });
@@ -267,6 +262,13 @@ export class ResultsComponent implements OnInit {
       this.showHSPF = false;
     } else {
       this.showHSPF = true;
+    }
+
+    // Show total only if have available rebates
+    if(this.myPayloadForm.requiredRebates.length > 0){
+      this.showTotal = true;
+    } else {
+      this.showTotal = false;
     }
   }
 
