@@ -178,30 +178,6 @@
               </mat-select>
             </mat-form-field>
   
-  
-            <!-- input -->
-            <mat-form-field appearance="fill">
-              <mat-label>Heating BTUH</mat-label>
-              <input matInput placeholder="Heating BTUH" type="number" formControlName="heatingBTUH" required>
-              
-              <!-- error -->
-              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('is_not_number') && nominalSizeGroup.get('heatingBTUH')?.touched">
-                Heating BTUH <strong>must be a number.</strong>
-              </mat-error>
-              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('null_not_permit') && nominalSizeGroup.get('heatingBTUH')?.touched">
-                Heating BTUH is <strong>required</strong>
-              </mat-error>
-              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('need_between_4_6_characters') && nominalSizeGroup.get('heatingBTUH')?.touched">
-                Heating BTUH must be <strong>between 4 and 6 digits</strong>.
-              </mat-error>
-              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('Hbtuh_invalid_value') && nominalSizeGroup.get('heatingBTUH')?.touched">               
-                Heating BTUH must be a whole number <strong>between 8,000 and 135,000</strong>.
-              </mat-error>
-              <mat-error *ngIf="nominalSizeGroup.get('heatingBTUH')?.hasError('it_not_integer') && nominalSizeGroup.get('heatingBTUH')?.touched">
-                Heating BTUH is not <strong>integer</strong>.
-              </mat-error>
-            </mat-form-field>
-  
             <!-- button -->
             <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
               <button type="button" mat-button matStepperPrevious>Back</button>

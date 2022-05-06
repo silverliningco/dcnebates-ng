@@ -90,7 +90,6 @@ export class CoolingOnlyRComponent implements OnInit {
     });
 
     this.nominalSizeGroup = this._formBuilder.group({
-      heatingBTUH: ['', [this.ValidateHeatingBTUH, this.ValidateNumber]],
       coolingTons: ['',  Validators.required],
     });
 
@@ -100,66 +99,8 @@ export class CoolingOnlyRComponent implements OnInit {
 
   }
 
-  /* validators */
-  /* note: it will always show the error: "Cooling tons is required"
-     when "e" is entered as input, because its type = object and its value = null */
-     ValidateNumber(control: AbstractControl) : ValidationErrors | null  {
-
-      let coolingToms = control.value;
-      let typeCT = typeof coolingToms;
   
-      if (typeCT === 'number' ){
-        return null;
-      } 
-      else {
-        if (typeCT === 'object' &&  coolingToms === null){
-          return  { null_not_permit : true };
-        } if (typeCT === 'string' &&  coolingToms === ''){
-          return  { need_1_or_3_characters : true };
-        } 
-        else{
-          return  { is_not_number : true };
-        }
-        
-      }
-     
-    }
-  
-    ValidateHeatingBTUH(control: AbstractControl) : ValidationErrors | null  {
-  
-      let heatingBTUH = control.value;
-      let lengthHeatingBTUH!: string;    
-  
-  
-      if (heatingBTUH != null){
-        lengthHeatingBTUH = heatingBTUH.toString();
-      }else {
-        return  { null_not_permit: true };
-      }
-      
-  
-      // first verify if the number is integer
-       if (heatingBTUH % 1 === 0){
-        if (lengthHeatingBTUH.length === 4 || lengthHeatingBTUH.length === 5 || lengthHeatingBTUH.length === 6) {
-  
-          if (heatingBTUH >= 8000 && heatingBTUH <= 135000 ){
-  
-            return null;
-          } else {
-            return  { Hbtuh_invalid_value: true };
-          }
-  
-        } else {
-          return  {  need_between_4_6_characters: true };
-        }
-  
-      } else {
-        return  { it_not_integer: true };
-      }
-  
-    }
-
-    // utilities
+  // utilities
   changeState() {
 
     this.sendGasOil = [];
