@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { StepperOrientation } from '@angular/material/stepper';
+import { MatStepper, StepperOrientation } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -22,7 +22,8 @@ import { ApiService } from '../../../services/api.service';
 })
 
 export class CoolingOnlyAhriComponent implements OnInit {
-
+  @ViewChild('stepper')
+  stepper!: MatStepper;
   commerceInfoGroup !: FormGroup;
   nominalSizeGroup !: FormGroup;
   furnaceGroup !: FormGroup;
@@ -77,4 +78,10 @@ export class CoolingOnlyAhriComponent implements OnInit {
   
   }
 
+  tabChange(e:any){
+    // Confirm that it's the last step (ahri combinations).
+    if(this.stepper?.steps.length -1 == e.selectedIndex){
+      this.submitForm()
+    }
+  }
 }

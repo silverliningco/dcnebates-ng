@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { StepperOrientation } from '@angular/material/stepper';
+import { MatStepper, StepperOrientation } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -25,7 +25,8 @@ import { Rebate, RebateTier, Criteria } from '../../../models/rebate';
 })
 
 export class HeatingCoolingRComponent implements OnInit {
-
+  @ViewChild('stepper')
+  stepper!: MatStepper;
   
   commerceInfoGroup !: FormGroup;
   nominalSizeGroup !: FormGroup;
@@ -33,7 +34,6 @@ export class HeatingCoolingRComponent implements OnInit {
   utilityGroup !: FormGroup;
   availableRebatesGroup  !: FormGroup;
 
-  payloadRebates: Array<any> = [];
   payload: any;
 
   stepperOrientation: Observable<StepperOrientation>;
@@ -167,6 +167,7 @@ export class HeatingCoolingRComponent implements OnInit {
 
     this.sendGasOil = [];
     this.sendElectric = [];
+    this.utilityGroup.controls["electricUtility"].reset();
 
     this._api.Utilities(this.stateGroup.controls['state'].value).subscribe({
       next: (resp: any) => {
@@ -414,7 +415,7 @@ export class HeatingCoolingRComponent implements OnInit {
 
   /* PAYLOAD FORMART -> [ { "rebateId": 1, "rebateTierId": 1, "required": true },
                           { "rebateId": 2, "required": true } ] */
-  onSubmit() { 
+  getRebatesPayload() { 
 
     let getformat!: any;
     let collectFormat: Array<JSON> = [];  
@@ -437,7 +438,7 @@ export class HeatingCoolingRComponent implements OnInit {
       }
 
     });
-    this.payloadRebates = collectFormat;
+    return collectFormat;
     
   }
 
@@ -449,7 +450,7 @@ export class HeatingCoolingRComponent implements OnInit {
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       state: this.stateGroup.value,
-      requiredRebates: this.payloadRebates
+      requiredRebates: this.getRebatesPayload()
     }  
     /* sent the infor to product-lines-components */
     this._bridge.sentParams.emit({
@@ -458,6 +459,10 @@ export class HeatingCoolingRComponent implements OnInit {
   
   }
 
-
-
+  tabChange(e:any){
+    // Confirm that it's the last step (ahri combinations).
+    if(this.stepper?.steps.length -1 == e.selectedIndex){
+      this.submitForm()
+    }
+  }
 }

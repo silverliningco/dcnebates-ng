@@ -1,4 +1,4 @@
-<mat-stepper #stepper linear  [orientation]="(stepperOrientation | async)!">
+<mat-stepper #stepper linear  [orientation]="(stepperOrientation | async)!"  (selectionChange)="tabChange($event)">
 
     <!-- Step 1 State -->
     <mat-step [stepControl]="stateGroup" errorMessage="Select an state.">
@@ -60,7 +60,7 @@
             <!-- utilities -->
             <mat-form-field appearance="fill">
               <mat-label>Electric Utility</mat-label>
-              <mat-select #sGroup formControlName="electricUtility">
+              <mat-select #sGroup formControlName="electricUtility" (selectionChange)="PrepareAvailableRebates()">
                 <mat-option *ngFor ="let elec of sendElectric; let i = index" [value]="sendElectric[i].utilityId" radioGroup="sGroup">
                   {{sendElectric[i].title}}
                   </mat-option>
@@ -70,7 +70,7 @@
   
             <mat-form-field appearance="fill">
               <mat-label>Gas / Oil Utility</mat-label>
-              <mat-select #sGroup formControlName="gasOilUtility">
+              <mat-select #sGroup formControlName="gasOilUtility"  (selectionChange)="PrepareAvailableRebates()">
                 <mat-option *ngFor ="let elec of sendGasOil; let i = index" [value]="sendGasOil[i].utilityId" radioGroup="sGroup">
                   {{sendGasOil[i].title}}
                   </mat-option>
@@ -82,7 +82,7 @@
             <!-- button -->
             <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
               <button type="button" mat-button matStepperPrevious>Back</button>
-              <button type="button" (click)="PrepareAvailableRebates()" [disabled]="utilityGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+              <button type="button" [disabled]="utilityGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
                 <mat-icon>arrow_forward</mat-icon>
               </button>
             </div>
@@ -151,7 +151,7 @@
           <!-- button -->
           <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
             <button type="button" mat-button matStepperPrevious>Back</button>
-            <button type="button" (click)="onSubmit()" [disabled]="!IsValidAvailabeRebates" mat-raised-button color="primary" matStepperNext>Continue
+            <button type="button" [disabled]="!IsValidAvailabeRebates" mat-raised-button color="primary" matStepperNext>Continue
               <mat-icon>arrow_forward</mat-icon>
             </button>
           </div>
