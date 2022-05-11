@@ -40,6 +40,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatListModule} from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ResultsRebateComponent } from './reusable-components/results-rebate/results-rebate.component';
 
 
 
@@ -57,7 +58,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     FurnaceOnlyInstallAhriComponent,
     HeatingCoolingAhriComponent,
     KnowModelNbrAhriComponent,
-    ResultsComponent
+    ResultsComponent,
+    ResultsRebateComponent
   ],
   imports: [
     CommonModule,
