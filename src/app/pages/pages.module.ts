@@ -24,7 +24,8 @@ import { ExisNonEcmAhriComponent } from './home-ahi-matchups/exis-non-ecm-ahri/e
 import { FurnaceOnlyInstallAhriComponent } from './home-ahi-matchups/furnace-only-install-ahri/furnace-only-install-ahri.component';
 import { HeatingCoolingAhriComponent } from './home-ahi-matchups/heating-cooling-ahri/heating-cooling-ahri.component';
 import { KnowModelNbrAhriComponent } from './home-ahi-matchups/know-model-nbr-ahri/know-model-nbr-ahri.component';
-import { ResultsComponent } from './reusable-components/results/results.component'; 
+import { ResultsAhriComponent } from './reusable-components/results-ahri/results-ahri.component'; 
+import { ResultsRebateComponent } from './reusable-components/results-rebate/results-rebate.component';
 
 /* angular material */
 import {MatCardModule} from '@angular/material/card';
@@ -40,7 +41,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatListModule} from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { ResultsRebateComponent } from './reusable-components/results-rebate/results-rebate.component';
+
 
 
 
@@ -58,7 +59,7 @@ import { ResultsRebateComponent } from './reusable-components/results-rebate/res
     FurnaceOnlyInstallAhriComponent,
     HeatingCoolingAhriComponent,
     KnowModelNbrAhriComponent,
-    ResultsComponent,
+    ResultsAhriComponent,
     ResultsRebateComponent
   ],
   imports: [

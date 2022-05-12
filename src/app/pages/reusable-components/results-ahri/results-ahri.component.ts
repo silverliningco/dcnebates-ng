@@ -6,11 +6,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 @Component({
-  selector: 'app-results',
-  templateUrl: './results.component.html',
-  styleUrls: ['./results.component.css']
+  selector: 'app-results-ahri',
+  templateUrl: './results-ahri.component.html',
+  styleUrls: ['./results-ahri.component.css']
 })
-export class ResultsComponent implements OnInit {
+export class ResultsAhriComponent implements OnInit {
 
   commerceInfoGroup !: FormGroup;
   productLinesGroup !: FormGroup;
