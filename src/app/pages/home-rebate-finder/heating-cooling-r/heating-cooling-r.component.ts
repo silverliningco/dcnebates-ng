@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, FormArray } from '@angular/forms';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Observable } from 'rxjs';
@@ -27,7 +27,8 @@ import { Rebate, RebateTier, Criteria } from '../../../models/rebate';
 export class HeatingCoolingRComponent implements OnInit {
   @ViewChild('stepper')
   stepper!: MatStepper;
-  
+
+  elegibilityQuestionsGroup !: FormGroup;
   commerceInfoGroup !: FormGroup;
   nominalSizeGroup !: FormGroup;
   furnaceGroup !: FormGroup; stateGroup !: FormGroup;
@@ -69,11 +70,18 @@ export class HeatingCoolingRComponent implements OnInit {
       .pipe(
         map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
   }
-
+  
+  get questions(){
+      return this.elegibilityQuestionsGroup.get('questions') as FormArray;
+  }
 
   ngOnInit(): void {
+    
+    /* form groups */
+    this.elegibilityQuestionsGroup = this._formBuilder.group({
+      questions: this._formBuilder.array([])
+    });
 
-    /* form grups */
     this.commerceInfoGroup = this._formBuilder.group({
       storeId: 1,
       showAllResults: [false, Validators.required],
@@ -105,8 +113,9 @@ export class HeatingCoolingRComponent implements OnInit {
 
   /* validators */
   /* note: it will always show the error: "Cooling tons is required"
-     when "e" is entered as input, because its type = object and its value = null */
-     ValidateNumber(control: AbstractControl) : ValidationErrors | null  {
+     when "e" is entered as input, because its type = object and its value = null 
+  */
+  ValidateNumber(control: AbstractControl) : ValidationErrors | null  {
 
       let coolingToms = control.value;
       let typeCT = typeof coolingToms;
@@ -126,9 +135,9 @@ export class HeatingCoolingRComponent implements OnInit {
         
       }
      
-    }
+  }
   
-    ValidateHeatingBTUH(control: AbstractControl) : ValidationErrors | null  {
+  ValidateHeatingBTUH(control: AbstractControl) : ValidationErrors | null  {
   
       let heatingBTUH = control.value;
       let lengthHeatingBTUH!: string;    
@@ -160,9 +169,40 @@ export class HeatingCoolingRComponent implements OnInit {
         return  { it_not_integer: true };
       }
   
-    }
+  }
 
-    // utilities
+  addQuestion(question:any){
+    const QuestionFormGroup  = this._formBuilder.group({
+      elegibilityQuestionId: question.elegibilityQuestionId,
+      answer: ['',  Validators.required],
+      question:question.question,
+      alternatives: [question.alternatives]
+    });
+    this.questions.push(QuestionFormGroup);
+  }
+
+  loadElegibilityQuestions(){
+    this._api.ElegibilityQuestions(this.stateGroup.controls['state'].value, 
+      JSON.stringify([
+        this.utilityGroup.controls['electricUtility'].value,
+        this.utilityGroup.controls['gasOilUtility'].value
+      ])
+    ).subscribe({
+      next: (resp) => {
+
+        this.questions.clear()
+
+        resp.forEach((question: any) => {
+          this.addQuestion(question)
+        });
+        
+      },
+      error: (e) => alert(e.error),
+      complete: () => console.info('complete')
+    })
+  }
+
+  // utilities
   changeState() {
 
     this.sendGasOil = [];
@@ -207,8 +247,8 @@ export class HeatingCoolingRComponent implements OnInit {
   }
 
   GetAvailableRebates(state: any, utilityIds: any) {
-    
-    this._api.AvailableRebates(state, JSON.stringify(utilityIds)).subscribe({
+    /*TODO: add elegibilty questions */
+    this._api.AvailableRebates(state, JSON.stringify(utilityIds),null).subscribe({
       next: (resp) => {
        this.processingAvailableRebates(resp);
       },
@@ -342,7 +382,6 @@ export class HeatingCoolingRComponent implements OnInit {
     this.validateSelection();
   }
 
-
   rebate_change(reb: Rebate) {
     reb.rebateCriteria?.forEach(element => {
       element.completed = reb.completed!;
@@ -367,7 +406,6 @@ export class HeatingCoolingRComponent implements OnInit {
     // validate if at least one rebate is selected
     this.validateSelection();
   }
-
 
   reb_criteria_change(reb: Rebate) {
     let checked_count = 0;
@@ -450,7 +488,8 @@ export class HeatingCoolingRComponent implements OnInit {
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       state: this.stateGroup.value,
-      requiredRebates: this.getRebatesPayload()
+      requiredRebates: this.getRebatesPayload(),
+      elegibilityQuestions: this.elegibilityQuestionsGroup.value
     }  
     /* sent the infor to product-lines-components */
     this._bridge.sentRebateParams.emit({

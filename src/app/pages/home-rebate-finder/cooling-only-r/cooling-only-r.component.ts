@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Observable } from 'rxjs';
@@ -27,6 +27,8 @@ import { Rebate, RebateTier, Criteria } from '../../../models/rebate';
 export class CoolingOnlyRComponent implements OnInit {
   @ViewChild('stepper')
   stepper!: MatStepper;
+
+  elegibilityQuestionsGroup !: FormGroup;
   commerceInfoGroup !: FormGroup;
   nominalSizeGroup !: FormGroup;
   furnaceGroup !: FormGroup; stateGroup !: FormGroup;
@@ -68,10 +70,18 @@ export class CoolingOnlyRComponent implements OnInit {
       .pipe(
         map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
   }
+  
+  get questions(){
+    return this.elegibilityQuestionsGroup.get('questions') as FormArray;
+  }
 
   ngOnInit(): void {
 
-    /* form grups */
+    /* form groups */
+    this.elegibilityQuestionsGroup = this._formBuilder.group({
+      questions: this._formBuilder.array([])
+    });
+
     this.commerceInfoGroup = this._formBuilder.group({
       storeId: 1,
       showAllResults: [false, Validators.required],
@@ -98,8 +108,37 @@ export class CoolingOnlyRComponent implements OnInit {
     });
 
   }
+    
+  addQuestion(question:any){
+    const QuestionFormGroup  = this._formBuilder.group({
+      elegibilityQuestionId: question.elegibilityQuestionId,
+      answer: ['',  Validators.required],
+      question:question.question,
+      alternatives: [question.alternatives]
+    });
+    this.questions.push(QuestionFormGroup);
+  }
 
-  
+  loadElegibilityQuestions(){
+    this._api.ElegibilityQuestions(this.stateGroup.controls['state'].value, 
+      JSON.stringify([
+        this.utilityGroup.controls['electricUtility'].value
+      ])
+    ).subscribe({
+      next: (resp) => {
+
+        this.questions.clear()
+
+        resp.forEach((question: any) => {
+          this.addQuestion(question)
+        });
+        
+      },
+      error: (e) => alert(e.error),
+      complete: () => console.info('complete')
+    })
+  }
+
   // utilities
   changeState() {
 
@@ -144,8 +183,8 @@ export class CoolingOnlyRComponent implements OnInit {
   }
 
   GetAvailableRebates(state: any, utilityIds: any) {
-    
-    this._api.AvailableRebates(state, JSON.stringify(utilityIds)).subscribe({
+    /*TODO: add elegibilty questions */
+    this._api.AvailableRebates(state, JSON.stringify(utilityIds), null).subscribe({
       next: (resp) => {
        this.processingAvailableRebates(resp);
       },
@@ -279,7 +318,6 @@ export class CoolingOnlyRComponent implements OnInit {
     this.validateSelection();
   }
 
-
   rebate_change(reb: Rebate) {
     reb.rebateCriteria?.forEach(element => {
       element.completed = reb.completed!;
@@ -304,7 +342,6 @@ export class CoolingOnlyRComponent implements OnInit {
     // validate if at least one rebate is selected
     this.validateSelection();
   }
-
 
   reb_criteria_change(reb: Rebate) {
     let checked_count = 0;
@@ -388,7 +425,8 @@ export class CoolingOnlyRComponent implements OnInit {
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       state: this.stateGroup.value,
-      requiredRebates: this.getRebatesPayload()
+      requiredRebates: this.getRebatesPayload(),
+      elegibilityQuestions: this.elegibilityQuestionsGroup.value
     }  
     /* sent the infor to product-lines-components */
     this._bridge.sentRebateParams.emit({

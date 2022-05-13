@@ -8,7 +8,7 @@
         <h2 class="rc-main-title">State</h2>
         <!-- Content of step -->
         <!-- selects -->
-        <mat-radio-group #stateIdGroup (change)="changeState()" formControlName="state"class="rc-img-rb">
+        <mat-radio-group #stateIdGroup (change)="changeState()" formControlName="state" class="rc-img-rb">
           <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="20px grid">
             <mat-radio-button [value]="'ME'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
               <div style="text-align: center;">
@@ -60,7 +60,7 @@
             <!-- utilities -->
             <mat-form-field appearance="fill">
               <mat-label>Electric Utility</mat-label>
-              <mat-select #sGroup formControlName="electricUtility"  (selectionChange)="PrepareAvailableRebates()">
+              <mat-select #sGroup formControlName="electricUtility"  (selectionChange)="loadElegibilityQuestions()">
                 <mat-option *ngFor ="let elec of sendElectric; let i = index" [value]="sendElectric[i].utilityId" radioGroup="sGroup">
                   {{sendElectric[i].title}}
                   </mat-option>
@@ -79,6 +79,39 @@
       </form>
     </mat-step>
     <!-- Step 2 end  -->
+    
+    <!-- Step 3 Elegibility questions -->
+    <mat-step [stepControl]="elegibilityQuestionsGroup" errorMessage="Complete the form.">
+      <form [formGroup]="elegibilityQuestionsGroup">
+        <!-- Name of step -->
+        <ng-template matStepLabel>Elegibility questions</ng-template>
+        <h2 class="rc-main-title">Elegibility questions</h2>
+        <!-- Content of step -->
+        <div fxLayout fxLayoutAlign="center">
+          <!-- User input -->
+          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
+            <div formArrayName="questions" *ngFor ="let question of questions.controls; let i = index">
+              <strong>{{question.value.question}}</strong>
+              <div [formGroupName]="i" class="rc-elegibility-questions">
+                <mat-radio-group aria-label="Select an option"  formControlName="answer" >
+                  <mat-radio-button *ngFor="let alternative of question.value.alternatives" [value]="alternative">{{alternative}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            
+  
+            <!-- button -->
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
+              <button type="button" mat-button matStepperPrevious>Back</button>
+              <button type="button" [disabled]="elegibilityQuestionsGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+                <mat-icon>arrow_forward</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <!-- Step end 3 -->
   
     <!-- Step 3 available rebate  -->
     <mat-step [stepControl]="availableRebatesGroup" errorMessage="Complete the form.">
