@@ -1,1 +1,20 @@
-<button mat-button (click)="openFilters()"> Filters</button>
+<div *ngIf="!this.noResults">
+    <!-- product lines -->
+    <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="16">
+      <div class="rc-radio-options">
+        <form [formGroup]="productLinesGroup">
+          <mat-radio-group aria-label="Select an option" formControlName="productLine" (change)="SelectProductLine()">
+            <mat-radio-button *ngFor="let proLine of productLines" [value]="proLine.id">{{proLine.title}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </form>
+      </div>
+    </div>
+    <!-- product lines end -->
+
+    <!-- modal -->
+    <button mat-button (click)="openFilters()"> Filters</button>
+
+</div>
+
+

@@ -71,7 +71,7 @@ export class ExisNonEcmAhriComponent implements OnInit {
       requiredRebates: this.payloadRebates
     }  
     /* sent the infor to product-lines-components */
-    this._bridge.sentParams.emit({
+    this._bridge.sentAhriParams.emit({
       data: this.payload
     });
   

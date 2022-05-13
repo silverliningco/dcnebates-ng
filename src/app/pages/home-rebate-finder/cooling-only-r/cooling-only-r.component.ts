@@ -391,7 +391,7 @@ export class CoolingOnlyRComponent implements OnInit {
       requiredRebates: this.getRebatesPayload()
     }  
     /* sent the infor to product-lines-components */
-    this._bridge.sentParams.emit({
+    this._bridge.sentRebateParams.emit({
       data: this.payload
     });
   

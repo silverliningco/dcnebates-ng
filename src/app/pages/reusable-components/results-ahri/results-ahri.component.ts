@@ -50,7 +50,7 @@ export class ResultsAhriComponent implements OnInit {
   ngOnInit(): void {
 
     /* receiving form data */
-    this._bridge.sentParams
+    this._bridge.sentAhriParams
       .subscribe((payload: any) => {
 
         this.myPayloadForm.commerceInfo = payload.data.commerceInfo;
