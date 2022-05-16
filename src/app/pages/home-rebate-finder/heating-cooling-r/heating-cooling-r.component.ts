@@ -234,13 +234,13 @@ export class HeatingCoolingRComponent implements OnInit {
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       state: this.stateGroup.value,
-      elegibilityQuestions: this.elegibilityQuestionsGroup.value
+      elegibilityQuestions: this.elegibilityQuestionsGroup.value,
+      utilityProviders: this.utilityGroup.value
     }  
     /* sent the infor to product-lines-components */
     this._bridge.sentRebateParams.emit({
       data: this.payload
     });
-  
   }
 
   tabChange(e:any){

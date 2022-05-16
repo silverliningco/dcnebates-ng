@@ -15,16 +15,10 @@
               <mat-form-field appearance="fill"  >
                 <mat-label>Cooling tons</mat-label>
                 <mat-select  #sGroup formControlName="coolingTons">
-                    <mat-option [value]="0.5" radioGroup="sGroup"> < 1.0 </mat-option>
-                    <mat-option [value]="1.0" radioGroup="sGroup"> 1.0  </mat-option>
-                    <mat-option [value]="1.5" radioGroup="sGroup"> 1.5 </mat-option>
-                    <mat-option [value]="2.0" radioGroup="sGroup"> 2.0 </mat-option>
-                    <mat-option [value]="2.5" radioGroup="sGroup"> 2.5 </mat-option>
-                    <mat-option [value]="3.0" radioGroup="sGroup"> 3.0 </mat-option>
-                    <mat-option [value]="3.5" radioGroup="sGroup"> 3.5 </mat-option>
-                    <mat-option [value]="4.0" radioGroup="sGroup"> 4.0 </mat-option>
-                    <mat-option [value]="4.5" radioGroup="sGroup"> 4.5 </mat-option>
-                    <mat-option [value]="5.0" radioGroup="sGroup"> 5.0 </mat-option>
+                  <div *ngFor="let coolT of myCoolingTons">
+                    <mat-option radioGroup="sGroup" *ngIf="coolT === 0.5" [value]="0.5"> < 1.0</mat-option>
+                    <mat-option radioGroup="sGroup" *ngIf="coolT != 0.5" [value]="coolT"> {{coolT | number : '1.1-1'}}</mat-option>
+                  </div>
                 </mat-select>
               </mat-form-field>
   

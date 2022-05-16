@@ -6,5 +6,7 @@ export class payloadForm {
         public state?: any,
         public requiredRebates?: any,
         public searchType?: any,
+        public elegibilityQuestions?: any,
+        public utilityProviders?: any
     ) {}
 }

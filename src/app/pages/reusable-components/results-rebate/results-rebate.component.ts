@@ -3,8 +3,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog} from '@angular/material/dialog';
 import { ApiService } from '../../../services/api.service';
 import { payloadForm } from '../../../models/payloadFrom';
+import { Rebate } from '../../../models/rebate';
 import { bridgeService } from '../../../services/bridge.service';
 import { FiltersComponent } from '../../reusable-components/filters/filters.component';
+import { RebatesComponent } from '../../reusable-components/rebates/rebates.component';
+
 
 @Component({
   selector: 'app-results-rebate',
@@ -22,9 +25,11 @@ export class ResultsRebateComponent implements OnInit {
   results!: any;
   filters: Array<any> = [];
 
+  myRebate: Array<Rebate> = [];
+  
+
   /*  receives information from the other components*/
   myPayloadForm: payloadForm = new payloadForm;
-
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -45,12 +50,14 @@ export class ResultsRebateComponent implements OnInit {
         this.myPayloadForm.requiredRebates = payload.data.requiredRebates;
         this.myPayloadForm.searchType = payload.data.searchType;
         this.myPayloadForm.state = payload.data.state;
+        this.myPayloadForm.elegibilityQuestions = payload.data.elegibilityQuestions;
+        this.myPayloadForm.utilityProviders = payload.data.utilityProviders;
 
         this.CallProductLines(this.myPayloadForm);
       });
 
 
-       /* form control */
+    /* form control */
     this.commerceInfoGroup = this._formBuilder.group({
       storeId: 1,
       showAllResults: [false],
@@ -67,8 +74,6 @@ export class ResultsRebateComponent implements OnInit {
       indoorUnitConfiguration: [null],
     });
 
-
-
   }
 
 
@@ -81,6 +86,7 @@ export class ResultsRebateComponent implements OnInit {
           // Call Filters with selected product line
           this.productLinesGroup.controls['productLine'].setValue(resp[0].id);
           /* this.CallFilters(); */
+          this.getAvailableRebates();
 
           this.noResults = false;
         } else {
@@ -100,6 +106,24 @@ export class ResultsRebateComponent implements OnInit {
     /* this.CallFilters() */
   }
 
+  getAvailableRebates(){
+    let state= JSON.stringify(this.myPayloadForm.state);
+    let utilityProviders= JSON.stringify(this.myPayloadForm.utilityProviders);
+    let elegibilityQuestions= JSON.stringify(this.myPayloadForm.elegibilityQuestions.questions);
+
+    this._api.AvailableRebates(state, utilityProviders, elegibilityQuestions).subscribe({
+      next: (resp: any) => {
+        this.myRebate = resp;
+      },
+      error: (e) => alert(e.error),
+      complete: () => console.info('complete')
+    });
+  }
+
+  selectRebate(){
+
+  }
+
 
   /* modal */
   openFilters(): void{
@@ -111,6 +135,31 @@ export class ResultsRebateComponent implements OnInit {
     })
   }
 
+
+  /* modal */
+  openRebate(): void{
+    const dialogRef = this.dialog.open(RebatesComponent, {
+      data: 'Rebate'
+    });
+    dialogRef.afterClosed().subscribe(resp => {
+      console.log(resp);
+    })
+  }
+
+
+  getMachineCombinations (){
+
+    let payload = {
+      commerceInfo: this.myPayloadForm.commerceInfo,
+      searchType: this.myPayloadForm.searchType,
+      nominalSize: this.myPayloadForm.nominalSize,
+      fuelSource: this.myPayloadForm.fuelSource,
+      systemTypeId: this.productLinesGroup.controls['productLine'].value,  /* product lines */
+      /* filters: myfilters, */
+      requiredRebates: this.myPayloadForm.requiredRebates   /* rebates id */
+    }
+
+  }
 }
 
 

@@ -43,6 +43,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
+import { RebatesComponent } from './reusable-components/rebates/rebates.component';
 
 
 
@@ -63,7 +64,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     KnowModelNbrAhriComponent,
     ResultsAhriComponent,
     ResultsRebateComponent,
-    FiltersComponent
+    FiltersComponent,
+    RebatesComponent
   ],
   imports: [
     CommonModule,

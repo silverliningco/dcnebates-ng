@@ -28,7 +28,7 @@ export class ApiService {
     return this._http.get(url);
   }
 
-  AvailableRebates(state: any, utilityProviders:any , elegibilityQuestions:any): Observable<any> {
+  AvailableRebates(state: any, utilityProviders:any,  elegibilityQuestions:any): Observable<any> {
 
     let url = URL_SERVICIOS + '/available-rebates?state=' + state + '&utilityProviders=' + utilityProviders+ "&elegibilityQuestions=" + elegibilityQuestions;
 

@@ -14,6 +14,8 @@
 
     <!--Results-->
     <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16">
+      
+      <!-- rebates -->
       <div fxFlex="30">
           <mat-card class="rc-available-rebate">
               <mat-card-header>
@@ -21,36 +23,41 @@
                       <h4>REBATES</h4>
                   </mat-card-title>                
               </mat-card-header>
+
+              <!-- rebstes list -->
               <mat-card-content>
-                <div class="rc-checked-rebate">
+                <div class="rc-checked-rebate" *ngFor="let rebate of myRebate" >
                   <mat-checkbox  value="Mass Save Heat Pump rebates">
-                      Mass Save Heat Pump rebates
+                      {{rebate.title}}
                       <div class="rc-checked-rebate-criteria">
-                        <mat-radio-group>
-                          <mat-radio-button class="example-radio-button" value="Partial home/supplemental HP">
-                            Partial home/supplemental HP
-                          </mat-radio-button>
-                          <mat-radio-button class="example-radio-button" value="Whole house HP">
-                            Whole house HP
+                        <mat-radio-group *ngFor="let rebateTier of rebate.rebateTiers">
+                          <mat-radio-button class="example-radio-button" value="Partial home/supplemental HP" *ngIf="rebateTier.title != 'Default'" >
+                            {{rebateTier.title}}
                           </mat-radio-button>
                         </mat-radio-group>
                       </div>
-                  </mat-checkbox >
-                  <mat-checkbox  value="MASS SAVE GAS HEATING">
-                      MASS SAVE GAS HEATING
-                  </mat-checkbox >
-                  <mat-checkbox  value="CARRIER COOL CASH">
-                      CARRIER COOL CASH
-                  </mat-checkbox >
-                    
+                  </mat-checkbox>                    
                 </div>
               </mat-card-content>
+
           </mat-card>
       </div>
+      <!-- rebates end -->
+
+      <!-- machine combination  -->
       <div fxFlex="70">
+
+        <!-- rebates -->
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <button mat-raised-button (click)="openFilters()">Filters <mat-icon>filter_list</mat-icon></button>
+        </div>
+
+          <!-- filters -->
           <div fxLayout="row" fxLayoutAlign="end center">
-              <button mat-raised-button (click)="openFilters()">Filters <mat-icon>filter_list</mat-icon></button>
+              <button mat-raised-button (click)="openRebate()">Rebates <mat-icon>filter_list</mat-icon></button>
           </div>
+
+
           <mat-card class="rc-results-rebate">
             <div fxLayout="row column" fxLayoutGap="16px grid">
               <div fxFlex="70" fxFlex.sm="50" fxFlex.xs="100">
@@ -202,6 +209,7 @@
               </mat-card-actions>
           </mat-card>
       </div>
+      <!-- machine combination  end -->
   </div>
 
 </div>
