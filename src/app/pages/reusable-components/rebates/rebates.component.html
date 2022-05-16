@@ -1,6 +1,40 @@
 <div mat-dialog-content >{{message}}</div>
 
-<div mat-dialog-actions>
-    <button mat-button (click)="close()"> No</button>
-    <button mat-button [mat-dialog-close]="true">Yes</button>    
+<div mat-dialog-content>
+    <div class="rc-available-rebate">
+        <mat-card-header>
+            <mat-card-title>
+                <h4>REBATES</h4>
+            </mat-card-title>                
+        </mat-card-header>
+        <mat-card-content>
+          <div class="rc-checked-rebate">
+            <mat-checkbox  value="Mass Save Heat Pump rebates">
+                Mass Save Heat Pump rebates
+                <div class="rc-checked-rebate-criteria">
+                  <mat-radio-group>
+                    <mat-radio-button class="example-radio-button" value="Partial home/supplemental HP">
+                      Partial home/supplemental HP
+                    </mat-radio-button>
+                    <mat-radio-button class="example-radio-button" value="Whole house HP">
+                      Whole house HP
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+            </mat-checkbox >
+            <mat-checkbox  value="MASS SAVE GAS HEATING">
+                MASS SAVE GAS HEATING
+            </mat-checkbox >
+            <mat-checkbox  value="CARRIER COOL CASH">
+                CARRIER COOL CASH
+            </mat-checkbox >
+
+          </div>
+        </mat-card-content>
+    </div>
+</div>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <button type="button" mat-button (click)="close()"> Cancel</button>
+        <button type="button" mat-raised-button color="primary" [mat-dialog-close]="true">Apply</button>
 </div>

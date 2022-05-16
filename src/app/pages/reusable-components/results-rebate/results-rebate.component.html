@@ -1,22 +1,10 @@
 <div *ngIf="!this.noResults">
-    <!-- product lines -->
-    <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="16">
-      <div class="rc-radio-options">
-        <form [formGroup]="productLinesGroup">
-          <mat-radio-group aria-label="Select an option" formControlName="productLine" (change)="SelectProductLine()">
-            <mat-radio-button *ngFor="let proLine of productLines" [value]="proLine.id">{{proLine.title}}
-            </mat-radio-button>
-          </mat-radio-group>
-        </form>
-      </div>
-    </div>
-    <!-- product lines end -->
 
     <!--Results-->
     <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16">
       
       <!-- rebates -->
-      <div fxFlex="30">
+      <div fxFlex="30" class="rc-hide-sm rc-show">
           <mat-card class="rc-available-rebate">
               <mat-card-header>
                   <mat-card-title>
@@ -46,16 +34,24 @@
 
       <!-- machine combination  -->
       <div fxFlex="70">
+        <!-- product lines -->
+        <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="16">
+          <div class="rc-radio-options">
+            <form [formGroup]="productLinesGroup">
+              <mat-radio-group aria-label="Select an option" formControlName="productLine" (change)="SelectProductLine()">
+                <mat-radio-button *ngFor="let proLine of productLines" [value]="proLine.id">{{proLine.title}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </form>
+          </div>
+        </div>        
+        <!-- product lines end -->
 
-        <!-- rebates -->
-        <div fxLayout="row" fxLayoutAlign="end center">
+        <!-- rebates and filters -->
+        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8" class="rc-rebate-filters-btn">
+          <button class="rc-hide rc-show-sm" mat-raised-button (click)="openRebate()">Rebates <mat-icon>attach_money</mat-icon></button>
           <button mat-raised-button (click)="openFilters()">Filters <mat-icon>filter_list</mat-icon></button>
         </div>
-
-          <!-- filters -->
-          <div fxLayout="row" fxLayoutAlign="end center">
-              <button mat-raised-button (click)="openRebate()">Rebates <mat-icon>filter_list</mat-icon></button>
-          </div>
 
 
           <mat-card class="rc-results-rebate">
