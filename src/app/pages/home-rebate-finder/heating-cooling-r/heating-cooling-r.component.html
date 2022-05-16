@@ -192,7 +192,7 @@
 
   <!-- Step 5 Fossil Fuel -->
   <mat-step [stepControl]="furnaceGroup" errorMessage="Select a furnace fuel.">
-    <form [formGroup]="furnaceGroup" (ngSubmit)="submitForm()">
+    <form [formGroup]="furnaceGroup">
       <!-- Name of step -->
       <ng-template matStepLabel>Fossil Fuel</ng-template>
       <h2 class="rc-main-title">Fossil Fuel</h2>
