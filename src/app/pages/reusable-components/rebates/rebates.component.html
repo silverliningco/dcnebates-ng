@@ -1,4 +1,31 @@
-<div mat-dialog-content >{{message}}</div>
+<!-- rebates -->
+<div fxFlex="30">
+    <mat-card class="rc-available-rebate">
+        <mat-card-header>
+            <mat-card-title>
+                <h4>REBATES</h4>
+            </mat-card-title>                
+        </mat-card-header>
+
+        <!-- rebstes list -->
+        <mat-card-content>
+          <div class="rc-checked-rebate" *ngFor="let rebate of myRebate" >
+            <mat-checkbox  value="Mass Save Heat Pump rebates">
+                {{rebate.title}}
+                <div class="rc-checked-rebate-criteria">
+                  <mat-radio-group *ngFor="let rebateTier of rebate.rebateTiers">
+                    <mat-radio-button class="example-radio-button" value="Partial home/supplemental HP" *ngIf="rebateTier.title != 'Default'" >
+                      {{rebateTier.title}}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+            </mat-checkbox>                    
+          </div>
+        </mat-card-content>
+
+    </mat-card>
+</div>
+<!-- rebates end -->
 
 <div mat-dialog-actions>
     <button mat-button (click)="close()"> No</button>

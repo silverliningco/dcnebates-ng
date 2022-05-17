@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog} from '@angular/material/dialog';
 import { ApiService } from '../../../services/api.service';
 import { payloadForm } from '../../../models/payloadFrom';
-import { Rebate } from '../../../models/rebate';
 import { bridgeService } from '../../../services/bridge.service';
 import { FiltersComponent } from '../../reusable-components/filters/filters.component';
 import { RebatesComponent } from '../../reusable-components/rebates/rebates.component';
@@ -25,11 +24,9 @@ export class ResultsRebateComponent implements OnInit {
   results!: any;
   filters: Array<any> = [];
 
-  myRebate: Array<Rebate> = [];
-  
-
   /*  receives information from the other components*/
   myPayloadForm: payloadForm = new payloadForm;
+  myPayloadRebate!: any;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -86,8 +83,6 @@ export class ResultsRebateComponent implements OnInit {
           // Call Filters with selected product line
           this.productLinesGroup.controls['productLine'].setValue(resp[0].id);
           /* this.CallFilters(); */
-          this.getAvailableRebates();
-
           this.noResults = false;
         } else {
           this.noResults = true;
@@ -106,30 +101,28 @@ export class ResultsRebateComponent implements OnInit {
     /* this.CallFilters() */
   }
 
-  getAvailableRebates(){
-    let state= JSON.stringify(this.myPayloadForm.state);
-    let utilityProviders= JSON.stringify(this.myPayloadForm.utilityProviders);
-    let elegibilityQuestions= JSON.stringify(this.myPayloadForm.elegibilityQuestions.questions);
 
-    this._api.AvailableRebates(state, utilityProviders, elegibilityQuestions).subscribe({
-      next: (resp: any) => {
-        this.myRebate = resp;
-      },
-      error: (e) => alert(e.error),
-      complete: () => console.info('complete')
+  submitParamsRebate() {  
+
+    this.myPayloadRebate = {
+      state: this.myPayloadForm.state,
+      utilityProviders: this.myPayloadForm.utilityProviders,
+      elegibilityQuestions: this.myPayloadForm.elegibilityQuestions,
+    }  
+    /* sent the infor to product-lines-components */
+    this._bridge.getRebateParams.emit({
+      data: this.myPayloadRebate
     });
   }
 
-  selectRebate(){
-
-  }
-
-
+  
   /* modal */
   openFilters(): void{
+
     const dialogRef = this.dialog.open(FiltersComponent, {
       data: 'Filters'
     });
+
     dialogRef.afterClosed().subscribe(resp => {
       console.log(resp);
     })
@@ -138,6 +131,7 @@ export class ResultsRebateComponent implements OnInit {
 
   /* modal */
   openRebate(): void{
+
     const dialogRef = this.dialog.open(RebatesComponent, {
       data: 'Rebate'
     });

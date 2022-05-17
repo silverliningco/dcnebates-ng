@@ -10,6 +10,7 @@ export class bridgeService {
 
     @Output() sentAhriParams: EventEmitter<any> = new EventEmitter();
     @Output() sentRebateParams: EventEmitter<any> = new EventEmitter();
+    @Output() getRebateParams: EventEmitter<any> = new EventEmitter();
 
     constructor(
     ) { } 
