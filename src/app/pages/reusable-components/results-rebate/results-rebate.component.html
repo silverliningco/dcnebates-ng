@@ -72,9 +72,19 @@
 
           <mat-card class="rc-results-rebate">
             <div fxLayout="row column" fxLayoutGap="16px grid">
-              <div fxFlex="70" fxFlex.sm="50" fxFlex.xs="100">
+              <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
                 <mat-card-header>
-                  <mat-card-title>Infinity HP Variable Speed</mat-card-title>
+                  <mat-card-title>
+                    <div fxLayout="row column" fxLayoutAlign="space-between center">
+                      <div fxFlex="50" fxFlex.xs="100">
+                        Infinity HP Variable Speed
+                      </div>
+                      <div fxFlex="40" fxFlex.xs="100" class="rc-rebate-price rc-hide rc-show-sm">
+                          <h5 class="rc-small">REBATES TO</h5>
+                          <h1>$ 4,500.00</h1>
+                      </div>
+                    </div>
+                  </mat-card-title>
                   <mat-card-subtitle>
                     <div fxLayout="row column" fxLayoutAlign="space-between center" class="rc-model-nrs" fxLayoutGap="16px grid">
                       <div fxFlex="30" fxFlex.sm="80" fxFlex.xs="100">
@@ -82,7 +92,7 @@
                           <p>25VNA430</p>
                       </div>
                       <div fxFlex="30" fxFlex.sm="50" fxFlex.xs="50">
-                          <span class="rc-small">Outdoor Unit</span>
+                          <span class="rc-small">Indoor Unit</span>
                           <mat-form-field>
                             <mat-select>
                               <mat-option value="123">123</mat-option>
@@ -106,7 +116,7 @@
 
                 </mat-card-header>
               </div>
-              <div fxFlex="30" fxFlex.sm="50" fxFlex.xs="100">
+              <div fxFlex="30" class="rc-show rc-hide-sm">
                   <div class="rc-rebate-price" fxLayout="row" fxLayoutAlign="center center">
                     <h5 class="rc-small">REBATES TO</h5>
                     <h1>$ 4,500.00</h1>
@@ -116,7 +126,7 @@
               <mat-card-content>
                   <div fxLayout="row column" fxLayoutGap="16px grid">
                       <div fxFlex="25" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
-                          <div>
+                          <div class="rc-list-rebates">
                             <span class="rc-small">Rebates</span>
                             <ul class="rc-unlisted">
                               <li><mat-icon> money</mat-icon>Mass Save Partial Heat Pump Rebates</li>
@@ -126,9 +136,8 @@
                           </div>
                       </div>
                       <div fxFlex="25" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
-                          <div class="rc-accesories">
+                          <div class="rc-list-accesories">
                               <span class="rc-small">Accesories</span>
-  
                               <div>
                                 <div>
                                   <mat-checkbox>
@@ -141,68 +150,90 @@
                                   </mat-checkbox>
                                 </div>
                               </div>
-  
                           </div>
                       </div>
                       <div fxFlex="20" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
-                          <div>
-                              <span class="rc-small">AHRI Ratings</span>
-                              <div fxLayout="row" class="rc-list-result">
-                                <div fxFlex="30" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="20">
-                                  <span>SEER</span>
-                                </div>
-                                <div fxFlex="70" fxFlex.md="80" fxFlex.sm="80" fxFlex.xs="80">
-                                  11
-                                </div>                                 
-                              </div>
-                              <div fxLayout="row" class="rc-list-result">
-                                <div fxFlex="30" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="20">
-                                  <span>EER</span>
-                                </div>
-                                <div fxFlex="70" fxFlex.md="80" fxFlex.sm="80" fxFlex.xs="80">
-                                  21
-                                </div>                                 
-                              </div>
-                              <div fxLayout="row" class="rc-list-result">
-                                <div fxFlex="30" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="20">
-                                  <span>HPSF</span>
-                                </div>
-                                <div fxFlex="70" fxFlex.md="80" fxFlex.sm="80" fxFlex.xs="80">
-                                  10
-                                </div>                                 
-                              </div>
+                          <div class="rc-list-ahri-rating">
+                            <mat-accordion>
+                              <mat-expansion-panel [expanded]="true">
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title>
+                                    <span class="rc-small">AHRI Ratings</span>
+                                  </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                  <div fxLayout="row" class="rc-list-result">
+                                    <div fxFlex="30" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="50">
+                                      <span>SEER</span>
+                                    </div>
+                                    <div fxFlex="70" fxFlex.md="80" fxFlex.sm="80" fxFlex.xs="50">
+                                      11
+                                    </div>                                 
+                                  </div>
+                                  <div fxLayout="row" class="rc-list-result">
+                                    <div fxFlex="30" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="50">
+                                      <span>EER</span>
+                                    </div>
+                                    <div fxFlex="70" fxFlex.md="80" fxFlex.sm="80" fxFlex.xs="50">
+                                      21
+                                    </div>                                 
+                                  </div>
+                                  <div fxLayout="row" class="rc-list-result">
+                                    <div fxFlex="30" fxFlex.md="20" fxFlex.sm="20" fxFlex.xs="50">
+                                      <span>HPSF</span>
+                                    </div>
+                                    <div fxFlex="70" fxFlex.md="80" fxFlex.sm="80" fxFlex.xs="50">
+                                      10
+                                    </div>
+                                  </div>
+                              </mat-expansion-panel>
+                            </mat-accordion>
+                              
+                              
                           </div>
                       </div>
                       <div fxFlex="30" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
-                        <div>
-                          <span class="rc-small">Detail Performance Data</span>
-                          <div fxLayout="row" class="rc-list-result">
-                            <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                              <span>Heating BTUH</span>
-                            </div>
-                            <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                              26 346 
-                            </div>
+                        <div class="rc-list-detail-performance">
+                          <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100">
+                            <mat-accordion>
+                              <mat-expansion-panel [expanded]="true">
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title>
+                                    <span class="rc-small">Detail Performance Data</span>
+                                  </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <div fxLayout="row" class="rc-list-result">
+                                  <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                    <span>Heating BTUH</span>
+                                  </div>
+                                  <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                    26 346 
+                                  </div>
+                                </div>
+                                <div fxLayout="row" class="rc-list-result">
+                                  <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                    <span>Cooling BTUH</span>
+                                  </div>
+                                  <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                      18 300
+                                  </div>
+                                </div>
+                                <div fxLayout="row" class="rc-list-result" fxLayoutAlign="space-between center" >
+                                  <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                    <span>Estimated CO2</span>
+                                  </div>
+                                  <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50" style="padding-top: 5px;">
+                                    <mat-icon class="rc-co2-icon">nature</mat-icon>
+                                    <mat-icon class="rc-co2-icon">nature</mat-icon>
+                                    <mat-icon class="rc-co2-icon">nature</mat-icon>
+                                    <mat-icon class="rc-co2-icon">nature</mat-icon>
+                                  </div>
+                                </div>
+                                
+                              </mat-expansion-panel>
+                            </mat-accordion>
                           </div>
-                          <div fxLayout="row" class="rc-list-result">
-                            <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                              <span>Cooling BTUH</span>
-                            </div>
-                            <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                18 300
-                            </div>
-                          </div>
-                          <div fxLayout="row" class="rc-list-result" fxLayoutAlign="space-between center" >
-                            <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                              <span>Estimated CO2</span>
-                            </div>
-                            <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50" style="padding-top: 5px;">
-                              <mat-icon class="rc-co2-icon">nature</mat-icon>
-                              <mat-icon class="rc-co2-icon">nature</mat-icon>
-                              <mat-icon class="rc-co2-icon">nature</mat-icon>
-                              <mat-icon class="rc-co2-icon">nature</mat-icon>
-                            </div>
-                          </div>
+                          
+                          
                         </div>
                       </div>
   

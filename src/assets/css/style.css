@@ -964,7 +964,6 @@ mat-card.rc-results-rebate .mat-card-header .mat-card-subtitle{
     }
   /* End Change style to input combo box */
 
-
 mat-card.rc-results-rebate .rc-rebate-price{
   position: relative;
   background-color: rgba(50, 121, 192, 0.13);
@@ -983,6 +982,30 @@ mat-card.rc-results-rebate .rc-rebate-price h5.rc-small{
 mat-card.rc-results-rebate .rc-rebate-price h1{
   font-family: 'Bitter', serif !important;
 }
+@media screen and (min-width: 960px) and (max-width: 1199px){
+  mat-card.rc-results-rebate .rc-rebate-price h1{
+    font-size: 26px;
+  }
+}
+@media screen and (max-width: 959px){
+  mat-card.rc-results-rebate .rc-rebate-price{
+    padding: 1rem;
+    margin-left: 10px;
+  }
+  mat-card.rc-results-rebate .rc-rebate-price h1{
+    font-size: 26px;
+    margin-top: 10px;
+  }
+}
+@media screen and (max-width: 599px){
+  mat-card.rc-results-rebate .rc-rebate-price{
+    margin-top: 10px;
+    margin-left: 0;
+  }
+  mat-card.rc-results-rebate .mat-card-header .mat-card-subtitle .rc-model-nrs {
+    padding-top: .5rem;
+  }
+}
 /*Content*/
   mat-card.rc-results-rebate .mat-card-content{
     padding: .5rem 0;
@@ -990,6 +1013,11 @@ mat-card.rc-results-rebate .rc-rebate-price h1{
   }
   mat-card.rc-results-rebate .mat-card-content span.rc-small{
     color: rgba(0,0,0,.54);
+  }
+  @media screen and (max-width: 599px){
+    .rc-list-rebates{
+      margin: 1rem 0;
+    }
   }
   .rc-unlisted{
     list-style: none;
@@ -999,12 +1027,12 @@ mat-card.rc-results-rebate .rc-rebate-price h1{
     left: 25px;
     color: #02af09;
   }
-  .rc-accesories {
+  .rc-list-accesories {
     background-color: rgba(255, 149, 0, 0.07);
     border-radius: 4px;
     padding: 0 12px 16px 12px;
   }
-  .rc-accesories span.rc-add-price-rebate{
+  .rc-list-accesories span.rc-add-price-rebate{
     background-color: rgba(0, 114, 5, 0.09);
     color: #007205;
     border-radius: 4px;
@@ -1016,7 +1044,6 @@ mat-card.rc-results-rebate .rc-rebate-price h1{
   .rc-list-result {
     padding-left: 1rem;
   }
-
   .rc-list-result span {
     font-weight: 600;
     margin-right: 1rem;
@@ -1026,6 +1053,46 @@ mat-card.rc-results-rebate .rc-rebate-price h1{
     width: 14px;
     height: 18px;
     color: var(--rc-accent-color);
+  }
+
+  /*Collapse style in results*/
+  .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel,
+  .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
+  .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
+    padding: 0 10px;
+    height: auto;
+  }
+  .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body,
+  .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel  .mat-expansion-panel-content .mat-expansion-panel-body{
+    padding: 10px 0px 10px 6px;
+  }
+
+  @media screen and (max-width: 599px){
+    .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
+    .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
+      border-bottom: 1px solid #d7d7d7;
+      border-radius: 0;
+      pointer-events: initial;
+    }
+    .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator,
+    .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator{
+      display: initial;
+      transition: display 1s ;
+    }
+  }
+  @media screen and (min-width: 600px){
+      .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
+      .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
+        pointer-events: none;
+      }
+      .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator,
+      .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator{
+        display: none;
+      }
   }
 
   /*Card buttons*/
