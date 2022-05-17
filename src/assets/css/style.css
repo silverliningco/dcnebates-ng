@@ -47,6 +47,20 @@ h1, h2, h3, h4, h5 {
   font-size: 80%;
 }
 
+.rc-hide{
+  display: none !important;
+}
+.rc-show {
+  display: initial !important;
+}
+@media only screen and (max-width: 959px){
+  .rc-hide-sm{
+    display: none !important;
+  }
+  .rc-show-sm{
+    display: initial !important;
+  }
+}
 /*All titles in pages*/
   .rc-main-title {
     text-align: center;
@@ -846,6 +860,9 @@ h1, h2, h3, h4, h5 {
 
   /*New Page Rebates Results*/
   /*Available rebates*/
+  .rc-rebate-filters-btn{
+    margin-top: 1rem;
+  }
   .rc-checked-rebate .mat-checkbox  {
     border: 1px solid #e1e1e1;
     padding: 1rem;

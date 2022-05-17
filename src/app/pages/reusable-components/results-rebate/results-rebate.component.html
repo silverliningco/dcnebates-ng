@@ -1,33 +1,46 @@
 <div *ngIf="!this.noResults">
-    <!-- product lines -->
-    <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="16">
-      <div class="rc-radio-options">
-        <form [formGroup]="productLinesGroup">
-          <mat-radio-group aria-label="Select an option" formControlName="productLine" (change)="SelectProductLine()">
-            <mat-radio-button *ngFor="let proLine of productLines" [value]="proLine.id">{{proLine.title}}
-            </mat-radio-button>
-          </mat-radio-group>
-        </form>
-      </div>
-    </div>
-    <!-- product lines end -->
 
     <!--Results-->
     <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16">
 
       <!-- machine combination  -->
       <div fxFlex="70">
+        <!-- product lines -->
+        <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="16">
+          <div class="rc-radio-options">
+            <form [formGroup]="productLinesGroup">
+              <mat-radio-group aria-label="Select an option" formControlName="productLine" (change)="SelectProductLine()">
+                <mat-radio-button *ngFor="let proLine of productLines" [value]="proLine.id">{{proLine.title}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </form>
+          </div>
+        </div>        
+        <!-- product lines end -->
 
-        <!-- rebates -->
-        <div fxLayout="row" fxLayoutAlign="end center">
-          <button mat-raised-button (click)="openFilters()">Filters <mat-icon>filter_list</mat-icon></button>
-        </div>
-
-          <!-- filters -->
-          <div fxLayout="row" fxLayoutAlign="end center">
-              <button mat-raised-button (click)="openRebate(); submitParamsRebate();" >Rebates <mat-icon>filter_list</mat-icon></button>
+        <!-- rebates and filters -->
+        <div fxLayout="row column" fxLayoutAlign="space-between center" fxLayoutGap="8" class="rc-rebate-filters-btn">
+          <div fxFlex="75" fxFlex.sm="100" fxFlex.xs="100" class="rc-filters-selected">
+            <div class="rc-f">
+              <!-- applied filters -->
+              <h5 class="rc-filter-group-title">My filters:</h5>
+              <mat-chip-list aria-label="Applied filters">
+                <mat-chip _ngcontent-ssb-c101="" role="option" color="primary" class="mat-chip mat-focus-indicator mat-primary mat-standard-chip mat-chip-with-trailing-icon ng-star-inserted" tabindex="-1" aria-disabled="false" style=""><div class="mat-chip-ripple"></div>FB4CNP024L00 <button _ngcontent-ssb-c101="" matchipremove="" class="mat-chip-remove mat-chip-trailing-icon" type="button"><mat-icon _ngcontent-ssb-c101="" role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">cancel</mat-icon></button></mat-chip>
+                <mat-chip _ngcontent-ssb-c101="" role="option" color="primary" class="mat-chip mat-focus-indicator mat-primary mat-standard-chip mat-chip-with-trailing-icon ng-star-inserted" tabindex="-1" aria-disabled="false" style=""><div class="mat-chip-ripple"></div>FB4CNP024L00 <button _ngcontent-ssb-c101="" matchipremove="" class="mat-chip-remove mat-chip-trailing-icon" type="button"><mat-icon _ngcontent-ssb-c101="" role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">cancel</mat-icon></button></mat-chip>
+                <mat-chip _ngcontent-ssb-c101="" role="option" color="primary" class="mat-chip mat-focus-indicator mat-primary mat-standard-chip mat-chip-with-trailing-icon ng-star-inserted" tabindex="-1" aria-disabled="false" style=""><div class="mat-chip-ripple"></div>FB4CNP024L00 <button _ngcontent-ssb-c101="" matchipremove="" class="mat-chip-remove mat-chip-trailing-icon" type="button"><mat-icon _ngcontent-ssb-c101="" role="img" class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="true" data-mat-icon-type="font">cancel</mat-icon></button></mat-chip>
+              </mat-chip-list>
+            </div>
           </div>
 
+          <div fxFlex="15" fxFlex.sm="100" fxFlex.xs="100">
+            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8">
+              <button class="rc-hide rc-show-sm" mat-raised-button (click)="openRebate()">Rebates <mat-icon>attach_money</mat-icon></button>
+              <button mat-raised-button (click)="openFilters()">Filters <mat-icon>filter_list</mat-icon></button>
+            </div>
+          </div>
+         
+        </div>
+        
 
           <mat-card class="rc-results-rebate">
             <div fxLayout="row column" fxLayoutGap="16px grid">
