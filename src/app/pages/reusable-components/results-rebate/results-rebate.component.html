@@ -2,35 +2,6 @@
 
     <!--Results-->
     <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16">
-      
-      <!-- rebates -->
-      <div fxFlex="30" class="rc-hide-sm rc-show">
-          <mat-card class="rc-available-rebate">
-              <mat-card-header>
-                  <mat-card-title>
-                      <h4>REBATES</h4>
-                  </mat-card-title>                
-              </mat-card-header>
-
-              <!-- rebstes list -->
-              <mat-card-content>
-                <div class="rc-checked-rebate" *ngFor="let rebate of myRebate" >
-                  <mat-checkbox  value="Mass Save Heat Pump rebates">
-                      {{rebate.title}}
-                      <div class="rc-checked-rebate-criteria">
-                        <mat-radio-group *ngFor="let rebateTier of rebate.rebateTiers">
-                          <mat-radio-button class="example-radio-button" value="Partial home/supplemental HP" *ngIf="rebateTier.title != 'Default'" >
-                            {{rebateTier.title}}
-                          </mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-                  </mat-checkbox>                    
-                </div>
-              </mat-card-content>
-
-          </mat-card>
-      </div>
-      <!-- rebates end -->
 
       <!-- machine combination  -->
       <div fxFlex="70">
@@ -63,10 +34,11 @@
 
           <div fxFlex="15" fxFlex.sm="100" fxFlex.xs="100">
             <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8">
-              <button class="rc-hide rc-show-sm" mat-raised-button (click)="openRebate()">Rebates <mat-icon>attach_money</mat-icon></button>
+              <button class="rc-hide rc-show-sm" mat-raised-button (click)="openRebate(); submitParamsRebate">Rebates <mat-icon>attach_money</mat-icon></button>
               <button mat-raised-button (click)="openFilters()">Filters <mat-icon>filter_list</mat-icon></button>
             </div>
           </div>
+         
         </div>
         
 
