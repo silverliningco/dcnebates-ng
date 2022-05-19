@@ -51,6 +51,7 @@ export class ResultsRebateComponent implements OnInit {
         this.myPayloadForm.utilityProviders = payload.data.utilityProviders;
 
         this.CallProductLines(this.myPayloadForm);
+        this.CallSearch(this.myPayloadForm);
       });
 
       this._bridge.sentFilters
@@ -79,6 +80,17 @@ export class ResultsRebateComponent implements OnInit {
 
   }
 
+  CallSearch(payload: any){
+
+    this._api.Search(JSON.stringify(payload)).subscribe({
+      next: (resp) => {
+        if (resp.length > 0) {
+          console.log(resp)
+          this.results = resp;
+        }
+      }
+    })
+  }
 
   CallProductLines(payload: any) {
     this._api.ProductLines(JSON.stringify(payload)).subscribe({
