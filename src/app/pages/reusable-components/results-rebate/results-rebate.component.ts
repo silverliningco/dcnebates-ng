@@ -37,6 +37,8 @@ export class ResultsRebateComponent implements OnInit {
 
   ngOnInit(): void {
 
+    
+
     /* receiving form data */
     this._bridge.sentRebateParams
               .subscribe((payload: any) => {
@@ -49,6 +51,13 @@ export class ResultsRebateComponent implements OnInit {
         this.myPayloadForm.state = payload.data.state;
         this.myPayloadForm.elegibilityQuestions = payload.data.elegibilityQuestions;
         this.myPayloadForm.utilityProviders = payload.data.utilityProviders;
+
+        /* send necessary data for available rebates */
+        this._bridge.sentAvailableRebateParams.emit({
+          state: payload.data.state,
+          elegibilityQuestions: payload.data.elegibilityQuestions,
+          utilityProviders: payload.data.utilityProviders
+        });
 
         this.CallProductLines(this.myPayloadForm);
         this.CallSearch(this.myPayloadForm);

@@ -44,6 +44,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
 import { RebatesComponent } from './reusable-components/rebates/rebates.component';
+import { RebatesDialogComponent } from './reusable-components/rebates-dialog/rebates-dialog.component';
 
 
 
@@ -65,7 +66,8 @@ import { RebatesComponent } from './reusable-components/rebates/rebates.componen
     ResultsAhriComponent,
     ResultsRebateComponent,
     FiltersComponent,
-    RebatesComponent
+    RebatesComponent,
+    RebatesDialogComponent
   ],
   imports: [
     CommonModule,
