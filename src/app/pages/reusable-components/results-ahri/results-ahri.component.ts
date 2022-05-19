@@ -150,6 +150,8 @@ export class ResultsAhriComponent implements OnInit {
       filters: myfilters,
       requiredRebates: this.myPayloadForm.requiredRebates
     }
+
+    console.log(payload);
     return JSON.stringify(payload);
   }
 

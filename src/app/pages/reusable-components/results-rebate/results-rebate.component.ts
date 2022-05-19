@@ -39,7 +39,7 @@ export class ResultsRebateComponent implements OnInit {
 
     /* receiving form data */
     this._bridge.sentRebateParams
-      .subscribe((payload: any) => {
+              .subscribe((payload: any) => {
 
         this.myPayloadForm.commerceInfo = payload.data.commerceInfo;
         this.myPayloadForm.nominalSize = payload.data.nominalSize;
@@ -53,6 +53,12 @@ export class ResultsRebateComponent implements OnInit {
         this.CallProductLines(this.myPayloadForm);
       });
 
+      this._bridge.sentFilters
+              .subscribe((payload: any) => {
+
+        console.log(payload);
+
+      });
 
     /* form control */
     this.commerceInfoGroup = this._formBuilder.group({
@@ -100,27 +106,21 @@ export class ResultsRebateComponent implements OnInit {
     this.filters = [];
     /* this.CallFilters() */
   }
-
-
-  submitParamsRebate() {  
-
-    this.myPayloadRebate = {
-      state: this.myPayloadForm.state,
-      utilityProviders: this.myPayloadForm.utilityProviders,
-      elegibilityQuestions: this.myPayloadForm.elegibilityQuestions,
-    }  
-    /* sent the infor to product-lines-components */
-    this._bridge.getRebateParams.emit({
-      data: this.myPayloadRebate
-    });
-  }
-
-  
+ 
   /* modal */
   openFilters(): void{
+    let payload= {
+      commerceInfo: this.myPayloadForm.commerceInfo,
+      searchType: this.myPayloadForm.searchType,
+      nominalSize: this.myPayloadForm.nominalSize,
+      fuelSource: this.myPayloadForm.fuelSource,
+      systemTypeId: this.productLinesGroup.controls['productLine'].value,
+      filters: [],
+      requiredRebates: []
+    }
 
     const dialogRef = this.dialog.open(FiltersComponent, {
-      data: 'Filters'
+      data: payload
     });
 
     dialogRef.afterClosed().subscribe(resp => {
@@ -132,9 +132,16 @@ export class ResultsRebateComponent implements OnInit {
   /* modal */
   openRebate(): void{
 
+    this.myPayloadRebate = {
+      state: this.myPayloadForm.state,
+      utilityProviders: this.myPayloadForm.utilityProviders,
+      elegibilityQuestions: this.myPayloadForm.elegibilityQuestions,
+    } 
+
     const dialogRef = this.dialog.open(RebatesComponent, {
-      data: 'Rebate'
+      data: this.myPayloadRebate
     });
+
     dialogRef.afterClosed().subscribe(resp => {
       console.log(resp);
     })
