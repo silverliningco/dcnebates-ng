@@ -1,8 +1,8 @@
-<mat-stepper #stepper linear  [orientation]="(stepperOrientation | async)!" (selectionChange)="tabChange($event)">
+<mat-stepper #stepper linear  [orientation]="(stepperOrientation | async)!">
 
     <!-- Step 1 -->
     <mat-step [stepControl]="nominalSizeGroup" errorMessage="Complete all fields.">
-        <form [formGroup]="nominalSizeGroup">
+        <form [formGroup]="nominalSizeGroup" (ngSubmit)="submitForm()">
         <!-- Name of step -->
         <ng-template matStepLabel>Equipment Size</ng-template>
         <h2 class="rc-main-title">Equipment Size</h2>
@@ -31,7 +31,7 @@
 
             <!-- button -->
             <div fxLayout="column" fxLayoutAlign="center end" class="rc-stepper-buttons">
-                <button type="button" [disabled]="nominalSizeGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+                <button type="submit" [disabled]="nominalSizeGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
                 <mat-icon>arrow_forward</mat-icon>
                 </button>
             </div>
@@ -48,7 +48,7 @@
         <h2 class="rc-main-title">AHRI Combinations</h2>
 
         <!-- reusable component -->
-        <app-results-ahri></app-results-ahri>
+        <app-results></app-results>
 
     </mat-step>
     <!-- results end -->

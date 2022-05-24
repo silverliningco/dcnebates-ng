@@ -24,9 +24,7 @@ import { ExisNonEcmAhriComponent } from './home-ahi-matchups/exis-non-ecm-ahri/e
 import { FurnaceOnlyInstallAhriComponent } from './home-ahi-matchups/furnace-only-install-ahri/furnace-only-install-ahri.component';
 import { HeatingCoolingAhriComponent } from './home-ahi-matchups/heating-cooling-ahri/heating-cooling-ahri.component';
 import { KnowModelNbrAhriComponent } from './home-ahi-matchups/know-model-nbr-ahri/know-model-nbr-ahri.component';
-import { ResultsAhriComponent } from './reusable-components/results-ahri/results-ahri.component'; 
-import { ResultsRebateComponent } from './reusable-components/results-rebate/results-rebate.component';
-import { FiltersComponent } from './reusable-components/filters/filters.component';
+import { ResultsComponent } from './reusable-components/results/results.component'; 
 
 /* angular material */
 import {MatCardModule} from '@angular/material/card';
@@ -42,10 +40,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatListModule} from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {MatDialogModule} from '@angular/material/dialog';
-import { RebatesComponent } from './reusable-components/rebates/rebates.component';
-import { RebatesDialogComponent } from './reusable-components/rebates-dialog/rebates-dialog.component';
-
 
 
 
@@ -63,11 +57,7 @@ import { RebatesDialogComponent } from './reusable-components/rebates-dialog/reb
     FurnaceOnlyInstallAhriComponent,
     HeatingCoolingAhriComponent,
     KnowModelNbrAhriComponent,
-    ResultsAhriComponent,
-    ResultsRebateComponent,
-    FiltersComponent,
-    RebatesComponent,
-    RebatesDialogComponent
+    ResultsComponent
   ],
   imports: [
     CommonModule,
@@ -91,11 +81,7 @@ import { RebatesDialogComponent } from './reusable-components/rebates-dialog/reb
     MatCheckboxModule,
     MatListModule,
     MatChipsModule,
-    MatExpansionModule,
-    MatDialogModule
-  ],
-  entryComponents:[
-    FiltersComponent
+    MatExpansionModule
   ]
 })
 export class PagesModule { }

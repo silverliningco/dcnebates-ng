@@ -1,5 +1,3 @@
-import { ArrayType } from "@angular/compiler";
-
 /* used for both rebateCriteria and TierCriteria*/
 export class Criteria {
     constructor(
@@ -21,12 +19,10 @@ export class RebateTier {
 
   export class Rebate {
     constructor(
-      public description: string,
-      public link: string,
-      public rebateId: number,
-      public title: string,
-      public rebateTiers: Array<RebateTier>,
-      public rebateCriteria?: Array<Criteria>,
-      public completed?: boolean
+    public rebateId: number,
+    public title: string,
+    public rebateCriteria?: Array<Criteria>,
+    public rebateTiers?: Array<RebateTier>,
+    public completed?: boolean
     ) {}
   }

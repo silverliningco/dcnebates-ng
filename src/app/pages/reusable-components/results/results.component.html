@@ -1,0 +1,202 @@
+<div *ngIf="!this.noResults">
+  <!-- product lines -->
+  <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="16">
+    <div class="rc-radio-options">
+      <form [formGroup]="productLinesGroup">
+        <mat-radio-group aria-label="Select an option" formControlName="productLine" (change)="SelectProductLine()">
+          <mat-radio-button *ngFor="let proLine of productLines" [value]="proLine.id">{{proLine.title}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </form>
+    </div>
+  </div>
+  <!-- product lines end -->
+
+  <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start"
+    fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16" class="rc-tab-content">
+
+    <!-- filters -->
+    <div fxFlex="25" fxLayout="column" fxLayoutAlign="start" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="25"
+      fxLayoutGap.sm="16" fxLayoutGap.xs="16">
+
+      <mat-accordion class="rc-filters">
+        <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="rc-filters-header">
+              <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon>filter_list</mat-icon>
+                <h4>Filters</h4>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="rc-filters-body">
+            <form [formGroup]="commerceInfoGroup">
+              <!-- Stock status -->
+              <h5 class="rc-filter-group-title">Stock status</h5>
+              <mat-radio-group #rGroup formControlName="showAllResults" fxLayout="column" (change)="CallFilters()">
+                <mat-radio-button [value]="false" radioGroup="rGroup">Stock items only</mat-radio-button>
+                <mat-radio-button [value]="true" radioGroup="rGroup">Show all</mat-radio-button>
+              </mat-radio-group>
+            </form>
+
+            <form [formGroup]="filtersGroup" fxLayout="column" fxLayoutAlign="center" fxLayoutAlign.xs="center stretch"
+              fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
+
+              <!-- outdoorUnitSKU, indoorUnitSKU, furnaceSKU -->
+              <h5 class="rc-filter-group-title" *ngIf="showModelNrs">Model nrs</h5>
+              <div *ngFor="let filter of filters" class="rc-filter-group">
+                <div
+                  *ngIf="filter.filterName === 'outdoorUnitSKU' || filter.filterName === 'indoorUnitSKU' || filter.filterName === 'furnaceSKU' ">
+                  <mat-form-field appearance="fill">
+                    <mat-label>{{filter.filterName}}</mat-label>
+                    <select matNativeControl required (change)="CallFilters()" [formControlName]="filter.filterName">
+                      <option *ngFor="let val of filter.availableOptions" [value]="val"
+                        [selected]="filter.selectedValues.indexOf(val) != -1 ? true:false">{{val}}</option>
+                      <option value="*">Show all</option>
+                    </select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <!-- indoorUnitConfiguration -->
+              <h5 class="rc-filter-group-title" *ngIf="showIndoorUnit">Indoor Unit</h5>
+              <div *ngFor="let filter of filters" class="rc-filter-group">
+                <div
+                  *ngIf="filter.filterName === 'indoorUnitConfiguration'">
+
+                  <mat-form-field appearance="fill">
+                    <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
+                    <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallFilters()">
+                      <mat-option *ngFor="let val of filter.options" [value]="val"
+                        [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              
+            </form>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <!-- filters end -->
+
+    <div fxFlex="75" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="100" fxFlex.md="75">
+
+      <!-- section filters and data of pagination -->
+      <div fxLayout="row column" fxLayoutAlign="space-between center" class="rc-filters-selected">
+        <div fxFlex="85" fxFlex.sm="100" fxFlex.xs="100" class="rc-f">
+
+          <!-- applied filters -->
+          <h5 class="rc-filter-group-title">My filters:</h5>
+          <mat-chip-list aria-label="Applied filters">
+            <ng-container *ngFor="let selectedFilter of this.filtersGroup.value | keyvalue">
+
+              <ng-container *ngIf='isArray(selectedFilter.value) else elseIsarray'>
+                <ng-container *ngFor="let f of  $any(selectedFilter).value">
+
+                  <mat-chip color="primary" (removed)="removeFilter(selectedFilter.key, f)">{{f}}
+                    <button matChipRemove>
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip>
+                </ng-container>
+
+              </ng-container>
+              <ng-template #elseIsarray>
+                <mat-chip color="primary" *ngIf='selectedFilter.value && selectedFilter.value != "*"'
+                  (removed)="removeFilter(selectedFilter.key,null)">{{selectedFilter.value}}
+                  <button matChipRemove>
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+              </ng-template>
+            </ng-container>
+          </mat-chip-list>
+        </div>
+
+        <!-- data of pagination -->
+        <div fxFlex="15" fxFlex.sm="100" fxFlex.xs="100" fxLayout fxLayoutAlign="end center">
+          <span class="rc-nr-pages">{{ beginning }} - {{ end }} of {{results?.length}}</span>
+        </div>
+      </div>
+      <!-- section filters and data of pagination end-->
+
+      <!-- table -->
+      <div class="table-overflow">
+        <table>
+          <thead>
+            <tr>
+              <th>N°</th>
+              <th>Outdoor Unit</th>
+              <th>Indoor Unit</th>
+              <th *ngIf="showFurnace">FURNACE</th>
+              <th *ngIf="showFurnace">Configuration</th>
+              <th>SEER</th>
+              <th>EER</th>
+              <th *ngIf="showHSPF">HSPF</th>
+              <th *ngIf="showFurnace">AFUE</th>
+              <th *ngIf="showTotal">Total Rebate</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let ahriCombination of results | paginate: { itemsPerPage: rows, currentPage: p } , let i=index">
+              <td data-title="n°">{{ rows * (p - 1) + i + 1}}</td>
+              <td data-title="Outdoor unit">{{ahriCombination.outdoorUnitSKU}}</td>
+              <td data-title="Indoor unit">{{ahriCombination.indoorUnitSKU}}</td>
+              <td data-title="Furnace" *ngIf="showFurnace">{{ahriCombination.furnaceSKU}}</td>
+              <td data-title="Configuration" *ngIf="showFurnace">
+                <ul *ngFor="let configuration of ahriCombination.furnaceConfigurations" class="rc-list-in-table">
+                  <li>{{configuration}}</li>
+                </ul>
+              </td>
+              <td data-title="SEER">{{ahriCombination.SEER}}</td>
+              <td data-title="EER">{{ahriCombination.EER}}</td>
+              <td data-title="HSPF" *ngIf="showHSPF">{{ahriCombination.HSPF}}</td>
+              <td data-title="AFUE" *ngIf="showFurnace">{{ahriCombination.AFUE}}</td>
+              <td data-title="Total rebate" *ngIf="showTotal">{{ahriCombination.totalAvailableRebates | currency:"USD":"symbol" : '1.0-0'}}</td>
+              <td data-title="Details">
+                <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']"
+                  [queryParams]="{skus:ahriCombination.SKUs | json, ahri_refs:ahriCombination.AHRIReferences| json, params:{commerceInfo: myPayloadForm.commerceInfo  , requiredRebates: myPayloadForm.requiredRebates  } | json}"
+                  target="_blank">
+                  <mat-icon>search</mat-icon>
+                </a>
+              </td>
+            </tr>
+            <tr *ngIf="results?.length < 1">
+              <td colspan="10"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- table end -->
+
+
+      <!-- pagination -->
+      <div fxLayout fxLayoutAlign="end center" class="rc-pagination">
+        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+      </div>
+      <!-- End pagination -->
+
+    </div>
+  </div>
+</div>
+
+<!-- message no results -->
+<div *ngIf="this.noResults">
+  <div fxLayout fxLayoutAlign="center center" fxLayoutGap="16px" fxLayout.sm="column" fxLayout.xs="column">
+    <div fxFlex="80" fxFlex.sm="80" fxFlex.xs="80" class="rc-alert">
+      <p>
+        <span class="rc-lead">We're sorry, no results were found for your search.
+        </span>
+      </p>
+      <div fxLayout fxLayoutAlign="end">
+        <button mat-button matStepperPrevious type="button">Back</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- message no resultsa end -->
