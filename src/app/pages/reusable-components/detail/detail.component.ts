@@ -3,6 +3,11 @@ import { ApiService } from 'src/app/services/api.service';
 
 import { ActivatedRoute } from '@angular/router';
 
+export interface Links {
+  url: string;
+  title: string;
+}
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -10,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailComponent implements OnInit {
   detail!:any;
+  myURL: Array<Links> = [];
 
   constructor(
     public activatedRoute: ActivatedRoute, 
@@ -22,7 +28,11 @@ export class DetailComponent implements OnInit {
       let detailParams = params['params'];
       
       this._api.Detail(skus, ahri_refs, detailParams).subscribe({
-        next: (resp) => this.detail = resp,
+        next: (resp) => {
+          this.detail = resp;
+          console.log(this.detail);
+          this.getURL(this.detail.availableRebates);
+        },
         error: (e) => alert(e.error),
         complete: () => console.info('complete')
       })
@@ -32,4 +42,22 @@ export class DetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getURL(availableRebates: any){
+
+    availableRebates.forEach((element: any) => {  
+    });
+
+  }
+
+
 }
+
+
+
+/* links: [
+{"title":"",
+"url":""},...]
+
+*/
+
+

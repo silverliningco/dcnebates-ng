@@ -44,7 +44,8 @@ export class ApiService {
 
   Detail(skus: any, ahri_refs: any, params: any): Observable<any> {
 
-    let url = URL_SERVICIOS + '/view-detail?skus='+ skus + '&ahri_refs=' + ahri_refs +'&params=' + params; 
+    /* let url = URL_SERVICIOS + '/view-detail?skus='+ skus + '&ahri_refs=' + ahri_refs +'&params=' + params;  */
+    let url = 'http://45.79.197.74/view-detail?skus=["25VNA424A003","FE4ANB003L00"]&ahri_refs=["206788330"]&params={"commerceInfo":{"storeId":1,"showAllResults":false},"requiredRebates":[{"rebateId": 1,"rebateTierId": 2,"isRequired": false},{"rebateId": 2,"rebateTierId": 3,"isRequired": false},{"rebateId": 6,"rebateTierId": 8,"isRequired":false}]}'; 
 
     return this._http.get(url);
   }
