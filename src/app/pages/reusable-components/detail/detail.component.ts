@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-
 import { ActivatedRoute } from '@angular/router';
-
-export interface Links {
-  url: string;
-  title: string;
-}
+import { Detail, Links, Rebate } from '../../../models/detail';
 
 @Component({
   selector: 'app-detail',
@@ -14,8 +9,11 @@ export interface Links {
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
-  detail!:any;
-  myURL: Array<Links> = [];
+  detail!: Detail;
+  rebate: Array<Rebate> = [];
+  link: Array<Links> = [];
+  existRebate: boolean = false;
+  existLink: boolean = false;
 
   constructor(
     public activatedRoute: ActivatedRoute, 
@@ -30,8 +28,7 @@ export class DetailComponent implements OnInit {
       this._api.Detail(skus, ahri_refs, detailParams).subscribe({
         next: (resp) => {
           this.detail = resp;
-          console.log(this.detail);
-          this.getURL(this.detail.availableRebates);
+          this.processRebate(this.detail.availableRebates);
         },
         error: (e) => alert(e.error),
         complete: () => console.info('complete')
@@ -42,22 +39,31 @@ export class DetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getURL(availableRebates: any){
+  processRebate(availableRebates: any){
 
-    availableRebates.forEach((element: any) => {  
+    availableRebates.forEach((elm1: any) => {
+      this.rebate.push(elm1);
+      this.link.push(elm1.links);
     });
 
+    if (this.rebate.length > 0){
+      this.existRebate = true;
+    }
+
+    if (this.link.length > 0){
+      this.existLink = true;
+    }
+
+    console.log(this.rebate);
+
+  }
+
+  onNavigate(url : any){
+    window.location.href = url;
   }
 
 
 }
 
-
-
-/* links: [
-{"title":"",
-"url":""},...]
-
-*/
 
 
