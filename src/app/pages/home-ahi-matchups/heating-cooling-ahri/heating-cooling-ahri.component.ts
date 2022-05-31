@@ -8,7 +8,6 @@ import { map } from 'rxjs/operators';
 
 import { bridgeService } from '../../../services/bridge.service';
 import { payloadForm } from '../../../models/payloadFrom';
-import { untilDestroyed } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'app-heating-cooling-ahri',
