@@ -61,21 +61,19 @@
             <mat-form-field appearance="fill">
               <mat-label>Electric Utility</mat-label>
               <mat-select #sGroup formControlName="electricUtility">
-                <mat-option *ngFor ="let elec of sendElectric; let i = index" [value]="sendElectric[i].utilityId" radioGroup="sGroup">
-                  {{sendElectric[i].title}}
-                  </mat-option>
-                  <!--<mat-option value="" radioGroup="sGroup">Other</mat-option>-->
+                <mat-option *ngFor ="let elec of electricity; let i = index" [value]="electricity[i].utilityProviderId" radioGroup="sGroup">
+                  {{electricity[i].title}}
+                </mat-option>
+                <!--<mat-option value="" radioGroup="sGroup">Other</mat-option>-->
               </mat-select>
             </mat-form-field>
   
             <mat-form-field appearance="fill">
               <mat-label>Gas / Oil Utility</mat-label>
               <mat-select #sGroup formControlName="gasOilUtility">
-                <mat-option *ngFor ="let elec of sendGasOil; let i = index" [value]="sendGasOil[i].utilityId" radioGroup="sGroup">
-                  {{sendGasOil[i].title}}
-                  </mat-option>
-                  <!--<mat-option value="" radioGroup="sGroup">Other</mat-option>-->
-  
+                <mat-option *ngFor ="let elec of fossilFuel; let i = index" [value]="fossilFuel[i].utilityProviderId" radioGroup="sGroup">
+                  {{fossilFuel[i].title}}
+                </mat-option> 
               </mat-select>
             </mat-form-field>
   

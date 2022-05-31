@@ -46,6 +46,10 @@ export class HeatingCoolingRComponent implements OnInit {
   availableRebates!: Array<Rebate>;
   IsValidAvailabeRebates: boolean = true;
 
+  /* utilities */
+  electricity:  Array<utilityInfo> = [];
+  fossilFuel: Array<utilityInfo> = [];
+
   /* display columns when they have data in table of results */
   showFurnace: boolean = true;
   showHSPF: boolean = true;
@@ -55,7 +59,7 @@ export class HeatingCoolingRComponent implements OnInit {
   showIndoorUnit: boolean = false;
   showOptions: boolean = false;
 
-  /* intercambio de datos */
+  /* data exchange */
   data!: any;
 
   constructor(
@@ -157,7 +161,7 @@ export class HeatingCoolingRComponent implements OnInit {
         }
   
       } else {
-        return  { it_not_integer: true };
+        return  { it_not_integer: true }; 
       }
   
     }
@@ -171,27 +175,30 @@ export class HeatingCoolingRComponent implements OnInit {
     this._api.Utilities(this.stateGroup.controls['state'].value).subscribe({
       next: (resp: any) => {
         let listUtilities: Array<utilityInfo> = resp;
-        this.transform(listUtilities);
+        this.selectUtility(listUtilities);
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
     })
   }
 
-  /* classifies the utility-objects in the sendElectric and sendGasOil arrays depending on 
-  the values that each object has in the "utilitiesProvided" field */
-  transform(array: Array<utilityInfo>): any[] {
+  selectUtility(array: Array<utilityInfo>) {
 
-    return array.filter((d: any) => d.utilitiesProvided.find((a: any) => {
+    this.electricity = [];
+    this.fossilFuel = [];
 
-      if (a.includes('Electricity')) {
-        this.sendElectric.push(d);
-      } if (a.includes('Natural Gas')) {
-        this.sendGasOil.push(d);
+    console.log(array);
+
+    array.forEach(ele => {
+      if (ele.electricity === true && ele.fossilFuel === false){
+        this.electricity.push(ele);
+      } if (ele.electricity === false && ele.fossilFuel === true){
+        this.fossilFuel.push(ele);
+      } if (ele.electricity === true && ele.fossilFuel === true) {
+        this.electricity.push(ele);
+        this.fossilFuel.push(ele);
       }
-
-    }));
-
+    });
   }
 
   PrepareAvailableRebates(){

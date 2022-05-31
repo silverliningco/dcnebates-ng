@@ -1,10 +1,10 @@
 export class utilityInfo {
     constructor(
-        public utilityId?: any,
-        public title?: string,
         public description?: string,
-        public state?: number,
-        public country?: string,
-        public utilitiesProvided?: Array<string>
+        public electricity?: boolean,
+        public fossilFuel?: boolean,
+        public link?: string,
+        public title?: string,
+        public utilityProviderId?: number       
     ) {}
 }
