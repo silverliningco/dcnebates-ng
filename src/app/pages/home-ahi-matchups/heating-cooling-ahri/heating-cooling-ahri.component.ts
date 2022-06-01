@@ -7,7 +7,6 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { bridgeService } from '../../../services/bridge.service';
-import { payloadForm } from '../../../models/payloadFrom';
 
 @Component({
   selector: 'app-heating-cooling-ahri',
@@ -23,12 +22,14 @@ import { payloadForm } from '../../../models/payloadFrom';
 
 export class HeatingCoolingAhriComponent implements OnInit {
 
-  heatingCoolingGroup !: FormGroup;
+  commerceInfoGroup !: FormGroup;
+  nominalSizeGroup !: FormGroup;
+  furnaceGroup !: FormGroup;
 
   myCoolingTons: Array<number> =  [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0];
+  payload: any;
 
   payloadRebates: Array<any> = [];
-  payload:payloadForm = new payloadForm ;
 
   stepperOrientation: Observable<StepperOrientation>;
 
@@ -37,9 +38,6 @@ export class HeatingCoolingAhriComponent implements OnInit {
 
   /* intercambio de datos */
   data!: any;
-
-  /* for detrminate if the form has changes */
-  isDirty!: Observable<boolean>;
   
   constructor(
     private _formBuilder: FormBuilder,
@@ -54,31 +52,21 @@ export class HeatingCoolingAhriComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-    this.heatingCoolingGroup = this._formBuilder.group({
-      /* form grups */
-      'commerceInfoGroup': this._formBuilder.group({
-        'storeId': 1,
-        'showAllResults': [false, Validators.required],
-      }),
-
-      'nominalSizeGroup': this._formBuilder.group({
-        'heatingBTUH': ['', [this.ValidateHeatingBTUH, this.ValidateNumber]],
-        'coolingTons': ['', Validators.required],
-        /* equipmentSize: ['', Validators.required], */
-      }),
-
-      'furnaceGroup': this._formBuilder.group({
-        'fuelSource': ['', Validators.required],
-      }),
-
+    /* form grups */
+    this.commerceInfoGroup = this._formBuilder.group({
+      storeId: 1,
+      showAllResults: [false, Validators.required],
     });
 
+    this.nominalSizeGroup = this._formBuilder.group({
+      heatingBTUH: ['', [this.ValidateHeatingBTUH, this.ValidateNumber]],
+      coolingTons: ['', Validators.required],
+      /* equipmentSize: ['', Validators.required], */
+    });
 
-    /* chekeck if exists changes in values of forms */
-    this.isDirty = this.heatingCoolingGroup.valueChanges.pipe(
-      /* dirtyCheck(this.payload), */
-    );
+    this.furnaceGroup = this._formBuilder.group({
+      fuelSource: ['', Validators.required],
+    });
 
   }
 
@@ -143,33 +131,19 @@ export class HeatingCoolingAhriComponent implements OnInit {
 
     submitForm() {  
 
-      console.log(this.heatingCoolingGroup.value.commerceInfoGroup.control['fuelSource'].value);
-
-      /* this.payload = {
-        commerceInfo: this.heatingCoolingGroup.value.commerceInfoGroup,
+      this.payload = {
+        commerceInfo: this.commerceInfoGroup.value,
         searchType: "Heating and Cooling",
-        nominalSize: this.heatingCoolingGroup.value.nominalSizeGroup,
+        nominalSize: this.nominalSizeGroup.value,
         fuelSource: this.furnaceGroup.controls['fuelSource'].value,
         requiredRebates: this.payloadRebates
-      } */
-
+      }  
       /* sent the infor to product-lines-components */
-      /* this._bridge.sentParams.emit({
+      this._bridge.sentParams.emit({
         data: this.payload
-      }); */
-
-
-      /* this.change(this.payload);*/
+      });
     
     }
-
-
-    change(payload: any){
-      this.newValueForm = new BehaviorSubject<payloadForm>(payload);
-      console.log(this.newValueForm);
-    }
-    
 
 }
-
 

@@ -187,8 +187,6 @@ export class HeatingCoolingRComponent implements OnInit {
     this.electricity = [];
     this.fossilFuel = [];
 
-    console.log(array);
-
     array.forEach(ele => {
       if (ele.electricity === true && ele.fossilFuel === false){
         this.electricity.push(ele);

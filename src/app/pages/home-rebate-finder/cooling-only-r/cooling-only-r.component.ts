@@ -112,7 +112,6 @@ export class CoolingOnlyRComponent implements OnInit {
 
     this._api.Utilities(this.stateGroup.controls['state'].value).subscribe({
       next: (resp: any) => {
-        console.log(resp);
         let listUtilities: Array<utilityInfo> = resp;
         this.selectUtility(listUtilities);
       },
@@ -125,8 +124,6 @@ export class CoolingOnlyRComponent implements OnInit {
 
     this.electricity = [];
     this.fossilFuel = [];
-
-    console.log(array);
 
     array.forEach(ele => {
       if (ele.electricity === true && ele.fossilFuel === false){
