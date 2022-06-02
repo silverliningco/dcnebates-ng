@@ -100,8 +100,7 @@
 <div *ngIf="existRebate">
   <h2 class="rc-page-subtitle">Available Rebates</h2>
   <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center stretch" fxLayoutGap="16px grid" fxLayoutGap.sm="8" fxLayoutGap.xs="8">
-    <div *ngFor="let reb of rebate" fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" >
-      <mat-card class="rc-detail-available-rebates">
+      <mat-card *ngFor="let reb of rebate" fxFlex="48" fxFlex.sm="100" fxFlex.xs="100" class="rc-detail-available-rebates">
         <mat-card-title>
           <h5>
             {{reb.rebateTitle}} 
@@ -138,6 +137,5 @@
           </div>
         </mat-card-content>
       </mat-card>
-    </div>
   </div>
 </div>

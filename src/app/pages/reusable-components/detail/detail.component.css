@@ -55,7 +55,8 @@ cursor: auto;
 
 /*Detail Available Rebates */
 .rc-detail-available-rebates{
-    padding: 2rem 1rem;
+    padding: 2rem 1rem 2rem .5rem !important; 
+    margin-right: .5rem;
 }
 .rc-detail-available-rebates .mat-card-title h5{
     font-weight: bold;
@@ -89,6 +90,16 @@ cursor: auto;
     padding: 0.5rem 2rem 1rem 2rem;
     color: var(--rc-primary-color);
 }
+
+/*.rc-detail-available-rebates mat-card-title h5::before{
+    background-image: url('../../../../assets/images/bill-icon/bill.png');
+    background-size: 20px 20px;
+    display: inline-block;
+    width: 20px; 
+    height: 20px;
+    content:"";
+}*/
+
 
 
 /* Rebate finder - Detail Available Rebates */

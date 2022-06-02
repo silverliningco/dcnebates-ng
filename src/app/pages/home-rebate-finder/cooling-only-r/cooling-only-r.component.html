@@ -101,7 +101,7 @@
             <div class="rc-checklist-n2">
                 
               <span class="rc-info-title-ar"   *ngIf="reb.rebateTiers!.length > 0 && reb.rebateTiers![0].title != 'Default'">Rebate Tiers:</span>
-              <div fxLayout="row column"  fxLayoutAlign="center" fxLayoutGap="20px grid" fxLayout.sm="column" fxLayoutAlign.sm="center stretch" fxLayoutGap.sm="16px grid" fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="16px grid">
+              <div fxLayout="row column"  fxLayoutAlign="start stretch" fxLayoutGap="20px grid" fxLayout.sm="column" fxLayoutAlign.sm="center stretch" fxLayoutGap.sm="16px grid" fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="16px grid">
                 <div *ngFor ="let rebTier of reb.rebateTiers" [ngClass]="rebTier.completed ? 'checked' : ''" fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
                   <div class="rc-rt-container" *ngIf="rebTier.title != 'Default'" >
                     <mat-checkbox class="rc-hide-checkbox"
@@ -110,8 +110,8 @@
                       {{rebTier.title}}
                     </mat-checkbox>
 
-                    <p>
-                      {{rebTier.notes}}
+                    <p class="rc-info-note">
+                      <mat-icon>info</mat-icon> {{rebTier.notes || "Doesn't record information"}}
                     </p>
 
                     <div class="rc-rt-icon">
@@ -119,8 +119,8 @@
                     </div>
                   </div>
 
-                  <p *ngIf="rebTier.title === 'Default'">
-                    {{rebTier.notes}}
+                  <p class="rc-rebate-info-note" *ngIf="rebTier.title === 'Default'">
+                    <mat-icon>info</mat-icon> {{rebTier.notes || "Doesn't record information"}}
                   </p>
                   
                 </div>
