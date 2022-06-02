@@ -168,11 +168,12 @@ export class CoolingOnlyRComponent implements OnInit {
       reb.rebateTiers?.forEach( (element: any) => {
 
           myTier.push({
-          title: element.title,
-          rebateTierId: element.rebateTierId,
-          completed: element.default,
-          defaultTier: element.default
-        });
+            title: element.title,
+            rebateTierId: element.rebateTierId,
+            completed: element.default,
+            defaultTier: element.default,
+            notes: element.notes
+          });
       });
 
       this.availableRebates.push({

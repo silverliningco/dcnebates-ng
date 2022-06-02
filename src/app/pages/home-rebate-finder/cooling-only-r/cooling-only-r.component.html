@@ -118,6 +118,11 @@
                       <mat-icon>check_circle_outline</mat-icon>
                     </div>
                   </div>
+
+                  <p *ngIf="rebTier.title === 'Default'">
+                    {{rebTier.notes}}
+                  </p>
+                  
                 </div>
               </div>
             </div>

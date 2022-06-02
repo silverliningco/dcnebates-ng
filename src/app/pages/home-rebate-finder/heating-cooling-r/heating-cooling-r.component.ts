@@ -231,11 +231,11 @@ export class HeatingCoolingRComponent implements OnInit {
       reb.rebateTiers?.forEach( (element: any) => {
 
           myTier.push({
-          title: element.title,
-          rebateTierId: element.rebateTierId,
-          completed: element.default,
-          defaultTier: element.default,
-
+            title: element.title,
+            rebateTierId: element.rebateTierId,
+            completed: element.default,
+            defaultTier: element.default,
+            notes: element.notes
         });
       });
 
