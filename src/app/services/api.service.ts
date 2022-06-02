@@ -30,7 +30,7 @@ export class ApiService {
 
   AvailableRebates(state: any, utilityProviders:any ): Observable<any> {
 
-    let url = URL_SERVICIOS + '/available-rebates?state=' + state + '&utilityProviders=' + utilityProviders; 
+    let url = URL_SERVICIOS + '/available-rebates?country=US&state=' + state + '&utilityProviders=' + utilityProviders; 
 
     return this._http.get(url);
   }
