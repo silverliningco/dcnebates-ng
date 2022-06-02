@@ -59,7 +59,7 @@ export class DetailComponent implements OnInit {
   }
 
   onNavigate(url : any){
-    window.location.href = url;
+    window.open(url, '_blank');
   }
 
 
