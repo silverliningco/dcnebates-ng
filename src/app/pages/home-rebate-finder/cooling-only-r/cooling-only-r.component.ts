@@ -151,7 +151,8 @@ export class CoolingOnlyRComponent implements OnInit {
 
   GetAvailableRebates(state: any, utilityIds: any, fuel: any) {
     
-    this._api.AvailableRebates(state, JSON.stringify(utilityIds), fuel).subscribe({
+    let myRebateTypes = ["electric", "OEM", "distributor"]
+    this._api.AvailableRebates(state, JSON.stringify(utilityIds), fuel, JSON.stringify(myRebateTypes)).subscribe({
       next: (resp) => {
        this.processingAvailableRebates(resp);
       },

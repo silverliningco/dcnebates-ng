@@ -214,7 +214,8 @@ export class HeatingCoolingRComponent implements OnInit {
 
   GetAvailableRebates(state: any, utilityIds: any, fuel: any) {
     
-    this._api.AvailableRebates(state, JSON.stringify(utilityIds), fuel ).subscribe({
+    let myRebateTypes = [ "electric", "fossil fuel", "OEM", "distributor"]
+    this._api.AvailableRebates(state, JSON.stringify(utilityIds), fuel,  JSON.stringify(myRebateTypes)).subscribe({
       next: (resp) => {
        this.processingAvailableRebates(resp);
       },

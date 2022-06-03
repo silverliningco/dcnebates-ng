@@ -28,9 +28,9 @@ export class ApiService {
     return this._http.get(url);
   }
 
-  AvailableRebates(state: any, utilityProviders:any, fuel: any ): Observable<any> {
+  AvailableRebates(state: any, utilityProviders:any, fuel: any, rebateTypes: any): Observable<any> {
 
-    let url = URL_SERVICIOS + '/available-rebates?country=US&state=' + state + '&utilityProviders=' + utilityProviders + '&fuelSource=' + fuel; 
+    let url = URL_SERVICIOS + '/available-rebates?country=US&state=' + state + '&utilityProviders=' + utilityProviders + '&fuelSource=' + fuel + '&rebateTypes='+ rebateTypes; 
 
     return this._http.get(url);
   }
