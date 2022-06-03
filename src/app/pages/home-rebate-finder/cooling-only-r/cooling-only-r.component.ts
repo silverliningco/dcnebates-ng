@@ -41,6 +41,7 @@ export class CoolingOnlyRComponent implements OnInit {
   sendGasOil: Array<any> = [];
   myUtilityIds!: Array<any>;
   myState!: string;
+  myFuel!: string;
 
   availableRebates!: Array<Rebate>;
   IsValidAvailabeRebates: boolean = true;
@@ -143,13 +144,14 @@ export class CoolingOnlyRComponent implements OnInit {
     ];
 
     this.myState = this.stateGroup.controls['state'].value;
+    this.myFuel = this.furnaceGroup.controls['fuelSource'].value;
 
-    this.GetAvailableRebates(this.myState, this.myUtilityIds);
+    this.GetAvailableRebates(this.myState, this.myUtilityIds, this.myFuel);
   }
 
-  GetAvailableRebates(state: any, utilityIds: any) {
+  GetAvailableRebates(state: any, utilityIds: any, fuel: any) {
     
-    this._api.AvailableRebates(state, JSON.stringify(utilityIds)).subscribe({
+    this._api.AvailableRebates(state, JSON.stringify(utilityIds), fuel).subscribe({
       next: (resp) => {
        this.processingAvailableRebates(resp);
       },
