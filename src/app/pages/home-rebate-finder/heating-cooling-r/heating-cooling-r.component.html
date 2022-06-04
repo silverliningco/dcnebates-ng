@@ -80,7 +80,7 @@
             <!-- button -->
             <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
               <button type="button" mat-button matStepperPrevious>Back</button>
-              <button type="button" (click)="PrepareAvailableRebates()" [disabled]="utilityGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+              <button type="button" [disabled]="utilityGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
                 <mat-icon>arrow_forward</mat-icon>
               </button>
             </div>
@@ -117,7 +117,7 @@
             <!-- button -->
             <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
               <button type="button" mat-button matStepperPrevious>Back</button>
-              <button type="button" [disabled]="furnaceGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+              <button type="button" (click)="PrepareAvailableRebates()" [disabled]="furnaceGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
                 <mat-icon>arrow_forward</mat-icon>
               </button>
             </div>
