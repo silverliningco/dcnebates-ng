@@ -307,65 +307,6 @@ h1, h2, h3, h4, h5 {
 
 /* ==================== Styles in Pages ========================== */
 
-/* Home Page*/
-  /* Card home */
-    mat-card.rc-card, mat-card.rc-card-home {
-      padding: 3rem 2rem;
-      transition: box-shadow .3s;
-    }
-      @media (max-width: 767px){
-        mat-card.rc-card, mat-card.rc-card-home {
-          padding: 1rem;
-        }
-      }
-    mat-card.rc-card:hover, mat-card.rc-card-home:hover {
-      cursor: pointer;
-      box-shadow: 0 0 11px rgba(33,33,33,.2); 
-    }
-    .rc-card-home-icon {
-      background-color: #f6f6f6;
-      width: 80px;
-      height: 80px;
-      margin-bottom: 2rem;
-      border-radius: 4px;
-    }
-    .rc-card-home .rc-card-home-icon mat-icon {
-      color: var(--rc-primary-light-color);
-      font-size: 50px;
-      width: 50px;
-      height: 50px;
-    }
-      @media (max-width: 374px){
-        .rc-card-home-icon {
-            width: 70px;
-            height: 70px;
-        }
-        .rc-card-home .rc-card-home-icon mat-icon {
-            font-size: 40px;
-            width: 40px;
-            height: 40px;
-        }
-      }
-    mat-card.rc-card-home mat-card-title{
-      color: var(--rc-primary-color);
-      font-weight: bold;
-      font-size: 24px;
-      margin-bottom: 1rem;
-    }
-    mat-card.rc-card-home mat-card-content{
-      color: var(--rc-text-light-color);
-    }
-    mat-card.rc-card-home mat-card-actions mat-icon {
-      color: var(--rc-accent-color);
-    }
-    mat-card.rc-card-home mat-card-actions > button {
-      background-color: transparent;
-      border: none;
-    }
-    mat-card.rc-card-home mat-card-actions > button:hover {
-      cursor: pointer;
-    }
-
 /* Stepper styles */
   .mat-stepper-horizontal{
     background-color: transparent !important;
@@ -934,43 +875,6 @@ h1, h2, h3, h4, h5 {
       }
     }
 
-  /*Page AHRI Matchups home*/
-  .rc-card{
-    text-align: center;
-  }
-  .rc-card .icon{
-    margin: 0 auto 20px auto;
-
-  }
-  .rc-card .icon mat-icon{
-    width: 50px;
-    height: 50px;
-    font-size: 50px;
-    color: var(--rc-primary-light-color);
-  }
-  .rc-card .mat-card-title{
-    color: var(--rc-primary-color);
-    font-size: 20px;
-    text-align: center;
-    padding-top: 20px;
-    font-weight: bold;
-  }
-  .rc-card .mat-card-title::before{
-    content: '';
-    border-top: solid 3px var(--rc-accent-color);
-    width: 50px;
-    display: block;
-    margin: 0.75rem auto;
-  }
-  .rc-card.h-ahri{
-    min-height: 180px;
-    cursor: pointer;
-  }
-  @media (max-width: 599px) {
-    .rc-card.h-ahri{
-      min-height: auto;
-    }
-  }
   .rc-radio-label{
     color: var(--rc-text-light-color);
     font-size: 12px;
