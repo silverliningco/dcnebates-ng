@@ -60,7 +60,7 @@ export class ResultsComponent implements OnInit {
         this.myPayloadForm.searchType = payload.data.searchType;
         this.myPayloadForm.state = payload.data.state;
 
-        this.CallProductLines(this.myPayloadForm);
+        this.PrepareProductLines(this.myPayloadForm);
       });
 
 
@@ -95,8 +95,20 @@ export class ResultsComponent implements OnInit {
     this.ObtainPaginationText();
   }
 
-  CallProductLines(payload: any) {
-    this._api.ProductLines(JSON.stringify(payload)).subscribe({
+  PrepareProductLines(payload: any){
+    let body = {
+      "searchType": payload.searchType,
+      "fuelSource": payload.fuelSource,
+      "commerceInfo": payload.commerceInfo,
+      "nominalSize": payload.nominalSizbody
+    }
+
+    this.CallProductLines(body);
+  }
+
+  CallProductLines(body: any) {
+
+    this._api.ProductLines(JSON.stringify(body)).subscribe({
       next: (resp) => {
         if (resp.length > 0) {
           this.productLines = resp
@@ -141,16 +153,16 @@ export class ResultsComponent implements OnInit {
       }
     );
 
-    let payload = {
-      commerceInfo: this.commerceInfoGroup.value,
-      searchType: this.myPayloadForm.searchType,
-      nominalSize: this.myPayloadForm.nominalSize,
-      fuelSource: this.myPayloadForm.fuelSource,
-      systemTypeId: this.productLinesGroup.controls['productLine'].value,
-      filters: myfilters,
-      requiredRebates: this.myPayloadForm.requiredRebates
-    }
-    return JSON.stringify(payload);
+    let body = {
+      "searchType": this.myPayloadForm.searchType,
+      "fuelSource": this.myPayloadForm.fuelSource,
+      "commerceInfo": this.commerceInfoGroup.value,
+      "nominalSize": this.myPayloadForm.nominalSize,
+      "systemTypeId":  this.productLinesGroup.controls['productLine'].value,
+      "filters": myfilters,
+      "requiredRebates": this.myPayloadForm.requiredRebates
+   }
+    return JSON.stringify(body);
   }
 
   // Function that call filters from API and update UI. 

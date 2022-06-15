@@ -143,16 +143,22 @@ export class CoolingOnlyRComponent implements OnInit {
       this.utilityGroup.controls['electricUtility'].value
     ];
 
-    this.myState = this.stateGroup.controls['state'].value;
-    this.myFuel = this.furnaceGroup.controls['fuelSource'].value;
+    let body = {
+      "country": "US",
+      "state": this.stateGroup.controls['state'].value,
+      "utilityProviders": this.myUtilityIds,
+      "fuelSource": this.furnaceGroup.controls['fuelSource'].value,
+      "rebateTypes":["electric", "OEM", "distributor"],
+      "OEM": "Carrier",
+      "storeIds": []
+    }
 
-    this.GetAvailableRebates(this.myState, this.myUtilityIds, this.myFuel);
+    this.GetAvailableRebates(body);
   }
 
-  GetAvailableRebates(state: any, utilityIds: any, fuel: any) {
-    
-    let myRebateTypes = ["electric", "OEM", "distributor"]
-    this._api.AvailableRebates(state, JSON.stringify(utilityIds), fuel, JSON.stringify(myRebateTypes)).subscribe({
+  GetAvailableRebates(body: any) {
+  
+    this._api.AvailableRebates(body).subscribe({
       next: (resp) => {
        this.processingAvailableRebates(resp);
       },

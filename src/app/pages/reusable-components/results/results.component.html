@@ -159,7 +159,7 @@
               <td data-title="Total rebate" *ngIf="showTotal">{{ahriCombination.totalAvailableRebates | currency:"USD":"symbol" : '1.0-0'}}</td>
               <td data-title="Details">
                 <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']"
-                  [queryParams]="{skus:ahriCombination.SKUs | json, ahri_refs:ahriCombination.AHRIReferences| json, params:{commerceInfo: myPayloadForm.commerceInfo  , requiredRebates: myPayloadForm.requiredRebates  } | json}"
+                  [queryParams]="{skus:ahriCombination.SKUs | json, ahri_refs:ahriCombination.AHRIReferences| json, commerceInfo: myPayloadForm.commerceInfo | json , requiredRebates: myPayloadForm.requiredRebates   | json}"
                   target="_blank">
                   <mat-icon>search</mat-icon>
                 </a>
