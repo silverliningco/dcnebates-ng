@@ -12,25 +12,25 @@
           <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="20px grid">
             <mat-radio-button [value]="'ME'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
               <div style="text-align: center;">
-                <img src="../../../assets/images/state-icons/me-icon.png" alt="" class="unchecked">
-                <img src="../../../assets/images/state-icons/me-icon-active.png" alt="" class="checked">
+                <img src="../../../../assets/images/icons/me-icon.png" alt="" class="unchecked">
+                <img src="../../../../assets/images/icons/me-icon-active.png" alt="" class="checked">
                 <p>ME</p>
               </div>
             </mat-radio-button>
   
             <mat-radio-button [value]="'NH'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
-              <img src="../../../assets/images/state-icons/nh-icon.png" alt="" class="unchecked">
-              <img src="../../../assets/images/state-icons/nh-icon-active.png" alt="" class="checked">
+              <img src="../../../../assets/images/icons/nh-icon.png" alt="" class="unchecked">
+              <img src="../../../../assets/images/icons/nh-icon-active.png" alt="" class="checked">
               <p>NH</p>
             </mat-radio-button>
             <mat-radio-button [value]="'MA'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
-              <img src="../../../assets/images/state-icons/ma-icon.png" alt="" class="unchecked">
-              <img src="../../../assets/images/state-icons/ma-icon-active.png" alt="" class="checked">
+              <img src="../../../../assets/images/icons/ma-icon.png" alt="" class="unchecked">
+              <img src="../../../../assets/images/icons/ma-icon-active.png" alt="" class="checked">
               <p>MA</p>
             </mat-radio-button>
             <mat-radio-button [value]="'RI'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
-              <img src="../../../assets/images/state-icons/ri-icon.png" alt="" class="unchecked">
-              <img src="../../../assets/images/state-icons/ri-icon-active.png" alt="" class="checked">
+              <img src="../../../../assets/images/icons/ri-icon.png" alt="" class="unchecked">
+              <img src="../../../../assets/images/icons/ri-icon-active.png" alt="" class="checked">
               <p>RI</p>
             </mat-radio-button>
           </div>
@@ -99,19 +99,35 @@
         <!-- Content of step -->
         <div fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="32">
           <!-- User input -->
-          <div fxFlex="25" fxLayout="column" fxLayoutAlign="left stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="25">
+          <div fxFlex="100" fxLayout="column" fxLayoutAlign="left stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="100">
             <!-- radio button -->
-            <mat-label>Select type of fossil fuel available at the residence.</mat-label>
-            <mat-radio-group #rGroup formControlName="fuelSource" fxLayout="column">
-              <mat-radio-button [value]="'Natural Gas'" radioGroup="rGroup">Natural Gas</mat-radio-button>
-              <mat-radio-button [value]="'Propane'" radioGroup="rGroup">Propane</mat-radio-button>
-              <mat-radio-button [value]="'Heating Oil'" radioGroup="rGroup">Heating Oil</mat-radio-button>
-              <mat-radio-button [value]="'None'" radioGroup="rGroup">None</mat-radio-button>
-  
-              <!-- error -->
-              <mat-error *ngIf="furnaceGroup.get('fuelSource')?.hasError('required') && furnaceGroup.get('fuelSource')?.touched">
-                Furnace Fuel is <strong>required</strong>
-              </mat-error>
+            <!--<mat-label class="rc-radio-label">Select type of fossil fuel available at the residence.</mat-label>-->
+            <mat-radio-group  #rGroup formControlName="fuelSource" fxLayout="column" class="rc-img-rb">
+              <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="20px grid">
+                <mat-radio-button  [value]="'Natural Gas'" radioGroup="rGroup" fxFlex.xs="80" fxFlex.sm="34">
+                  <div style="text-align: center;">
+                    <img src="../../../../assets/images/icons/natural-gas.png" alt="" class="unchecked">
+                    <img src="../../../../assets/images/icons/natural-gas-active.png" alt="" class="checked">
+                    <p>Natural Gas</p>
+                  </div>
+                </mat-radio-button>
+      
+                <mat-radio-button  [value]="'Propane'" radioGroup="rGroup" fxFlex.xs="80" fxFlex.sm="34">
+                  <img src="../../../../assets/images/icons/propane.png" alt="" class="unchecked">
+                  <img src="../../../../assets/images/icons/propane-active.png" alt="" class="checked">
+                  <p>Propane</p>
+                </mat-radio-button>
+                <mat-radio-button [value]="'Heating Oil'" radioGroup="rGroup" fxFlex.xs="80" fxFlex.sm="34">
+                  <img src="../../../../assets/images/icons/heating-oil.png" alt="" class="unchecked">
+                  <img src="../../../../assets/images/icons/heating-oil-active.png" alt="" class="checked">
+                  <p>Heating Oil</p>
+                </mat-radio-button>
+                <mat-radio-button [value]="'None'" radioGroup="rGroup" fxFlex.xs="80" fxFlex.sm="34">
+                  <img src="../../../../assets/images/icons/none.png" alt="" class="unchecked">
+                  <img src="../../../../assets/images/icons/none-active.png" alt="" class="checked">
+                  <p>None</p>
+                </mat-radio-button>
+              </div>
             </mat-radio-group>
   
             <!-- button -->

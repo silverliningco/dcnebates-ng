@@ -594,6 +594,7 @@ h1, h2, h3, h4, h5 {
   .rc-img-rb label.mat-radio-label:hover{  
     box-shadow: 0 0 11px rgba(33,33,33,.2); 
   }
+
   .rc-img-rb label.mat-radio-label .mat-radio-label-content {
     margin: 0 auto;
   }
@@ -604,10 +605,10 @@ h1, h2, h3, h4, h5 {
   .rc-img-rb .mat-radio-checked p{
     color: var(--rc-accent-color);
   }
-  .rc-img-rb .mat-radio-checked img.unchecked{
+  .rc-img-rb .mat-radio-checked img.unchecked, .rc-img-rb label.mat-radio-label:hover img.unchecked{
     display: none;
   }
-  .rc-img-rb .mat-radio-checked img.checked{
+  .rc-img-rb .mat-radio-checked img.checked, .rc-img-rb label.mat-radio-label:hover img.checked{
     display: inline-block;
   }
 
