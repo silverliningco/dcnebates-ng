@@ -100,7 +100,7 @@ export class ResultsComponent implements OnInit {
       "searchType": payload.searchType,
       "fuelSource": payload.fuelSource,
       "commerceInfo": payload.commerceInfo,
-      "nominalSize": payload.nominalSizbody
+      "nominalSize": payload.nominalSize
     }
 
     this.CallProductLines(body);
@@ -162,6 +162,8 @@ export class ResultsComponent implements OnInit {
       "filters": myfilters,
       "requiredRebates": this.myPayloadForm.requiredRebates
    }
+
+   console.log(body);
     return JSON.stringify(body);
   }
 

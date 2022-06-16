@@ -175,7 +175,6 @@ export class HeatingCoolingRComponent implements OnInit {
 
     this._api.Utilities(this.stateGroup.controls['state'].value).subscribe({
       next: (resp: any) => {
-        console.log(resp);
         let listUtilities: Array<utilityInfo> = resp;
         this.selectUtility(listUtilities);
       },
@@ -225,7 +224,6 @@ export class HeatingCoolingRComponent implements OnInit {
     
     this._api.AvailableRebates(body).subscribe({
       next: (resp) => {
-        console.log(resp);
        this.processingAvailableRebates(resp);
       },
       error: (e) => alert(e.error),
@@ -335,20 +333,18 @@ export class HeatingCoolingRComponent implements OnInit {
     let getformat!: any;
     let collectFormat: Array<JSON> = [];  
 
+    console.log(this.availableRebates);
 
     // available Rebates selected (completed = true)
     this.availableRebates?.filter( e =>{
 
-      if (e.completed == true){       
+      if (e.completed === true){       
 
-        // available Rebates Tier selected (completed = true)
           e.rebateTiers?.filter(e2 => {
-            if (e2.completed == true){
               getformat =  {"rebateId": e.rebateId, "rebateTierId": e2.rebateTierId, "isRequired": false};
               collectFormat.push(getformat);
-            }
+            
           });
-        
         
       }
 

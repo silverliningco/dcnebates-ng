@@ -32,7 +32,7 @@ export class ApiService {
 
     let url = URL_SERVICIOS + '/available-rebates'; 
 
-    return this._http.post(url, body);
+    return this._http.post(url, body    );
   }
 
   Search(body: any): Observable<any> {
@@ -46,14 +46,12 @@ export class ApiService {
 
     let url = URL_SERVICIOS + '/view-detail'; 
 
-    return this._http.post(url, url);
+    return this._http.post(url, body);
   }
 
   Utilities(state: any){
 
-    /* let url = URL_SERVICIOS + '/load-utility-providers?country=US&state='+ state; */
-
-    let url = URL_SERVICIOS + '/load-utility-providers?country=US&state=MA';
+    let url = URL_SERVICIOS + '/utility-providers?country=US&state='+ state;
 
     return this._http.get(url);
     

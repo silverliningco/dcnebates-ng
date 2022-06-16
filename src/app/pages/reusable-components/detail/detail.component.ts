@@ -21,13 +21,21 @@ export class DetailComponent implements OnInit {
     ) { 
 
     activatedRoute.queryParams.subscribe( params => {
+      let commerceInfo = JSON.parse(params['commerceInfo']) ;
+      let skus = JSON.parse(params['skus']) ;
+      let AHRIRefs = JSON.parse(params['ahri_refs']) ;
+      let requiredRebates = JSON.parse(params['requiredRebates']) ;
+      
 
-      let body = {
-        "commerceInfo": params['commerceInfo'],
-        "skus": params['skus'],
-        "AHRIRefs": params['ahri_refs'],
-        "requiredRebates": params['requiredRebates']
-     }
+     let a = {
+      "commerceInfo": commerceInfo,
+      "skus": skus,
+      "AHRIRefs": AHRIRefs,
+      "requiredRebates": requiredRebates 
+      }
+
+     let body = JSON.stringify(a);
+
 
       this._api.Detail(body).subscribe({
         next: (resp) => {

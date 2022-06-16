@@ -279,10 +279,8 @@ export class CoolingOnlyRComponent implements OnInit {
 
         // available Rebates Tier selected (completed = true)
           e.rebateTiers?.filter(e2 => {
-            if (e2.completed == true){
               getformat =  {"rebateId": e.rebateId, "rebateTierId": e2.rebateTierId, "isRequired": false};
               collectFormat.push(getformat);
-            }
           });
         
         
