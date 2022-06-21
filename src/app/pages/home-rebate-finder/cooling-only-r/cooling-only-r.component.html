@@ -87,6 +87,12 @@
       <!-- Name of step -->
       <ng-template matStepLabel>Available Rebates</ng-template>
       <h2 class="rc-main-title">Available Rebates</h2>
+      <!-- id doesn´t exists data -->
+      <p *ngIf="NoExistAvailableRebates">
+        No rebates were found for this search. If you believe rebates that should be available are not showing in this calculator please let us know so we can update our underlying data.
+      </p>
+
+      <!-- if exists data -->
       <div fxLayout fxLayoutAlign="center center" fxLayoutGap="16px" fxLayout.sm="column" fxLayout.xs="column">
         <div fxFlex="80" fxFlex.sm="80" fxFlex.xs="80">
           <div *ngFor ="let reb of availableRebates" class="rc-checklist-n1"  [ngClass]="reb.completed ? 'checked' : ''">

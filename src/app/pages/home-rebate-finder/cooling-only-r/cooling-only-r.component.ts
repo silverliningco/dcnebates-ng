@@ -45,6 +45,7 @@ export class CoolingOnlyRComponent implements OnInit {
 
   availableRebates!: Array<Rebate>;
   IsValidAvailabeRebates: boolean = true;
+  NoExistAvailableRebates: boolean = false;
 
   /* utilities */
   electricity:  Array<utilityInfo> = [];
@@ -171,34 +172,45 @@ export class CoolingOnlyRComponent implements OnInit {
 
   processingAvailableRebates(myResp: any){
     this.availableRebates = [];
-    for (let indx = 0; indx < myResp.length; indx++) {
-      const reb = myResp[indx];
 
-      /* matches the level RebateTier in the defined model */
-      let myTier: Array<RebateTier> = [];
-      var myMax = Math.max.apply(Math, reb.rebateTiers.map(function(rt:any) {return rt.accessibilityRank;}))
+    /* confirm if exists data */
+    if (myResp.length === 0){
+      this.NoExistAvailableRebates = true;
+    } else {
+      this.NoExistAvailableRebates = false;
+    }
 
-      reb.rebateTiers?.forEach( (element: any) => {
-
-          let myDefault = (myMax == element.accessibilityRank) ? true :false;  
-          
-          myTier.push({
-            title: element.title,
-            rebateTierId: element.rebateTierId,
-            completed: myDefault,
-            defaultTier: myDefault,
-            notes: element.notes
-          });
-      });
-
-      this.availableRebates.push({
-        title: reb.title,
-        rebateId: reb.rebateId,
-        rebateTiers: myTier,
-        notes:reb.notes,
-        rebateType: reb.rebateNotes,
-        completed: true
-      });
+    /* processing data */
+    if (myResp.length > 0){
+      for (let indx = 0; indx < myResp.length; indx++) {
+        const reb = myResp[indx];
+  
+        /* matches the level RebateTier in the defined model */
+        let myTier: Array<RebateTier> = [];
+        var myMax = Math.max.apply(Math, reb.rebateTiers.map(function(rt:any) {return rt.accessibilityRank;}))
+  
+        reb.rebateTiers?.forEach( (element: any) => {
+  
+            let myDefault = (myMax == element.accessibilityRank) ? true :false;  
+            
+            myTier.push({
+              title: element.title,
+              rebateTierId: element.rebateTierId,
+              completed: myDefault,
+              defaultTier: myDefault,
+              notes: element.notes
+            });
+        });
+  
+        this.availableRebates.push({
+          title: reb.title,
+          rebateId: reb.rebateId,
+          rebateTiers: myTier,
+          notes:reb.notes,
+          rebateType: reb.rebateNotes,
+          completed: true
+        });
+      }
     }
   }
 
