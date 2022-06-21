@@ -189,10 +189,15 @@ export class CoolingOnlyRComponent implements OnInit {
         let myTier: Array<RebateTier> = [];
         var myMax = Math.max.apply(Math, reb.rebateTiers.map(function(rt:any) {return rt.accessibilityRank;}))
   
+        let myFirstOccurrence = false;
+
         reb.rebateTiers?.forEach( (element: any) => {
-  
-            let myDefault = (myMax == element.accessibilityRank) ? true :false;  
-            
+            let myDefault = false;
+            if(!myFirstOccurrence && myMax == element.accessibilityRank) {
+              myFirstOccurrence = true;
+              myDefault = (myMax == element.accessibilityRank) ? true :false;  
+            }
+
             myTier.push({
               title: element.title,
               rebateTierId: element.rebateTierId,

@@ -87,10 +87,14 @@
       <!-- Name of step -->
       <ng-template matStepLabel>Available Rebates</ng-template>
       <h2 class="rc-main-title">Available Rebates</h2>
+      
       <!-- id doesn´t exists data -->
-      <p *ngIf="NoExistAvailableRebates">
-        No rebates were found for this search. If you believe rebates that should be available are not showing in this calculator please let us know so we can update our underlying data.
-      </p>
+      <div *ngIf="NoExistAvailableRebates" fxLayout fxLayoutAlign="center" fxLayoutGap="16px" fxLayout.sm="column" fxLayout.xs="column">
+        <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="rc-note">
+          <p class="rc-small"> <b>No rebates were found for this search.</b> </p>
+          <p class="rc-small"> If you believe rebates that should be available are not showing in this calculator please let us know so we can update our underlying data.</p>
+        </div>
+      </div>
 
       <!-- if exists data -->
       <div fxLayout fxLayoutAlign="center center" fxLayoutGap="16px" fxLayout.sm="column" fxLayout.xs="column">
@@ -118,12 +122,12 @@
                     </mat-checkbox>
 
                     <p class="rc-info-note">
-                      <mat-icon>info</mat-icon> {{rebTier.notes || "Doesn't record information"}}
+                      <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
                     </p>
                   </div>
 
                   <p class="rc-rebate-info-note" *ngIf="rebTier.title === 'Default'">
-                    <mat-icon>info</mat-icon> {{rebTier.notes || "Doesn't record information"}}
+                    <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
                   </p>
                   
                 </div>
