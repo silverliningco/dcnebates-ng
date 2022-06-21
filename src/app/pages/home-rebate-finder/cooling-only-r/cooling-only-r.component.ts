@@ -39,7 +39,7 @@ export class CoolingOnlyRComponent implements OnInit {
 
   sendElectric: Array<any> = [];
   sendGasOil: Array<any> = [];
-  myUtilityIds!: Array<any>;
+  myUtilityIds!: any;
   myState!: string;
   myFuel!: string;
 
@@ -139,9 +139,11 @@ export class CoolingOnlyRComponent implements OnInit {
   }
 
   PrepareAvailableRebates(){
-    this.myUtilityIds = [
-      this.utilityGroup.controls['electricUtility'].value
-    ];
+    let electric = Number(this.utilityGroup.controls['electricUtility'].value) ;
+
+    this.myUtilityIds = {
+      "electricUtilityId": electric
+    }
 
     let body = {
       "country": "US",
