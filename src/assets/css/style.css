@@ -724,6 +724,9 @@ h1, h2, h3, h4, h5 {
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
   }
+  .rc-checklist-n2 > div > div.ng-star-inserted > .rc-rt-container > mat-checkbox span.mat-checkbox-label p{
+    font-weight: 500;
+  }
   .rc-rt-icon {
     display: none;
     position: absolute;
@@ -742,6 +745,10 @@ h1, h2, h3, h4, h5 {
     /*on checked*/
       .rc-checklist-n2 > div > div.ng-star-inserted.checked > .rc-rt-container > mat-checkbox span.mat-checkbox-label{
         color: var(--rc-accent-color);
+      }
+      .rc-checklist-n2 > div > div.ng-star-inserted.checked > .rc-rt-container > mat-checkbox span.mat-checkbox-label p{
+        color: var(--rc-text-color);
+        font-weight: 500;
       }
       .rc-checklist-n2 > div > div.ng-star-inserted.checked > .rc-rt-container{
         border: 2px solid #ffa0005c;

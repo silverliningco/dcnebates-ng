@@ -190,11 +190,12 @@
                       [(ngModel)]="rebTier.completed"
                       (change)="reb_tier_change(rebTier, reb)">
                       {{rebTier.title}}
-                    </mat-checkbox>
 
-                    <p class="rc-info-note">
-                      <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
-                    </p>
+                      <p class="rc-info-note">
+                        <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
+                      </p>
+
+                    </mat-checkbox>                    
                   </div>
 
                   <p class="rc-rebate-info-note" *ngIf="rebTier.title === 'Default'">
