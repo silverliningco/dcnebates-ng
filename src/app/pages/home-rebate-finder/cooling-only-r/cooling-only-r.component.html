@@ -64,7 +64,7 @@
                 <mat-option *ngFor ="let elec of electricity; let i = index" [value]="electricity[i].utilityProviderId" radioGroup="sGroup">
                   {{electricity[i].title}}
                 </mat-option>
-                <mat-option value="0" radioGroup="sGroup">Other</mat-option>
+                <mat-option value="0" radioGroup="sGroup">Other or N/A</mat-option>
               </mat-select>
             </mat-form-field>
   
@@ -114,7 +114,8 @@
               <span class="rc-info-title-ar"   *ngIf="reb.rebateTiers!.length > 0 && reb.rebateTiers![0].title != 'Default'">Rebate Tiers:</span>
               <div fxLayout="row column"  fxLayoutAlign="start stretch" fxLayoutGap="20px grid" fxLayout.sm="column" fxLayoutAlign.sm="center stretch" fxLayoutGap.sm="16px grid" fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="16px grid">
                 <div *ngFor ="let rebTier of reb.rebateTiers" [ngClass]="rebTier.completed ? 'checked' : ''" fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
-                  <div class="rc-rt-container" *ngIf="rebTier.title != 'Default'" >
+                  
+                  <div [(ngModel)]="rebTier.completed" (change)="reb_tier_change(rebTier, reb)" class="rc-rt-container" *ngIf="rebTier.title != 'Default'" >
                     <mat-checkbox class="rc-hide-checkbox"
                       [(ngModel)]="rebTier.completed"
                       (change)="reb_tier_change(rebTier, reb)">
