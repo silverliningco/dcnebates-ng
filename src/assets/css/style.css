@@ -665,7 +665,16 @@ h1, h2, h3, h4, h5 {
     }
 
   /*Nivel 1*/
-  .rc-hide-checkbox span.mat-checkbox-inner-container {display: none;}
+  .mat-checkbox.rc-hide-checkbox {
+    width: 100%;
+  }
+  .mat-checkbox.rc-hide-checkbox .mat-checkbox-layout{
+    display: block;
+    height: 100%;
+  }
+  .rc-hide-checkbox span.mat-checkbox-inner-container {
+    display: none;
+  }
 
   .rc-checklist-n1 > mat-checkbox span.mat-checkbox-label{
     font-size: 24px;
@@ -675,6 +684,10 @@ h1, h2, h3, h4, h5 {
     font-weight: 700;
     margin-bottom: .25rem;
     color: #606060;
+  }
+  .rc-rb-h100{
+    display: flex;
+    height: 100%;
   }
     /*on checked*/
     .rc-checklist-n1.checked {
@@ -699,15 +712,21 @@ h1, h2, h3, h4, h5 {
   .rc-checklist-n2{
     padding-left: 1.25rem;
   }
-  .rc-checklist-n2 > div > div.ng-star-inserted > .rc-rt-container {
+  
+  .rc-checklist-n2 > div > div.ng-star-inserted .rc-rt-container {
     background-color: transparent;
     padding: 5px 10px 0px 10px;
     border-radius: 4px;
-    min-height: 93%;
     position: relative;
     background-color: whitesmoke;
     font-size: 14px;
     border: 2px solid #f5f5f5;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    height: 100%;
+  }
+  .rc-checklist-n2 > div > div.ng-star-inserted .rc-rt-container p{
+    font-weight: 500;
   }
     @media screen and (max-width: 767px){
       .rc-checklist-n2{
@@ -719,13 +738,6 @@ h1, h2, h3, h4, h5 {
     }
   .rc-checklist-n2 > p.ng-star-inserted, .rc-checklist-n2 > div.ng-star-inserted {
     margin-bottom: 1.5rem;
-  }
-  .rc-checklist-n2 > div > div.ng-star-inserted > .rc-rt-container > mat-checkbox span.mat-checkbox-label{
-    font-family: 'Raleway', sans-serif;
-    font-weight: 600;
-  }
-  .rc-checklist-n2 > div > div.ng-star-inserted > .rc-rt-container > mat-checkbox span.mat-checkbox-label p{
-    font-weight: 500;
   }
   .rc-rt-icon {
     display: none;
@@ -743,17 +755,16 @@ h1, h2, h3, h4, h5 {
     font-size: 30px;
   }
     /*on checked*/
-      .rc-checklist-n2 > div > div.ng-star-inserted.checked > .rc-rt-container > mat-checkbox span.mat-checkbox-label{
+      .rc-checklist-n2 > div > div.ng-star-inserted.checked .rc-rt-container {
         color: var(--rc-accent-color);
       }
-      .rc-checklist-n2 > div > div.ng-star-inserted.checked > .rc-rt-container > mat-checkbox span.mat-checkbox-label p{
+      .rc-checklist-n2 > div > div.ng-star-inserted.checked .rc-rt-container p{
         color: var(--rc-text-color);
-        font-weight: 500;
       }
-      .rc-checklist-n2 > div > div.ng-star-inserted.checked > .rc-rt-container{
+      .rc-checklist-n2 > div > div.ng-star-inserted.checked .rc-rt-container{
         border: 2px solid #ffa0005c;
       }
-      .rc-checklist-n2 > div > div.ng-star-inserted.checked >  .rc-rt-container > .rc-rt-icon{
+      .rc-checklist-n2 > div > div.ng-star-inserted.checked  .rc-rt-container > .rc-rt-icon{
         display: inline-block;
         color: var(--rc-accent-color);
       }

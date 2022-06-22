@@ -185,23 +185,26 @@
               <span class="rc-info-title-ar" *ngIf="reb.rebateTiers!.length > 0 && reb.rebateTiers![0].title != 'Default'">Rebate Tiers:</span>
               <div fxLayout="row column"  fxLayoutAlign="start stretch" fxLayoutGap="20px grid" fxLayout.sm="column" fxLayoutAlign.sm="center stretch" fxLayoutGap.sm="16px grid" fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="16px grid">
                 <div *ngFor ="let rebTier of reb.rebateTiers" [ngClass]="rebTier.completed ? 'checked' : ''" fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
-                  <div class="rc-rt-container" *ngIf="rebTier.title != 'Default'" >
+                  
+                  <div class="rc-rb-h100" *ngIf="rebTier.title != 'Default'" >
                     <mat-checkbox class="rc-hide-checkbox"
                       [(ngModel)]="rebTier.completed"
                       (change)="reb_tier_change(rebTier, reb)">
-                      {{rebTier.title}}
+                      <div class="rc-rt-container">
+                        {{rebTier.title}}
 
-                      <p class="rc-info-note">
-                        <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
-                      </p>
-
+                        <p class="rc-info-note">
+                          <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
+                        </p>
+  
+                        <p class="rc-rebate-info-note" *ngIf="rebTier.title === 'Default'">
+                          <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
+                        </p>
+                      </div>                      
                     </mat-checkbox>                    
                   </div>
 
-                  <p class="rc-rebate-info-note" *ngIf="rebTier.title === 'Default'">
-                    <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
-                  </p>
-
+                  
                 </div>
               </div>
             </div>
