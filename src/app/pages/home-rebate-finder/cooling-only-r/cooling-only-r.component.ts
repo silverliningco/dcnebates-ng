@@ -193,9 +193,9 @@ export class CoolingOnlyRComponent implements OnInit {
 
         reb.rebateTiers?.forEach( (element: any) => {
             let myDefault = false;
-            if(!myFirstOccurrence && myMax == element.accessibilityRank) {
+            if(!myFirstOccurrence && myMax === element.accessibilityRank) {
               myFirstOccurrence = true;
-              myDefault = (myMax == element.accessibilityRank) ? true :false;  
+              myDefault = (myMax === element.accessibilityRank) ? true :false;  
             }
 
             myTier.push({
@@ -235,7 +235,7 @@ export class CoolingOnlyRComponent implements OnInit {
   uncheckRemainingTiers(rebTier: RebateTier, reb: Rebate){
 
 
-    const resultTier = reb.rebateTiers?.filter(rt => rt.completed == true);
+    const resultTier = reb.rebateTiers?.filter(rt => rt.completed === true);
 
     if(resultTier!.length > 0) {
       reb.completed = true;
@@ -274,7 +274,7 @@ export class CoolingOnlyRComponent implements OnInit {
   // validate if at least one rebate is selected
   validateSelection() {
 
-    const mySelectedRebates = this.availableRebates?.filter(r => r.completed == true);
+    const mySelectedRebates = this.availableRebates?.filter(r => r.completed === true);
     if(mySelectedRebates.length > 0) {
       this.IsValidAvailabeRebates = true;
     } else {
@@ -298,7 +298,7 @@ export class CoolingOnlyRComponent implements OnInit {
 
         // available Rebates Tier selected (completed = true)
           e.rebateTiers?.filter(e2 => {
-            if (e2.completed == true){
+            if (e2.completed === true){
               getformat =  {"rebateId": e.rebateId, "rebateTierId": e2.rebateTierId, "isRequired": false};
               collectFormat.push(getformat);
             }
