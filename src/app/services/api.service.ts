@@ -14,26 +14,26 @@ export class ApiService {
       private _http: HttpClient
     ) { }
 
-  ProductLines(params: any): Observable<any> {
+    ProductLines(body: any): Observable<any> {
 
-    let url = URL_SERVICIOS + '/product-lines?params=' + params; 
+      let url = URL_SERVICIOS + '/product-lines'; 
+  
+      return this._http.post(url, body);
+    }
 
-    return this._http.get(url);
-  }
+    Filters(body: any): Observable<any> {
 
-  Filters(params: any): Observable<any> {
+      let url = URL_SERVICIOS + '/filters'; 
+  
+      return this._http.post(url, body);
+    }
 
-    let url = URL_SERVICIOS + '/filters?params=' + params; 
+    AvailableRebates(body: any): Observable<any> {
 
-    return this._http.get(url);
-  }
-
-  AvailableRebates(state: any, utilityProviders:any,  elegibilityQuestions:any): Observable<any> {
-
-    let url = URL_SERVICIOS + '/available-rebates?state=' + state + '&utilityProviders=' + utilityProviders+ "&elegibilityQuestions=" + elegibilityQuestions;
-
-    return this._http.get(url);
-  }
+      let url = URL_SERVICIOS + '/available-rebates'; 
+  
+      return this._http.post(url, body);
+    }
 
   ElegibilityQuestions(state: any, utilityProviders:any ): Observable<any> {
 
@@ -42,23 +42,23 @@ export class ApiService {
     return this._http.get(url);
   }
 
-  Search(params: any): Observable<any> {
+  Search(body: any): Observable<any> {
 
-    let url = URL_SERVICIOS + '/search-equipment?params=' + params; 
+    let url = URL_SERVICIOS + '/search-equipment'; 
 
-    return this._http.get(url);
+    return this._http.post(url, body);
   }
 
-  Detail(skus: any, ahri_refs: any, params: any): Observable<any> {
+  Detail(body: any): Observable<any> {
 
-    let url = URL_SERVICIOS + '/view-detail?skus='+ skus + '&ahri_refs=' + ahri_refs +'&params=' + params; 
+    let url = URL_SERVICIOS + '/view-detail'; 
 
-    return this._http.get(url);
+    return this._http.post(url, body);
   }
 
   Utilities(state: any){
 
-    let url = URL_SERVICIOS + '/load-utilities?country=US&state='+ state;
+    let url = URL_SERVICIOS + '/utility-providers?country=US&state='+ state;
 
     return this._http.get(url);
     

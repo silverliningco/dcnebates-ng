@@ -46,6 +46,10 @@ export class CoolingOnlyRComponent implements OnInit {
   showFurnace: boolean = true;
   showHSPF: boolean = true;
 
+  /* utilities */
+  electricity:  Array<utilityInfo> = [];
+  fossilFuel: Array<utilityInfo> = [];
+
   /* display title when exist filter */
   showModelNrs: boolean = false;
   showIndoorUnit: boolean = false;
@@ -100,7 +104,9 @@ export class CoolingOnlyRComponent implements OnInit {
 
   }
     
-  addQuestion(question:any){
+  /* ElegibilityQuestions */
+  /* NOTE: for the moment this version doesn't consider this step */
+  /* AddQuestion(question:any){
     const QuestionFormGroup  = this._formBuilder.group({
       elegibilityQuestionId: question.elegibilityQuestionId,
       answer: ['',  Validators.required],
@@ -108,9 +114,9 @@ export class CoolingOnlyRComponent implements OnInit {
       alternatives: [question.alternatives]
     });
     this.questions.push(QuestionFormGroup);
-  }
+  } */
 
-  loadElegibilityQuestions(){
+  /* LoadElegibilityQuestions(){
     this._api.ElegibilityQuestions(this.stateGroup.controls['state'].value, 
       JSON.stringify([
         this.utilityGroup.controls['electricUtility'].value
@@ -121,46 +127,47 @@ export class CoolingOnlyRComponent implements OnInit {
         this.questions.clear()
 
         resp.forEach((question: any) => {
-          this.addQuestion(question)
+          this.AddQuestion(question)
         });
         
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
     })
-  }
+  } */
 
   // utilities
-  changeState() {
+  ChangeState() {
 
     this.sendGasOil = [];
     this.sendElectric = [];
-    this.utilityGroup.controls["electricUtility"].reset();
 
     this._api.Utilities(this.stateGroup.controls['state'].value).subscribe({
       next: (resp: any) => {
         let listUtilities: Array<utilityInfo> = resp;
-        this.transform(listUtilities);
+        this.SelectUtility(listUtilities);
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
     })
   }
 
-  /* classifies the utility-objects in the sendElectric and sendGasOil arrays depending on 
-  the values that each object has in the "utilitiesProvided" field */
-  transform(array: Array<utilityInfo>): any[] {
 
-    return array.filter((d: any) => d.utilitiesProvided.find((a: any) => {
+  SelectUtility(array: Array<utilityInfo>) {
 
-      if (a.includes('Electricity')) {
-        this.sendElectric.push(d);
-      } if (a.includes('Natural Gas')) {
-        this.sendGasOil.push(d);
+    this.electricity = [];
+    this.fossilFuel = [];
+
+    array.forEach(ele => {
+      if (ele.electricity === true && ele.fossilFuel === false){
+        this.electricity.push(ele);
+      } if (ele.electricity === false && ele.fossilFuel === true){
+        this.fossilFuel.push(ele);
+      } if (ele.electricity === true && ele.fossilFuel === true) {
+        this.electricity.push(ele);
+        this.fossilFuel.push(ele);
       }
-
-    }));
-
+    });
   }
 
   submitForm() {  
@@ -170,8 +177,8 @@ export class CoolingOnlyRComponent implements OnInit {
       searchType: "Cooling Only",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
-      state: this.stateGroup.value,
-      elegibilityQuestions: this.elegibilityQuestionsGroup.value
+      /* elegibilityQuestions: this.elegibilityQuestionsGroup.value, */
+      state: this.stateGroup.controls['state'].value    
     }  
     /* sent the infor to product-lines-components */
     this._bridge.sentRebateParams.emit({

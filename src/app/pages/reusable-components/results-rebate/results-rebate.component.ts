@@ -56,11 +56,12 @@ export class ResultsRebateComponent implements OnInit {
         this._bridge.sentAvailableRebateParams.emit({
           state: payload.data.state,
           elegibilityQuestions: payload.data.elegibilityQuestions,
-          utilityProviders: payload.data.utilityProviders
+          utilityProviders: payload.data.utilityProviders,
+          fuelSource: payload.data.fuelSource
         });
 
         this.CallProductLines(this.myPayloadForm);
-        this.CallSearch(this.myPayloadForm);
+        /* this.CallSearch(this.myPayloadForm); */
       });
 
       this._bridge.sentFilters
@@ -89,6 +90,38 @@ export class ResultsRebateComponent implements OnInit {
 
   }
 
+  // Function that gets input values from UI and returns payload.
+  Payload() {
+    let myfilters: {
+      filterName: string;
+      selectedValues: any[];
+    }[] = [];
+
+    Object.entries(this.filtersGroup.value).forEach(
+      ([key, value]) => {
+        if (value && value != "") {
+          myfilters.push({
+            filterName: key,
+            selectedValues: (Array.isArray(value)) ? value : [value]
+          });
+        }
+      }
+    );
+
+    let body = {
+      "searchType": this.myPayloadForm.searchType,
+      "fuelSource": this.myPayloadForm.fuelSource,
+      "commerceInfo": this.commerceInfoGroup.value,
+      "nominalSize": this.myPayloadForm.nominalSize,
+      "systemTypeId":  this.productLinesGroup.controls['productLine'].value,
+      "filters": myfilters,
+      "requiredRebates": this.myPayloadForm.requiredRebates
+   }
+
+   console.log(body);
+    return JSON.stringify(body);
+  }
+
   CallSearch(payload: any){
 
     this._api.Search(JSON.stringify(payload)).subscribe({
@@ -101,8 +134,19 @@ export class ResultsRebateComponent implements OnInit {
     })
   }
 
-  CallProductLines(payload: any) {
-    this._api.ProductLines(JSON.stringify(payload)).subscribe({
+  PrepareProductLines(payload: any){
+    let body = {
+      "searchType": payload.searchType,
+      "fuelSource": payload.fuelSource,
+      "commerceInfo": payload.commerceInfo,
+      "nominalSize": payload.nominalSize
+    }
+
+    this.CallProductLines(body);
+  }
+
+  CallProductLines(body: any) {
+    this._api.ProductLines(JSON.stringify(body)).subscribe({
       next: (resp) => {
         if (resp.length > 0) {
           this.productLines = resp

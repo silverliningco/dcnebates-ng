@@ -1,18 +1,50 @@
 
-<div class="rc-available-rebate" mat-dialog-content>
+<!-- id doesn´t exists data -->
+<div *ngIf="NoExistAvailableRebates" fxLayout fxLayoutAlign="center" fxLayoutGap="16px" fxLayout.sm="column" fxLayout.xs="column">
+  <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="rc-note">
+    <p class="rc-small"> <b>No rebates were found for this search.</b> </p>
+    <p class="rc-small"> If you believe rebates that should be available are not showing in this calculator please let us know so we can update our underlying data.</p>
+  </div>
+</div>
 
-  <div class="rc-checked-rebate" *ngFor="let rebate of myRebate">
-      <mat-checkbox value="Mass Save Heat Pump rebates">
-        {{rebate.title}}
-        <div class="rc-checked-rebate-criteria" *ngFor="let rebateTier of rebate.rebateTiers">
-          <mat-radio-group *ngIf="rebateTier.title != 'Default'">
-            <mat-radio-button class="example-radio-button" value="Partial home/supplemental HP">
-              {{rebateTier.title}}
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
-      </mat-checkbox>
+<div *ngFor ="let reb of availableRebates" class="rc-checklist-n1"  [ngClass]="reb.completed ? 'checked' : ''">
+  <mat-checkbox class="rc-hide-checkbox"
+    (change)="rebate_change(reb)"
+    [(ngModel)]="reb.completed">
+    <div class="rc-checklist-icon">
+      <mat-icon>done</mat-icon>
     </div>
+    {{reb.title}}
+  </mat-checkbox>
+
+  <div class="rc-checklist-n2">
+    <span class="rc-info-title-ar" *ngIf="reb.rebateTiers!.length > 0 && reb.rebateTiers![0].title != 'Default'">Rebate Tiers:</span>
+    <div fxLayout="row column"  fxLayoutAlign="start stretch" fxLayoutGap="20px grid" fxLayout.sm="column" fxLayoutAlign.sm="center stretch" fxLayoutGap.sm="16px grid" fxLayout.xs="column" fxLayoutAlign.xs="center stretch" fxLayoutGap.xs="16px grid">
+      <div *ngFor ="let rebTier of reb.rebateTiers" [ngClass]="rebTier.completed ? 'checked' : ''" fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
+        
+        <div class="rc-rb-h100" *ngIf="rebTier.title != 'Default'" >
+          <mat-checkbox class="rc-hide-checkbox"
+            [(ngModel)]="rebTier.completed"
+            (change)="reb_tier_change(rebTier, reb)">
+            <div class="rc-rt-container">
+              {{rebTier.title}}
+
+              <p class="rc-info-note">
+                <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
+              </p>
+
+              <p class="rc-rebate-info-note" *ngIf="rebTier.title === 'Default'">
+                <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
+              </p>
+            </div>                      
+          </mat-checkbox>                    
+        </div>
+
+        
+      </div>
+    </div>
+  </div>
+
 </div>
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-
 import { ActivatedRoute } from '@angular/router';
+import { Detail, Links, Rebate } from '../../../models/detail';
 
 @Component({
   selector: 'app-detail',
@@ -9,7 +9,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
-  detail!:any;
+  detail!: Detail;
+  rebate: Array<Rebate> = [];
+  link: Array<Links> = [];
+  existRebate: boolean = false;
+  existLink: boolean = false;
+
 
   constructor(
     public activatedRoute: ActivatedRoute, 
@@ -17,12 +22,27 @@ export class DetailComponent implements OnInit {
     ) { 
 
     activatedRoute.queryParams.subscribe( params => {
-      let skus = params['skus'];
-      let ahri_refs = params['ahri_refs'];
-      let detailParams = params['params'];
+      let commerceInfo = JSON.parse(params['commerceInfo']) ;
+      let skus = JSON.parse(params['skus']) ;
+      let AHRIRefs = JSON.parse(params['ahri_refs']) ;
+      let requiredRebates = JSON.parse(params['requiredRebates']) ;
       
-      this._api.Detail(skus, ahri_refs, detailParams).subscribe({
-        next: (resp) => this.detail = resp,
+
+     let a = {
+      "commerceInfo": commerceInfo,
+      "skus": skus,
+      "AHRIRefs": AHRIRefs,
+      "requiredRebates": requiredRebates 
+      }
+
+     let body = JSON.stringify(a);
+
+
+      this._api.Detail(body).subscribe({
+        next: (resp) => {
+          this.detail = resp;
+          this.processRebate(this.detail.availableRebates);
+        },
         error: (e) => alert(e.error),
         complete: () => console.info('complete')
       })
@@ -32,4 +52,31 @@ export class DetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  processRebate(availableRebates: any){
+
+    availableRebates.forEach((elm1: any) => {
+      this.rebate.push(elm1);
+      this.link.push(elm1.links);
+    });
+
+    if (this.rebate.length > 0){
+      this.existRebate = true;
+    }
+
+    if (this.link.length > 0){
+      this.existLink = true;
+    }
+
+    console.log(this.rebate);
+
+  }
+
+  onNavigate(url : any){
+    window.open(url, '_blank');
+  }
+
+
 }
+
+
+
