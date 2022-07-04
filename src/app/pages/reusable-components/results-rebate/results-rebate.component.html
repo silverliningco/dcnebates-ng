@@ -56,11 +56,11 @@
               <button mat-raised-button (click)="openFilters()">Filters <mat-icon>filter_list</mat-icon></button>
             </div>
           </div>
-         
         </div>
         
-
-        <mat-card class="rc-results-rebate" *ngFor="let ahriCombination of results">
+        <!-- results combinations -->
+        <mat-card class="rc-results-rebate" *ngFor="let ahriCombination of combinations">
+          <h1>{{combinations | json}}</h1>
           <div fxLayout="row column" fxLayoutGap="16px grid">
             <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
               <mat-card-header>
@@ -231,7 +231,8 @@
               </div>
             </mat-card-actions>
         </mat-card>
-        
+         <!-- results combinations end-->
+
       </div>
       <!-- machine combination  end -->
   </div>

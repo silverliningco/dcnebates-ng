@@ -21,7 +21,7 @@ export class ResultsRebateComponent implements OnInit {
 
   productLines!: any;
   noResults!: boolean;
-  results!: any;
+  combinations!: any;
   filters: Array<any> = [];
 
   /*  receives information from the other components*/
@@ -90,56 +90,12 @@ export class ResultsRebateComponent implements OnInit {
 
   }
 
-  // Function that gets input values from UI and returns payload.
-  Payload() {
-    let myfilters: {
-      filterName: string;
-      selectedValues: any[];
-    }[] = [];
-
-    Object.entries(this.filtersGroup.value).forEach(
-      ([key, value]) => {
-        if (value && value != "") {
-          myfilters.push({
-            filterName: key,
-            selectedValues: (Array.isArray(value)) ? value : [value]
-          });
-        }
-      }
-    );
-
+  PrepareProductLines(){
     let body = {
       "searchType": this.myPayloadForm.searchType,
       "fuelSource": this.myPayloadForm.fuelSource,
-      "commerceInfo": this.commerceInfoGroup.value,
-      "nominalSize": this.myPayloadForm.nominalSize,
-      "systemTypeId":  this.productLinesGroup.controls['productLine'].value,
-      "filters": myfilters,
-      "requiredRebates": this.myPayloadForm.requiredRebates
-   }
-
-   console.log(body);
-    return JSON.stringify(body);
-  }
-
-  CallSearch(payload: any){
-
-    this._api.Search(JSON.stringify(payload)).subscribe({
-      next: (resp) => {
-        if (resp.length > 0) {
-          console.log(resp)
-          this.results = resp;
-        }
-      }
-    })
-  }
-
-  PrepareProductLines(payload: any){
-    let body = {
-      "searchType": payload.searchType,
-      "fuelSource": payload.fuelSource,
-      "commerceInfo": payload.commerceInfo,
-      "nominalSize": payload.nominalSize
+      "commerceInfo": this.myPayloadForm.commerceInfo,
+      "nominalSize": this.myPayloadForm.nominalSize
     }
 
     this.CallProductLines(body);
@@ -150,10 +106,9 @@ export class ResultsRebateComponent implements OnInit {
       next: (resp) => {
         if (resp.length > 0) {
           this.productLines = resp
-
           // Call Filters with selected product line
           this.productLinesGroup.controls['productLine'].setValue(resp[0].id);
-          /* this.CallFilters(); */
+          this.ModelNrs();
           this.noResults = false;
         } else {
           this.noResults = true;
@@ -161,6 +116,34 @@ export class ResultsRebateComponent implements OnInit {
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
+    })
+  }
+
+  /* falta pasar el parametro payload, no estoy segura si es aqui por que tengo ver ver el video o mejor leer el word */
+  PrepareModelNrs(){
+    let body = {
+        "searchType": this.myPayloadForm.searchType,
+        "fuelSource":  this.myPayloadForm.fuelSource,
+        "commerceInfo": this.myPayloadForm.commerceInfo,
+        "nominalSize": this.myPayloadForm.nominalSize,
+       "systemTypeId": 2, /* no se de donde biene eso */
+       "filters":[], /* falta programar toda esa parte */
+       "requiredRebates": this.myPayloadForm.requiredRebates,
+       "outdoorUnit": null,
+       "indoorUnit": null,
+       "furnaceUnit": null
+    }
+
+    /* this.ModelNrs(body); */
+    return JSON.stringify(body);
+  }
+
+  ModelNrs(){
+    this._api.ModelNrs(this.PrepareModelNrs()).subscribe({
+      next: (resp) => {
+        console.log(resp);
+        this.combinations= resp;
+      }
     })
   }
 
@@ -212,20 +195,6 @@ export class ResultsRebateComponent implements OnInit {
     })
   }
 
-
-  getMachineCombinations (){
-
-    let payload = {
-      commerceInfo: this.myPayloadForm.commerceInfo,
-      searchType: this.myPayloadForm.searchType,
-      nominalSize: this.myPayloadForm.nominalSize,
-      fuelSource: this.myPayloadForm.fuelSource,
-      systemTypeId: this.productLinesGroup.controls['productLine'].value,  /* product lines */
-      /* filters: myfilters, */
-      requiredRebates: this.myPayloadForm.requiredRebates   /* rebates id */
-    }
-
-  }
 }
 
 

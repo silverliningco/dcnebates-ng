@@ -63,4 +63,17 @@ export class ApiService {
     return this._http.get(url);
     
   }
+
+  ModelNrs(body: any){
+    let url = URL_SERVICIOS + '/model-nrs'; 
+
+    return this._http.post(url, body);
+  }
+
+  DetailsBestOption(body: any){
+    let url = URL_SERVICIOS + '/view-details-best-option'; 
+
+    return this._http.post(url, body);
+  }
+
 }
