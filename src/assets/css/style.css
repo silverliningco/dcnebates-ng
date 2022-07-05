@@ -307,6 +307,39 @@ h1, h2, h3, h4, h5 {
 
 /* ==================== Styles in Pages ========================== */
 
+/*Second Home*/
+.rc-second-home-card {
+  border: 1px solid lightgray;
+  padding: 4rem 10px;
+  border-radius: 5px;
+  text-align: center;
+  height: 100%;
+}
+.rc-second-home-card img {
+  width: 100px;
+  height: 100px;
+}
+.rc-second-home-card p{
+  text-align: center;
+  margin: 3rem 0 0 0;
+  font-weight: bold;
+  color: var(--rc-text-light-color);
+}
+.rc-second-home-card:hover {
+  box-shadow: 0 0 11px rgb(33 33 33 / 20%);
+  background-color: white;
+  cursor: pointer;
+}
+.rc-second-home-card img.checked {
+  display: none;
+}
+.rc-second-home-card:hover img.checked {
+  display: inline-block;
+}
+.rc-second-home-card:hover img.unchecked {
+  display: none;
+}
+
 /* Stepper styles */
   .mat-stepper-horizontal{
     background-color: transparent !important;
@@ -600,7 +633,7 @@ h1, h2, h3, h4, h5 {
   }
   .rc-img-rb .mat-radio-checked label.mat-radio-label {
     border-color: var(--rc-accent-color);
-    background-color: #f5f5f5;
+    background-color: white;
   }
   .rc-img-rb .mat-radio-checked p{
     color: var(--rc-accent-color);
