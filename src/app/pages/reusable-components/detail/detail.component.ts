@@ -15,7 +15,6 @@ export class DetailComponent implements OnInit {
   existRebate: boolean = false;
   existLink: boolean = false;
 
-
   constructor(
     public activatedRoute: ActivatedRoute, 
     private _api: ApiService
@@ -77,6 +76,5 @@ export class DetailComponent implements OnInit {
 
 
 }
-
 
 

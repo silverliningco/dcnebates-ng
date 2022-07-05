@@ -47,20 +47,6 @@ h1, h2, h3, h4, h5 {
   font-size: 80%;
 }
 
-.rc-hide{
-  display: none !important;
-}
-.rc-show {
-  display: initial !important;
-}
-@media only screen and (max-width: 959px){
-  .rc-hide-sm{
-    display: none !important;
-  }
-  .rc-show-sm{
-    display: initial !important;
-  }
-}
 /*All titles in pages*/
   .rc-main-title {
     text-align: center;
@@ -75,6 +61,16 @@ h1, h2, h3, h4, h5 {
     width: 50px;
     display: block;
     margin: .75rem auto;
+  }
+  .rc-page-subtitle{
+    color: var(--rc-primary-color);
+    margin-bottom: 1rem;
+  }
+  .rc-page-subtitle::after {
+    content: '';
+    border-bottom: solid 3px var(--rc-accent-color);
+    width: 30px;
+    display: block;
   }
 
 /*Alerts*/
@@ -310,77 +306,6 @@ h1, h2, h3, h4, h5 {
   }
 
 /* ==================== Styles in Pages ========================== */
-
-/* Home Page*/
-  /* Card home */
-    mat-card.rc-card, mat-card.rc-card-home {
-      padding: 3rem 2rem;
-      transition: box-shadow .3s;
-    }
-      @media (max-width: 767px){
-        mat-card.rc-card, mat-card.rc-card-home {
-          padding: 1rem;
-        }
-      }
-    mat-card.rc-card:hover, mat-card.rc-card-home:hover {
-      cursor: pointer;
-      box-shadow: 0 0 11px rgba(33,33,33,.2); 
-    }
-    .rc-card-home-icon {
-      background-color: #f6f6f6;
-      width: 80px;
-      height: 80px;
-      margin-bottom: 2rem;
-      border-radius: 4px;
-    }
-    .rc-card-home .rc-card-home-icon mat-icon {
-      color: var(--rc-primary-light-color);
-      font-size: 50px;
-      width: 50px;
-      height: 50px;
-    }
-      @media (max-width: 374px){
-        .rc-card-home-icon {
-            width: 70px;
-            height: 70px;
-        }
-        .rc-card-home .rc-card-home-icon mat-icon {
-            font-size: 40px;
-            width: 40px;
-            height: 40px;
-        }
-      }
-    mat-card.rc-card-home mat-card-title{
-      color: var(--rc-primary-color);
-      font-weight: bold;
-      font-size: 24px;
-      margin-bottom: 1rem;
-    }
-    mat-card.rc-card-home mat-card-content{
-      color: var(--rc-text-light-color);
-    }
-    mat-card.rc-card-home mat-card-actions mat-icon {
-      color: var(--rc-accent-color);
-    }
-    mat-card.rc-card-home mat-card-actions > button {
-      background-color: transparent;
-      border: none;
-    }
-    mat-card.rc-card-home mat-card-actions > button:hover {
-      cursor: pointer;
-    }
-
-  /*Img float - to new icon in home page*/
-  .rc-img-float{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-  .rc-img-float img{
-    width: 70px;
-    height: auto;
-    transform: rotate(50deg);
-  }
 
 /* Stepper styles */
   .mat-stepper-horizontal{
@@ -642,60 +567,7 @@ h1, h2, h3, h4, h5 {
       }
     }
 
-/*Page details*/
-  .rc-card.detail{
-    margin-bottom: 5rem;
-    text-align: start;
-  }
-  .rc-card.detail:hover{
-    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
-    cursor: auto;
-  }
-  .rc-card.detail .rc-card-detail-title{
-    font-size: 18px;
-    margin: 15px 0;
-    color: var(--rc-primary-dark-color);
-  }
-  .rc-card.detail .rc-card-detail-body{
-    padding-left: 10px;
-    padding-bottom: 1.5rem;
-  }
-  .rc-detail-list-info {
-    padding: .25rem 0;
-  }
-  .rc-detail-ahri-rating {
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    background-color: #fff5e3;
-    margin-bottom: 1rem;
-    box-shadow: 2px 2px 4px 0px #e5e5e5;
-  }
-  .rc-detail-ahri-rating-title {
-    color: #c78000;
-    margin-bottom: 0.25rem;
-  }
-  .rc-detail-ahri-rating-body{
-    padding-left: 10px;  
-    padding-bottom: 1.5rem;
-  }
-  .rc-detail-ahri-rating-body b{
-    color: #646363;
-  }
-
-/*ul style */
-  ul.rc-list-details{
-    list-style: none;
-    line-height: 2rem;
-  }
-  ul.rc-list-details li::before {
-    content: "\2022";
-    color: var(--rc-accent-color);
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
-  }
-
+/*Available Rebates step*/
 /*Radio button type image*/
   .rc-img-rb span.mat-radio-container{
     display: none;
@@ -722,6 +594,7 @@ h1, h2, h3, h4, h5 {
   .rc-img-rb label.mat-radio-label:hover{  
     box-shadow: 0 0 11px rgba(33,33,33,.2); 
   }
+
   .rc-img-rb label.mat-radio-label .mat-radio-label-content {
     margin: 0 auto;
   }
@@ -732,11 +605,208 @@ h1, h2, h3, h4, h5 {
   .rc-img-rb .mat-radio-checked p{
     color: var(--rc-accent-color);
   }
-  .rc-img-rb .mat-radio-checked img.unchecked{
+  .rc-img-rb .mat-radio-checked img.unchecked, .rc-img-rb label.mat-radio-label:hover img.unchecked{
     display: none;
   }
-  .rc-img-rb .mat-radio-checked img.checked{
+  .rc-img-rb .mat-radio-checked img.checked, .rc-img-rb label.mat-radio-label:hover img.checked{
     display: inline-block;
+  }
+
+/*Check box style like hierarchical list*/
+  span.rc-info-title-ar {
+    font-size: 10px;
+    color: #c7c7c7;
+    text-transform: uppercase;
+    font-family: 'Raleway',sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    display: block;
+  }
+  .rc-checklist-n1{
+    position: relative;
+    list-style: none;
+    border: 1px solid lightgrey;
+    border-radius: 4px;
+    padding: 1rem 1rem 1.5rem 1rem;
+    margin-bottom: 2rem;
+    color: var(--rc-text-light-color);
+  }
+  .mat-checkbox-layout { white-space: normal !important; }
+  .rc-checklist-icon mat-icon {
+    display: none;
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+    color: white;
+  }
+  .rc-checklist-icon {
+    display: none;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: var(--rc-primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+  }
+    @media screen and (max-width: 767px){
+      .rc-checklist-icon mat-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 32px;
+        color: white;
+      }
+      .rc-checklist-icon {
+        top: -16px;
+        right: -16px;
+          width: 32px;
+          height: 32px;
+      }
+    }
+
+  /*Nivel 1*/
+  .mat-checkbox.rc-hide-checkbox {
+    width: 100%;
+  }
+  .mat-checkbox.rc-hide-checkbox .mat-checkbox-layout{
+    display: block;
+    height: 100%;
+  }
+  .rc-hide-checkbox span.mat-checkbox-inner-container {
+    display: none;
+  }
+
+  .rc-checklist-n1 > mat-checkbox span.mat-checkbox-label{
+    font-size: 24px;
+    text-align: center;
+    font-family: 'Raleway',sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: .25rem;
+    color: #606060;
+  }
+  .rc-rb-h100{
+    display: flex;
+    height: 100%;
+  }
+    /*on checked*/
+    .rc-checklist-n1.checked {
+      border-color: var(--rc-primary-color);
+    }
+    .rc-checklist-n1 > mat-checkbox.mat-checkbox-checked mat-icon, .rc-checklist-n1 > mat-checkbox.mat-checkbox-checked .rc-checklist-icon {
+      display: inline-block;
+    }
+    .rc-checklist-n1 > mat-checkbox.mat-checkbox-checked span.mat-checkbox-label{
+      color: var(--rc-primary-color);
+    }
+    .rc-checklist-n1 > mat-checkbox.mat-checkbox-checked ~ .rc-checklist-n1 > mat-checkbox span.mat-checkbox-label{
+      border-color: var(--rc-primary-color);
+    }
+      @media screen and (max-width: 767px){
+        .rc-checklist-n1 span.mat-checkbox-inner-container {
+          margin: 0 8px;
+        }
+      }
+
+  /*Nivel 2*/
+  .rc-checklist-n2{
+    padding-left: 1.25rem;
+  }
+  
+  .rc-checklist-n2 > div > div.ng-star-inserted .rc-rt-container {
+    background-color: transparent;
+    padding: 5px 10px 0px 10px;
+    border-radius: 4px;
+    position: relative;
+    background-color: whitesmoke;
+    font-size: 14px;
+    border: 2px solid #f5f5f5;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    height: 100%;
+  }
+  .rc-checklist-n2 > div > div.ng-star-inserted .rc-rt-container p{
+    font-weight: 500;
+  }
+    @media screen and (max-width: 767px){
+      .rc-checklist-n2{
+        padding-left: 0;
+      }
+      .rc-checklist-n2 > div > div.ng-star-inserted > .rc-rt-container {
+        padding: 5px;
+      }
+    }
+  .rc-checklist-n2 > p.ng-star-inserted, .rc-checklist-n2 > div.ng-star-inserted {
+    margin-bottom: 1.5rem;
+  }
+  .rc-rt-icon {
+    display: none;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #fcfcfc;
+    border-radius: 64%;
+    width: 30px;
+    height: 30px;
+  }
+  .rc-rt-icon mat-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+  }
+    /*on checked*/
+      .rc-checklist-n2 > div > div.ng-star-inserted.checked .rc-rt-container {
+        color: var(--rc-accent-color);
+      }
+      .rc-checklist-n2 > div > div.ng-star-inserted.checked .rc-rt-container p{
+        color: var(--rc-text-color);
+      }
+      .rc-checklist-n2 > div > div.ng-star-inserted.checked .rc-rt-container{
+        border: 2px solid #ffa0005c;
+      }
+      .rc-checklist-n2 > div > div.ng-star-inserted.checked  .rc-rt-container > .rc-rt-icon{
+        display: inline-block;
+        color: var(--rc-accent-color);
+      }
+
+  /*Nivel 3*/
+    .rc-checklist-n3{
+      padding-left: 2rem;
+    }
+    @media screen and (max-width: 767px){
+      .rc-checklist-n3{
+        padding-left: .5rem;
+      }
+    }
+    .rc-checklist-n3 .mat-checkbox{
+      font-size: 14px;
+      margin-bottom: .5rem;
+    }
+    .rc-img-float{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+    .rc-img-float img{
+      width: 70px;
+      height: auto;
+      transform: rotate(50deg);
+    }
+
+  /*Available notes*/
+  .rc-info-note {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+  .rc-rebate-info-note{
+    margin-top: 5px;
+    font-size: 12px;
+    font-style: italic;
+  }
+  .rc-info-note mat-icon, .rc-rebate-info-note mat-icon{
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
   }
 
 /* Detail Page*/
@@ -759,6 +829,15 @@ h1, h2, h3, h4, h5 {
       border-radius: 4px;
       font-family: 'Bitter', serif !important;
       color: var(--rc-text-light-color) !important;
+      margin: 0 .35rem;
+    }
+    .rc-available-rebates mat-card-footer{
+      padding: 1rem 0;
+    }
+    @media (max-width: 959px){
+      .rc-available-rebates {
+        margin: .35rem 0;
+      }
     }
     @media (min-width: 960px) and (max-width: 1199px){
       .rc-available-rebates {
@@ -815,302 +894,8 @@ h1, h2, h3, h4, h5 {
       }
     }
 
-  /*Page AHRI Matchups home*/
-  .rc-card{
-    text-align: center;
-  }
-  .rc-card .icon{
-    margin: 0 auto 20px auto;
-
-  }
-  .rc-card .icon mat-icon{
-    width: 50px;
-    height: 50px;
-    font-size: 50px;
-    color: var(--rc-primary-light-color);
-  }
-  .rc-card .mat-card-title{
-    color: var(--rc-primary-color);
-    font-size: 20px;
-    text-align: center;
-    padding-top: 20px;
-    font-weight: bold;
-  }
-  .rc-card .mat-card-title::before{
-    content: '';
-    border-top: solid 3px var(--rc-accent-color);
-    width: 50px;
-    display: block;
-    margin: 0.75rem auto;
-  }
-  .rc-card.h-ahri{
-    min-height: 180px;
-    cursor: pointer;
-  }
-  @media (max-width: 599px) {
-    .rc-card.h-ahri{
-      min-height: auto;
-    }
-  }
   .rc-radio-label{
     color: var(--rc-text-light-color);
     font-size: 12px;
-    display: block;
-  }
-
-  /*New Page Rebates Results*/
-  /*Available rebates*/
-  .rc-rebate-filters-btn{
-    margin-top: 1rem;
-  }
-  .rc-checked-rebate .mat-checkbox  {
-    border: 1px solid #e1e1e1;
-    padding: 1rem;
-    border-radius: 4px;
-    position: relative;
-    display: block;
-    margin-bottom: 8px;
-}
-.rc-checked-rebate .mat-checkbox  .mat-checkbox-inner-container {
-  display: none;
-}
-.rc-checked-rebate .mat-checkbox  .mat-checkbox-label{
-  padding-left: 0;
-  text-transform: uppercase;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 600;
-  color: var(--rc-text-light-color);
-  white-space: normal;
-}
-  /*Checked*/
-  .rc-checked-rebate .mat-checkbox.mat-checkbox-checked{ 
-    border-color: var(--rc-primary-color);
-  }
-  .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox-label{
-    color: var(--rc-primary-color);
-  }
-  .rc-checked-rebate .mat-checkbox.mat-checkbox-checked::after {
-    font-family: 'Material Icons';
-    content: "check_circle";
-    -webkit-font-feature-settings: 'liga';
-    position: absolute;
-    top: 8px;
-    right: 1px;
-    font-size: 36px;
-    color: #1565c033;
-    z-index: 0;
-  }
-
-  /*Rebates Criteria*/
-  .rc-checked-rebate-criteria {
-    margin-top: 14px;
-    padding-left: 0.75rem;
-  }
-  .rc-checked-rebate-criteria mat-radio-button{
-    display: block;
-  }
-  .rc-checked-rebate-criteria mat-radio-button .mat-radio-label-content{
-    font-weight: 400;
-    text-transform: none;
-    color: var(--rc-text-color);
-    white-space: normal;
-  }
-  .rc-checked-rebate-criteria mat-radio-button.mat-radio-button .mat-radio-ripple{
-    width: 0;
-  }
-
-mat-card.rc-results-rebate {
-  margin-top: 1rem;
-}
-mat-card.rc-results-rebate .rc-model-nrs {
-  border: 1px solid #d7d7d7;
-    border-left: none;
-    border-right: none;
-    width: 100%;    
-    padding-bottom: 6px;
-}
-mat-card.rc-results-rebate .mat-card-header-text{
-  width: 100%;
-  margin: 0;
-}
-mat-card.rc-results-rebate .mat-card-header .mat-card-title {
-  font-weight: bold;
-  font-size: 20px;
-  margin-bottom: 16px;
-}
-mat-card.rc-results-rebate .mat-card-header .mat-card-subtitle{
-  margin-bottom: 5px;
-}
-  /* Start Change style to input combo box */
-    mat-card.rc-results-rebate .rc-model-nrs mat-form-field{
-      display: block;
-    }
-    mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-flex{
-      background-color: transparent;
-      padding: 0 0.5rem;
-    }
-    mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-infix{
-      padding: 0;
-      border-top: none;
-    }
-    mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-select-value{
-      color: rgba(0,0,0,.54);
-    }
-    mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-underline{
-      display: none;
-    }
-    mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-wrapper{
-      padding-bottom: 0;
-    }
-  /* End Change style to input combo box */
-
-mat-card.rc-results-rebate .rc-rebate-price{
-  position: relative;
-  background-color: rgba(50, 121, 192, 0.13);
-  border-radius: 4px;
-  padding: 2.5rem 1rem;
-  color: var(--rc-primary-color);
-  text-align: center;
-}
-mat-card.rc-results-rebate .rc-rebate-price h5.rc-small{
-  margin-bottom: 5px;
-  position: absolute;
-  top: 1px;
-  left: 10px;
-  font-size: 9px;
-}
-mat-card.rc-results-rebate .rc-rebate-price h1{
-  font-family: 'Bitter', serif !important;
-}
-@media screen and (min-width: 960px) and (max-width: 1199px){
-  mat-card.rc-results-rebate .rc-rebate-price h1{
-    font-size: 26px;
-  }
-}
-@media screen and (max-width: 959px){
-  mat-card.rc-results-rebate .rc-rebate-price{
-    padding: 1rem;
-    margin-left: 10px;
-  }
-  mat-card.rc-results-rebate .rc-rebate-price h1{
-    font-size: 26px;
-    margin-top: 10px;
-  }
-}
-@media screen and (max-width: 599px){
-  mat-card.rc-results-rebate .rc-rebate-price{
-    margin-top: 10px;
-    margin-left: 0;
-  }
-  mat-card.rc-results-rebate .mat-card-header .mat-card-subtitle .rc-model-nrs {
-    padding-top: .5rem;
-  }
-}
-/*Content*/
-  mat-card.rc-results-rebate .mat-card-content{
-    padding: .5rem 0;
-    margin-bottom: 0.5rem;
-  }
-  mat-card.rc-results-rebate .mat-card-content span.rc-small{
-    color: rgba(0,0,0,.54);
-  }
-  @media screen and (max-width: 599px){
-    .rc-list-rebates{
-      margin: 1rem 0;
-    }
-  }
-  .rc-unlisted{
-    list-style: none;
-  }
-  .rc-unlisted .mat-icon{
-    position: absolute;
-    left: 25px;
-    color: #02af09;
-  }
-  .rc-list-accesories {
-    background-color: rgba(255, 149, 0, 0.07);
-    border-radius: 4px;
-    padding: 0 12px 16px 12px;
-  }
-  .rc-list-accesories span.rc-add-price-rebate{
-    background-color: rgba(0, 114, 5, 0.09);
-    color: #007205;
-    border-radius: 4px;
-    padding: 2px 4px;
-    font-size: 11px;
-    margin-left: 5px;
-  }
-
-  .rc-list-result {
-    padding-left: 1rem;
-  }
-  .rc-list-result span {
-    font-weight: 600;
-    margin-right: 1rem;
-  }
-  .rc-list-result mat-icon.rc-co2-icon{
-    font-size: 18px;
-    width: 14px;
-    height: 18px;
-    color: var(--rc-accent-color);
-  }
-
-  /*Collapse style in results*/
-  .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel,
-  .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel {
-    background-color: transparent;
-    box-shadow: none;
-  }
-  .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
-  .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
-    padding: 0 10px;
-    height: auto;
-  }
-  .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body,
-  .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel  .mat-expansion-panel-content .mat-expansion-panel-body{
-    padding: 10px 0px 10px 6px;
-  }
-
-  @media screen and (max-width: 599px){
-    .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
-    .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
-      border-bottom: 1px solid #d7d7d7;
-      border-radius: 0;
-      pointer-events: initial;
-    }
-    .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator,
-    .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator{
-      display: initial;
-      transition: display 1s ;
-    }
-  }
-  @media screen and (min-width: 600px){
-      .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
-      .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
-        pointer-events: none;
-      }
-      .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator,
-      .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator{
-        display: none;
-      }
-  }
-
-  /*Card buttons*/
-  mat-card.rc-results-rebate .rc-detail-button {
-    background: grey;
-  }
-  mat-card.rc-results-rebate .rc-card-button {
-    background: var(--rc-accent-color);
-    margin-right: 1rem;
-  }
-  mat-card.rc-results-rebate .mat-button-wrapper{
-    font-family: 'Raleway', sans-serif;
-    font-weight: bold;
-    color: white;
-  }
-  mat-card.rc-results-rebate .mat-button-wrapper mat-icon{
-    font-size: 20px;
-  }
-  .rc-elegibility-questions .mat-radio-button{
     display: block;
   }
