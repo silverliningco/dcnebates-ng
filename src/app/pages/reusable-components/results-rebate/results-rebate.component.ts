@@ -22,23 +22,17 @@ export class ResultsRebateComponent implements OnInit {
 
   productLines!: any;
   noResults!: boolean;
+  results!: any;
   filters: Array<any> = [];
-
-  /* model nrs */
-  modelNr_1: ModelNr = new ModelNr;
-  combinationModelNrs: Array<ModelNr> = []
-  myOutdoorUnit: any= [];
-  bodyModelNr: Array<PostBodyNr> = [];
 
   /*  receives information from the other components*/
   myPayloadForm: payloadForm = new payloadForm;
-  myDetail: Detail = new Detail;
+  myPayloadRebate!: any;
 
-  /* rebates */
-  payloadRebates: Array<any> = [];
-  bodyRebate!: any; 
+  /* display title when exist filter */
+  showIndoorUnit: boolean = false;
+
   availableRebates!: Array<Rebate>;
-  IsValidAvailabeRebates: boolean = true;
   NoExistAvailableRebates: boolean = false;
 
   constructor(
@@ -50,8 +44,9 @@ export class ResultsRebateComponent implements OnInit {
 
   ngOnInit(): void {
 
+
     /* receiving form data */
-    this._bridge.sentRebateParams
+ /*   this._bridge.sentRebateParams
               .subscribe((payload: any) => {
 
         this.myPayloadForm.commerceInfo = payload.data.commerceInfo;
@@ -59,14 +54,14 @@ export class ResultsRebateComponent implements OnInit {
         this.myPayloadForm.fuelSource = payload.data.fuelSource;
         this.myPayloadForm.searchType = payload.data.searchType;
         this.myPayloadForm.state = payload.data.state;
-        this.myPayloadForm.elegibilityQuestions = payload.data.elegibilityQuestions;
+//        this.myPayloadForm.elegibilityQuestions = payload.data.elegibilityQuestions;
         this.myPayloadForm.utilityProviders = payload.data.utilityProviders;
 
-        this.CallProductLines(this.myPayloadForm);
+        this.CallProductLines();
         this.GetAvailableRebates();
-        this.GetViewDetailBestOption()
+        this.CallSearch(this.myPayloadForm);
       });
-
+*/
     /* form control */
     this.commerceInfoGroup = this._formBuilder.group({
       storeId: 1,
@@ -84,29 +79,57 @@ export class ResultsRebateComponent implements OnInit {
       indoorUnitConfiguration: [null],
     });
 
+    this.myPayloadForm = {
+      "commerceInfo": {
+        "storeId": 1,
+        "showAllResults": false
+      },
+      "nominalSize": {
+        "heatingBTUH": 58000,
+        "coolingTons": 2
+      },
+      "fuelSource": "Natural Gas",
+      "state": "MA",
+      "searchType": "Heating and Cooling",
+      "utilityProviders": {
+        "electricUtility": 5,
+        "fossilFuelUtilityId": 4
+      }
+    };
+
+    this.CallProductLines();
+    this.CallAvailableRebates();
+    
+    //this.CallSearch(this.myPayloadForm);
+
   }
 
+  CallSearch(){
 
-  PrepareProductLines(){
-    let body = {
-      "searchType": this.myPayloadForm.searchType,
-      "fuelSource": this.myPayloadForm.fuelSource,
-      "commerceInfo": this.myPayloadForm.commerceInfo,
-      "nominalSize": this.myPayloadForm.nominalSize
-    }
-
-    this.CallProductLines(body);
+    this._api.Search(this.Payload()).subscribe({
+      next: (resp) => {
+        if (resp.length > 0) {
+          console.log(resp)
+          this.results = resp;
+        }
+      }
+    })
   }
 
-  CallProductLines(body: any) {
+  // Call Product lines.
+  CallProductLines() {
+    var body = this.myPayloadForm
+
+    //update commerce info with "updated show all results" input.
+    this.myPayloadForm.commerceInfo.showAllResults = this.commerceInfoGroup.controls['showAllResults'].value;
+
     this._api.ProductLines(JSON.stringify(body)).subscribe({
       next: (resp) => {
         if (resp.length > 0) {
           this.productLines = resp
-          this.bodyModelNr = []; /* cleaning  up parameter array for later do the post request ModelNrs */ 
-          this.combinationModelNrs = []; /* cleaning  up parameter array for later do the post request ModelNrs */ 
+      
           this.productLinesGroup.controls['productLine'].setValue(resp[0].id);
-          this.ModelNrs();
+          this.CallFilters();
           this.noResults = false;
         } else {
           this.noResults = true;
@@ -120,83 +143,92 @@ export class ResultsRebateComponent implements OnInit {
   // Function that reset filters and load filters with selected product line
   SelectProductLine() {
     this.filtersGroup.reset();
-    this.commerceInfoGroup.controls['showAllResults'].setValue(false);
+  
     this.filters = [];
+
+    this.CallFilters();
   }
 
-  PrepareModelNrs(){
 
-    if (this.myOutdoorUnit.length === 0){
-      this.bodyModelNr.push(
-        {
-          "searchType": this.myPayloadForm.searchType,
-          "fuelSource":  this.myPayloadForm.fuelSource,
-          "commerceInfo": this.myPayloadForm.commerceInfo,
-          "nominalSize": this.myPayloadForm.nominalSize,
-          "systemTypeId": 2, /* no se de donde biene eso */
-          "filters":[], /* falta programar toda esa parte */
-          "requiredRebates": this.myPayloadForm.requiredRebates,
-          "outdoorUnit": null,
-          "indoorUnit": null,
-          "furnaceUnit": null
-        }
-      );
-    } else {
-      this.bodyModelNr = [];
-      this.myOutdoorUnit.forEach((ele: string) => {
-        this.bodyModelNr.push(
-          {
-            "searchType": this.myPayloadForm.searchType,
-            "fuelSource":  this.myPayloadForm.fuelSource,
-            "commerceInfo": this.myPayloadForm.commerceInfo,
-            "nominalSize": this.myPayloadForm.nominalSize,
-            "systemTypeId": 2, /* no se de donde biene eso */
-            "filters":[], /* falta programar toda esa parte */
-            "requiredRebates": this.myPayloadForm.requiredRebates,
-            "outdoorUnit": ele,
-            "indoorUnit": null,
-            "furnaceUnit": null
-          }
-        );
-      });
-    }
+  // Function that gets input values from UI and returns payload.
+  Payload() {
+    let myfilters: {
+      filterName: string;
+      selectedValues: any[];
+    }[] = [];
 
-    return this.bodyModelNr;
-  }
-
-  /* need call two time to model-nrs endpoint, the first for get the list of outdoor-units, the second for get the
-   combinations according foreach outdoor-unit. */
-  ModelNrs(){
-
-    this.myOutdoorUnit = [];
-    this.PrepareModelNrs();
-
-      this._api.ModelNrs(this.bodyModelNr[0]).subscribe({
-        next: (resp) => {
-          this.modelNr_1 = resp;
-          this.myOutdoorUnit = this.modelNr_1.outdoorUnits;
-
-          this.PrepareModelNrs();
-
-          this.bodyModelNr.forEach((ele: any) => {
-            // second call to model-nrs endpoint 
-            this._api.ModelNrs(ele).subscribe({
-              next: (resp) => {
-                this.combinationModelNrs.push(resp);
-              },
-              error: (e) => alert(e.error),
-              complete: () => console.info('complete')
-            });
+    Object.entries(this.filtersGroup.value).forEach(
+      ([key, value]) => {
+        if (value && value != "") {
+          myfilters.push({
+            filterName: key,
+            selectedValues: (Array.isArray(value)) ? value : [value]
           });
-        },
-        error: (e) => alert(e.error),
-        complete: () => console.info('complete')
-      })
+        }
+      }
+    );
+
+    let body = {
+      "groupBy": "Outdoor unit",
+      "searchType": this.myPayloadForm.searchType,
+      "fuelSource": this.myPayloadForm.fuelSource,
+      "commerceInfo": this.commerceInfoGroup.value,
+      "nominalSize": this.myPayloadForm.nominalSize,
+      "systemTypeId":  this.productLinesGroup.controls['productLine'].value,
+      "filters": myfilters,
+      "requiredRebates": this.getSelectedRebates()
+   }
+
+    return JSON.stringify(body);
+  }
+  
+  showTitleFilter(filters: any) {
+
+    this.showIndoorUnit = false;
+
+    filters.forEach((ele: any) => {
+      if (ele.filterName === 'indoorUnitConfiguration') {
+        this.showIndoorUnit = true
+      }
+    });
+  }
+  // Function that call filters from API and update UI. 
+  // also calls Search function to load results.
+  CallFilters() {
+    this.filtersGroup.disable();
+
+    this._api.Filters(this.Payload()).subscribe({
+      next: (resp) => {
+        if (resp.length > 0) {
+          this.filters = resp;
+          this.filtersGroup.reset();
+          // Set selected values
+          resp.forEach((filter: any) => {
+            if (filter.filterName == 'coastal') {
+              this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues[0]);
+            } else {
+              this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
+            }
+          });
+
+          this.filtersGroup.enable();
+
+        }
+
+        this.showTitleFilter(this.filters);
+
+        // Call search.
+        this.CallSearch();
+      },
+      error: (e) => alert(e.error),
+      complete: () => console.info('complete')
+    })
   }
 
-  PrepareAvailableRebates(){
-
-    this.bodyRebate = {
+  //================================== Available rebates
+  // Call Available rebates
+  CallAvailableRebates(){ 
+    let myBodyRebate = {
       "country": "US",
       "state": this.myPayloadForm.state,
       "utilityProviders": this.myPayloadForm.utilityProviders,
@@ -205,22 +237,14 @@ export class ResultsRebateComponent implements OnInit {
       "OEM": "Carrier",
       "storeIds": []
     }
-
-  }   
-
-  GetAvailableRebates(){ 
-
-    this.PrepareAvailableRebates();
-
-    this._api.AvailableRebates(this.bodyRebate).subscribe({
+    this._api.AvailableRebates(myBodyRebate).subscribe({
       next: (resp: any) => {
-        this.processingAvailableRebates(resp);
+        this.processingAvailableRebates(resp)
       },
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
     });
   }
-
   processingAvailableRebates(myResp: any){
     this.availableRebates = [];
     
@@ -271,6 +295,7 @@ export class ResultsRebateComponent implements OnInit {
     }
     
   }
+ 
 
   /* Elegibility detail codes */
   reb_tier_change(rebTier: RebateTier, reb: Rebate) {
@@ -279,8 +304,10 @@ export class ResultsRebateComponent implements OnInit {
     // checking one rebate tier should always uncheck the remaining tier(s).
     this.uncheckRemainingTiers(rebTier, reb);
 
-    // validate if at least one rebate is selected
-    this.validateSelection();
+
+    // Call search.
+    this.CallSearch();    
+
   }
 
   // If there are multiple rebate tiers in a given rebate,
@@ -304,6 +331,7 @@ export class ResultsRebateComponent implements OnInit {
     });
   }
 
+
   rebate_change(reb: Rebate) {
     // add rebate tier  selections TODO
     //...
@@ -315,29 +343,16 @@ export class ResultsRebateComponent implements OnInit {
       }
      })
 
-
-    // validate if at least one rebate is selected
-    this.validateSelection();
+      // Call search.
+      this.CallSearch();
   }
 
-  // validate if at least one rebate is selected
-  validateSelection() {
-
-    const mySelectedRebates = this.availableRebates?.filter(r => r.completed == true);
-    if(mySelectedRebates.length > 0) {
-      this.IsValidAvailabeRebates = true;
-    } else {
-      this.IsValidAvailabeRebates = false;
-    }
-
-  }
-
-  /* PAYLOAD FORMART -> [ { "rebateId": 1, "rebateTierId": 1, "required": true },
-                          { "rebateId": 2, "required": true } ] */
-  onSubmit() { 
+  getSelectedRebates() { 
 
     let getformat!: any;
-    let collectFormat: Array<JSON> = []; 
+    let collectFormat: Array<JSON> = [];  
+
+    console.log(this.availableRebates);
 
     // available Rebates selected (completed = true)
     this.availableRebates?.filter( e =>{
@@ -356,47 +371,28 @@ export class ResultsRebateComponent implements OnInit {
       }
 
     });
-    this.payloadRebates = collectFormat;
+    return collectFormat;
     
   }
 
-  PrepareDetailBestOption(){
-    let body = {
-      "commerceInfo": this.myPayloadForm.commerceInfo,
-      "outdoorUnit": "25HBC524AP03",
-      "requiredRebates": [   
-          {
-              "rebateId": 1,
-              "rebateTierId": 2,
-              "isRequired": false
-          },
-          {
-              "rebateId": 2,
-              "rebateTierId": 3,
-              "isRequired": false
-          },
-          {
-              "rebateId": 6,
-              "rebateTierId": 8,
-              "isRequired": false
-          }
-      ]
-   }
-
-   return JSON.stringify(body);
+  // function to remove selections filters from my filters.
+  removeFilter(myFilter: any, option:any): void {
+    if(option){
+      this.filtersGroup.controls[myFilter].setValue(this.filtersGroup.controls[myFilter].value.filter((e: string) => e !== option))
+    } else {
+      this.filtersGroup.controls[myFilter].reset();
+    }
+    this.CallFilters()
   }
 
-  GetViewDetailBestOption(){
-    this._api.DetailsBestOption(this.PrepareDetailBestOption()).subscribe({
-      next: (resp) => {
-        this.myDetail = resp;
-      },
-      error: (e) => alert(e.error),
-      complete: () => console.info('complete')
-    });
-  }
+  isArray(obj:any){
+    if (Array.isArray(obj)) {
+      return true
 
+    } else {
+      return false
+    }
+  }
 }
 
 
-export class TooltipOverviewExample {}
