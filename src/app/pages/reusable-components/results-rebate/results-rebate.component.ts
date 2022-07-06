@@ -399,3 +399,4 @@ export class ResultsRebateComponent implements OnInit {
 }
 
 
+export class TooltipOverviewExample {}

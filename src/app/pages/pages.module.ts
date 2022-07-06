@@ -43,6 +43,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -87,7 +88,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatChipsModule,
     MatExpansionModule,
     MatDialogModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTooltipModule
   ],
   entryComponents:[
   ]
