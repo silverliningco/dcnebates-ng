@@ -1,0 +1,154 @@
+/*All styles for Detail Page*/
+.rc-card.detail{
+    padding: 1.5rem;
+    margin-bottom: 5rem;
+    text-align: start;
+}
+.rc-card.detail:hover{
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+    cursor: auto;
+}
+/*Part of detail*/
+.part-detail{
+    position: relative;
+}
+.part-detail .title-part{
+    position: relative;
+}
+.part-detail .title-part .text{
+    color: var(--rc-accent-color);
+    position: relative;
+    z-index: 5;
+}
+.part-detail .title-part::after{
+    position: relative;
+    z-index: 5;
+    content: '';
+    border-bottom: solid 3px var(--rc-primary-color);
+    width: 30px;
+    display: block;
+}
+.part-detail .decoration{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #FFF9F1;
+    border-radius: 50%;
+    z-index: 0;
+    left: -10px;
+    top: -5px;
+}
+
+.part-detail .content-detail{
+    padding: 20px 8px 20px 16px
+}
+.part-detail .content-detail .group-content{
+    margin-bottom: 16px;
+}
+.part-detail .content-detail .group-content .rc-small{
+    color: #9a9a9a;
+    font-size: 11px;
+}
+.part-detail .content-detail .group-content p.data{
+    font-weight: 600;
+}
+
+/*Detail Available Rebates */
+.rc-detail-available-rebates{
+    padding: 2rem 1rem 2rem .5rem !important; 
+    margin-right: .5rem;
+    margin-bottom: .5rem;
+}
+.rc-detail-available-rebates .mat-card-title h5{
+    font-weight: bold;
+}
+
+.rc-detail-available-rebates mat-card-content .description{
+    border-top: 1px solid #D7D7D7;
+    border-bottom: 1px solid #D7D7D7;
+    padding: .5rem 0;
+    margin-bottom: 8px;
+}
+.rc-detail-available-rebates mat-card-content .link-list{
+    list-style: none;    
+    padding-inline-start: 16px;
+}
+.rc-detail-available-rebates mat-card-content .link-list li{
+    color: var(--rc-primary-color);
+    cursor: pointer;
+    margin-bottom: .5rem;
+}
+.rc-detail-available-rebates mat-card-content .link-list mat-icon{
+    font-size: 16px;
+    width: 16px;
+    height: 20px;
+    padding-top: 0px;
+    transform: rotate(145deg);
+}
+.rc-detail-available-rebates mat-card-content .price-content{
+    height: 100%;
+}
+.rc-detail-available-rebates mat-card-content .price{
+    background-color: rgba(49, 120, 191, 0.13);
+    border-radius: 4px;
+    padding: 0.5rem 2rem 1rem 2rem;
+    color: var(--rc-primary-color);
+}
+
+/*.rc-detail-available-rebates mat-card-title h5::before{
+    background-image: url('../../../../assets/images/bill-icon/bill.png');
+    background-size: 20px 20px;
+    display: inline-block;
+    width: 20px; 
+    height: 20px;
+    content:"";
+}*/
+
+
+
+/* Rebate finder - Detail Available Rebates */
+.rc-card.detail .rc-card-detail-title{
+    font-size: 18px;
+    margin: 15px 0;
+    color: var(--rc-primary-dark-color);
+}
+.rc-card.detail .rc-card-detail-body{
+    padding-left: 10px;
+    padding-bottom: 1.5rem;
+}
+.rc-detail-list-info {
+    padding: .25rem 0;
+}
+.rc-detail-ahri-rating {
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    background-color: #fff5e3;
+    margin-bottom: 1rem;
+    box-shadow: 2px 2px 4px 0px #e5e5e5;
+}
+.rc-detail-ahri-rating-title {
+    color: #c78000;
+    margin-bottom: 0.25rem;
+}
+.rc-detail-ahri-rating-body{
+    padding-left: 10px;  
+    padding-bottom: 1.5rem;
+}
+.rc-detail-ahri-rating-body b{
+    color: #646363;
+}
+
+/*ul style */
+  ul.rc-list-details{
+    list-style: none;
+    line-height: 2rem;
+    padding-inline-start: 16px!important;
+  }
+  ul.rc-list-details li::before {
+    content: "\2022";
+    color: var(--rc-accent-color);
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }

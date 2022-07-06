@@ -1,23 +1,35 @@
 <div fxLayout="row column" fxLayoutAlign="center stretch" fxLayoutGap="16px grid">
   
-    <!-- heating-cooling -->
-    <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100">
-      <mat-card class="rc-card h-ahri" routerLink="heating-cooling-r">
-        <div class="icon" fxLayout fxLayoutAlign="center center">
-          <mat-icon>brightness_6</mat-icon>
+     <!-- heating-cooling -->
+     <div fxFlex="20" fxFlex.sm="50" fxFlex.xs="100">
+      <div class="rc-second-home-card" routerLink="heating-cooling-r" fxLayout="column" fxLayoutAlign="center center">
+        <div class="icon" fxLayout fxLayoutAlign="center center" fxFlex="100">
+          <img src="../../../../assets/images/icons/heating-and-cooling.png" class="unchecked" alt="">
+          <img src="../../../../assets/images/icons/heating-and-cooling-active.png" class="checked" alt="">
         </div>
-        <mat-card-title>Heating and cooling</mat-card-title>
-      </mat-card>
+        <p fxFlex="100">Heating and cooling</p>
+      </div>
     </div>
   
     <!-- cooling-only -->
-    <div fxFlex="33" fxFlex.sm="50" fxFlex.xs="100">
-      <mat-card class="rc-card h-ahri" routerLink="cooling-only-r">
-        <div class="icon" fxLayout fxLayoutAlign="center center">
-          <mat-icon>ac_unit</mat-icon>
+    <div fxFlex="20" fxFlex.sm="50" fxFlex.xs="100">
+      <div class="rc-second-home-card" routerLink="cooling-only-r" fxLayout="column" fxLayoutAlign="center center">
+        <div class="icon" fxLayout fxLayoutAlign="center center" fxFlex="100">
+          <img src="../../../../assets/images/icons/cooling-only.png" class="unchecked" alt="">
+          <img src="../../../../assets/images/icons/cooling-only-active.png" class="checked" alt="">
         </div>
-        <mat-card-title>Cooling only</mat-card-title>
-      </mat-card>
-    </div> 
-  </div>
+        <p fxFlex="100">Cooling only</p>
+      </div>
+    </div>
+  
+    <!-- model nrs -->
+    <div fxFlex="20" fxFlex.sm="50" fxFlex.xs="100">
+      <div class="rc-second-home-card" fxLayout="column" fxLayoutAlign="center center">
+        <div class="icon" fxLayout fxLayoutAlign="center center" fxFlex="100">
+          <img src="../../../../assets/images/icons/model-nrs.png" class="unchecked" alt="">
+          <img src="../../../../assets/images/icons/model-nrs-active.png" class="checked" alt="">
+        </div>
+        <p fxFlex="100">I know my model nrs</p>
+      </div>
+    </div>
   
