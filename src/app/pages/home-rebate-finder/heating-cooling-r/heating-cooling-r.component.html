@@ -70,7 +70,7 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Gas / Oil Utility</mat-label>
-          <mat-select #sGroup formControlName="gasOilUtility">
+          <mat-select #sGroup formControlName="fossilFuelUtilityId">
             <mat-option *ngFor ="let elec of fossilFuel; let i = index" [value]="fossilFuel[i].utilityProviderId" radioGroup="sGroup">
               {{fossilFuel[i].title}}
             </mat-option> 

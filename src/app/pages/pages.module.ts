@@ -26,7 +26,6 @@ import { HeatingCoolingAhriComponent } from './home-ahi-matchups/heating-cooling
 import { KnowModelNbrAhriComponent } from './home-ahi-matchups/know-model-nbr-ahri/know-model-nbr-ahri.component';
 import { ResultsAhriComponent } from './reusable-components/results-ahri/results-ahri.component'; 
 import { ResultsRebateComponent } from './reusable-components/results-rebate/results-rebate.component';
-import { FiltersComponent } from './reusable-components/filters/filters.component';
 
 /* angular material */
 import {MatCardModule} from '@angular/material/card';
@@ -43,9 +42,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
-import { RebatesComponent } from './reusable-components/rebates/rebates.component';
-import { RebatesDialogComponent } from './reusable-components/rebates-dialog/rebates-dialog.component';
-
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 
@@ -64,10 +61,7 @@ import { RebatesDialogComponent } from './reusable-components/rebates-dialog/reb
     HeatingCoolingAhriComponent,
     KnowModelNbrAhriComponent,
     ResultsAhriComponent,
-    ResultsRebateComponent,
-    FiltersComponent,
-    RebatesComponent,
-    RebatesDialogComponent
+    ResultsRebateComponent
   ],
   imports: [
     CommonModule,
@@ -92,10 +86,10 @@ import { RebatesDialogComponent } from './reusable-components/rebates-dialog/reb
     MatListModule,
     MatChipsModule,
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule
   ],
   entryComponents:[
-    FiltersComponent
   ]
 })
 export class PagesModule { }

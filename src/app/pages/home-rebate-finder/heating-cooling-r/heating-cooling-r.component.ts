@@ -92,7 +92,7 @@ export class HeatingCoolingRComponent implements OnInit {
 
     this.utilityGroup = this._formBuilder.group({
       electricUtility: ['', Validators.required],
-      gasOilUtility: ['', Validators.required]
+      fossilFuelUtilityId: ['', Validators.required]
     });
 
     this.nominalSizeGroup = this._formBuilder.group({
@@ -182,7 +182,7 @@ export class HeatingCoolingRComponent implements OnInit {
     this._api.ElegibilityQuestions(this.stateGroup.controls['state'].value, 
       JSON.stringify([
         this.utilityGroup.controls['electricUtility'].value,
-        this.utilityGroup.controls['gasOilUtility'].value
+        this.utilityGroup.controls['fossilFuelUtilityId'].value
       ])
     ).subscribe({
       next: (resp) => {
