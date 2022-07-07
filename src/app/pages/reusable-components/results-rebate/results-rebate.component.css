@@ -1,3 +1,52 @@
+  /* rebates style*/
+  
+  
+  /*New Style for Rebates*/
+  .rc-rebate-filters-btn{
+    margin-top: 1rem;
+  }
+  .rc-checked-rebate .mat-checkbox  {
+    border: 1px solid #e1e1e1;
+    padding: 1rem;
+    border-radius: 4px;
+    position: relative;
+    display: block;
+    margin-bottom: 8px;
+  }
+  ::ng-deep .rc-checked-rebate .mat-checkbox .mat-checkbox-layout .mat-checkbox-inner-container {
+    display: none;
+  }  
+
+  .rc-checked-rebate .mat-checkbox  .mat-checkbox-label{
+    padding-left: 0;
+    text-transform: uppercase;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    color: var(--rc-text-light-color);
+    white-space: normal;
+  }
+    /*Checked*/
+    .rc-checked-rebate .mat-checkbox.mat-checkbox-checked{ 
+      border-color: var(--rc-primary-color);
+    }
+    .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox-label{
+      color: var(--rc-primary-color);
+      width: 95%;
+    }
+    .rc-checked-rebate .mat-checkbox.mat-checkbox-checked::after {
+      font-family: 'Material Icons';
+      content: "check_circle";
+      -webkit-font-feature-settings: 'liga';
+      position: absolute;
+      top: 8px;
+      right: 1px;
+      font-size: 36px;
+      color: #1565c033;
+      z-index: 0;
+    }
+
+
+  
   /*Card in results*/
   mat-card.rc-results-rebate {
     margin-top: 1rem;

@@ -110,11 +110,28 @@ export class ResultsRebateComponent implements OnInit {
       next: (resp) => {
         if (resp.length > 0) {
           console.log(resp)
-          this.results = resp;
+
+          console.log(this.filterBestResults(resp));
+          this.results = this.filterBestResults(resp);
         }
       }
     })
   }
+
+  filterBestResults(resp: Detail[][]) {
+    var bestResults: any = []
+    resp.forEach(element => {
+        let myBestTotalAvailableRebate = Math.max.apply(
+            Math, element.map(function (rt: any) {
+                return rt.totalAvailableRebates;
+            }));
+
+            const mySystem = element?.filter(sys => sys.totalAvailableRebates == myBestTotalAvailableRebate);
+            bestResults.push(mySystem[0])
+    });
+
+    return(bestResults);
+}
 
   // Call Product lines.
   CallProductLines() {
@@ -271,7 +288,7 @@ export class ResultsRebateComponent implements OnInit {
           let myDefault = false;
           if(!myFirstOccurrence && myMax == element.accessibilityRank) {
             myFirstOccurrence = true;
-            myDefault = (myMax == element.accessibilityRank) ? true :false;  
+            myDefault = (myMax == element.accessibilityRank) ? true : false;  
           }
 
           myTier.push({
@@ -351,8 +368,6 @@ export class ResultsRebateComponent implements OnInit {
 
     let getformat!: any;
     let collectFormat: Array<JSON> = [];  
-
-    console.log(this.availableRebates);
 
     // available Rebates selected (completed = true)
     this.availableRebates?.filter( e =>{

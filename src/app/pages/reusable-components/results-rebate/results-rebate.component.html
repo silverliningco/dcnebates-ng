@@ -22,15 +22,33 @@
               <mat-card class="rc-available-rebate">  
                 <!-- rebstes list -->
                 <mat-card-content>
-                  <div class="rc-checked-rebate" *ngFor ="let reb of availableRebates" [ngClass]="reb.completed ? 'checked' : ''">
-                    <mat-checkbox  value="Mass Save Heat Pump rebates">
+                  <div *ngFor ="let reb of availableRebates" class="rc-checked-rebate"  [ngClass]="reb.completed ? 'checked' : ''">
+
+                    <mat-checkbox (change)="rebate_change(reb)" [(ngModel)]="reb.completed">
                         {{reb.title}}
-                        <div class="rc-checked-rebate-criteria">
-                          <mat-radio-group *ngFor="let rebateTier of reb.rebateTiers">
-                            <mat-radio-button class="example-radio-button" value="Partial home/supplemental HP" *ngIf="rebateTier.title != 'Default'" >
-                              {{rebateTier.title}}
-                            </mat-radio-button>
-                          </mat-radio-group>
+                        <div>
+                          <div *ngFor="let rebTier of reb.rebateTiers" [ngClass]="rebTier.completed ? 'checked' : ''" >
+                            
+                            <div class="rc-rb-h100" *ngIf="rebTier.title != 'Default'" >
+                              <mat-checkbox class="rc-hide-checkbox"
+                                [(ngModel)]="rebTier.completed"
+                                (change)="reb_tier_change(rebTier, reb)">
+                                <div class="rc-rt-container">
+                                  {{rebTier.title}}
+          
+                                  <p class="rc-info-note">
+                                    <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
+                                  </p>
+            
+                                  <p class="rc-rebate-info-note" *ngIf="rebTier.title === 'Default'">
+                                    <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
+                                  </p>
+                                </div>                      
+                              </mat-checkbox>                    
+                            </div>
+
+
+                          </div>
                         </div>
                     </mat-checkbox>                    
                   </div>
@@ -127,8 +145,7 @@
                 <mat-card-title>
                   <div fxLayout="row column" fxLayoutAlign="space-between center">
                     <div fxFlex="50" fxFlex.xs="100">
-                      Infinity HP Variable Speed
-                      <!-- {{ahriCombination.name}} -->
+                      {{ahriCombination.name}}
                     </div>
                     <div fxFlex="40" fxFlex.xs="100" class="rc-rebate-price rc-hide rc-show-md">
                         <h5 class="rc-small">REBATES UP</h5>
