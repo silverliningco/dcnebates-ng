@@ -19,26 +19,37 @@
           <!-- *** rebates *** -->
           <mat-tab label="REBATES">
             <div class="rc-result-rebates">
-              <mat-card class="rc-available-rebate">  
+              <mat-card class="rc-available-rebate">
+                
+                
                 <!-- rebstes list -->
                 <mat-card-content>
                   <div *ngFor ="let reb of availableRebates" class="rc-checked-rebate"  [ngClass]="reb.completed ? 'checked' : ''">
 
                     <mat-checkbox (change)="rebate_change(reb)" [(ngModel)]="reb.completed">
-                        {{reb.title}}
-                        <div>
+                      <h3 class="rc-rt-title">
+                      {{reb.title}}
+                      </h3>
+                        <div>                          
                           <div *ngFor="let rebTier of reb.rebateTiers" [ngClass]="rebTier.completed ? 'checked' : ''" >
-                            
                             <div class="rc-rb-h100" *ngIf="rebTier.title != 'Default'" >
-                              <mat-checkbox class="rc-hide-checkbox"
+                              <mat-checkbox class="rc-hide-checkbox "
                                 [(ngModel)]="rebTier.completed"
                                 (change)="reb_tier_change(rebTier, reb)">
                                 <div class="rc-rt-container">
-                                  {{rebTier.title}}
+                                    {{rebTier.title}}
+                                    <!--<div class="read-more" style="--line-clamp: 1">
+                                      <input id="read-more-checkbox" type="checkbox" class="read-more__checkbox" aria-hidden="true">
+                                      <p class="read-more__text">
+                                        {{rebTier.notes || "Meets basic requirements of the form"}}
+                                      </p>
+                                      <label for="read-more-checkbox" class="read-more__label" data-read-more="More" data-read-less="Less" aria-hidden="true"></label>
+                                    </div>-->
+                                    <mat-icon class="rc-icon-info" matTooltipPosition="right" matTooltip='{{rebTier.notes || "Meets basic requirements of the form"}}' aria-label="Info about Rebate Tier">info</mat-icon>
           
-                                  <p class="rc-info-note">
+                                      <!--<p class="rc-info-note">
                                     <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
-                                  </p>
+                                  </p>-->
             
                                   <p class="rc-rebate-info-note" *ngIf="rebTier.title === 'Default'">
                                     <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
