@@ -2,9 +2,13 @@
 export class Detail {
     constructor(
 
-        public outdoorUnit?: string,
-        public indoorUnit?: string,
-        public furnaceUnit?: string,
+        public outdoorUnitSKU?: string,
+        public indoorUnitSKU?: string,
+        public furnaceSKU?: string,
+
+        public indoorUnits?: Array<string>,
+        public furnaceUnits?: Array<string>,
+
         public name?: string, /* aque se sefiere, cual es la diferencia con names */
         public availablerebates?: Array<Rebate>,
         public EER?: number,
@@ -15,7 +19,6 @@ export class Detail {
         public Hcap17?: number,
         public Hcap47?: number,
         public fuelTypes?: any,
-        public furnaceSKU?: any,
         public furnaceInputBTUH?: any,
         public furnaceOutputBTUH?: any,
         public coolingCapacityRated?: number,
