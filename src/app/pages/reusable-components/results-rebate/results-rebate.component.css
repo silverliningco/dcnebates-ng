@@ -1,4 +1,18 @@
-/*New Style for Rebates*/
+/*Style for Stock status*/
+.rc-filter-stock {
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #ececec;
+  margin-bottom: 0.75rem;
+  padding: 5px 10px 0 10px;
+}
+
+/*Style for Rebates and Filters*/
+.rc-rebates-filters {
+  border: 1px solid gainsboro;
+  border-radius: 4px;
+}
+
   .rc-rebate-filters-btn{
     margin-top: 1rem;
   }
@@ -60,9 +74,6 @@
       text-transform: none;
       font-weight: 400;
     }
-
-    
-
     .rc-rt-container .rc-icon-info {
       position: absolute;
       width: 16px;
@@ -86,6 +97,17 @@
       ::ng-deep .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox.mat-checkbox-checked .rc-rt-container .rc-info-note{
         color: var(--rc-text-light-color);
       }
+    
+    /*Filters*/
+    .rc-rb-filters form{
+      margin-top: 1rem;
+    }
+    .rc-rb-filters form h5.rc-filter-group-title{
+      margin-bottom: 0.5rem;
+    }
+    .rc-rb-filters mat-form-field{
+      width: 100%;
+    }
 
 
   /*Card in results*/
@@ -116,25 +138,32 @@
     margin-bottom: 5px;
   }
   /* Start Change style to input combo box */
-  mat-card.rc-results-rebate .rc-model-nrs mat-form-field{
+  ::ng-deep mat-card.rc-results-rebate .rc-model-nrs mat-form-field{
     display: block;
   }
-  mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-flex{
+  ::ng-deep mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-flex{
     background-color: transparent;
-    padding: 0 0.5rem;
+    padding: 0;
   }
-  mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-infix{
+  ::ng-deep mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-infix{
     padding: 0;
     border-top: none;
   }
-  mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-select-value{
+  ::ng-deep mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-select-value{
     color: rgba(0,0,0,.54);
   }
   mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-underline{
     display: none;
   }
-  mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-wrapper{
+  ::ng-deep mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-wrapper{
     padding-bottom: 0;
+  }
+  ::ng-deep mat-card.rc-results-rebate .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+    color: var(--rc-primary-color);
+  }
+  ::ng-deep mat-card.rc-results-rebate .mat-form-field-appearance-legacy .mat-form-field-underline,
+  ::ng-deep mat-card.rc-results-rebate .mat-form-field.mat-focused .mat-form-field-ripple{
+    background-color: transparent;
   }
   /* End Change style to input combo box */
   
@@ -230,40 +259,40 @@
     }
   
   /*Collapse style in results*/
-  .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel,
-  .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel {
+  ::ng-deep .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel,
+  ::ng-deep .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel {
     background-color: transparent;
     box-shadow: none;
   }
-  .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
-  .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
+  ::ng-deep .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
+  ::ng-deep .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
     padding: 0 10px;
     height: auto;
   }
-  .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body,
-  .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel  .mat-expansion-panel-content .mat-expansion-panel-body{
+  ::ng-deep .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body,
+  ::ng-deep .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel  .mat-expansion-panel-content .mat-expansion-panel-body{
     padding: 10px 0px 10px 6px;
   }  
   @media screen and (max-width: 599px){
-    .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
-    .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
+    ::ng-deep .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
+    ::ng-deep .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
       border-bottom: 1px solid #d7d7d7;
       border-radius: 0;
       pointer-events: initial;
     }
-    .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator,
-    .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator{
+    ::ng-deep .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator,
+    ::ng-deep .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator{
       display: initial;
       transition: display 1s ;
     }
   }
   @media screen and (min-width: 600px){
-      .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
-      .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
+      ::ng-deep .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
+      ::ng-deep .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
         pointer-events: none;
       }
-      .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator,
-      .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator{
+      ::ng-deep .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator,
+      ::ng-deep .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator{
         display: none;
       }
   }
@@ -276,6 +305,7 @@
   mat-card.rc-results-rebate .rc-card-button {
     background: var(--rc-accent-color);
     margin-right: 1rem;
+    color: white;
   }
   mat-card.rc-results-rebate .mat-button-wrapper{
     font-family: 'Raleway', sans-serif;
@@ -298,3 +328,4 @@
     font-size: 12px;
     padding: .5rem 1rem;
  }
+

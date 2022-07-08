@@ -1,102 +1,101 @@
 <div *ngIf="!this.noResults">
 
-  <form [formGroup]="commerceInfoGroup">
-    <!-- Stock status -->
-    <h5 class="rc-filter-group-title">Stock status</h5>
-    <mat-radio-group #rGroup formControlName="showAllResults" fxLayout="row" (change)="CallProductLines()">
-      <mat-radio-button [value]="false" radioGroup="rGroup">Stock items only</mat-radio-button>
-      <mat-radio-button [value]="true" radioGroup="rGroup">Show all</mat-radio-button>
-    </mat-radio-group>
-  </form>
+  <div class="rc-filter-stock">
+    <form [formGroup]="commerceInfoGroup">
+      <!-- Stock status -->
+      <h5 class="rc-filter-group-title">Stock status</h5>
+      <mat-radio-group #rGroup formControlName="showAllResults" fxLayout="row" (change)="CallProductLines()">
+        <mat-radio-button [value]="false" radioGroup="rGroup">Stock items only</mat-radio-button>
+        <mat-radio-button [value]="true" radioGroup="rGroup">Show all</mat-radio-button>
+      </mat-radio-group>
+
+    </form>
+  </div>
   
     <!--Results-->
     <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16">
 
       <!-- ======= rebates and filters ======= -->
-      <div fxFlex="30" class="rc-hide-sm rc-show">
-        <mat-tab-group dynamicHeight>
+      <div fxFlex="30" fxFlex.sm="100" fxFlex.xs="100">
+        <div class="rc-rebates-filters">
+          <mat-tab-group dynamicHeight>
           
-          <!-- *** rebates *** -->
-          <mat-tab label="REBATES">
-            <div class="rc-result-rebates">
-              <mat-card class="rc-available-rebate">
-                
-                
-                <!-- rebstes list -->
-                <mat-card-content>
-                  <div *ngFor ="let reb of availableRebates" class="rc-checked-rebate"  [ngClass]="reb.completed ? 'checked' : ''">
-
-                    <mat-checkbox (change)="rebate_change(reb)" [(ngModel)]="reb.completed">
-                      <h3 class="rc-rt-title">
-                      {{reb.title}}
-                      </h3>
-                        <div>                          
-                          <div *ngFor="let rebTier of reb.rebateTiers" [ngClass]="rebTier.completed ? 'checked' : ''" >
-                            <div class="rc-rb-h100" *ngIf="rebTier.title != 'Default'" >
-                              <mat-checkbox class="rc-hide-checkbox "
-                                [(ngModel)]="rebTier.completed"
-                                (change)="reb_tier_change(rebTier, reb)">
-                                <div class="rc-rt-container">
-                                    {{rebTier.title}}
-                                   
-                                    <mat-icon class="rc-icon-info" matTooltipPosition="right" matTooltip='{{rebTier.notes || "Meets basic requirements of the form"}}' aria-label="Info about Rebate Tier">info</mat-icon>
-          
-                            
-                                  <p class="rc-rebate-info-note" *ngIf="rebTier.title === 'Default'">
-                                    <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
-                                  </p>
-                                </div>                      
-                              </mat-checkbox>                    
-                            </div>
-
-
-                          </div>
-                        </div>
-                    </mat-checkbox>                    
-                  </div>
-                </mat-card-content>
+            <!-- *** rebates *** -->
+            <mat-tab label="REBATES">
+              <div class="rc-result-rebates">
+                <mat-card class="rc-available-rebate">                
+                  <!-- rebstes list -->
+                  <mat-card-content>
+                    <div *ngFor ="let reb of availableRebates" class="rc-checked-rebate"  [ngClass]="reb.completed ? 'checked' : ''">
+                      <mat-checkbox (change)="rebate_change(reb)" [(ngModel)]="reb.completed">
+                        <h3 class="rc-rt-title">
+                        {{reb.title}}
+                        </h3>
+                          <div>                          
+                            <div *ngFor="let rebTier of reb.rebateTiers" [ngClass]="rebTier.completed ? 'checked' : ''" >
+                              <div class="rc-rb-h100" *ngIf="rebTier.title != 'Default'" >
+                                <mat-checkbox class="rc-hide-checkbox "
+                                  [(ngModel)]="rebTier.completed"
+                                  (change)="reb_tier_change(rebTier, reb)">
+                                  <div class="rc-rt-container">
+                                      {{rebTier.title}}
+                                     
+                                      <mat-icon class="rc-icon-info" matTooltipPosition="right" matTooltip='{{rebTier.notes || "Meets basic requirements of the form"}}' aria-label="Info about Rebate Tier">info</mat-icon>
+            
+                              
+                                    <p class="rc-rebate-info-note" *ngIf="rebTier.title === 'Default'">
+                                      <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
+                                    </p>
+                                  </div>                      
+                                </mat-checkbox>                    
+                              </div>
   
-            </mat-card>
-            </div>
-          </mat-tab>
-          <!-- *** rebates end *** -->
-
-          <!-- *** filters ***-->
-          <mat-tab label="FILTERS">
-             
-            <form [formGroup]="filtersGroup" fxLayout="column" fxLayoutAlign="center" fxLayoutAlign.xs="center stretch"
-            fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
-
-            <!-- indoorUnitConfiguration -->
-            <h5 class="rc-filter-group-title" *ngIf="showIndoorUnit">Indoor Unit</h5>
-            <div *ngFor="let filter of filters" class="rc-filter-group">
-              <div *ngIf="filter.filterName === 'indoorUnitConfiguration'">
-
-                <mat-form-field appearance="fill">
-                  <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                  <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallFilters()">
-                    <mat-option *ngFor="let val of filter.options" [value]="val"
-                      [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
+  
+                            </div>
+                          </div>
+                      </mat-checkbox>                    
+                    </div>
+                  </mat-card-content>
+              </mat-card>
               </div>
-            </div>
-
-          </form>
-          </mat-tab>
-          <!-- *** filters end *** -->
-        </mat-tab-group>
+            </mat-tab>
+            <!-- *** rebates end *** -->
+  
+            <!-- *** filters ***-->
+            <mat-tab label="FILTERS">
+              <mat-card class="rc-rb-filters">
+                <form [formGroup]="filtersGroup" fxLayout="column" fxLayoutAlign="center" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
+                  <!-- indoorUnitConfiguration -->
+                  <h5 class="rc-filter-group-title" *ngIf="showIndoorUnit">Indoor Unit</h5>
+                  <div *ngFor="let filter of filters" class="rc-filter-group">
+                    <div *ngIf="filter.filterName === 'indoorUnitConfiguration'">
+      
+                      <mat-form-field appearance="fill">
+                        <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
+                        <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallFilters()">
+                          <mat-option *ngFor="let val of filter.options" [value]="val"
+                            [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>    
+                </form>
+              </mat-card>
+            </mat-tab>
+            <!-- *** filters end *** -->
+          </mat-tab-group>
+        </div>
       </div>
       <!-- ======= rebates and filters end ======= -->
 
       <!-- ======= machine combination ======= -->
-      <div fxFlex="70">
+      <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
         <!-- *** product lines *** -->
         <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="16">
           <div class="rc-radio-options">
             <form [formGroup]="productLinesGroup">
               <mat-radio-group aria-label="Select an option" formControlName="productLine" (change)="SelectProductLine()">
-                <mat-radio-button *ngFor="let proLine of productLines" [value]="proLine.id">{{proLine.title}}
+                <mat-radio-button *ngFor="let proLine of productLines" [value]="proLine.id"  matTooltip='{{proLine.title}}' aria-label="complete Product Line Name">{{proLine.title}}
                 </mat-radio-button>
               </mat-radio-group>
             </form>
@@ -146,10 +145,10 @@
       <mat-card-header>
         <mat-card-title>
           <div fxLayout="row column" fxLayoutAlign="space-between center">
-            <div fxFlex="100" fxFlex.xs="100">
+            <div fxFlex="100" fxFlex.sm="55" fxFlex.xs="100">
               {{ahriCombination.names}}
             </div>
-            <div fxFlex="40" fxFlex.xs="100" class="rc-rebate-price rc-hide rc-show-md">
+            <div fxFlex="40" fxFlex.sm="40" fxFlex.xs="100" class="rc-rebate-price rc-hide rc-show-md">
                 <h5 class="rc-small">REBATES UP</h5>
                 <h1>{{ahriCombination.totalAvailableRebates | currency}}</h1>
             </div>
@@ -163,7 +162,7 @@
                 <span class="rc-small">Outdoor Unit</span>
                 <p>{{ahriCombination.outdoorUnitSKU}}</p>
             </div>
-            <div fxFlex="30" fxFlex.sm="50" fxFlex.xs="50">
+            <div class="rc-mt-5" fxFlex="30" fxFlex.sm="50" fxFlex.xs="50">
                 <span class="rc-small">Indoor Unit</span>
                 <mat-form-field>
                   <mat-select [value]="ahriCombination.indoorUnitSKU" (selectionChange)="filterIndoorBySKU($event.value)">

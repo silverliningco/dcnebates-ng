@@ -47,6 +47,10 @@ h1, h2, h3, h4, h5 {
   font-size: 80%;
 }
 
+.rc-mt-5{
+  margin-top: -9px;
+}
+
 /*All titles in pages*/
   .rc-main-title {
     text-align: center;
@@ -132,7 +136,7 @@ h1, h2, h3, h4, h5 {
     margin-bottom: 15px;
   }
   .mat-radio-group mat-radio-button{
-    margin: 5px;
+    margin: 5px 2.5px;
   }
 
 /* breadcrumb*/
@@ -474,7 +478,7 @@ h1, h2, h3, h4, h5 {
         border: 1px solid #aaa;
         border-bottom: 0;
         background-color: #eeeeee;
-        padding: 0.5rem;
+        padding: 0.5rem 0.15rem;
         position: relative;
         color: #444;
         font-size: 14px;
@@ -489,13 +493,26 @@ h1, h2, h3, h4, h5 {
           z-index: 1;
           color: var(--rc-primary-color);
       }
+      .rc-radio-options label .mat-radio-label-content{
+        max-width: 12ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
         /*tabs trnaforn in button option for responsive*/
+        @media screen and (min-width: 768px) and (max-width: 1199px){
+          .rc-radio-options label .mat-radio-label-content{
+            max-width: 8ch;
+          }
+        }
         @media screen and (min-width: 768px) and (max-width: 959px){
           .rc-radio-options label{
             padding: 0.5rem 0.25rem;
           }
         }
         @media screen and (max-width: 767px){
+          .rc-radio-options label .mat-radio-label-content{
+            max-width: fit-content;
+          }
           .rc-radio-options{
             border-bottom: none;
             padding: 0;
@@ -977,4 +994,8 @@ h1, h2, h3, h4, h5 {
   }
   .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
     background-color: var(--rc-accent-color)!important;
+  }
+  .mat-tab-label-active .mat-tab-label-content{
+    font-weight: bold;
+    color: black;
   }
