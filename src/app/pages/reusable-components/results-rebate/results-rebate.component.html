@@ -165,7 +165,7 @@
             <div class="rc-mt-5" fxFlex="30" fxFlex.sm="50" fxFlex.xs="50">
                 <span class="rc-small">Indoor Unit</span>
                 <mat-form-field>
-                  <mat-select [value]="ahriCombination.indoorUnitSKU" (selectionChange)="filterIndoorBySKU($event.value)">
+                  <mat-select [value]="ahriCombination.indoorUnitSKU" (selectionChange)="filterIndoorBySKU($event.value, i)">
                     <mat-option *ngFor="let val of ahriCombination.indoorUnits" [value]="val"> {{val}}</mat-option>
                   </mat-select>
               </mat-form-field>
@@ -173,7 +173,7 @@
             <div fxFlex="30" fxFlex.sm="50" fxFlex.xs="50">
               <span class="rc-small">Furnace</span>
               <mat-form-field>
-                <mat-select [value]="ahriCombination.furnaceSKU">
+                <mat-select [value]="ahriCombination.furnaceSKU" (selectionChange)="filterFurnaceBySKU($event.value, i)">
                   <mat-option *ngFor="let val of ahriCombination.furnaceUnits" [value]="val"> {{val}}</mat-option>
                 </mat-select>
               </mat-form-field>

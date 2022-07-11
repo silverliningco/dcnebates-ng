@@ -1,15 +1,5 @@
 <mat-stepper #stepper linear  [orientation]="(stepperOrientation | async)!"  (selectionChange)="tabChange($event)">
-    <!-- results -->
-    <mat-step>
 
-      <ng-template matStepLabel>AHRI Combinations</ng-template>
-      <h2 class="rc-main-title">AHRI Combinations</h2>
-      
-      <!-- reusable component --> 
-      <app-results-rebate></app-results-rebate>
-
-  </mat-step>
-  <!-- results end -->
   <!-- Step 1 State -->
   <mat-step [stepControl]="stateGroup" errorMessage="Select an state.">
     <form [formGroup]="stateGroup">
@@ -262,6 +252,17 @@
   </mat-step>
   <!-- Step 5 end  -->
 
+  <!-- results -->
+  <mat-step>
+
+      <ng-template matStepLabel>AHRI Combinations</ng-template>
+      <h2 class="rc-main-title">AHRI Combinations</h2>
+      
+      <!-- reusable component --> 
+      <app-results-rebate></app-results-rebate>
+
+  </mat-step>
+  <!-- results end -->
 
 
 </mat-stepper>

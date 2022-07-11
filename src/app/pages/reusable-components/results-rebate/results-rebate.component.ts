@@ -45,7 +45,7 @@ export class ResultsRebateComponent implements OnInit {
 
 
     /* receiving form data */
-    /*   this._bridge.sentRebateParams
+       this._bridge.sentRebateParams
                  .subscribe((payload: any) => {
    
            this.myPayloadForm.commerceInfo = payload.data.commerceInfo;
@@ -57,10 +57,9 @@ export class ResultsRebateComponent implements OnInit {
            this.myPayloadForm.utilityProviders = payload.data.utilityProviders;
    
            this.CallProductLines();
-           this.GetAvailableRebates();
-           this.CallSearch(this.myPayloadForm);
+           this.CallAvailableRebates();
          });
-   */
+   
     /* form control */
     this.commerceInfoGroup = this._formBuilder.group({
       storeId: 1,
@@ -78,29 +77,6 @@ export class ResultsRebateComponent implements OnInit {
       indoorUnitConfiguration: [null],
     });
 
-    this.myPayloadForm = {
-      "commerceInfo": {
-        "storeId": 1,
-        "showAllResults": false
-      },
-      "nominalSize": {
-        "heatingBTUH": 58000,
-        "coolingTons": 2
-      },
-      "fuelSource": "Natural Gas",
-      "state": "MA",
-      "searchType": "Heating and Cooling",
-      "utilityProviders": {
-        "electricUtility": 5,
-        "fossilFuelUtilityId": 4
-      }
-    };
-
-    this.CallProductLines();
-    this.CallAvailableRebates();
-
-    //this.CallSearch(this.myPayloadForm);
-
   }
 
   CallSearch() {
@@ -108,52 +84,104 @@ export class ResultsRebateComponent implements OnInit {
     this._api.Search(this.Payload()).subscribe({
       next: (resp) => {
         if (resp.length > 0) {
-          console.log(resp)
           this.results = resp
-          
-          console.log(this.filterBestResults(resp));
           this.bestResults = this.filterBestResults(resp);
         }
       }
     })
   }
 
+  // Function to compose options for specified model type
+  loadOptionsModelNrs(myDetails:Detail[], modelType:string){
+    let myModelNrs: Array<any> = []
+    myDetails.forEach(subel => {
+      if (subel[modelType as keyof typeof subel]) {
+        myModelNrs.push(subel[modelType as keyof typeof subel])
+      }
+    });
+
+    // remove duplicates and asign to variables.
+    return myModelNrs.filter((item,index) => myModelNrs.indexOf(item) === index);
+  }
+
+  // Function to Get element with the highest rebate amount.  
+  GetHighestRebateAmount(myDetails:Detail[]){
+    let myBestTotalAvailableRebate = Math.max.apply(
+      Math, myDetails.map(function (rt: any) {
+        return rt.totalAvailableRebates;
+      }));
+
+    return myDetails?.filter(sys => sys.totalAvailableRebates == myBestTotalAvailableRebate)[0];
+  }
+
   filterBestResults(resp: Detail[][]) {
     var bestResults: any = []
-    resp.forEach(element => {
+    resp.forEach(details => {
       // Get element with the highest rebate amount.  
-      let myBestTotalAvailableRebate = Math.max.apply(
-        Math, element.map(function (rt: any) {
-          return rt.totalAvailableRebates;
-        }));
-
-      const mySystem = element?.filter(sys => sys.totalAvailableRebates == myBestTotalAvailableRebate)[0];
+      const mySystem = this.GetHighestRebateAmount(details)
       
-      // load all indoor units
-      let myIndoorUnits: Array<any> = []  
-      let myFurnaceUnits: Array<any> = []  
-      element.forEach(subel => {
-        myIndoorUnits.push(subel.indoorUnitSKU)
-        myFurnaceUnits.push(subel.furnaceSKU)
-      });
-      mySystem.indoorUnits = myIndoorUnits;
-      mySystem.furnaceUnits = myFurnaceUnits;
+      mySystem.indoorUnits = this.loadOptionsModelNrs(details,"indoorUnitSKU");
+      mySystem.furnaceUnits = this.loadOptionsModelNrs(details,"furnaceSKU");
 
       bestResults.push(mySystem)
     });
 
     return (bestResults);
   }
-/*
-   removeDuplicates(arr) {
-    return arr.filter((item,
-        index) => arr.indexOf(item) === index);
-}*/
 
+  filterIndoorBySKU(myIndoorUnit: string, i:number) {
+    //Search bestOption with user selections
+    let myOutdoorUnit = this.bestResults[i].outdoorUnitSKU;
+    let myCombination: Detail[] = []
 
-  filterIndoorBySKU(val:string){
-    console.log(val);
-    this.results = this.filterBestResults(this.results);
+    this.results.forEach((subel:Detail[]) => {
+      let myFind = subel.filter((item: Detail)=> item.outdoorUnitSKU == myOutdoorUnit)
+      if(myFind.length > 0){
+        myCombination = myFind
+      }
+    });
+   
+    if(myIndoorUnit){
+      let myMatchetIndoor = myCombination.filter((item: Detail) => item.indoorUnitSKU == myIndoorUnit);
+      if(myMatchetIndoor.length == 1){
+        this.bestResults[i] = myMatchetIndoor[0]
+      }
+
+      else if(myMatchetIndoor.length > 1){
+        // Get element with the highest rebate amount. 
+        this.bestResults[i] =this.GetHighestRebateAmount(myMatchetIndoor)  
+      }
+
+      // compose options for specified model type
+      this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination,"indoorUnitSKU");
+      this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination,"furnaceSKU");
+    }
+  }
+
+  filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
+      let myOutdoorUnit = this.bestResults[i].outdoorUnitSKU;
+      let myCombination: Detail[] = []
+  
+      this.results.forEach((subel:Detail[]) => {
+        let myFind = subel.filter((item: Detail)=> item.outdoorUnitSKU == myOutdoorUnit)
+        if(myFind.length > 0){
+          myCombination = myFind
+        }
+      });
+      if(myFurnaceUnit){
+        let myMatchetIndoor = myCombination.filter((item: Detail) => item.furnaceSKU == myFurnaceUnit);
+        if(myMatchetIndoor.length == 1){
+          this.bestResults[i] = myMatchetIndoor[0]
+        }
+        else if(myMatchetIndoor.length > 1){
+          // Get element with the highest rebate amount. 
+          this.bestResults[i] =this.GetHighestRebateAmount(myMatchetIndoor)  
+        }
+  
+        // compose options for specified model type
+        this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination,"indoorUnitSKU");
+        this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination,"furnaceSKU");
+      }
   }
 
   // Call Product lines.
