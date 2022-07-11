@@ -44,6 +44,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { INowModelNrComponent } from './home-rebate-finder/i-now-model-nr/i-now-model-nr.component';
 
 
 
@@ -62,7 +63,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     HeatingCoolingAhriComponent,
     KnowModelNbrAhriComponent,
     ResultsAhriComponent,
-    ResultsRebateComponent
+    ResultsRebateComponent,
+    INowModelNrComponent
   ],
   imports: [
     CommonModule,

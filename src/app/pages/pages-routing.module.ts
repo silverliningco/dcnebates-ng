@@ -14,7 +14,9 @@ import { HeatingCoolingAhriComponent } from './home-ahi-matchups/heating-cooling
 import { HomeRebateFinderComponent } from './home-rebate-finder/home-rebate-finder.component';
 import { CoolingOnlyRComponent } from './home-rebate-finder/cooling-only-r/cooling-only-r.component';
 import { HeatingCoolingRComponent } from './home-rebate-finder/heating-cooling-r/heating-cooling-r.component';
+import { INowModelNrComponent } from './home-rebate-finder/i-now-model-nr/i-now-model-nr.component'; 
 import { ResultsRebateComponent } from './reusable-components/results-rebate/results-rebate.component'; 
+
 
 
 const routes: Routes = [{
@@ -89,6 +91,11 @@ const routes: Routes = [{
               path: 'heating-cooling-r',
               component: HeatingCoolingRComponent,
               data: { breadcrumb: 'Heating and cooling' }
+            },
+            {
+              path: 'i-now-model-nr',
+              component: INowModelNrComponent,
+              data: { breadcrumb: 'I now my model nr' }
             },
           ]
         },
