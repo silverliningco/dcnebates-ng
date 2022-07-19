@@ -1,0 +1,9 @@
+/*Style for Stock status*/
+.rc-filter-stock {
+    background-color: #ffffff;
+    border-radius: 4px;
+    border: 1px solid #ececec;
+    margin-bottom: 0.75rem;
+    padding: 5px 10px 0 10px;
+  }
+  
