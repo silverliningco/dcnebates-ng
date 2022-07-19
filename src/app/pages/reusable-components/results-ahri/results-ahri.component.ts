@@ -60,7 +60,7 @@ export class ResultsAhriComponent implements OnInit {
         this.myPayloadForm.searchType = payload.data.searchType;
         this.myPayloadForm.state = payload.data.state;
 
-        this.CallProductLines(this.myPayloadForm);
+        this.CallProductLines();
       });
 
 
@@ -95,8 +95,13 @@ export class ResultsAhriComponent implements OnInit {
     this.ObtainPaginationText();
   }
 
-  CallProductLines(payload: any) {
-    this._api.ProductLines(JSON.stringify(payload)).subscribe({
+  CallProductLines() {
+    //update commerce info with "updated show all results" input.
+    this.myPayloadForm.commerceInfo.showAllResults = this.commerceInfoGroup.controls['showAllResults'].value;
+
+    var body = JSON.stringify(this.myPayloadForm);
+
+    this._api.ProductLines(body).subscribe({
       next: (resp) => {
         if (resp.length > 0) {
           this.productLines = resp
@@ -104,7 +109,6 @@ export class ResultsAhriComponent implements OnInit {
           // Call Filters with selected product line
           this.productLinesGroup.controls['productLine'].setValue(resp[0].id);
           this.CallFilters();
-
           this.noResults = false;
         } else {
           this.noResults = true;
@@ -118,7 +122,6 @@ export class ResultsAhriComponent implements OnInit {
   // Function that reset filters and load filters with selected product line
   SelectProductLine() {
     this.filtersGroup.reset();
-    this.commerceInfoGroup.controls['showAllResults'].setValue(false);
     this.filters = [];
     this.CallFilters()
   }

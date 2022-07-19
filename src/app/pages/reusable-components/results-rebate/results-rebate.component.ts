@@ -88,10 +88,10 @@ export class ResultsRebateComponent implements OnInit {
 /* ****************************************************************************************************************************************************** */
 
   CallProductLines() {
-    var body = JSON.stringify(this.myPayloadForm);
-
     //update commerce info with "updated show all results" input.
     this.myPayloadForm.commerceInfo.showAllResults = this.commerceInfoGroup.controls['showAllResults'].value;
+
+    var body = JSON.stringify(this.myPayloadForm);
 
     this._api.ProductLines(body).subscribe({
       next: (resp) => {

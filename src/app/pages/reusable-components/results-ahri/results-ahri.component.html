@@ -1,4 +1,18 @@
 <div *ngIf="!this.noResults">
+
+  <div class="rc-filter-stock">
+    <form [formGroup]="commerceInfoGroup">
+      <!-- Stock status -->
+      <h5 class="rc-filter-group-title">Stock status</h5>
+      <mat-radio-group #rGroup formControlName="showAllResults" fxLayout="row" (change)="CallProductLines()">
+        <mat-radio-button [value]="false" radioGroup="rGroup">Stock items only</mat-radio-button>
+        <mat-radio-button [value]="true" radioGroup="rGroup">Show all</mat-radio-button>
+      </mat-radio-group>
+
+    </form>
+  </div>
+  
+
   <!-- product lines -->
   <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="16">
     <div class="rc-radio-options">
@@ -30,15 +44,6 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div class="rc-filters-body">
-            <form [formGroup]="commerceInfoGroup">
-              <!-- Stock status -->
-              <h5 class="rc-filter-group-title">Stock status</h5>
-              <mat-radio-group #rGroup formControlName="showAllResults" fxLayout="column" (change)="CallFilters()">
-                <mat-radio-button [value]="false" radioGroup="rGroup">Stock items only</mat-radio-button>
-                <mat-radio-button [value]="true" radioGroup="rGroup">Show all</mat-radio-button>
-              </mat-radio-group>
-            </form>
-
             <form [formGroup]="filtersGroup" fxLayout="column" fxLayoutAlign="center" fxLayoutAlign.xs="center stretch"
               fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
 
