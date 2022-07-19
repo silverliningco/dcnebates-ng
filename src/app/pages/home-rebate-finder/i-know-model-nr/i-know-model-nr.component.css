@@ -1,0 +1,324 @@
+  
+/*Style for Rebates and Filters*/
+.rc-rebates-filters {
+  border: 1px solid gainsboro;
+  border-radius: 4px;
+}
+  
+    .rc-rebate-filters-btn{
+      margin-top: 1rem;
+    }
+    ::ng-deep .rc-checked-rebate .mat-checkbox  {
+      border: 1px solid #e1e1e1;
+      padding: 1rem;
+      border-radius: 4px;
+      position: relative;
+      display: block;
+      margin: 6px 0;
+    }
+    ::ng-deep .rc-checked-rebate .mat-checkbox .mat-checkbox-layout{
+      display: initial;
+    }
+    ::ng-deep .rc-checked-rebate .mat-checkbox .mat-checkbox-layout .mat-checkbox-inner-container {
+      display: none;
+    }
+    ::ng-deep .rc-checked-rebate .mat-checkbox  .mat-checkbox-label{
+      padding-left: 0;
+      text-transform: uppercase;
+      font-family: 'Raleway', sans-serif;
+      color: var(--rc-text-light-color);
+      white-space: normal;
+    }
+      /*Checked*/
+      ::ng-deep .rc-checked-rebate .mat-checkbox.mat-checkbox-checked{ 
+        border-color: var(--rc-primary-color);
+      }
+      ::ng-deep .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox-label{
+        color: var(--rc-primary-color);
+        width: 95%;
+      }
+      ::ng-deep .rc-checked-rebate .mat-checkbox.mat-checkbox-checked::after {
+        font-family: 'Material Icons';
+        content: "check_circle";
+        -webkit-font-feature-settings: 'liga';
+        position: absolute;
+        top: 10px;
+        right: 4px;
+        font-size: 36px;
+        color: #1565c033;
+        z-index: 0;
+      }
+  
+      /*Rebate Tiers*/
+      ::ng-deep .rc-checked-rebate .mat-checkbox .mat-checkbox,
+      ::ng-deep .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox{
+        background-color: #fbfbfb;
+        border: 1px solid #fbfbfb;
+        padding: .5rem;
+      }
+      .rc-rt-title {
+        width: 95%;
+      }
+      .rc-rt-container{
+        color: var(--rc-text-light-color);
+      }
+      .rc-rt-container .rc-info-note{
+        text-transform: none;
+        font-weight: 400;
+      }
+      .rc-rt-container .rc-icon-info {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
+        top: 12px;
+        margin-left: 0.5rem;
+      }
+  
+        /*Rebate Tiers Checked*/
+        ::ng-deep .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox.mat-checkbox-checked{
+          border-color: var(--rc-accent-color);
+        }
+        ::ng-deep .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox.mat-checkbox-checked::after{
+          content: "";
+        }
+        ::ng-deep .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox.mat-checkbox-checked .rc-rt-container{
+          color: var(--rc-accent-color);
+          font-weight: 600;
+        }
+        ::ng-deep .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox.mat-checkbox-checked .rc-rt-container .rc-info-note{
+          color: var(--rc-text-light-color);
+        }
+      
+      /*Filters*/
+      .rc-rb-filters form{
+        margin-top: 1rem;
+      }
+      .rc-rb-filters form h5.rc-filter-group-title{
+        margin-bottom: 0.5rem;
+      }
+      .rc-rb-filters mat-form-field{
+        width: 100%;
+      }
+  
+  
+    /*Card in results*/
+    mat-card.rc-results-rebate {
+      margin-top: 1rem;
+    }
+    mat-card.rc-results-rebate .rc-model-nrs {
+      border: 1px solid #d7d7d7;
+        border-left: none;
+        border-right: none;
+        width: 100%;    
+        padding-bottom: 6px;
+    }
+    mat-card.rc-results-rebate .mat-card-subtitle{
+      margin-bottom: 1.5rem !important;
+  
+    }
+    mat-card.rc-results-rebate .mat-card-header-text{
+      width: 100%;
+      margin: 0;
+    }
+    mat-card.rc-results-rebate .mat-card-header .mat-card-title {
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+    mat-card.rc-results-rebate .mat-card-header .mat-card-subtitle{
+      margin-bottom: 5px;
+    }
+    /* Start Change style to input combo box */
+    ::ng-deep mat-card.rc-results-rebate .rc-model-nrs mat-form-field{
+      display: block;
+    }
+    ::ng-deep mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-flex{
+      background-color: transparent;
+      padding: 0;
+    }
+    ::ng-deep mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-infix{
+      padding: 0;
+      border-top: none;
+    }
+    ::ng-deep mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-select-value{
+      color: rgba(0,0,0,.54);
+    }
+    mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-underline{
+      display: none;
+    }
+    ::ng-deep mat-card.rc-results-rebate .rc-model-nrs mat-form-field .mat-form-field-wrapper{
+      padding-bottom: 0;
+    }
+    ::ng-deep mat-card.rc-results-rebate .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+      color: var(--rc-primary-color);
+    }
+    ::ng-deep mat-card.rc-results-rebate .mat-form-field-appearance-legacy .mat-form-field-underline,
+    ::ng-deep mat-card.rc-results-rebate .mat-form-field.mat-focused .mat-form-field-ripple{
+      background-color: transparent;
+    }
+    /* End Change style to input combo box */
+    
+    mat-card.rc-results-rebate .rc-rebate-price{
+      position: relative;
+      background-color: rgba(50, 121, 192, 0.13);
+      border-radius: 4px;
+      padding: 2.5rem 1rem;
+      color: var(--rc-primary-color);
+      text-align: center;
+    }
+    mat-card.rc-results-rebate .rc-rebate-price h5.rc-small{
+      margin-bottom: 5px;
+      position: absolute;
+      top: 1px;
+      left: 10px;
+      font-size: 9px;
+    }
+    mat-card.rc-results-rebate .rc-rebate-price h1{
+      font-family: 'Bitter', serif !important;
+    }
+    @media screen and (min-width: 960px) and (max-width: 1199px){
+      mat-card.rc-results-rebate .rc-rebate-price h1{
+        font-size: 26px;
+      }
+    }
+    @media screen and (max-width: 959px){
+      mat-card.rc-results-rebate .rc-rebate-price{
+        padding: 1rem;
+        margin-left: 10px;
+      }
+      mat-card.rc-results-rebate .rc-rebate-price h1{
+        font-size: 26px;
+        margin-top: 10px;
+      }
+    }
+    @media screen and (max-width: 599px){
+      mat-card.rc-results-rebate .rc-rebate-price{
+        margin-top: 10px;
+        margin-left: 0;
+      }
+      mat-card.rc-results-rebate .mat-card-header .mat-card-subtitle .rc-model-nrs {
+        padding-top: .5rem;
+      }
+    }
+  
+    /*Content*/
+      mat-card.rc-results-rebate .mat-card-content{
+        padding: .5rem 0;
+        margin-bottom: 0.5rem;
+      }
+      mat-card.rc-results-rebate .mat-card-content span.rc-small{
+        color: rgba(0,0,0,.54);
+      }
+      @media screen and (max-width: 599px){
+        .rc-list-rebates{
+          margin: 1rem 0;
+        }
+      }
+      .rc-unlisted{
+        list-style: none;
+      }
+      .rc-unlisted .mat-icon{
+        position: absolute;
+        left: 25px;
+        color: #02af09;
+      }
+      .rc-list-accesories {
+        background-color: rgba(255, 149, 0, 0.07);
+        border-radius: 4px;
+        padding: 0 12px 16px 12px;
+      }
+      .rc-list-accesories span.rc-add-price-rebate{
+        background-color: rgba(0, 114, 5, 0.09);
+        color: #007205;
+        border-radius: 4px;
+        padding: 2px 4px;
+        font-size: 11px;
+        margin-left: 5px;
+      }
+      .rc-list-result {
+        padding-left: 1rem;
+      }
+      .rc-list-result span {
+        font-weight: 600;
+        margin-right: 1rem;
+      }
+      .rc-list-result mat-icon.rc-co2-icon{
+        font-size: 18px;
+        width: 14px;
+        height: 18px;
+        color: var(--rc-accent-color);
+      }
+    
+    /*Collapse style in results*/
+    ::ng-deep .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel,
+    ::ng-deep .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel {
+      background-color: transparent;
+      box-shadow: none;
+    }
+    ::ng-deep .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
+    ::ng-deep .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
+      padding: 0 10px;
+      height: auto;
+    }
+    ::ng-deep .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body,
+    ::ng-deep .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel  .mat-expansion-panel-content .mat-expansion-panel-body{
+      padding: 10px 0px 10px 6px;
+    }  
+    @media screen and (max-width: 599px){
+      ::ng-deep .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
+      ::ng-deep .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
+        border-bottom: 1px solid #d7d7d7;
+        border-radius: 0;
+        pointer-events: initial;
+      }
+      ::ng-deep .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator,
+      ::ng-deep .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator{
+        display: initial;
+        transition: display 1s ;
+      }
+    }
+    @media screen and (min-width: 600px){
+        ::ng-deep .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
+        ::ng-deep .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
+          pointer-events: none;
+        }
+        ::ng-deep .rc-list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator,
+        ::ng-deep .rc-list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header .mat-expansion-indicator{
+          display: none;
+        }
+    }
+    
+    /*Card buttons*/
+    mat-card.rc-results-rebate .rc-detail-button {
+      background: grey;
+      color: white;
+    }
+    mat-card.rc-results-rebate .rc-card-button {
+      background: var(--rc-accent-color);
+      margin-right: 1rem;
+      color: white;
+    }
+    mat-card.rc-results-rebate .mat-button-wrapper{
+      font-family: 'Raleway', sans-serif;
+      font-weight: bold;
+      color: white;
+    }
+    mat-card.rc-results-rebate .mat-button-wrapper mat-icon{
+      font-size: 20px;
+    }
+    .rc-elegibility-questions .mat-radio-button{
+      display: block;
+    }
+  
+    /*ToolTip Component*/
+    ::ng-deep .cdk-overlay-pane.mat-tooltip-panel .mat-tooltip {
+      color: var(--rc-text-color);
+      background-color: white;
+      border: 1px solid #474747;
+      border-radius: 3px;
+      font-size: 12px;
+      padding: .5rem 1rem;
+   }
+  
+  

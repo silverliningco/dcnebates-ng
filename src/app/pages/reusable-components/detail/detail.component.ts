@@ -20,22 +20,9 @@ export class DetailComponent implements OnInit {
     private _api: ApiService
     ) { 
 
-    activatedRoute.queryParams.subscribe( params => {
-      let commerceInfo = JSON.parse(params['commerceInfo']) ;
-      let skus = JSON.parse(params['skus']) ;
-      let AHRIRefs = JSON.parse(params['ahri_refs']) ;
-      let requiredRebates = JSON.parse(params['requiredRebates']) ;
-      
+    activatedRoute.params.subscribe( params => {
 
-     let a = {
-      "commerceInfo": commerceInfo,
-      "skus": skus,
-      "AHRIRefs": AHRIRefs,
-      "requiredRebates": requiredRebates 
-      }
-
-     let body = JSON.stringify(a);
-
+     let body = JSON.parse(params['body']) ;
 
       this._api.Detail(body).subscribe({
         next: (resp) => {
@@ -76,5 +63,3 @@ export class DetailComponent implements OnInit {
 
 
 }
-
-

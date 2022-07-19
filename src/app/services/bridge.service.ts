@@ -13,7 +13,6 @@ export class bridgeService {
     
     @Output() sentAvailableRebateParams: EventEmitter<any> = new EventEmitter();
     @Output() sentFilters: EventEmitter<any> = new EventEmitter();
-
     constructor(
     ) { } 
   

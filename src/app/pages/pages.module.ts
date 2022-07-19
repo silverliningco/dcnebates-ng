@@ -23,7 +23,6 @@ import { CoolingOnlyAhriComponent } from './home-ahi-matchups/cooling-only-ahri/
 import { ExisNonEcmAhriComponent } from './home-ahi-matchups/exis-non-ecm-ahri/exis-non-ecm-ahri.component';
 import { FurnaceOnlyInstallAhriComponent } from './home-ahi-matchups/furnace-only-install-ahri/furnace-only-install-ahri.component';
 import { HeatingCoolingAhriComponent } from './home-ahi-matchups/heating-cooling-ahri/heating-cooling-ahri.component';
-import { KnowModelNbrAhriComponent } from './home-ahi-matchups/know-model-nbr-ahri/know-model-nbr-ahri.component';
 import { ResultsAhriComponent } from './reusable-components/results-ahri/results-ahri.component'; 
 import { ResultsRebateComponent } from './reusable-components/results-rebate/results-rebate.component';
 
@@ -44,7 +43,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { INowModelNrComponent } from './home-rebate-finder/i-now-model-nr/i-now-model-nr.component';
+import { IKnowModelNrComponent } from './home-rebate-finder/i-know-model-nr/i-know-model-nr.component';
+import { BestDetailComponent } from './reusable-components/best-detail/best-detail.component';
 
 
 
@@ -61,10 +61,10 @@ import { INowModelNrComponent } from './home-rebate-finder/i-now-model-nr/i-now-
     ExisNonEcmAhriComponent,
     FurnaceOnlyInstallAhriComponent,
     HeatingCoolingAhriComponent,
-    KnowModelNbrAhriComponent,
     ResultsAhriComponent,
     ResultsRebateComponent,
-    INowModelNrComponent
+    IKnowModelNrComponent,
+    BestDetailComponent
   ],
   imports: [
     CommonModule,

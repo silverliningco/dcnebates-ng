@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { payloadForm } from '../../../models/payloadFrom';
-import { ModelNr, PostBodyNr } from '../../../models/modelNr';
 import { Rebate, RebateTier } from '../../../models/rebate';
-import { Detail } from '../../../models/detailBestOption';
+import { BestDetail } from '../../../models/detailBestOption';
 import { bridgeService } from '../../../services/bridge.service';
-
 
 @Component({
   selector: 'app-results-rebate',
@@ -15,10 +13,12 @@ import { bridgeService } from '../../../services/bridge.service';
 })
 export class ResultsRebateComponent implements OnInit {
 
+  /* FORM GRUP */
   commerceInfoGroup !: FormGroup;
   productLinesGroup !: FormGroup;
   filtersGroup !: FormGroup;
 
+  /* PRODUC LINE */
   productLines!: any;
   noResults!: boolean;
   results!: any;
@@ -30,8 +30,11 @@ export class ResultsRebateComponent implements OnInit {
   myPayloadRebate!: any;
 
   /* display title when exist filter */
-  showIndoorUnit: boolean = false;
+  showIndoorUnitConfig: boolean = false;
+  showFurnaceUnits: boolean = false;
+  showIndoorUnits: boolean = false;
 
+  /*  AVAILABLE REBATES */
   availableRebates!: Array<Rebate>;
   NoExistAvailableRebates: boolean = false;
 
@@ -53,11 +56,11 @@ export class ResultsRebateComponent implements OnInit {
            this.myPayloadForm.fuelSource = payload.data.fuelSource;
            this.myPayloadForm.searchType = payload.data.searchType;
            this.myPayloadForm.state = payload.data.state;
-   //        this.myPayloadForm.elegibilityQuestions = payload.data.elegibilityQuestions;
+           //this.myPayloadForm.elegibilityQuestions = payload.data.elegibilityQuestions;
            this.myPayloadForm.utilityProviders = payload.data.utilityProviders;
    
            this.CallProductLines();
-           this.CallAvailableRebates();
+           this.GetAvailableRebates();
          });
    
     /* form control */
@@ -79,119 +82,18 @@ export class ResultsRebateComponent implements OnInit {
 
   }
 
-  CallSearch() {
 
-    this._api.Search(this.Payload()).subscribe({
-      next: (resp) => {
-        if (resp.length > 0) {
-          this.results = resp
-          this.bestResults = this.filterBestResults(resp);
-        }
-      }
-    })
-  }
+/* ****************************************************************************************************************************************************** */
+/*                                                          PRODUCT LINE                                                                                  */
+/* ****************************************************************************************************************************************************** */
 
-  // Function to compose options for specified model type
-  loadOptionsModelNrs(myDetails:Detail[], modelType:string){
-    let myModelNrs: Array<any> = []
-    myDetails.forEach(subel => {
-      if (subel[modelType as keyof typeof subel]) {
-        myModelNrs.push(subel[modelType as keyof typeof subel])
-      }
-    });
-
-    // remove duplicates and asign to variables.
-    return myModelNrs.filter((item,index) => myModelNrs.indexOf(item) === index);
-  }
-
-  // Function to Get element with the highest rebate amount.  
-  GetHighestRebateAmount(myDetails:Detail[]){
-    let myBestTotalAvailableRebate = Math.max.apply(
-      Math, myDetails.map(function (rt: any) {
-        return rt.totalAvailableRebates;
-      }));
-
-    return myDetails?.filter(sys => sys.totalAvailableRebates == myBestTotalAvailableRebate)[0];
-  }
-
-  filterBestResults(resp: Detail[][]) {
-    var bestResults: any = []
-    resp.forEach(details => {
-      // Get element with the highest rebate amount.  
-      const mySystem = this.GetHighestRebateAmount(details)
-      
-      mySystem.indoorUnits = this.loadOptionsModelNrs(details,"indoorUnitSKU");
-      mySystem.furnaceUnits = this.loadOptionsModelNrs(details,"furnaceSKU");
-
-      bestResults.push(mySystem)
-    });
-
-    return (bestResults);
-  }
-
-  filterIndoorBySKU(myIndoorUnit: string, i:number) {
-    //Search bestOption with user selections
-    let myOutdoorUnit = this.bestResults[i].outdoorUnitSKU;
-    let myCombination: Detail[] = []
-
-    this.results.forEach((subel:Detail[]) => {
-      let myFind = subel.filter((item: Detail)=> item.outdoorUnitSKU == myOutdoorUnit)
-      if(myFind.length > 0){
-        myCombination = myFind
-      }
-    });
-   
-    if(myIndoorUnit){
-      let myMatchetIndoor = myCombination.filter((item: Detail) => item.indoorUnitSKU == myIndoorUnit);
-      if(myMatchetIndoor.length == 1){
-        this.bestResults[i] = myMatchetIndoor[0]
-      }
-
-      else if(myMatchetIndoor.length > 1){
-        // Get element with the highest rebate amount. 
-        this.bestResults[i] =this.GetHighestRebateAmount(myMatchetIndoor)  
-      }
-
-      // compose options for specified model type
-      this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination,"indoorUnitSKU");
-      this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination,"furnaceSKU");
-    }
-  }
-
-  filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
-      let myOutdoorUnit = this.bestResults[i].outdoorUnitSKU;
-      let myCombination: Detail[] = []
-  
-      this.results.forEach((subel:Detail[]) => {
-        let myFind = subel.filter((item: Detail)=> item.outdoorUnitSKU == myOutdoorUnit)
-        if(myFind.length > 0){
-          myCombination = myFind
-        }
-      });
-      if(myFurnaceUnit){
-        let myMatchetIndoor = myCombination.filter((item: Detail) => item.furnaceSKU == myFurnaceUnit);
-        if(myMatchetIndoor.length == 1){
-          this.bestResults[i] = myMatchetIndoor[0]
-        }
-        else if(myMatchetIndoor.length > 1){
-          // Get element with the highest rebate amount. 
-          this.bestResults[i] =this.GetHighestRebateAmount(myMatchetIndoor)  
-        }
-  
-        // compose options for specified model type
-        this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination,"indoorUnitSKU");
-        this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination,"furnaceSKU");
-      }
-  }
-
-  // Call Product lines.
   CallProductLines() {
-    var body = this.myPayloadForm
+    var body = JSON.stringify(this.myPayloadForm);
 
     //update commerce info with "updated show all results" input.
     this.myPayloadForm.commerceInfo.showAllResults = this.commerceInfoGroup.controls['showAllResults'].value;
 
-    this._api.ProductLines(JSON.stringify(body)).subscribe({
+    this._api.ProductLines(body).subscribe({
       next: (resp) => {
         if (resp.length > 0) {
           this.productLines = resp
@@ -217,95 +119,32 @@ export class ResultsRebateComponent implements OnInit {
     this.CallFilters();
   }
 
+/* ****************************************************************************************************************************************************** */
+/*                                                          PRODUCT LINE END                                                                              */
+/* ****************************************************************************************************************************************************** */
 
-  // Function that gets input values from UI and returns payload.
-  Payload() {
-    let myfilters: {
-      filterName: string;
-      selectedValues: any[];
-    }[] = [];
 
-    Object.entries(this.filtersGroup.value).forEach(
-      ([key, value]) => {
-        if (value && value != "") {
-          myfilters.push({
-            filterName: key,
-            selectedValues: (Array.isArray(value)) ? value : [value]
-          });
-        }
-      }
-    );
+/* ****************************************************************************************************************************************************** */
+/*                                                        AVAILABLE REBATES                                                                               */
+/* ****************************************************************************************************************************************************** */
 
-    let body = {
-      "groupBy": "Outdoor unit",
-      "searchType": this.myPayloadForm.searchType,
-      "fuelSource": this.myPayloadForm.fuelSource,
-      "commerceInfo": this.commerceInfoGroup.value,
-      "nominalSize": this.myPayloadForm.nominalSize,
-      "systemTypeId": this.productLinesGroup.controls['productLine'].value,
-      "filters": myfilters,
-      "requiredRebates": this.getSelectedRebates()
-    }
-
-    return JSON.stringify(body);
+PrepareDataAvailableRebates(){
+  let body= {
+    "country": "US",
+    "state": this.myPayloadForm.state,
+    "utilityProviders": this.myPayloadForm.utilityProviders,
+    "fuelSource": this.myPayloadForm.fuelSource,
+    "rebateTypes": ["electric", "fossil fuel", "OEM", "distributor"],
+    "OEM": "Carrier",
+    "storeIds": []
   }
 
-  showTitleFilter(filters: any) {
+  return JSON.stringify(body);
+}  
 
-    this.showIndoorUnit = false;
-
-    filters.forEach((ele: any) => {
-      if (ele.filterName === 'indoorUnitConfiguration') {
-        this.showIndoorUnit = true
-      }
-    });
-  }
-  // Function that call filters from API and update UI. 
-  // also calls Search function to load results.
-  CallFilters() {
-    this.filtersGroup.disable();
-
-    this._api.Filters(this.Payload()).subscribe({
-      next: (resp) => {
-        if (resp.length > 0) {
-          this.filters = resp;
-          this.filtersGroup.reset();
-          // Set selected values
-          resp.forEach((filter: any) => {
-            if (filter.filterName == 'coastal') {
-              this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues[0]);
-            } else {
-              this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
-            }
-          });
-
-          this.filtersGroup.enable();
-
-        }
-
-        this.showTitleFilter(this.filters);
-
-        // Call search.
-        this.CallSearch();
-      },
-      error: (e) => alert(e.error),
-      complete: () => console.info('complete')
-    })
-  }
-
-  //================================== Available rebates
-  // Call Available rebates
-  CallAvailableRebates() {
-    let myBodyRebate = {
-      "country": "US",
-      "state": this.myPayloadForm.state,
-      "utilityProviders": this.myPayloadForm.utilityProviders,
-      "fuelSource": this.myPayloadForm.fuelSource,
-      "rebateTypes": ["electric", "fossil fuel", "OEM", "distributor"],
-      "OEM": "Carrier",
-      "storeIds": []
-    }
-    this._api.AvailableRebates(myBodyRebate).subscribe({
+  GetAvailableRebates() {
+   
+    this._api.AvailableRebates(this.PrepareDataAvailableRebates()).subscribe({
       next: (resp: any) => {
         this.processingAvailableRebates(resp)
       },
@@ -313,6 +152,7 @@ export class ResultsRebateComponent implements OnInit {
       complete: () => console.info('complete')
     });
   }
+
   processingAvailableRebates(myResp: any) {
     this.availableRebates = [];
 
@@ -441,6 +281,205 @@ export class ResultsRebateComponent implements OnInit {
 
   }
 
+/* ****************************************************************************************************************************************************** */
+/*                                                        AVAILABLE REBATES END                                                                           */
+/* ****************************************************************************************************************************************************** */
+
+// Function that gets input values from UI and returns payload.
+Payload() {
+  let myfilters: {
+    filterName: string;
+    selectedValues: any[];
+  }[] = [];
+
+  Object.entries(this.filtersGroup.value).forEach(
+    ([key, value]) => {
+      if (value && value != "") {
+        myfilters.push({
+          filterName: key,
+          selectedValues: (Array.isArray(value)) ? value : [value]
+        });
+      }
+    }
+  );
+
+  let body = {
+    "groupBy": "Outdoor unit",
+    "searchType": this.myPayloadForm.searchType,
+    "fuelSource": this.myPayloadForm.fuelSource,
+    "commerceInfo": this.commerceInfoGroup.value,
+    "nominalSize": this.myPayloadForm.nominalSize,
+    "systemTypeId": this.productLinesGroup.controls['productLine'].value,
+    "filters": myfilters,
+    "requiredRebates": this.getSelectedRebates()
+  }
+
+  return JSON.stringify(body);
+}
+
+CallSearch() {
+  this._api.Search(this.Payload()).subscribe({
+    next: (resp) => {
+      /* resp = a; */
+      if (resp.length > 0) {
+        this.results = resp;
+        this.bestResults = this.filterBestResults(resp);
+      }
+    }
+  })
+}
+
+
+// Function that call filters from API and update UI. 
+// also calls Search function to load results.
+CallFilters() {
+  this.filtersGroup.disable();
+
+  this._api.Filters(this.Payload()).subscribe({
+    next: (resp) => {
+      if (resp.length > 0) {
+        this.filters = resp;
+        this.filtersGroup.reset();
+        // Set selected values
+        resp.forEach((filter: any) => {
+          if (filter.filterName == 'coastal') {
+            this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues[0]);
+          } else {
+            this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
+          }
+        });
+
+        this.filtersGroup.enable();
+
+      }
+
+      this.showTitleFilter(this.filters);
+
+      // Call search.
+      this.CallSearch();
+    },
+    error: (e) => alert(e.error),
+    complete: () => console.info('complete')
+  })
+}
+
+showTitleFilter(filters: any) {
+
+  this.showIndoorUnitConfig = false;
+
+  filters.forEach((ele: any) => {
+    if (ele.filterName === 'indoorUnitConfiguration') {
+      this.showIndoorUnitConfig = true
+    }
+  });
+}
+
+// Function to compose options for specified model type
+loadOptionsModelNrs(myDetails:BestDetail[], modelType:string){
+   
+  let myModelNrs: Array<any> = []
+  myDetails.forEach(subel => {
+    if (subel[modelType as keyof typeof subel]) {
+      myModelNrs.push(subel[modelType as keyof typeof subel])
+    }
+  });
+
+  // remove duplicates and asign to variables.
+  return myModelNrs.filter((item,index) => myModelNrs.indexOf(item) === index);
+}
+
+// Function to Get element with the highest rebate amount.  
+GetHighestRebateAmount(myDetails:BestDetail[]){
+  let myBestTotalAvailableRebate = Math.max.apply(
+    Math, myDetails.map(function (rt: any) {
+      return rt.totalAvailableRebates;
+    }));
+
+  return myDetails?.filter(sys => sys.totalAvailableRebates == myBestTotalAvailableRebate)[0];
+}
+
+filterBestResults(resp: BestDetail[][]) {
+  var bestResults: any = []
+  resp.forEach(details => {
+    // Get element with the highest rebate amount.  
+    const mySystem = this.GetHighestRebateAmount(details)
+    
+    mySystem.indoorUnits = this.loadOptionsModelNrs(details,"indoorUnitSKU");
+    mySystem.furnaceUnits = this.loadOptionsModelNrs(details,"furnaceSKU");
+
+    if (mySystem.furnaceUnits.length === 0){
+      this.showFurnaceUnits = false;
+    } else {
+      this.showFurnaceUnits = true;
+    }
+
+    if (mySystem.indoorUnits.length === 0){
+      this.showIndoorUnits = false;
+    } else {
+      this.showIndoorUnits = true;
+    }
+
+    bestResults.push(mySystem)
+  });
+
+  return (bestResults);
+}
+
+filterIndoorBySKU(myIndoorUnit: string, i:number) {
+  //Search bestOption with user selections
+  let myOutdoorUnit = this.bestResults[i].outdoorUnitSKU;
+  let myCombination: BestDetail[] = []
+
+  this.results.forEach((subel:BestDetail[]) => {
+    let myFind = subel.filter((item: BestDetail)=> item.outdoorUnit == myOutdoorUnit)
+    if(myFind.length > 0){
+      myCombination = myFind
+    }
+  });
+ 
+  if(myIndoorUnit){
+    let myMatchetIndoor = myCombination.filter((item: BestDetail) => item.indoorUnit == myIndoorUnit);
+    if(myMatchetIndoor.length == 1){
+      this.bestResults[i] = myMatchetIndoor[0]
+    }
+
+    else if(myMatchetIndoor.length > 1){
+      // Get element with the highest rebate amount. 
+      this.bestResults[i] =this.GetHighestRebateAmount(myMatchetIndoor)  
+    }
+
+    // compose options for specified model type
+    this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination,"indoorUnitSKU");
+    this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination,"furnaceSKU");
+  }
+}
+
+filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
+    let myOutdoorUnit = this.bestResults[i].outdoorUnitSKU;
+    let myCombination: BestDetail[] = []
+
+    this.results.forEach((subel:BestDetail[]) => {
+      let myFind = subel.filter((item: BestDetail)=> item.outdoorUnit == myOutdoorUnit)
+      if(myFind.length > 0){
+        myCombination = myFind
+      }
+    });
+    if(myFurnaceUnit){
+      let myMatchetIndoor = myCombination.filter((item: BestDetail) => item.furnaceUnit == myFurnaceUnit);
+      if(myMatchetIndoor.length == 1){
+        this.bestResults[i] = myMatchetIndoor[0]
+      }
+      else if(myMatchetIndoor.length > 1){
+        // Get element with the highest rebate amount. 
+        this.bestResults[i] =this.GetHighestRebateAmount(myMatchetIndoor)  
+      }
+
+      // compose options for specified model type
+      this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination,"indoorUnitSKU");
+      this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination,"furnaceSKU");
+    }
+}
+
   // function to remove selections filters from my filters.
   removeFilter(myFilter: any, option: any): void {
     if (option) {
@@ -459,6 +498,29 @@ export class ResultsRebateComponent implements OnInit {
       return false
     }
   }
+
+
+  sentmodelNrs(){
+
+   let a = JSON.parse(this.Payload());
+
+   console.log(a.commerceInfo);
+
+   /* let b = {
+     "commerceInfo": a.commerceInfo,
+     "skus":a.filters,
+     "AHRIRefs": '',
+     "requiredRebates": a.requiredRebates
+  }
+
+  let body = JSON.stringify(a);
+
+  console.log(body);
+   let url= '/home/detail/' + body;
+   window.open(url)   */
+ }
+
+
 }
 
 

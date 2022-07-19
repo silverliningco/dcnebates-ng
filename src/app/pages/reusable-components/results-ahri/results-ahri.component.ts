@@ -151,7 +151,6 @@ export class ResultsAhriComponent implements OnInit {
       requiredRebates: this.myPayloadForm.requiredRebates
     }
 
-    console.log(payload);
     return JSON.stringify(payload);
   }
 
@@ -293,4 +292,20 @@ export class ResultsAhriComponent implements OnInit {
       return false
     }
   }
+
+  sentmodelNrs(SKUs: any, AHRIReferences: any, commerceInfo:any, requiredRebates:any){
+    let a = {
+      "commerceInfo": commerceInfo,
+      "skus":SKUs,
+      "AHRIRefs": AHRIReferences,
+      "requiredRebates": requiredRebates
+   }
+
+   let body = JSON.stringify(a);
+
+   console.log(body);
+    let url= '/home/detail/' + body;
+    window.open(url)  
+  }
+
 }

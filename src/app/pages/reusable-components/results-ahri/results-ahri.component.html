@@ -59,7 +59,7 @@
               </div>
 
               <!-- indoorUnitConfiguration -->
-              <h5 class="rc-filter-group-title" *ngIf="showIndoorUnit">Indoor Unit</h5>
+              <h5 class="rc-filter-group-title" *ngIf="showIndoorUnit">Indoor Unit Configuration</h5>
               <div *ngFor="let filter of filters" class="rc-filter-group">
                 <div
                   *ngIf="filter.filterName === 'indoorUnitConfiguration'">
@@ -158,12 +158,18 @@
               <td data-title="AFUE" *ngIf="showFurnace">{{ahriCombination.AFUE}}</td>
               <td data-title="Total rebate" *ngIf="showTotal">{{ahriCombination.totalAvailableRebates | currency:"USD":"symbol" : '1.0-0'}}</td>
               <td data-title="Details">
+                <a class="rc-btn rc-btn-secondary" (click)="sentmodelNrs(ahriCombination.SKUs, ahriCombination.AHRIReferences, myPayloadForm.commerceInfo, myPayloadForm.requiredRebates)" target="_blank">
+                  <mat-icon>search</mat-icon>
+                </a>
+              </td>
+
+              <!-- <td data-title="Details">
                 <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']"
                   [queryParams]="{skus:ahriCombination.SKUs | json, ahri_refs:ahriCombination.AHRIReferences| json, params:{commerceInfo: myPayloadForm.commerceInfo  , requiredRebates: myPayloadForm.requiredRebates  } | json}"
                   target="_blank">
                   <mat-icon>search</mat-icon>
                 </a>
-              </td>
+              </td> -->
             </tr>
             <tr *ngIf="results?.length < 1">
               <td colspan="10"></td>

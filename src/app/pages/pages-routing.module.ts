@@ -4,17 +4,17 @@ import { PagesComponent } from './pages.component';
 
 import { HomeComponent } from './home/home.component';
 import { DetailComponent } from './reusable-components/detail/detail.component';
+import { BestDetailComponent } from './reusable-components/best-detail/best-detail.component';
 
 import { HomeAhiMatchupsComponent } from './home-ahi-matchups/home-ahi-matchups.component';
 import { CoolingOnlyAhriComponent } from './home-ahi-matchups/cooling-only-ahri/cooling-only-ahri.component';
 import { FurnaceOnlyInstallAhriComponent } from './home-ahi-matchups/furnace-only-install-ahri/furnace-only-install-ahri.component';
-import { KnowModelNbrAhriComponent } from './home-ahi-matchups/know-model-nbr-ahri/know-model-nbr-ahri.component';
 import { ExisNonEcmAhriComponent } from './home-ahi-matchups/exis-non-ecm-ahri/exis-non-ecm-ahri.component';
 import { HeatingCoolingAhriComponent } from './home-ahi-matchups/heating-cooling-ahri/heating-cooling-ahri.component';
 import { HomeRebateFinderComponent } from './home-rebate-finder/home-rebate-finder.component';
 import { CoolingOnlyRComponent } from './home-rebate-finder/cooling-only-r/cooling-only-r.component';
 import { HeatingCoolingRComponent } from './home-rebate-finder/heating-cooling-r/heating-cooling-r.component';
-import { INowModelNrComponent } from './home-rebate-finder/i-now-model-nr/i-now-model-nr.component'; 
+import { IKnowModelNrComponent } from './home-rebate-finder/i-know-model-nr/i-know-model-nr.component'; 
 import { ResultsRebateComponent } from './reusable-components/results-rebate/results-rebate.component'; 
 
 
@@ -57,11 +57,6 @@ const routes: Routes = [{
               data: { breadcrumb: 'Furnace only installations' }
             },
             {
-              path: 'know-model-nbr',
-              component: KnowModelNbrAhriComponent,
-              data: { breadcrumb: 'I know my model' }
-            },
-            {
               path: 'exis-non-ECM-furnace',
               component: ExisNonEcmAhriComponent,
               data: { breadcrumb: 'Existing or non-ECM furnace instalation' }
@@ -93,16 +88,22 @@ const routes: Routes = [{
               data: { breadcrumb: 'Heating and cooling' }
             },
             {
-              path: 'i-now-model-nr',
-              component: INowModelNrComponent,
-              data: { breadcrumb: 'I now my model nr' }
+              path: 'i-know-model-nr',
+              component: IKnowModelNrComponent,
+              data: { breadcrumb: 'I know my model nr' }
             },
           ]
         },
         {
-          path: 'detail',
+          path: 'detail/:body',
           component: DetailComponent,
           data: { breadcrumb: 'Detail' }
+        },
+
+        {
+          path: 'bestDetail/:body',
+          component: BestDetailComponent,
+          data: { breadcrumb: 'Best detail' }
         },
 
         {

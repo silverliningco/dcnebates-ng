@@ -1,8 +1,6 @@
 <h2 class="rc-main-title">HVAC System Detail</h2>
 <mat-card class="rc-card detail">
   <div fxLayout="row column" fxLayoutGap="16px Grid">
-
-    <!-- skus -->
     <div fxFlex="30" fxFlex.sm="81" fxFlex.xs="80">
       <div class="part-detail">
         <div class="title-part">
@@ -12,39 +10,19 @@
         <div class="content-detail">
           <div class="group-content">
             <p class="rc-small">Outdoor Unit</p>
-            <p class="data">{{detail.outdoorUnitSKU}}</p>
+            <p class="data">{{detail.outdoorUnit}}</p>
           </div>
           <div class="group-content">
             <p class="rc-small">Indoor Unit</p>
-            <p class="data">{{detail.indoorUnitSKU}}</p>
+            <p class="data">{{detail.indoorUnit}}</p>
           </div>
           <div class="group-content">
             <p class="rc-small">Furnace</p>
-            <p class="data">{{detail.furnaceSKU || "-" }}</p>
+            <p class="data">{{detail.furnaceUnit || "-" }}</p>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- AHRI References -->
-    <div fxFlex="30" fxFlex.sm="80" fxFlex.xs="80">
-      <div class="part-detail">
-        <div class="title-part">
-          <div class="decoration"></div>
-          <h4 class="text">AHRI References</h4>
-        </div>
-        <div class="content-detail">
-          <div class="group-content">
-            <p class="rc-small">List of AHRI References</p>
-            <ul class="rc-list-details">
-              <li *ngFor="let ahri_ref of detail?.AHRIReferences">{{ahri_ref}}</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- AHRI Ratings -->
     <div fxFlex="40" fxFlex.sm="100" fxFlex.xs="100">
       <div class="part-detail">
         <div class="title-part">
@@ -113,30 +91,44 @@
             <span *ngIf="reb.rebateTierTitle !='Default'">
               {{reb.rebateTierTitle}}
             </span>
-          </h5>              
+          </h5>
         </mat-card-title>
         
-        <mat-card-content>
-          <div class="description">
-            <p *ngIf="reb.description == ''">No description yet.</p>
-            <p *ngIf="reb.description != ''">{{reb.description}}</p>
-          </div>
-          
+        <mat-card-content>          
           <div fxLayout="row column" fxLayoutGap="8px grid">
-            <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" *ngIf="existLink">
-              <ul class="link-list">
-                <li *ngFor="let link of reb.links">
-                  <a target="_blank" (click)="onNavigate(link.url)">
-                    <mat-icon>link</mat-icon> {{link.title}}
-                  </a>
-                </li>
-              </ul>
-            </div>
             <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
               <div fxLayout fxLayoutAlign="end end" class="price-content">
                 <div class="price">
                   <h5 class="rc-small">UP TO</h5>
                   <h1>{{reb.amount | currency:"USD":"symbol" : '1.0-0'}}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+  </div>
+</div>
+
+<br/>
+
+<!--accesories-->
+<div *ngIf="existAcc">
+  <h2 class="rc-page-subtitle">Accesories</h2>
+  <div fxLayout="row column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center stretch" fxLayoutGap="16px grid" fxLayoutGap.sm="8" fxLayoutGap.xs="8">
+      <mat-card *ngFor="let acc of accesorie" fxFlex="48" fxFlex.sm="100" fxFlex.xs="100" class="rc-detail-available-rebates">
+        <mat-card-title>
+          <h5>
+            {{acc.title}} 
+          </h5>
+        </mat-card-title>
+        
+        <mat-card-content>          
+          <div fxLayout="row column" fxLayoutGap="8px grid">
+            <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
+              <div fxLayout fxLayoutAlign="end end" class="price-content">
+                <div class="price">
+                  <h1>{{acc.amount | currency:"USD":"symbol" : '1.0-0'}}</h1>
                 </div>
               </div>
             </div>

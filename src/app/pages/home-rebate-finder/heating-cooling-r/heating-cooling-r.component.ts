@@ -30,7 +30,8 @@ export class HeatingCoolingRComponent implements OnInit {
   elegibilityQuestionsGroup !: FormGroup;
   commerceInfoGroup !: FormGroup;
   nominalSizeGroup !: FormGroup;
-  furnaceGroup !: FormGroup; stateGroup !: FormGroup;
+  furnaceGroup !: FormGroup; 
+  stateGroup !: FormGroup;
   utilityGroup !: FormGroup;
 
   payload: any;
@@ -245,7 +246,7 @@ export class HeatingCoolingRComponent implements OnInit {
       /* elegibilityQuestions: this.elegibilityQuestionsGroup.value, */
       utilityProviders: this.utilityGroup.value
     }  
-    /* sent the infor to product-lines-components */
+    /* sent the info to results-rebate */
     this._bridge.sentRebateParams.emit({
       data: this.payload
     });

@@ -1,15 +1,14 @@
 /* note: all the attributes that have type any, does have value null when received the payload */
-export class Detail {
+export class BestDetail {
     constructor(
-
-        public outdoorUnitSKU?: string,
-        public indoorUnitSKU?: string,
-        public furnaceSKU?: string,
+        public outdoorUnit?: string,
+        public indoorUnit?: string,
+        public furnaceUnit?: string,
 
         public indoorUnits?: Array<string>,
         public furnaceUnits?: Array<string>,
 
-        public name?: string, /* aque se sefiere, cual es la diferencia con names */
+        public name?: string,
         public availablerebates?: Array<Rebate>,
         public EER?: number,
         public AFUE?: any,
