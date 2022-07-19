@@ -78,9 +78,9 @@ export class IKnowModelNrComponent implements OnInit {
     });
 
     this.filtersGroup = this._formBuilder.group({
-      outdootUnit: [''],
-      indoorUnit: [''],
-      furnaceUnit: [''],
+      outdootUnit: [null],
+      indoorUnit: [null],
+      furnaceUnit: [null],
     });
   }
 
@@ -304,14 +304,11 @@ Payload() {
   );
 
   this.payload = {
-    searchType: "Cooling Only",
     fuelSource: this.furnaceGroup.controls['fuelSource'].value,
     commerceInfo: {    
       "storeId": 1,
       "showAllResults": false  
     },
-    nominalSize: { },
-    systemTypeId: 2,
     filters: myfilters,
     requiredRebates: this.getSelectedRebates(),
     outdoorUnit:  this.filtersGroup.controls['outdootUnit'].value,
