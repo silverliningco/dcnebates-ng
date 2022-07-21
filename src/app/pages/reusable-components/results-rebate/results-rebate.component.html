@@ -138,194 +138,409 @@
         <!-- *** applied filters end  *** -->
         
       <!-- *** results combinations *** -->
-<mat-card class="rc-results-rebate" *ngFor="let ahriCombination of bestResults; let i = index">
-  <div fxLayout="row column" fxLayoutGap="16px grid" >
 
-    <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
-      <mat-card-header>
-        <mat-card-title>
-          <div fxLayout="row column" fxLayoutAlign="space-between center">
-            <div fxFlex="100" fxFlex.sm="55" fxFlex.xs="100">
-              {{ahriCombination.names}}
+      <!--Diseño 1-->
+      <mat-card class="rc-results-rebate">
+        <div fxLayout="row column" fxLayoutAlign="center stretch" fxLayoutGap="16px grid" >
+      
+          <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
+            <mat-card-header>
+              <mat-card-title>
+                <div fxLayout="row column" fxLayoutAlign="space-between center">
+                  <div fxFlex="100" fxFlex.sm="55" fxFlex.xs="100">
+                    <h3>DLS MULTI 30K 230V HP CDU</h3>
+                    <p><b>Outdoor Unit: </b>25HCE430AP03</p>
+                    <p><b>SKU: </b>25HCE430AP03</p>
+                  </div>
+                  <div fxFlex="40" fxFlex.sm="40" fxFlex.xs="100" class="rc-rebate-price rc-hide rc-show-md">
+                      <h5 class="rc-small">REBATES UP</h5>
+                      <h1>$1000.00</h1>
+                  </div>
+                </div>
+              </mat-card-title>
+      
+              <!-- skus of units -->
+              <mat-card-subtitle >
+                <div fxLayout="row column" fxLayoutAlign="space-between center" class="rc-model-nrs" fxLayoutGap="16px grid">
+                  <div fxFlex="100">
+                      <span class="rc-small">Indoor Unit</span>
+                      <mat-form-field class="ms-option-style">
+                        <mat-select>
+                          <mat-option class="ms-option-style-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
+                          <mat-option class="ms-option-style-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
+                          <mat-option class="ms-option-style-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
+                          <mat-option class="ms-option-style-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
+                          <mat-option class="ms-option-style-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="100">
+                    <span class="rc-small">Furnace</span>
+                    <mat-form-field class="ms-option-style">
+                      <mat-select>
+                        <mat-option class="ms-option-style-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
+                        <mat-option class="ms-option-style-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
+                        <mat-option class="ms-option-style-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
+                        <mat-option class="ms-option-style-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
+                        <mat-option class="ms-option-style-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </mat-card-subtitle>
+              <!-- skus of units end -->
+      
+            </mat-card-header>
+          </div>
+      
+          <!-- amount -->
+          <div fxFlex="30" class="rc-show rc-hide-md">
+              <div class="rc-rebate-price" fxLayout="row" fxLayoutAlign="center center">
+                <h5 class="rc-small">REBATES UP</h5>
+                <h1>$1000.00</h1>
+              </div>
+          </div>
+        </div>
+      
+          <mat-card-content>
+              <div fxLayout="row column" fxLayoutGap="16px grid">
+                
+                <!-- rebates -->
+                <div fxFlex="25" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
+                    <div class="rc-list-rebates">
+                      <span class="rc-small">Rebates</span>
+                      <ul class="rc-unlisted">
+                        <li>
+                          <mat-icon> money</mat-icon>
+                          Rebate 1
+                        </li>
+                        <li>
+                          <mat-icon> money</mat-icon>
+                          Rebate 2
+                        </li>
+                        <li>
+                          <mat-icon> money</mat-icon>
+                          Rebate 3
+                        </li>
+                      </ul>
+                    </div>
+                </div>
+                <!-- rebates end -->
+      
+                  <!-- accesories -->
+                  <div fxFlex="25" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
+                      <div class="rc-list-accesories">
+                          <span class="rc-small">Accesories</span>
+                            <div>
+                              <mat-checkbox>
+                                Accesorie 1<span class="rc-add-price-rebate">+ $100</span>
+                              </mat-checkbox>
+                            </div>
+                            <div>
+                              <mat-checkbox>
+                                Accesorie 2<span class="rc-add-price-rebate">+ $100</span>
+                              </mat-checkbox>
+                            </div>
+                            <div>
+                              <mat-checkbox>
+                                Accesorie 3<span class="rc-add-price-rebate">+ $100</span>
+                              </mat-checkbox>
+                            </div>
+                      </div>
+                  </div>
+                  <!-- accesories end -->
+      
+                  <!-- AHRI ratings -->
+                  <div fxFlex="20" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
+                      <div class="rc-list-ahri-rating">
+                        <mat-accordion>
+                          <mat-expansion-panel [expanded]="true">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                <span class="rc-small">AHRI Ratings</span>
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                              <div fxLayout="row" class="rc-list-result">
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <span>SEER</span>
+                                </div>
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  14
+                                </div>                                 
+                              </div>
+                              <div fxLayout="row" class="rc-list-result">
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <span>EER</span>
+                                </div>
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  11.5
+                                </div>                                 
+                              </div>
+                              <div fxLayout="row" class="rc-list-result">
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <span>HPSF</span>
+                                </div>
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">                                      
+                                  8.2
+                                </div>
+                              </div>
+                          </mat-expansion-panel>
+                        </mat-accordion>
+                      </div>
+                  </div>
+                  <!-- AHRI ratings end -->
+      
+                  <!-- performance data -->
+                  <div fxFlex="30" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
+                    <div class="rc-list-detail-performance">
+                      <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100">
+                        <mat-accordion>
+                          <mat-expansion-panel [expanded]="true">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                <span class="rc-small">Detail Performance Data</span>
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div fxLayout="row" class="rc-list-result">
+                              <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                <span>Heating BTUH</span>
+                              </div>
+                              <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                26 346 
+                              </div>
+                            </div>
+                            <div fxLayout="row" class="rc-list-result">
+                              <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                <span>Cooling BTUH</span>
+                              </div>
+                              <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  18 300
+                              </div>
+                            </div>
+                            <div fxLayout="row" class="rc-list-result" fxLayoutAlign="space-between center" >
+                              <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                <span>Estimated CO2</span>
+                              </div>
+                              <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50" style="padding-top: 5px;">
+                                <mat-icon class="rc-co2-icon">nature</mat-icon>
+                                <mat-icon class="rc-co2-icon">nature</mat-icon>
+                                <mat-icon class="rc-co2-icon">nature</mat-icon>
+                                <mat-icon class="rc-co2-icon">nature</mat-icon>
+                              </div>
+                            </div>
+                          </mat-expansion-panel>
+                        </mat-accordion>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- performance data end -->
+      
+              </div>
+      
+          </mat-card-content>
+          <mat-card-actions>
+            <div fxLayout="row column" fxLayoutAlign="end center" fxLayoutGap="16px grid">
+              <div>
+                <button mat-button class="rc-detail-button" fxLayout fxLayoutAlign="center center" (click)="sentmodelNrs()" target="_blank">
+                  VIEW DETAIL 
+                  <mat-icon>search</mat-icon>
+                </button>
+              </div>
+              <div>
+                <button mat-button class="rc-card-button">ADD TO CARD <mat-icon>add_shopping_cart</mat-icon></button>
+              </div>
             </div>
-            <div fxFlex="40" fxFlex.sm="40" fxFlex.xs="100" class="rc-rebate-price rc-hide rc-show-md">
+          </mat-card-actions>
+      </mat-card>
+
+      <mat-card class="rc-results-rebate" *ngFor="let ahriCombination of bestResults; let i = index">
+        <div fxLayout="row column" fxLayoutGap="16px grid" >
+
+          <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
+            <mat-card-header>
+              <mat-card-title>
+                <div fxLayout="row column" fxLayoutAlign="space-between center">
+                  <div fxFlex="100" fxFlex.sm="55" fxFlex.xs="100">
+                    <h3>{{ahriCombination.names}}</h3>
+                  </div>
+                  <div fxFlex="40" fxFlex.sm="40" fxFlex.xs="100" class="rc-rebate-price rc-hide rc-show-md">
+                      <h5 class="rc-small">REBATES UP</h5>
+                      <h1>{{ahriCombination.totalAvailableRebates | currency}}</h1>
+                  </div>
+                </div>
+              </mat-card-title>
+
+              <!-- skus of units -->
+              <mat-card-subtitle >
+                <div fxLayout="row column" fxLayoutAlign="space-between center" class="rc-model-nrs" fxLayoutGap="16px grid">
+                  <div fxFlex="30" fxFlex.sm="80" fxFlex.xs="100" >
+                      <span class="rc-small">Outdoor Unit</span>
+                      <p>{{ahriCombination.outdoorUnitSKU}}</p>
+                  </div>
+                  <div class="rc-mt-5" fxFlex="30" fxFlex.sm="50" fxFlex.xs="50" *ngIf="showIndoorUnits">
+                      <span class="rc-small">Indoor Unit</span>
+                      <mat-form-field>
+                        <mat-select [value]="ahriCombination.indoorUnitSKU" (selectionChange)="filterIndoorBySKU($event.value, i)">
+                          <mat-option *ngFor="let val of ahriCombination.indoorUnits" [value]="val"> {{val}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="30" fxFlex.sm="50" fxFlex.xs="50" *ngIf="showFurnaceUnits">
+                    <span class="rc-small">Furnace</span>
+                    <mat-form-field>
+                      <mat-select [value]="ahriCombination.furnaceSKU" (selectionChange)="filterFurnaceBySKU($event.value, i)">
+                        <mat-option *ngFor="let val of ahriCombination.furnaceUnits" [value]="val"> {{val}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </mat-card-subtitle>
+              <!-- skus of units end -->
+
+            </mat-card-header>
+          </div>
+
+          <!-- amount -->
+          <div fxFlex="30" class="rc-show rc-hide-md">
+              <div class="rc-rebate-price" fxLayout="row" fxLayoutAlign="center center">
                 <h5 class="rc-small">REBATES UP</h5>
                 <h1>{{ahriCombination.totalAvailableRebates | currency}}</h1>
-            </div>
-          </div>
-        </mat-card-title>
-
-        <!-- skus of units -->
-        <mat-card-subtitle >
-          <div fxLayout="row column" fxLayoutAlign="space-between center" class="rc-model-nrs" fxLayoutGap="16px grid">
-            <div fxFlex="30" fxFlex.sm="80" fxFlex.xs="100" >
-                <span class="rc-small">Outdoor Unit</span>
-                <p>{{ahriCombination.outdoorUnitSKU}}</p>
-            </div>
-            <div class="rc-mt-5" fxFlex="30" fxFlex.sm="50" fxFlex.xs="50" *ngIf="showIndoorUnits">
-                <span class="rc-small">Indoor Unit</span>
-                <mat-form-field>
-                  <mat-select [value]="ahriCombination.indoorUnitSKU" (selectionChange)="filterIndoorBySKU($event.value, i)">
-                    <mat-option *ngFor="let val of ahriCombination.indoorUnits" [value]="val"> {{val}}</mat-option>
-                  </mat-select>
-              </mat-form-field>
-            </div>
-            <div fxFlex="30" fxFlex.sm="50" fxFlex.xs="50" *ngIf="showFurnaceUnits">
-              <span class="rc-small">Furnace</span>
-              <mat-form-field>
-                <mat-select [value]="ahriCombination.furnaceSKU" (selectionChange)="filterFurnaceBySKU($event.value, i)">
-                  <mat-option *ngFor="let val of ahriCombination.furnaceUnits" [value]="val"> {{val}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-        </mat-card-subtitle>
-        <!-- skus of units end -->
-
-      </mat-card-header>
-    </div>
-
-    <!-- amount -->
-    <div fxFlex="30" class="rc-show rc-hide-md">
-        <div class="rc-rebate-price" fxLayout="row" fxLayoutAlign="center center">
-          <h5 class="rc-small">REBATES UP</h5>
-          <h1>{{ahriCombination.totalAvailableRebates | currency}}</h1>
-        </div>
-    </div>
-  </div>
-
-    <mat-card-content>
-        <div fxLayout="row column" fxLayoutGap="16px grid">
-          
-          <!-- rebates -->
-          <div fxFlex="25" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
-              <div class="rc-list-rebates">
-                <span class="rc-small">Rebates</span>
-                <ul class="rc-unlisted">
-                  <li *ngFor="let val of ahriCombination.availablerebates">
-                    <mat-icon> money</mat-icon>
-                    {{val.rebateTitle}}
-                  </li>
-                </ul>
               </div>
           </div>
-          <!-- rebates end -->
+        </div>
 
-            <!-- accesories -->
-            <div fxFlex="25" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
-                <div class="rc-list-accesories">
-                    <span class="rc-small">Accesories</span>
-                      <div *ngFor="let val of ahriCombination.accesories">
-                        <mat-checkbox>
-                          {{val.title}}<span class="rc-add-price-rebate">+ {{val.amount | currency}}</span>
-                        </mat-checkbox>
-                      </div>
+          <mat-card-content>
+              <div fxLayout="row column" fxLayoutGap="16px grid">
+                
+                <!-- rebates -->
+                <div fxFlex="25" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
+                    <div class="rc-list-rebates">
+                      <span class="rc-small">Rebates</span>
+                      <ul class="rc-unlisted">
+                        <li *ngFor="let val of ahriCombination.availablerebates">
+                          <mat-icon> money</mat-icon>
+                          {{val.rebateTitle}}
+                        </li>
+                      </ul>
+                    </div>
                 </div>
-            </div>
-            <!-- accesories end -->
+                <!-- rebates end -->
 
-            <!-- AHRI ratings -->
-            <div fxFlex="20" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
-                <div class="rc-list-ahri-rating">
-                  <mat-accordion>
-                    <mat-expansion-panel [expanded]="true">
-                      <mat-expansion-panel-header>
-                        <mat-panel-title>
-                          <span class="rc-small">AHRI Ratings</span>
-                        </mat-panel-title>
-                      </mat-expansion-panel-header>
-                        <div fxLayout="row" class="rc-list-result">
-                          <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                            <span>SEER</span>
-                          </div>
-                          <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                            {{ahriCombination.SEER}}
-                          </div>                                 
-                        </div>
-                        <div fxLayout="row" class="rc-list-result">
-                          <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                            <span>EER</span>
-                          </div>
-                          <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                            {{ahriCombination.EER}}
-                          </div>                                 
-                        </div>
-                        <div fxLayout="row" class="rc-list-result">
-                          <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                            <span>HPSF</span>
-                          </div>
-                          <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">                                      
-                            {{ahriCombination.HSPF}}
-                          </div>
-                        </div>
-                    </mat-expansion-panel>
-                  </mat-accordion>
-                </div>
-            </div>
-            <!-- AHRI ratings end -->
+                  <!-- accesories -->
+                  <div fxFlex="25" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
+                      <div class="rc-list-accesories">
+                          <span class="rc-small">Accesories</span>
+                            <div *ngFor="let val of ahriCombination.accesories">
+                              <mat-checkbox>
+                                {{val.title}}<span class="rc-add-price-rebate">+ {{val.amount | currency}}</span>
+                              </mat-checkbox>
+                            </div>
+                      </div>
+                  </div>
+                  <!-- accesories end -->
 
-            <!-- performance data -->
-            <div fxFlex="30" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
-              <div class="rc-list-detail-performance">
-                <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100">
-                  <mat-accordion>
-                    <mat-expansion-panel [expanded]="true">
-                      <mat-expansion-panel-header>
-                        <mat-panel-title>
-                          <span class="rc-small">Detail Performance Data</span>
-                        </mat-panel-title>
-                      </mat-expansion-panel-header>
-                      <div fxLayout="row" class="rc-list-result">
-                        <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                          <span>Heating BTUH</span>
-                        </div>
-                        <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                          26 346 
-                        </div>
+                  <!-- AHRI ratings -->
+                  <div fxFlex="20" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
+                      <div class="rc-list-ahri-rating">
+                        <mat-accordion>
+                          <mat-expansion-panel [expanded]="true">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                <span class="rc-small">AHRI Ratings</span>
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                              <div fxLayout="row" class="rc-list-result">
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <span>SEER</span>
+                                </div>
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  {{ahriCombination.SEER}}
+                                </div>                                 
+                              </div>
+                              <div fxLayout="row" class="rc-list-result">
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <span>EER</span>
+                                </div>
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  {{ahriCombination.EER}}
+                                </div>                                 
+                              </div>
+                              <div fxLayout="row" class="rc-list-result">
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <span>HPSF</span>
+                                </div>
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">                                      
+                                  {{ahriCombination.HSPF}}
+                                </div>
+                              </div>
+                          </mat-expansion-panel>
+                        </mat-accordion>
                       </div>
-                      <div fxLayout="row" class="rc-list-result">
-                        <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                          <span>Cooling BTUH</span>
-                        </div>
-                        <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                            18 300
-                        </div>
+                  </div>
+                  <!-- AHRI ratings end -->
+
+                  <!-- performance data -->
+                  <div fxFlex="30" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
+                    <div class="rc-list-detail-performance">
+                      <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100">
+                        <mat-accordion>
+                          <mat-expansion-panel [expanded]="true">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                <span class="rc-small">Detail Performance Data</span>
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div fxLayout="row" class="rc-list-result">
+                              <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                <span>Heating BTUH</span>
+                              </div>
+                              <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                26 346 
+                              </div>
+                            </div>
+                            <div fxLayout="row" class="rc-list-result">
+                              <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                <span>Cooling BTUH</span>
+                              </div>
+                              <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  18 300
+                              </div>
+                            </div>
+                            <div fxLayout="row" class="rc-list-result" fxLayoutAlign="space-between center" >
+                              <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                <span>Estimated CO2</span>
+                              </div>
+                              <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50" style="padding-top: 5px;">
+                                <mat-icon class="rc-co2-icon">nature</mat-icon>
+                                <mat-icon class="rc-co2-icon">nature</mat-icon>
+                                <mat-icon class="rc-co2-icon">nature</mat-icon>
+                                <mat-icon class="rc-co2-icon">nature</mat-icon>
+                              </div>
+                            </div>
+                          </mat-expansion-panel>
+                        </mat-accordion>
                       </div>
-                      <div fxLayout="row" class="rc-list-result" fxLayoutAlign="space-between center" >
-                        <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                          <span>Estimated CO2</span>
-                        </div>
-                        <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50" style="padding-top: 5px;">
-                          <mat-icon class="rc-co2-icon">nature</mat-icon>
-                          <mat-icon class="rc-co2-icon">nature</mat-icon>
-                          <mat-icon class="rc-co2-icon">nature</mat-icon>
-                          <mat-icon class="rc-co2-icon">nature</mat-icon>
-                        </div>
-                      </div>
-                    </mat-expansion-panel>
-                  </mat-accordion>
-                </div>
+                    </div>
+                  </div>
+                  <!-- performance data end -->
+
+              </div>
+
+          </mat-card-content>
+          <mat-card-actions>
+            <div fxLayout="row column" fxLayoutAlign="end center" fxLayoutGap="16px grid">
+              <div>
+                <button mat-button class="rc-detail-button" fxLayout fxLayoutAlign="center center" (click)="sentmodelNrs()" target="_blank">
+                  VIEW DETAIL 
+                  <mat-icon>search</mat-icon>
+                </button>
+              </div>
+              <div>
+                <button mat-button class="rc-card-button">ADD TO CARD <mat-icon>add_shopping_cart</mat-icon></button>
               </div>
             </div>
-            <!-- performance data end -->
-
-        </div>
-
-    </mat-card-content>
-    <mat-card-actions>
-      <div fxLayout="row column" fxLayoutAlign="end center" fxLayoutGap="16px grid">
-        <div>
-          <button mat-button class="rc-detail-button" fxLayout fxLayoutAlign="center center" (click)="sentmodelNrs()" target="_blank">
-            VIEW DETAIL 
-            <mat-icon>search</mat-icon>
-          </button>
-        </div>
-        <div>
-          <button mat-button class="rc-card-button">ADD TO CARD <mat-icon>add_shopping_cart</mat-icon></button>
-        </div>
-      </div>
-    </mat-card-actions>
-</mat-card>
+          </mat-card-actions>
+      </mat-card>
  <!-- *** results combinations end ***-->
 
       </div>

@@ -111,30 +111,35 @@
 
 
   /*Card in results*/
-  mat-card.rc-results-rebate {
+  ::ng-deep mat-card.rc-results-rebate {
     margin-top: 1rem;
   }
-  mat-card.rc-results-rebate .rc-model-nrs {
+  ::ng-deep mat-card.rc-results-rebate .rc-model-nrs {
     border: 1px solid #d7d7d7;
       border-left: none;
       border-right: none;
       width: 100%;    
       padding-bottom: 6px;
   }
-  mat-card.rc-results-rebate .mat-card-subtitle{
+  ::ng-deep mat-card.rc-results-rebate .mat-card-subtitle{
     margin-bottom: 1.5rem !important;
 
   }
-  mat-card.rc-results-rebate .mat-card-header-text{
+  ::ng-deep mat-card.rc-results-rebate .mat-card-header-text{
     width: 100%;
     margin: 0;
+    min-width: 98%;
   }
-  mat-card.rc-results-rebate .mat-card-header .mat-card-title {
+  ::ng-deep mat-card.rc-results-rebate .mat-card-header .mat-card-title h3{
     font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 16px;
+    font-size: 25px;
+    margin-bottom: 4px;
+    font-family: 'Bitter', serif;
   }
-  mat-card.rc-results-rebate .mat-card-header .mat-card-subtitle{
+  ::ng-deep mat-card.rc-results-rebate .mat-card-header .mat-card-title{
+    font-size: 12px;
+  }
+  ::ng-deep mat-card.rc-results-rebate .mat-card-header .mat-card-subtitle{
     margin-bottom: 5px;
   }
   /* Start Change style to input combo box */
@@ -165,6 +170,32 @@
   ::ng-deep mat-card.rc-results-rebate .mat-form-field.mat-focused .mat-form-field-ripple{
     background-color: transparent;
   }
+  /*Style to select options in indoor unit and furnace*/
+  ::ng-deep .ms-option-style-option{
+    white-space: initial;
+    line-height: 22px !important;
+    height: auto !important;
+    padding: 0.15rem 0.5rem;
+  }
+  ::ng-deep .ms-option-style-option .mat-option-text, ::ng-deep .ms-option-style .mat-select-value-text .mat-select-min-line{
+    font-size: 12px;
+    line-height: 24px;
+  }
+  ::ng-deep .ms-option-style-option .mat-option-text .price{
+    margin-left: 0.25rem;
+    background-color: rgba(0, 114, 5, 0.09);
+    padding: 0 0.25rem;
+    color: #007205;
+    font-weight: bold;
+  }  
+  
+  ::ng-deep .ms-option-style-option .mat-select-value{
+    white-space: normal;
+  }
+
+
+
+
   /* End Change style to input combo box */
   
   mat-card.rc-results-rebate .rc-rebate-price{
@@ -174,6 +205,7 @@
     padding: 2.5rem 1rem;
     color: var(--rc-primary-color);
     text-align: center;
+    height: 100%;
   }
   mat-card.rc-results-rebate .rc-rebate-price h5.rc-small{
     margin-bottom: 5px;
@@ -185,6 +217,7 @@
   mat-card.rc-results-rebate .rc-rebate-price h1{
     font-family: 'Bitter', serif !important;
   }
+
   @media screen and (min-width: 960px) and (max-width: 1199px){
     mat-card.rc-results-rebate .rc-rebate-price h1{
       font-size: 26px;
@@ -327,5 +360,4 @@
     border-radius: 3px;
     font-size: 12px;
     padding: .5rem 1rem;
- }
-
+  }
