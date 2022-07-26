@@ -1,71 +1,61 @@
 /* Home Page*/
-  /* Card home */
-  mat-card.rc-card, mat-card.rc-card-home {
-    padding: 3rem 2rem;
-    transition: box-shadow .3s;
-  }
-    @media (max-width: 767px){
-      mat-card.rc-card, mat-card.rc-card-home {
-        padding: 1rem;
-      }
-    }
-  mat-card.rc-card:hover, mat-card.rc-card-home:hover {
+  .rc-card:hover, .rc-card.home:hover {
     cursor: pointer;
     box-shadow: 0 0 11px rgba(33,33,33,.2); 
   }
-  .rc-card-home-icon {
+  .rc-card.home .icon {
     width: 150px;
     height: 150px;
     margin-bottom: 1rem;
   }
-  .rc-card-home-icon img{
+  .rc-card.home .icon img{
     width: 100%;
   }
-  .rc-card-home-icon img.rc-img-hide{
+  .rc-card.home .icon img.rc-img-hide{
     display: none;
   }
-  .rc-card-home:hover img.rc-img{
+  .rc-card.home:hover .icon img.rc-img{
     display: none;
   }
-  mat-card.rc-card-home:hover mat-card-title{
+  .rc-card.home:hover mat-card-title{
     color: var(--rc-primary-color);
   }
-  .rc-card-home:hover img.rc-img-hide{
+  .rc-card.home:hover .icon img.rc-img-hide{
     display: inline-block;
   }
-  .rc-card-home .rc-card-home-icon mat-icon {
+  .rc-card.home .rc-card.home-icon mat-icon {
     color: var(--rc-primary-light-color);
     font-size: 50px;
     width: 50px;
     height: 50px;
   }
     @media (max-width: 374px){
-      .rc-card-home-icon {
+      .rc-card.home .icon {
           width: 70px;
           height: 70px;
       }
-      .rc-card-home .rc-card-home-icon mat-icon {
+      .rc-card.home .rc-card.home-icon mat-icon {
           font-size: 40px;
           width: 40px;
           height: 40px;
       }
     }
-  mat-card.rc-card-home mat-card-title{
+  .rc-card.home mat-card-title{
     color: #706f6f;
     font-weight: bold;
     font-size: 24px;
     margin-bottom: 1rem;
   }
-  mat-card.rc-card-home mat-card-content{
+  .rc-card.home mat-card-content{
     color: var(--rc-text-light-color);
   }
-  mat-card.rc-card-home mat-card-actions mat-icon {
+  .rc-card.home mat-card-actions mat-icon {
     color: var(--rc-accent-color);
   }
-  mat-card.rc-card-home mat-card-actions > button {
+  .rc-card.home mat-card-actions > button {
     background-color: transparent;
     border: none;
   }
-  mat-card.rc-card-home mat-card-actions > button:hover {
+  .rc-card.home mat-card-actions > button:hover {
     cursor: pointer;
   }
