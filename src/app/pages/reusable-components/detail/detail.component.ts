@@ -20,7 +20,7 @@ export class DetailComponent implements OnInit {
     private _api: ApiService
     ) { 
 
-    activatedRoute.params.subscribe( params => {
+   /*  activatedRoute.params.subscribe( params => {
 
      let body = JSON.parse(params['body']) ;
 
@@ -32,7 +32,7 @@ export class DetailComponent implements OnInit {
         error: (e) => alert(e.error),
         complete: () => console.info('complete')
       })
-    });
+    }); */
   }
 
   ngOnInit(): void {

@@ -174,11 +174,15 @@ export class CoolingOnlyRComponent implements OnInit {
 
     this.payload = {
       commerceInfo: this.commerceInfoGroup.value,
-      searchType: "Cooling Only",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       /* elegibilityQuestions: this.elegibilityQuestionsGroup.value, */
-      state: this.stateGroup.controls['state'].value    
+      state: this.stateGroup.controls['state'].value,
+      utilityProviders: { 
+        "electricUtility": this.utilityGroup.controls['electricUtility'].value
+      },
+      levelOneSystemTypeId: 2,
+      sizingConstraint: "Nominal cooling tons"
     }  
     /* sent the infor to product-lines-components */
     this._bridge.sentRebateParams.emit({

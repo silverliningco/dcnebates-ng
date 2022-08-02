@@ -1,172 +1,171 @@
 <mat-stepper #stepper linear  [orientation]="(stepperOrientation | async)!" (selectionChange)="tabChange($event)">
 
-    <!-- Step 1 State -->
-    <mat-step [stepControl]="stateGroup" errorMessage="Select an state.">
-      <form [formGroup]="stateGroup">
-        <!-- Name of step -->
-        <ng-template matStepLabel>State</ng-template>
-        <h2 class="rc-main-title">State</h2>
-        <!-- Content of step -->
-        <!-- selects -->
-        <mat-radio-group #stateIdGroup (change)="ChangeState()" formControlName="state" class="rc-radio-img">
-          <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="20px grid">
-            <mat-radio-button [value]="'ME'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
-              <div style="text-align: center;">
-                <img src="../../../../assets/images/icons/me.png" alt="" class="unchecked">
-                <img src="../../../../assets/images/icons/me-active.png" alt="" class="checked">
-                <p>ME</p>
-              </div>
-            </mat-radio-button>
-  
-            <mat-radio-button [value]="'NH'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
-              <img src="../../../../assets/images/icons/nh.png" alt="" class="unchecked">
-              <img src="../../../../assets/images/icons/nh-active.png" alt="" class="checked">
-              <p>NH</p>
-            </mat-radio-button>
-            <mat-radio-button [value]="'MA'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
-              <img src="../../../../assets/images/icons/ma.png" alt="" class="unchecked">
-              <img src="../../../../assets/images/icons/ma-active.png" alt="" class="checked">
-              <p>MA</p>
-            </mat-radio-button>
-            <mat-radio-button [value]="'RI'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
-              <img src="../../../../assets/images/icons/ri.png" alt="" class="unchecked">
-              <img src="../../../../assets/images/icons/ri-active.png" alt="" class="checked">
-              <p>RI</p>
-            </mat-radio-button>
-          </div>
-        </mat-radio-group>
-        <!-- button -->
-        <div fxLayout="column" fxLayoutAlign="center end" class="rc-stepper-buttons">
-          <button type="button" [disabled]="stateGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
-            <mat-icon>arrow_forward</mat-icon>
-          </button>
-        </div>
-  
-      </form>
-    </mat-step>
-    <!-- Step 1 end  -->
-  
-    <!-- Step 2 Utility Provider -->
-    <mat-step [stepControl]="utilityGroup" errorMessage="Select utility providers.">
-      <form [formGroup]="utilityGroup">
-        <!-- Name of step -->
-        <ng-template matStepLabel>Utility Providers</ng-template>
-        <h2 class="rc-main-title">Utility Providers</h2>
-        <!-- Content of step -->
-        <div fxLayout fxLayoutAlign="center">
-          <!-- User input -->
-          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
-  
-            <!-- utilities -->
-            <mat-form-field appearance="fill">
-              <mat-label>Electric Utility</mat-label>
-              <mat-select #sGroup formControlName="electricUtility">
-                <mat-option *ngFor ="let elec of electricity; let i = index" [value]="electricity[i].utilityProviderId" radioGroup="sGroup">
-                  {{electricity[i].title}}
-                </mat-option>
-                <mat-option value="0" radioGroup="sGroup">Other or N/A</mat-option>
-              </mat-select>
-            </mat-form-field>
-  
-            <!-- button -->
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
-              <button type="button" mat-button matStepperPrevious>Back</button>
-              <button type="button" [disabled]="utilityGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
-                <mat-icon>arrow_forward</mat-icon>
-              </button>
+  <!-- Step 1 State -->
+  <mat-step [stepControl]="stateGroup" errorMessage="Select an state.">
+    <form [formGroup]="stateGroup">
+      <!-- Name of step -->
+      <ng-template matStepLabel>State</ng-template>
+      <h2 class="rc-main-title">State</h2>
+      <!-- Content of step -->
+      <!-- selects -->
+      <mat-radio-group #stateIdGroup (change)="ChangeState()" formControlName="state" class="rc-radio-img">
+        <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="20px grid">
+          <mat-radio-button [value]="'ME'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
+            <div style="text-align: center;">
+              <img src="../../../../assets/images/icons/me.png" alt="" class="unchecked">
+              <img src="../../../../assets/images/icons/me-active.png" alt="" class="checked">
+              <p>ME</p>
             </div>
-          </div>
-        </div>
-      </form>
-    </mat-step>
-    <!-- Step 2 end  -->
-    
-    <!-- NOTE: for the moment this version doesn't consider this step -->
-    <!-- Step 3 Elegibility questions -->
-    <!-- <mat-step [stepControl]="elegibilityQuestionsGroup" errorMessage="Complete the form.">
-      <form [formGroup]="elegibilityQuestionsGroup"> -->
-        <!-- Name of step -->
-        <!-- <ng-template matStepLabel>Elegibility questions</ng-template>
-        <h2 class="rc-main-title">Elegibility questions</h2> -->
-        <!-- Content of step -->
-        <!-- <div fxLayout fxLayoutAlign="center"> -->
-          <!-- User input -->
-          <!-- <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
-            <div formArrayName="questions" *ngFor ="let question of questions.controls; let i = index">
-              <strong>{{question.value.question}}</strong>
-              <div [formGroupName]="i" class="rc-elegibility-questions">
-                <mat-radio-group aria-label="Select an option"  formControlName="answer" >
-                  <mat-radio-button *ngFor="let alternative of question.value.alternatives" [value]="alternative">{{alternative}}</mat-radio-button>
-                </mat-radio-group>
-              </div>
-            </div> -->
-            
-  
-            <!-- button -->
-           <!--  <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
-              <button type="button" mat-button matStepperPrevious>Back</button>
-              <button type="button" [disabled]="elegibilityQuestionsGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
-                <mat-icon>arrow_forward</mat-icon>
-              </button>
-            </div>
-          </div>
-        </div>
-      </form> 
-    </mat-step> -->
-    <!-- Step end 3 -->
-  
-    <!-- Step 4 Equipment Size -->
-    <mat-step [stepControl]="nominalSizeGroup" errorMessage="Complete all fields.">
-      <form [formGroup]="nominalSizeGroup">
-        <!-- Name of step -->
-        <ng-template matStepLabel>Equipment Size</ng-template>
-        <h2 class="rc-main-title">Equipment Size</h2>
-        <!-- Content of step -->
-        <div fxLayout fxLayoutAlign="center">
-          <!-- User input -->
-          <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
-  
-            <!-- input -->
-            <mat-form-field appearance="fill"  >
-              <mat-label>Cooling tons</mat-label>
-              <mat-select  #sGroup formControlName="coolingTons">
-                  <mat-option [value]="0.5" radioGroup="sGroup"> < 1.0 </mat-option>
-                  <mat-option [value]="1.0" radioGroup="sGroup"> 1.0  </mat-option>
-                  <mat-option [value]="1.5" radioGroup="sGroup"> 1.5 </mat-option>
-                  <mat-option [value]="2.0" radioGroup="sGroup"> 2.0 </mat-option>
-                  <mat-option [value]="2.5" radioGroup="sGroup"> 2.5 </mat-option>
-                  <mat-option [value]="3.0" radioGroup="sGroup"> 3.0 </mat-option>
-                  <mat-option [value]="3.5" radioGroup="sGroup"> 3.5 </mat-option>
-                  <mat-option [value]="4.0" radioGroup="sGroup"> 4.0 </mat-option>
-                  <mat-option [value]="4.5" radioGroup="sGroup"> 4.5 </mat-option>
-                  <mat-option [value]="5.0" radioGroup="sGroup"> 5.0 </mat-option>
-              </mat-select>
-            </mat-form-field>
-  
-            <!-- button -->
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
-              <button type="button" mat-button matStepperPrevious>Back</button>
-              <button type="button" [disabled]="nominalSizeGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
-                <mat-icon>arrow_forward</mat-icon>
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </mat-step>
-    <!-- Step 4 end  -->
-  
-    <!-- results -->
-    <mat-step>
-  
-      <ng-template matStepLabel>AHRI Combinations</ng-template>
-      <h2 class="rc-main-title">AHRI Combinations</h2>
-      
-      <!-- reusable component -->
-      <app-results-rebate></app-results-rebate>
+          </mat-radio-button>
 
-    </mat-step>
-    <!-- results end -->
+          <mat-radio-button [value]="'NH'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
+            <img src="../../../../assets/images/icons/nh.png" alt="" class="unchecked">
+            <img src="../../../../assets/images/icons/nh-active.png" alt="" class="checked">
+            <p>NH</p>
+          </mat-radio-button>
+          <mat-radio-button [value]="'MA'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
+            <img src="../../../../assets/images/icons/ma.png" alt="" class="unchecked">
+            <img src="../../../../assets/images/icons/ma-active.png" alt="" class="checked">
+            <p>MA</p>
+          </mat-radio-button>
+          <mat-radio-button [value]="'RI'" radioGroup="stateIdGroup" fxFlex.xs="80" fxFlex.sm="34">
+            <img src="../../../../assets/images/icons/ri.png" alt="" class="unchecked">
+            <img src="../../../../assets/images/icons/ri-active.png" alt="" class="checked">
+            <p>RI</p>
+          </mat-radio-button>
+        </div>
+      </mat-radio-group>
+      <!-- button -->
+      <div fxLayout="column" fxLayoutAlign="center end" class="rc-stepper-buttons">
+        <button type="button" [disabled]="stateGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </div>
+
+    </form>
+  </mat-step>
+  <!-- Step 1 end  -->
+
+  <!-- Step 2 Utility Provider -->
+  <mat-step [stepControl]="utilityGroup" errorMessage="Select utility providers.">
+    <form [formGroup]="utilityGroup">
+      <!-- Name of step -->
+      <ng-template matStepLabel>Utility Providers</ng-template>
+      <h2 class="rc-main-title">Utility Providers</h2>
+      <!-- Content of step -->
+      <div fxLayout fxLayoutAlign="center">
+        <!-- User input -->
+        <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
+
+          <!-- utilities -->
+          <mat-form-field appearance="fill">
+            <mat-label>Electric Utility</mat-label>
+            <mat-select #sGroup formControlName="electricUtility">
+              <mat-option *ngFor ="let elec of electricity; let i = index" [value]="electricity[i].utilityProviderId" radioGroup="sGroup">
+                {{electricity[i].title}}
+              </mat-option>
+              <mat-option value="0" radioGroup="sGroup">Other or N/A</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- button -->
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
+            <button type="button" mat-button matStepperPrevious>Back</button>
+            <button type="button" [disabled]="utilityGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-step>
+  <!-- Step 2 end  -->
   
-  </mat-stepper>
-  
+  <!-- NOTE: for the moment this version doesn't consider this step -->
+  <!-- Step 3 Elegibility questions -->
+  <!-- <mat-step [stepControl]="elegibilityQuestionsGroup" errorMessage="Complete the form.">
+    <form [formGroup]="elegibilityQuestionsGroup"> -->
+      <!-- Name of step -->
+      <!-- <ng-template matStepLabel>Elegibility questions</ng-template>
+      <h2 class="rc-main-title">Elegibility questions</h2> -->
+      <!-- Content of step -->
+      <!-- <div fxLayout fxLayoutAlign="center"> -->
+        <!-- User input -->
+        <!-- <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
+          <div formArrayName="questions" *ngFor ="let question of questions.controls; let i = index">
+            <strong>{{question.value.question}}</strong>
+            <div [formGroupName]="i" class="rc-elegibility-questions">
+              <mat-radio-group aria-label="Select an option"  formControlName="answer" >
+                <mat-radio-button *ngFor="let alternative of question.value.alternatives" [value]="alternative">{{alternative}}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div> -->
+          
+
+          <!-- button -->
+         <!--  <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
+            <button type="button" mat-button matStepperPrevious>Back</button>
+            <button type="button" [disabled]="elegibilityQuestionsGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form> 
+  </mat-step> -->
+  <!-- Step end 3 -->
+
+  <!-- Step 4 Equipment Size -->
+  <mat-step [stepControl]="nominalSizeGroup" errorMessage="Complete all fields.">
+    <form [formGroup]="nominalSizeGroup">
+      <!-- Name of step -->
+      <ng-template matStepLabel>Equipment Size</ng-template>
+      <h2 class="rc-main-title">Equipment Size</h2>
+      <!-- Content of step -->
+      <div fxLayout fxLayoutAlign="center">
+        <!-- User input -->
+        <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
+
+          <!-- input -->
+          <mat-form-field appearance="fill"  >
+            <mat-label>Cooling tons</mat-label>
+            <mat-select  #sGroup formControlName="coolingTons">
+                <mat-option [value]="0.5" radioGroup="sGroup"> < 1.0 </mat-option>
+                <mat-option [value]="1.0" radioGroup="sGroup"> 1.0  </mat-option>
+                <mat-option [value]="1.5" radioGroup="sGroup"> 1.5 </mat-option>
+                <mat-option [value]="2.0" radioGroup="sGroup"> 2.0 </mat-option>
+                <mat-option [value]="2.5" radioGroup="sGroup"> 2.5 </mat-option>
+                <mat-option [value]="3.0" radioGroup="sGroup"> 3.0 </mat-option>
+                <mat-option [value]="3.5" radioGroup="sGroup"> 3.5 </mat-option>
+                <mat-option [value]="4.0" radioGroup="sGroup"> 4.0 </mat-option>
+                <mat-option [value]="4.5" radioGroup="sGroup"> 4.5 </mat-option>
+                <mat-option [value]="5.0" radioGroup="sGroup"> 5.0 </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- button -->
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
+            <button type="button" mat-button matStepperPrevious>Back</button>
+            <button type="button" [disabled]="nominalSizeGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-step>
+  <!-- Step 4 end  -->
+
+  <!-- results -->
+  <mat-step>
+
+    <ng-template matStepLabel>AHRI Combinations</ng-template>
+    <h2 class="rc-main-title">AHRI Combinations</h2>
+    
+    <!-- reusable component -->
+    <app-results-rebate></app-results-rebate>
+
+  </mat-step>
+  <!-- results end -->
+
+</mat-stepper>

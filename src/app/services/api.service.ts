@@ -49,16 +49,9 @@ export class ApiService {
     return this._http.post(url, body);
   }
 
-  Detail(body: any): Observable<any> {
-
-    let url = URL_SERVICIOS + '/view-detail'; 
-
-    return this._http.post(url, body);
-  }
-
   Utilities(state: any){
 
-    let url = URL_SERVICIOS + '/utility-providers?country=US&state='+ state;
+    let url = URL_SERVICIOS + '//utility-providers?country=US&state='+ state;
 
     return this._http.get(url);
     
@@ -66,12 +59,6 @@ export class ApiService {
 
   ModelNrs(body: any){
     let url = URL_SERVICIOS + '/model-nrs'; 
-
-    return this._http.post(url, body);
-  }
-
-  DetailsBestOption(body: any){
-    let url = URL_SERVICIOS + '/view-details-best-option'; 
 
     return this._http.post(url, body);
   }

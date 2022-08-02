@@ -12,29 +12,29 @@
             <!-- User input -->
             <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
 
-            <!-- input -->
-            <mat-form-field appearance="fill"  > 
-                <mat-label>Cooling tons</mat-label>
-                <mat-select  #sGroup formControlName="coolingTons">
-                    <mat-option [value]="0.5" radioGroup="sGroup"> < 1.0 </mat-option>
-                    <mat-option [value]="1.0" radioGroup="sGroup"> 1.0  </mat-option>
-                    <mat-option [value]="1.5" radioGroup="sGroup"> 1.5 </mat-option>
-                    <mat-option [value]="2.0" radioGroup="sGroup"> 2.0 </mat-option>
-                    <mat-option [value]="2.5" radioGroup="sGroup"> 2.5 </mat-option>
-                    <mat-option [value]="3.0" radioGroup="sGroup"> 3.0 </mat-option>
-                    <mat-option [value]="3.5" radioGroup="sGroup"> 3.5 </mat-option>
-                    <mat-option [value]="4.0" radioGroup="sGroup"> 4.0 </mat-option>
-                    <mat-option [value]="4.5" radioGroup="sGroup"> 4.5 </mat-option>
-                    <mat-option [value]="5.0" radioGroup="sGroup"> 5.0 </mat-option>
-                </mat-select>
-            </mat-form-field>
+                <!-- input -->
+                <mat-form-field appearance="fill"  > 
+                    <mat-label>Cooling tons</mat-label>
+                    <mat-select  #sGroup formControlName="coolingTons">
+                        <mat-option [value]="0.5" radioGroup="sGroup"> < 1.0 </mat-option>
+                        <mat-option [value]="1.0" radioGroup="sGroup"> 1.0  </mat-option>
+                        <mat-option [value]="1.5" radioGroup="sGroup"> 1.5 </mat-option>
+                        <mat-option [value]="2.0" radioGroup="sGroup"> 2.0 </mat-option>
+                        <mat-option [value]="2.5" radioGroup="sGroup"> 2.5 </mat-option>
+                        <mat-option [value]="3.0" radioGroup="sGroup"> 3.0 </mat-option>
+                        <mat-option [value]="3.5" radioGroup="sGroup"> 3.5 </mat-option>
+                        <mat-option [value]="4.0" radioGroup="sGroup"> 4.0 </mat-option>
+                        <mat-option [value]="4.5" radioGroup="sGroup"> 4.5 </mat-option>
+                        <mat-option [value]="5.0" radioGroup="sGroup"> 5.0 </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-            <!-- button -->
-            <div fxLayout="column" fxLayoutAlign="center end" class="rc-stepper-buttons">
-                <button type="button" [disabled]="nominalSizeGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
-                <mat-icon>arrow_forward</mat-icon>
-                </button>
-            </div>
+                <!-- button -->
+                <div fxLayout="column" fxLayoutAlign="center end" class="rc-stepper-buttons">
+                    <button type="button" [disabled]="nominalSizeGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+                    <mat-icon>arrow_forward</mat-icon>
+                    </button>
+                </div>
 
             </div>
         </div>
@@ -48,7 +48,7 @@
         <h2 class="rc-main-title">AHRI Combinations</h2>
 
         <!-- reusable component -->
-        <app-results-ahri></app-results-ahri>
+        <app-results-rebate></app-results-rebate>
 
     </mat-step>
     <!-- results end -->

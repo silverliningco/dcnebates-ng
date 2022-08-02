@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { payloadForm } from '../../../models/payloadFrom';
 import { Rebate, RebateTier } from '../../../models/rebate';
+import { resultsSearch} from '../../../models/resultSearch';
 import { BestDetail } from '../../../models/detailBestOption';
 import { bridgeService } from '../../../services/bridge.service';
 
@@ -20,8 +21,10 @@ export class ResultsRebateComponent implements OnInit {
 
   /* PRODUC LINE */
   productLines!: any;
-  noResults!: boolean;
+  noResultsPL!: boolean;
+  noResultsSearch!: boolean;
   results!: any;
+  resultSearch: resultsSearch = new resultsSearch;
   bestResults!: any;
   filters: Array<any> = [];
 
@@ -31,6 +34,7 @@ export class ResultsRebateComponent implements OnInit {
 
   /* display title when exist filter */
   showIndoorUnitConfig: boolean = false;
+  showCoilType: boolean = false;
   showFurnaceUnits: boolean = false;
   showIndoorUnits: boolean = false;
 
@@ -45,22 +49,15 @@ export class ResultsRebateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-
     /* receiving form data */
        this._bridge.sentRebateParams
                  .subscribe((payload: any) => {
-   
-           this.myPayloadForm.commerceInfo = payload.data.commerceInfo;
-           this.myPayloadForm.nominalSize = payload.data.nominalSize;
-           this.myPayloadForm.fuelSource = payload.data.fuelSource;
-           this.myPayloadForm.searchType = payload.data.searchType;
-           this.myPayloadForm.state = payload.data.state;
-           //this.myPayloadForm.elegibilityQuestions = payload.data.elegibilityQuestions;
-           this.myPayloadForm.utilityProviders = payload.data.utilityProviders;
-   
-           this.CallProductLines();
-           this.GetAvailableRebates();
+                    this.myPayloadForm = payload.data;
+
+                    // this.llamadaPrueva();
+
+                    this.CallProductLines();
+                    this.GetAvailableRebates();
          });
    
     /* form control */
@@ -78,6 +75,7 @@ export class ResultsRebateComponent implements OnInit {
       outdoorUnitSKU: [''],
       furnaceSKU: [''],
       indoorUnitConfiguration: [null],
+      coilType: [null],
     });
 
   }
@@ -87,22 +85,36 @@ export class ResultsRebateComponent implements OnInit {
 /*                                                          PRODUCT LINE                                                                                  */
 /* ****************************************************************************************************************************************************** */
 
+PrepareProductLines(){
+
+  let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint} = this.myPayloadForm;
+
+    let body = {
+      "commerceInfo": commerceInfo,
+      "nominalSize": nominalSize,
+      "fuelSource": fuelSource,
+      "levelOneSystemTypeId": levelOneSystemTypeId,
+      "sizingConstraint": sizingConstraint
+    }
+
+    return body;
+
+}
+  
   CallProductLines() {
     //update commerce info with "updated show all results" input.
-    this.myPayloadForm.commerceInfo.showAllResults = this.commerceInfoGroup.controls['showAllResults'].value;
+    /* this.myPayloadForm.commerceInfo.showAllResults = this.commerceInfoGroup.controls['showAllResults'].value; */
 
-    var body = JSON.stringify(this.myPayloadForm);
-
-    this._api.ProductLines(body).subscribe({
+    this._api.ProductLines(this.PrepareProductLines()).subscribe({
       next: (resp) => {
         if (resp.length > 0) {
           this.productLines = resp
 
           this.productLinesGroup.controls['productLine'].setValue(resp[0].id);
           this.CallFilters();
-          this.noResults = false;
+          this.noResultsPL = false;
         } else {
-          this.noResults = true;
+          this.noResultsPL = true;
         }
       },
       error: (e) => alert(e.error),
@@ -129,17 +141,20 @@ export class ResultsRebateComponent implements OnInit {
 /* ****************************************************************************************************************************************************** */
 
 PrepareDataAvailableRebates(){
+
+  let {state, utilityProviders, fuelSource} = this.myPayloadForm;
+
   let body= {
     "country": "US",
-    "state": this.myPayloadForm.state,
-    "utilityProviders": this.myPayloadForm.utilityProviders,
-    "fuelSource": this.myPayloadForm.fuelSource,
-    "rebateTypes": ["electric", "fossil fuel", "OEM", "distributor"],
+    "state": state,
+    "utilityProviders": utilityProviders,
+    "fuelSource": fuelSource,
+    "rebateTypes": ["electric", "OEM", "distributor"],
     "OEM": "Carrier",
     "storeIds": []
   }
 
-  return JSON.stringify(body);
+  return body;
 }  
 
   GetAvailableRebates() {
@@ -287,7 +302,7 @@ PrepareDataAvailableRebates(){
 
 // Function that gets input values from UI and returns payload.
 Payload() {
-  let myfilters: {
+  var myfilters: {
     filterName: string;
     selectedValues: any[];
   }[] = [];
@@ -303,46 +318,85 @@ Payload() {
     }
   );
 
+  let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint} = this.myPayloadForm;
+
   let body = {
-    "groupBy": "Outdoor unit",
-    "searchType": this.myPayloadForm.searchType,
-    "fuelSource": this.myPayloadForm.fuelSource,
-    "commerceInfo": this.commerceInfoGroup.value,
-    "nominalSize": this.myPayloadForm.nominalSize,
-    "systemTypeId": this.productLinesGroup.controls['productLine'].value,
+    "commerceInfo": commerceInfo,
+    "nominalSize": nominalSize,
+    "fuelSource": fuelSource,
+    "levelOneSystemTypeId": levelOneSystemTypeId,
+    "levelTwoSystemTypeId": 2,
+    "sizingConstraint": sizingConstraint,
     "filters": myfilters,
-    "requiredRebates": this.getSelectedRebates()
-  }
+    // "requiredRebates": this.getSelectedRebates()
+  };
 
   return JSON.stringify(body);
 }
 
 CallSearch() {
-  this._api.Search(this.Payload()).subscribe({
+
+  let a = {
+    "commerceInfo": {
+      "storeId": 1,
+      "showAllResults": false
+    },
+    "nominalSize": {
+      "heatingBTUH": 58000,
+      "coolingTons": 2
+    },
+      "fuelSource":"Natural Gas",
+    "levelOneSystemTypeId": 1,
+    "levelTwoSystemTypeId": 2,
+    "sizingConstraint": "Nominal cooling tons",
+    "filters": null,
+    "requiredRebates": [{
+        "rebateId": 1,
+        "rebateTierId": 2,
+        "isRequired": false
+      },
+      {
+        "rebateId": 2,
+        "rebateTierId": 3,
+        "isRequired": false
+      },
+      {
+        "rebateId": 6,
+        "rebateTierId": 8,
+        "isRequired": false
+      }
+    ]
+  }
+
+  // this._api.Search(this.Payload()).subscribe({
+    this._api.Search(a).subscribe({
     next: (resp) => {
-      /* resp = a; */
       if (resp.length > 0) {
+        this.noResultsSearch = false;
         this.results = resp;
         this.bestResults = this.filterBestResults(resp);
+      } else {
+        this.noResultsSearch = true;
       }
     }
   })
 }
 
-
 // Function that call filters from API and update UI. 
 // also calls Search function to load results.
-CallFilters() {
+CallFilters() { 
+
   this.filtersGroup.disable();
 
   this._api.Filters(this.Payload()).subscribe({
     next: (resp) => {
       if (resp.length > 0) {
         this.filters = resp;
+
         this.filtersGroup.reset();
         // Set selected values
         resp.forEach((filter: any) => {
-          if (filter.filterName == 'coastal') {
+          if (filter.filterName === 'coastal') {
             this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues[0]);
           } else {
             this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
@@ -366,24 +420,51 @@ CallFilters() {
 showTitleFilter(filters: any) {
 
   this.showIndoorUnitConfig = false;
+  this.showCoilType = false;
 
   filters.forEach((ele: any) => {
     if (ele.filterName === 'indoorUnitConfiguration') {
       this.showIndoorUnitConfig = true
     }
   });
+
+  filters.forEach((ele: any) => {
+    if (ele.filterName === 'coilType') {
+      this.showCoilType = true
+    }
+  });
+
+
 }
 
 // Function to compose options for specified model type
 loadOptionsModelNrs(myDetails:BestDetail[], modelType:string){
    
-  let myModelNrs: Array<any> = []
+  let myModelNrs: Array<any> = [];
+
+  // ver 1
+  /* myDetails.forEach(subel => {
+
+    subel.components?.forEach(element => {
+      if (element[modelType as keyof typeof element]) {
+        myModelNrs.push(element[modelType as keyof typeof element])
+      }
+    });
+    
+  }); */
+
+  // ver 2
   myDetails.forEach(subel => {
-    if (subel[modelType as keyof typeof subel]) {
-      myModelNrs.push(subel[modelType as keyof typeof subel])
-    }
+    let res = subel.components?.filter((data: any) =>{
+      return Object.keys(data).some((key: any) => {
+        return JSON.stringify(data[key]).trim().includes(modelType);
+      });
+    });
+
+    myModelNrs.push(res);
   });
 
+  console.log(myModelNrs);
   // remove duplicates and asign to variables.
   return myModelNrs.filter((item,index) => myModelNrs.indexOf(item) === index);
 }
@@ -399,13 +480,13 @@ GetHighestRebateAmount(myDetails:BestDetail[]){
 }
 
 filterBestResults(resp: BestDetail[][]) {
-  var bestResults: any = []
+  var bestResults: any = [];
   resp.forEach(details => {
     // Get element with the highest rebate amount.  
-    const mySystem = this.GetHighestRebateAmount(details)
-    
-    mySystem.indoorUnits = this.loadOptionsModelNrs(details,"indoorUnitSKU");
-    mySystem.furnaceUnits = this.loadOptionsModelNrs(details,"furnaceSKU");
+    const mySystem = this.GetHighestRebateAmount(details);
+
+    mySystem.indoorUnits = this.loadOptionsModelNrs(details,"indoorUnit");
+    mySystem.furnaceUnits = this.loadOptionsModelNrs(details,"furnace");
 
     if (mySystem.furnaceUnits.length === 0){
       this.showFurnaceUnits = false;
@@ -419,7 +500,7 @@ filterBestResults(resp: BestDetail[][]) {
       this.showIndoorUnits = true;
     }
 
-    bestResults.push(mySystem)
+    bestResults.push(mySystem);
   });
 
   return (bestResults);
@@ -502,22 +583,24 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
 
   sentmodelNrs(){
 
-   let a = JSON.parse(this.Payload());
+    let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint} = this.myPayloadForm;
 
-   console.log(a.commerceInfo);
+    let body = {
+      "commerceInfo": commerceInfo,
+      "nominalSize": nominalSize,
+      "fuelSource": fuelSource,
+      "levelOneSystemTypeId": levelOneSystemTypeId,
+      "levelTwoSystemTypeId": 2,
+      "sizingConstraint": sizingConstraint,
+      "filters":null,
+	    "requiredRebates": this.getSelectedRebates()
+    }
 
-   /* let b = {
-     "commerceInfo": a.commerceInfo,
-     "skus":a.filters,
-     "AHRIRefs": '',
-     "requiredRebates": a.requiredRebates
-  }
+  //  let bodyDetail = JSON.parse(body);
 
-  let body = JSON.stringify(a);
-
-  console.log(body);
-   let url= '/home/detail/' + body;
-   window.open(url)   */
+   console.log(body);
+   let url= '/home/bestDetail/' + body;
+   window.open(url) 
  }
 
 

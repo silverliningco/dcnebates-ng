@@ -5,7 +5,6 @@ import { MatStepper, StepperOrientation } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { bridgeService } from '../../../services/bridge.service';
 
 @Component({
@@ -27,7 +26,6 @@ export class HeatingCoolingAhriComponent implements OnInit {
   nominalSizeGroup !: FormGroup;
   furnaceGroup !: FormGroup;
 
-  payloadRebates: Array<any> = [];
   payload: any;
 
   stepperOrientation: Observable<StepperOrientation>;
@@ -130,13 +128,13 @@ export class HeatingCoolingAhriComponent implements OnInit {
 
       this.payload = {
         commerceInfo: this.commerceInfoGroup.value,
-        searchType: "Heating and Cooling",
         nominalSize: this.nominalSizeGroup.value,
         fuelSource: this.furnaceGroup.controls['fuelSource'].value,
-        requiredRebates: this.payloadRebates
+        levelOneSystemTypeId: 1,
+        sizingConstraint: "Nominal cooling tons"
       }  
       /* sent the infor to product-lines-components */
-      this._bridge.sentAhriParams.emit({
+      this._bridge.sentRebateParams.emit({
         data: this.payload
       });
     

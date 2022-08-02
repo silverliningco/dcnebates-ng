@@ -239,12 +239,15 @@ export class HeatingCoolingRComponent implements OnInit {
 
     this.payload = {
       commerceInfo: this.commerceInfoGroup.value,
-      searchType: "Heating and Cooling",
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       state: this.stateGroup.controls['state'].value,
       /* elegibilityQuestions: this.elegibilityQuestionsGroup.value, */
-      utilityProviders: this.utilityGroup.value
+      utilityProviders: { 
+        "electricUtility": this.utilityGroup.controls['electricUtility'].value, 
+        "fossilFuelUtilityId": this.utilityGroup.controls['fossilFuelUtilityId'].value },
+      levelOneSystemTypeId: 1,
+      sizingConstraint: "Nominal cooling tons"
     }  
     /* sent the info to results-rebate */
     this._bridge.sentRebateParams.emit({

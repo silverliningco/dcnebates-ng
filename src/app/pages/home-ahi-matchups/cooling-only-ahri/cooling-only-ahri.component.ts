@@ -30,7 +30,6 @@ export class CoolingOnlyAhriComponent implements OnInit {
   productLinesGroup !: FormGroup;
   filtersGroup !: FormGroup;
 
-  payloadRebates: Array<any> = [];
   payload: any;
 
   stepperOrientation: Observable<StepperOrientation>;
@@ -67,12 +66,12 @@ export class CoolingOnlyAhriComponent implements OnInit {
 
     this.payload = {
       commerceInfo: this.commerceInfoGroup.value,
-      searchType: "Cooling Only",
       nominalSize: this.nominalSizeGroup.value,
-      requiredRebates: this.payloadRebates
+      levelOneSystemTypeId: 2,
+      sizingConstraint: "Nominal cooling tons"
     }  
     /* sent the infor to product-lines-components */
-    this._bridge.sentAhriParams.emit({
+    this._bridge.sentRebateParams.emit({
       data: this.payload
     });
   

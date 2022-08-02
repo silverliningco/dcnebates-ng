@@ -23,8 +23,17 @@ export class BestDetail {
         public coolingCapacityRated?: number,
         public furnaceConfigurations?: any,
         public totalAvailableRebates?: number,
-        public accesories?:Array<Accesories>
+        public accesories?:Array<Accesories>,
+        public components?: Array<Component>
     ) {}
+}
+
+export class Component{
+    constructor(
+        public SKU?: string,
+        public name?: string,
+        public type?: string
+    ){}
 }
 
 export class Accesories{

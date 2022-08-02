@@ -24,7 +24,6 @@
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "xng-breadcrumb": "^7.2.0",
-    "ngx-pagination": "^5.1.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

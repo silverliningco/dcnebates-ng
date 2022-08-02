@@ -27,7 +27,7 @@ export class BestDetailComponent implements OnInit {
     
       let body = params['body'] ;
 
-      this._api.DetailsBestOption(body).subscribe({
+      this._api.Search(body).subscribe({
         next: (resp) => {
           this.detail = resp;
           this.processRebate(this.detail.availablerebates);
@@ -35,7 +35,7 @@ export class BestDetailComponent implements OnInit {
         },
         error: (e) => alert(e.error),
         complete: () => console.info('complete')
-      })
+      }) 
     });
   }
 

@@ -29,7 +29,6 @@ export class ExisNonEcmAhriComponent implements OnInit {
   productLinesGroup !: FormGroup;
   filtersGroup !: FormGroup;
 
-  payloadRebates: Array<any> = [];
   payload: any;
 
   stepperOrientation: Observable<StepperOrientation>;
@@ -51,7 +50,6 @@ export class ExisNonEcmAhriComponent implements OnInit {
 
   ngOnInit(): void {
 
-
     this.commerceInfoGroup = this._formBuilder.group({
       storeId: 1,
       showAllResults: [false, Validators.required],
@@ -66,12 +64,12 @@ export class ExisNonEcmAhriComponent implements OnInit {
 
     this.payload = {
       commerceInfo: this.commerceInfoGroup.value,
-      searchType: "Existing or non-ECM furnace installations",
       nominalSize: this.nominalSizeGroup.value,
-      requiredRebates: this.payloadRebates
+      levelOneSystemTypeId: 3,
+      sizingConstraint: "Nominal cooling tons"
     }  
     /* sent the infor to product-lines-components */
-    this._bridge.sentAhriParams.emit({
+    this._bridge.sentRebateParams.emit({
       data: this.payload
     });
   

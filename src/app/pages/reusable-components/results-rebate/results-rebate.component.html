@@ -1,18 +1,17 @@
-<div *ngIf="!this.noResults">
+<div *ngIf="!this.noResultsPL">
 
+  <!-- Stock status -->
   <div class="rc-filter-stock">
     <form [formGroup]="commerceInfoGroup">
-      <!-- Stock status -->
       <h5 class="rc-filter-group-title">Stock status</h5>
       <mat-radio-group #rGroup formControlName="showAllResults" fxLayout="row" (change)="CallProductLines()">
         <mat-radio-button [value]="false" radioGroup="rGroup">Stock items only</mat-radio-button>
         <mat-radio-button [value]="true" radioGroup="rGroup">Show all</mat-radio-button>
       </mat-radio-group>
-
     </form>
   </div>
   
-    <!--Results-->
+  <!--Results-->
   <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16">
 
       <!-- ======= rebates and filters ======= -->
@@ -78,7 +77,25 @@
                         </mat-select>
                       </mat-form-field>
                     </div>
-                  </div>    
+                  </div> 
+                  <!-- indoorUnitConfiguration end -->
+                  
+                  <!-- Coil Type -->
+                  <h5 class="rc-filter-group-title" *ngIf="showCoilType">Coil Type</h5>
+                  <div *ngFor="let filter of filters" class="rc-filter-group">
+                    <div *ngIf="filter.filterName === 'coilType'">
+      
+                      <mat-form-field appearance="fill">
+                        <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
+                        <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallFilters()">
+                          <mat-option *ngFor="let val of filter.options" [value]="val"
+                            [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- Coil Type end -->
+                  
                 </form>
               </mat-card>
             </mat-tab>
@@ -139,7 +156,7 @@
         
       <!-- *** results combinations *** -->
 
-      <!--Diseño 1-->
+      <!-- static desing -->
       <mat-card class="rc-card results">
         <div fxLayout="row column" fxLayoutAlign="center stretch" fxLayoutGap="16px grid" >
       
@@ -337,6 +354,7 @@
               </div>
       
           </mat-card-content>
+
           <mat-card-actions>
             <div fxLayout="row column" fxLayoutAlign="end center" fxLayoutGap="16px grid">
               <div>
@@ -346,21 +364,27 @@
                 </button>
               </div>
               <div>
-                <button mat-button class="rc-card-button">ADD TO CARD <mat-icon>add_shopping_cart</mat-icon></button>
+                <button mat-button class="rc-card-button">
+                  ADD TO CARD 
+                  <mat-icon>add_shopping_cart</mat-icon></button>
               </div>
             </div>
           </mat-card-actions>
       </mat-card>
+      <!-- static desing end -->
 
+      <!-- dinamic desing -->
       <mat-card class="rc-card results" *ngFor="let ahriCombination of bestResults; let i = index">
         <div fxLayout="row column" fxLayoutGap="16px grid" >
 
           <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
             <mat-card-header>
+
               <mat-card-title>
-                <div fxLayout="row column" fxLayoutAlign="space-between center">
+                <div fxLayout="row column" fxLayoutAlign="space-between center" *ngFor="let unit of ahriCombination.components">
                   <div fxFlex="100" fxFlex.sm="55" fxFlex.xs="100">
-                    <h3>{{ahriCombination.names}}</h3>
+                    <h3>{{unit.name}}</h3>
+                    <p><b>SKU: </b>{{unit.SKU}}</p>
                   </div>
                   <div fxFlex="40" fxFlex.sm="40" fxFlex.xs="100" class="rebate-price rc-hide rc-show-md">
                       <h5 class="rc-small">REBATES UP</h5>
@@ -372,9 +396,9 @@
               <!-- skus of units -->
               <mat-card-subtitle >
                 <div fxLayout="row column" fxLayoutAlign="space-between center" class="model-nrs" fxLayoutGap="16px grid">
-                  <div fxFlex="30" fxFlex.sm="80" fxFlex.xs="100" >
+                  <div fxFlex="30" fxFlex.sm="80" fxFlex.xs="100" *ngFor="let unit of ahriCombination.components">
                       <span class="rc-small">Outdoor Unit</span>
-                      <p>{{ahriCombination.outdoorUnitSKU}}</p>
+                      <p>{{unit.SKU}}</p>
                   </div>
                   <div class="rc-mt-5" fxFlex="30" fxFlex.sm="50" fxFlex.xs="50" *ngIf="showIndoorUnits">
                       <span class="rc-small">Indoor Unit</span>
@@ -416,9 +440,9 @@
                     <div class="list-rebates">
                       <span class="rc-small">Rebates</span>
                       <ul class="rc-unlisted">
-                        <li *ngFor="let val of ahriCombination.availablerebates">
+                        <li *ngFor="let rebate of ahriCombination.availableRebates">
                           <mat-icon> money</mat-icon>
-                          {{val.rebateTitle}}
+                          {{rebate.rebateTitle}}
                         </li>
                       </ul>
                     </div>
@@ -431,7 +455,8 @@
                           <span class="rc-small">Accesories</span>
                             <div *ngFor="let val of ahriCombination.accesories">
                               <mat-checkbox>
-                                {{val.title}}<span class="accesorie-price">+ {{val.amount | currency}}</span>
+                                {{val.title}}
+                                <span class="accesorie-price">+ {{val.amount | currency}}</span>
                               </mat-checkbox>
                             </div>
                       </div>
@@ -540,6 +565,7 @@
             </div>
           </mat-card-actions>
       </mat-card>
+      <!-- dinamic desing end -->
  <!-- *** results combinations end ***-->
 
       </div>

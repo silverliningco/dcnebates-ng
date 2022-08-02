@@ -5,9 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
 import { AppRoutingModule } from '../app-routing.module';
 
-// pagination
-import {NgxPaginationModule} from 'ngx-pagination';
-
 /* breadcrumb */
 import { BreadcrumbModule } from 'xng-breadcrumb';
 
@@ -22,8 +19,7 @@ import { HeatingCoolingRComponent } from './home-rebate-finder/heating-cooling-r
 import { CoolingOnlyAhriComponent } from './home-ahi-matchups/cooling-only-ahri/cooling-only-ahri.component';
 import { ExisNonEcmAhriComponent } from './home-ahi-matchups/exis-non-ecm-ahri/exis-non-ecm-ahri.component';
 import { FurnaceOnlyInstallAhriComponent } from './home-ahi-matchups/furnace-only-install-ahri/furnace-only-install-ahri.component';
-import { HeatingCoolingAhriComponent } from './home-ahi-matchups/heating-cooling-ahri/heating-cooling-ahri.component';
-import { ResultsAhriComponent } from './reusable-components/results-ahri/results-ahri.component'; 
+import { HeatingCoolingAhriComponent } from './home-ahi-matchups/heating-cooling-ahri/heating-cooling-ahri.component'; 
 import { ResultsRebateComponent } from './reusable-components/results-rebate/results-rebate.component';
 
 /* angular material */
@@ -61,7 +57,6 @@ import { BestDetailComponent } from './reusable-components/best-detail/best-deta
     ExisNonEcmAhriComponent,
     FurnaceOnlyInstallAhriComponent,
     HeatingCoolingAhriComponent,
-    ResultsAhriComponent,
     ResultsRebateComponent,
     IKnowModelNrComponent,
     BestDetailComponent
@@ -73,7 +68,6 @@ import { BestDetailComponent } from './reusable-components/best-detail/best-deta
     HttpClientModule,
     SharedModule,
     AppRoutingModule,
-    NgxPaginationModule,
     BreadcrumbModule,
 
     MatCardModule,
