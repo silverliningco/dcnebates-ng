@@ -95,6 +95,22 @@
                     </div>
                   </div>
                   <!-- Coil Type end -->
+
+                  <!-- Coil Casing -->
+                  <h5 class="rc-filter-group-title" *ngIf="showcoilCasing">Coil Type</h5>
+                  <div *ngFor="let filter of filters" class="rc-filter-group">
+                    <div *ngIf="filter.filterName === 'coilCasing'">
+      
+                      <mat-form-field appearance="fill">
+                        <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
+                        <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallFilters()">
+                          <mat-option *ngFor="let val of filter.options" [value]="val"
+                            [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <!-- Coil Casing end -->
                   
                 </form>
               </mat-card>

@@ -35,6 +35,7 @@ export class ResultsRebateComponent implements OnInit {
   /* display title when exist filter */
   showIndoorUnitConfig: boolean = false;
   showCoilType: boolean = false;
+  showcoilCasing: boolean = false;
   showFurnaceUnits: boolean = false;
   showIndoorUnits: boolean = false;
 
@@ -74,8 +75,9 @@ export class ResultsRebateComponent implements OnInit {
       indoorUnitSKU: [''],
       outdoorUnitSKU: [''],
       furnaceSKU: [''],
-      indoorUnitConfiguration: [null],
-      coilType: [null],
+      indoorUnitConfiguration: null,
+      coilType: null,
+      coilCasing: null
     });
 
   }
@@ -302,21 +304,57 @@ PrepareDataAvailableRebates(){
 
 // Function that gets input values from UI and returns payload.
 Payload() {
-  var myfilters: {
+  let myfilters;
+  let indoorUnitConfiguration;
+  let coilType;
+  let coilCasing;
+
+  /* var myfilters: {
     filterName: string;
     selectedValues: any[];
-  }[] = [];
+  }[] = []; */
 
   Object.entries(this.filtersGroup.value).forEach(
     ([key, value]) => {
-      if (value && value != "") {
-        myfilters.push({
+      if (value != null) {
+        console.log(value);
+        switch  (key){
+          case 'indoorUnitConfiguration':
+            indoorUnitConfiguration = `"${key}": [${value}]`;
+            break;
+          case 'coilType':
+            coilType = `"${key}": [${value}]`;
+            break;
+          case 'coilCasing':
+            coilCasing = `"${key}": [${value}]`;
+            break;
+        }
+
+        /* myfilters.push({
           filterName: key,
           selectedValues: (Array.isArray(value)) ? value : [value]
-        });
+        }); */
+      } else {
+        console.log(key,value);
+        switch  (key){
+          case 'indoorUnitConfiguration':
+            indoorUnitConfiguration = `"${key}": ${value}`;
+            break;
+          case 'coilType':
+            coilType = `"${key}": null`;
+            break;
+          case 'coilCasing':
+            coilCasing = `"${key}": null`;
+            break;
+        }
+        /* nota: no se debe de enviar los filtros que estan con null, y la primera llamada simpre deve de ser filter: null */
       }
     }
   );
+  myfilters = `{ ${indoorUnitConfiguration}, ${coilType}, ${coilType} }`;
+
+  console.log(myfilters);
+
 
   let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint} = this.myPayloadForm;
 
@@ -330,6 +368,7 @@ Payload() {
     "filters": myfilters,
     // "requiredRebates": this.getSelectedRebates()
   };
+  // console.log(body);
 
   return JSON.stringify(body);
 }
@@ -421,6 +460,7 @@ showTitleFilter(filters: any) {
 
   this.showIndoorUnitConfig = false;
   this.showCoilType = false;
+  this.showcoilCasing = false;
 
   filters.forEach((ele: any) => {
     if (ele.filterName === 'indoorUnitConfiguration') {
@@ -434,6 +474,11 @@ showTitleFilter(filters: any) {
     }
   });
 
+  filters.forEach((ele: any) => {
+    if (ele.filterName === 'coilCasing') {
+      this.showcoilCasing = true
+    }
+  });
 
 }
 
