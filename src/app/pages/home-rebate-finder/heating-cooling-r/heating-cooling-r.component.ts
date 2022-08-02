@@ -27,6 +27,8 @@ export class HeatingCoolingRComponent implements OnInit {
   @ViewChild('stepper')
   stepper!: MatStepper;
 
+  utilityOtherValue: number = 0;
+
   elegibilityQuestionsGroup !: FormGroup;
   commerceInfoGroup !: FormGroup;
   nominalSizeGroup !: FormGroup;

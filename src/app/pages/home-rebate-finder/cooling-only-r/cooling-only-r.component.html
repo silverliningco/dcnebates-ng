@@ -64,7 +64,7 @@
               <mat-option *ngFor ="let elec of electricity; let i = index" [value]="electricity[i].utilityProviderId" radioGroup="sGroup">
                 {{electricity[i].title}}
               </mat-option>
-              <mat-option value="0" radioGroup="sGroup">Other or N/A</mat-option>
+              <mat-option [value]="utilityOtherValue" radioGroup="sGroup">Other or N/A</mat-option>
             </mat-select>
           </mat-form-field>
 

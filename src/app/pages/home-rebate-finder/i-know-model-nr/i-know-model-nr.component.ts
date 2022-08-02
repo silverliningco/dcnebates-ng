@@ -26,6 +26,8 @@ export class IKnowModelNrComponent implements OnInit {
   @ViewChild('stepper')
   stepper!: MatStepper;
 
+  utilityOtherValue: number = 0;
+
   stepperOrientation: Observable<StepperOrientation>;
 
   /* FORM GRUP */

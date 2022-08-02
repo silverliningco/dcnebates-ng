@@ -51,7 +51,7 @@ export class ApiService {
 
   Utilities(state: any){
 
-    let url = URL_SERVICIOS + '//utility-providers?country=US&state='+ state;
+    let url = URL_SERVICIOS + '/utility-providers?country=US&state='+ state;
 
     return this._http.get(url);
     
