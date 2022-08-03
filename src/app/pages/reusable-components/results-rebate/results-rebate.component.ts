@@ -309,11 +309,6 @@ Payload() {
   let coilType;
   let coilCasing;
 
-  /* var myfilters: {
-    filterName: string;
-    selectedValues: any[];
-  }[] = []; */
-
   Object.entries(this.filtersGroup.value).forEach(
     ([key, value]) => {
       if (value != null) {
@@ -329,13 +324,7 @@ Payload() {
             coilCasing = `"${key}": [${value}]`;
             break;
         }
-
-        /* myfilters.push({
-          filterName: key,
-          selectedValues: (Array.isArray(value)) ? value : [value]
-        }); */
       } else {
-        console.log(key,value);
         switch  (key){
           case 'indoorUnitConfiguration':
             indoorUnitConfiguration = `"${key}": ${value}`;
@@ -347,14 +336,16 @@ Payload() {
             coilCasing = `"${key}": null`;
             break;
         }
-        /* nota: no se debe de enviar los filtros que estan con null, y la primera llamada simpre deve de ser filter: null */
       }
     }
   );
   myfilters = `{ ${indoorUnitConfiguration}, ${coilType}, ${coilType} }`;
 
-  console.log(myfilters);
-
+  if (myfilters === '{ "indoorUnitConfiguration": null, "coilType": null, "coilType": null }'){
+    myfilters = null;
+  } else {
+    myfilters = myfilters;
+  }
 
   let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint} = this.myPayloadForm;
 
@@ -365,10 +356,8 @@ Payload() {
     "levelOneSystemTypeId": levelOneSystemTypeId,
     "levelTwoSystemTypeId": 2,
     "sizingConstraint": sizingConstraint,
-    "filters": myfilters,
-    // "requiredRebates": this.getSelectedRebates()
+    "filters": myfilters
   };
-  // console.log(body);
 
   return JSON.stringify(body);
 }
@@ -508,8 +497,6 @@ loadOptionsModelNrs(myDetails:BestDetail[], modelType:string){
 
     myModelNrs.push(res);
   });
-
-  console.log(myModelNrs);
   // remove duplicates and asign to variables.
   return myModelNrs.filter((item,index) => myModelNrs.indexOf(item) === index);
 }
@@ -642,8 +629,6 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
     }
 
   //  let bodyDetail = JSON.parse(body);
-
-   console.log(body);
    let url= '/home/bestDetail/' + body;
    window.open(url) 
  }
