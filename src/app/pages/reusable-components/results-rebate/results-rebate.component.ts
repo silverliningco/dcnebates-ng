@@ -302,50 +302,73 @@ PrepareDataAvailableRebates(){
 /*                                                        AVAILABLE REBATES END                                                                           */
 /* ****************************************************************************************************************************************************** */
 
-// Function that gets input values from UI and returns payload.
-Payload() {
-  let myfilters;
-  let indoorUnitConfiguration;
-  let coilType;
-  let coilCasing;
+PrepareFilters(){
+  let myFilters: any = null;
+  let procesing: any = null;
+  let indoorUnitConfiguration: any = null;
+  let coilType: any = null;
+  let coilCasing: any = null;
 
   Object.entries(this.filtersGroup.value).forEach(
     ([key, value]) => {
       if (value != null) {
-        console.log(value);
         switch  (key){
           case 'indoorUnitConfiguration':
-            indoorUnitConfiguration = `"${key}": [${value}]`;
+            let val1 = JSON.stringify(value);
+            indoorUnitConfiguration = `"${key}": ${val1}`;
             break;
           case 'coilType':
-            coilType = `"${key}": [${value}]`;
+            let val2 = JSON.stringify(value);
+            coilType = `"${key}": ${val2}`;
             break;
           case 'coilCasing':
-            coilCasing = `"${key}": [${value}]`;
+            let val3 = JSON.stringify(value);
+            coilCasing = `"${key}": ${val3}`;
             break;
         }
       } else {
         switch  (key){
           case 'indoorUnitConfiguration':
-            indoorUnitConfiguration = `"${key}": ${value}`;
+            indoorUnitConfiguration = null;
             break;
           case 'coilType':
-            coilType = `"${key}": null`;
+            coilType = null;
             break;
           case 'coilCasing':
-            coilCasing = `"${key}": null`;
+            coilCasing = null;
             break;
         }
       }
     }
   );
-  myfilters = `{ ${indoorUnitConfiguration}, ${coilType}, ${coilType} }`;
 
-  if (myfilters === '{ "indoorUnitConfiguration": null, "coilType": null, "coilType": null }'){
-    myfilters = null;
-  } else {
-    myfilters = myfilters;
+  
+  if (indoorUnitConfiguration === null && coilType === null &&  coilCasing === null){
+    myFilters = null;
+    return myFilters;
+  } else if (indoorUnitConfiguration != null && coilType === null &&  coilCasing === null){
+    myFilters= `{ ${indoorUnitConfiguration} }`;
+  } else if (indoorUnitConfiguration === null && coilType != null &&  coilCasing === null){
+    myFilters= `{ ${coilType} }`;
+  } else if (indoorUnitConfiguration === null && coilType === null &&  coilCasing != null){
+    myFilters= `{ ${coilCasing} }`;
+  } else if (indoorUnitConfiguration != null && coilType != null &&  coilCasing === null){
+    myFilters= `{ ${indoorUnitConfiguration}, ${coilType} }`;
+  } else if (indoorUnitConfiguration === null && coilType != null &&  coilCasing != null){
+    myFilters= `{ ${coilType}, ${coilCasing} }`;
+  } else if (indoorUnitConfiguration != null && coilType === null &&  coilCasing != null){
+    myFilters= `{ ${indoorUnitConfiguration}, ${coilCasing} }`;
+  } else if (indoorUnitConfiguration != null && coilType != null &&  coilCasing != null){
+    myFilters= `{ ${indoorUnitConfiguration}, ${coilType}, ${coilCasing} }`;
   }
+
+  return decodeURIComponent(myFilters);
+}
+
+
+// Function that gets input values from UI and returns payload.
+Payload() {
+
 
   let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint} = this.myPayloadForm;
 
@@ -356,8 +379,10 @@ Payload() {
     "levelOneSystemTypeId": levelOneSystemTypeId,
     "levelTwoSystemTypeId": 2,
     "sizingConstraint": sizingConstraint,
-    "filters": myfilters
+    "filters": JSON.parse(this.PrepareFilters()) 
   };
+
+  console.log(decodeURIComponent(JSON.stringify(body)));
 
   return JSON.stringify(body);
 }
@@ -635,5 +660,3 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
 
 
 }
-
-
