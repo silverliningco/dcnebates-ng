@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { Detail, Links, Rebate } from '../../../models/detail';
+import { BestDetail, Rebate, Accesories} from '../../../models/detailBestOption';
 
 @Component({
   selector: 'app-detail',
@@ -9,57 +9,74 @@ import { Detail, Links, Rebate } from '../../../models/detail';
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
-  detail!: Detail;
+  
+  detailR!: Array<BestDetail>;
+
   rebate: Array<Rebate> = [];
-  link: Array<Links> = [];
   existRebate: boolean = false;
   existLink: boolean = false;
+
+  accesorie: Array<Accesories> = [];
+  existAcc: boolean = false;
 
   constructor(
     public activatedRoute: ActivatedRoute, 
     private _api: ApiService
     ) { 
 
-   /*  activatedRoute.params.subscribe( params => {
-
-     let body = JSON.parse(params['body']) ;
-
-      this._api.Detail(body).subscribe({
-        next: (resp) => {
-          this.detail = resp;
-          this.processRebate(this.detail.availableRebates);
-        },
-        error: (e) => alert(e.error),
-        complete: () => console.info('complete')
-      })
-    }); */
+      activatedRoute.params.subscribe( params => {
+    
+        let body = params['body'] ;
+  
+        this._api.Search(body).subscribe({
+          next: (resp) => {
+            this.processResult(resp);
+            /* this.processRebate(this.detail.availablerebates);
+            this.processAccesories(this.detail.accesories); */
+          },
+          error: (e) => alert(e.error),
+          complete: () => console.info('complete')
+        });
+      });
   }
 
   ngOnInit(): void {
+  }
+
+  processResult(detail: any){
+    detail.forEach((ele: any) => {
+      this.detailR = ele;
+    });
+  }
+
+  init(unit: any){
+
+    console.log(unit);
+
   }
 
   processRebate(availableRebates: any){
 
     availableRebates.forEach((elm1: any) => {
       this.rebate.push(elm1);
-      this.link.push(elm1.links);
     });
 
     if (this.rebate.length > 0){
       this.existRebate = true;
     }
 
-    if (this.link.length > 0){
-      this.existLink = true;
+  }
+
+  processAccesories(accesories: any){
+
+    accesories.forEach((elm1: any) => {
+      this.accesorie.push(elm1);
+    });
+
+    if (this.accesorie.length > 0){
+      this.existAcc = true;
     }
 
-    console.log(this.rebate);
-
   }
-
-  onNavigate(url : any){
-    window.open(url, '_blank');
-  }
-
 
 }

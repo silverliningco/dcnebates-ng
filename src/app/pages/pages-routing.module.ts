@@ -103,9 +103,9 @@ const routes: Routes = [{
         },
 
         {
-          path: 'bestDetail/:body',
+          path: 'detail-i-know-my-model-nr/:body',
           component: DetailIKnowMyModelComponent,
-          data: { breadcrumb: 'Best detail' }
+          data: { breadcrumb: 'I Know my model nr' }
         },
 
         {
