@@ -642,22 +642,26 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
 
 
   sentmodelNrs(){
+    let rebate:any;
 
-    let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint} = this.myPayloadForm;
+    let {commerceInfo} = this.myPayloadForm;
+
+    if (this.myPayloadForm.home === 'ahri'){
+      rebate = null;
+    }else {
+      rebate = this.GetAvailableRebates();
+    }
 
     let body = {
       "commerceInfo": commerceInfo,
-      "nominalSize": nominalSize,
-      "fuelSource": fuelSource,
-      "levelOneSystemTypeId": levelOneSystemTypeId,
-      "levelTwoSystemTypeId": 2,
-      "sizingConstraint": sizingConstraint,
-      "filters":null,
-	    "requiredRebates": this.getSelectedRebates()
+      "skus":[ "24ACB724A003", "CAPMP3617ALA","59MN7B080C17--14"], 
+	    "requiredRebates": rebate
     }
 
+    let myBody = JSON.stringify(body)
+
   //  let bodyDetail = JSON.parse(body);
-   let url= '/home/bestDetail/' + body;
+   let url= '/home/detail/' + myBody;
    window.open(url) 
  }
 
