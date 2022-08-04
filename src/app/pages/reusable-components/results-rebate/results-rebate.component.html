@@ -398,7 +398,7 @@
 
               <mat-card-title>
                 <div fxLayout="row column" fxLayoutAlign="space-between center" *ngFor="let unit of ahriCombination.components">
-                  <div fxFlex="100" fxFlex.sm="55" fxFlex.xs="100">
+                  <div fxFlex="100" fxFlex.sm="55" fxFlex.xs="100" *ngIf="unit.type === 'outdoorUnit'">
                     <h3>{{unit.name}}</h3>
                     <p><b>SKU: </b>{{unit.SKU}}</p>
                   </div>
@@ -412,10 +412,6 @@
               <!-- skus of units -->
               <mat-card-subtitle >
                 <div fxLayout="row column" fxLayoutAlign="space-between center" class="model-nrs" fxLayoutGap="16px grid">
-                  <div fxFlex="30" fxFlex.sm="80" fxFlex.xs="100" *ngFor="let unit of ahriCombination.components">
-                      <span class="rc-small">Outdoor Unit</span>
-                      <p>{{unit.SKU}}</p>
-                  </div>
                   <div class="rc-mt-5" fxFlex="30" fxFlex.sm="50" fxFlex.xs="50" *ngIf="showIndoorUnits">
                       <span class="rc-small">Indoor Unit</span>
                       <mat-form-field>
@@ -589,5 +585,4 @@
   </div>
 
 </div>
-
 
