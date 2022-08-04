@@ -131,7 +131,8 @@ export class HeatingCoolingAhriComponent implements OnInit {
         nominalSize: this.nominalSizeGroup.value,
         fuelSource: this.furnaceGroup.controls['fuelSource'].value,
         levelOneSystemTypeId: 1,
-        sizingConstraint: "Nominal cooling tons"
+        sizingConstraint: "Nominal cooling tons",
+        home: 'ahri'
       }  
       /* sent the infor to product-lines-components */
       this._bridge.sentRebateParams.emit({

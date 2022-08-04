@@ -40,6 +40,7 @@ export class ResultsRebateComponent implements OnInit {
   showIndoorUnits: boolean = false;
 
   /*  AVAILABLE REBATES */
+  showRebates: boolean = false;
   availableRebates!: Array<Rebate>;
   NoExistAvailableRebates: boolean = false;
 
@@ -55,10 +56,16 @@ export class ResultsRebateComponent implements OnInit {
                  .subscribe((payload: any) => {
                     this.myPayloadForm = payload.data;
 
-                    // this.llamadaPrueva();
-
                     this.CallProductLines();
-                    this.GetAvailableRebates();
+                    
+                    /* call GetAvailableRebates if home = 'rebate'  */
+                    if (this.myPayloadForm.home === 'ahri'){
+                      this.showRebates = false;
+                    }else {
+                      this.showRebates = true;
+                      this.GetAvailableRebates();
+                    }
+                    
          });
    
     /* form control */
@@ -72,9 +79,6 @@ export class ResultsRebateComponent implements OnInit {
     });
 
     this.filtersGroup = this._formBuilder.group({
-      indoorUnitSKU: [''],
-      outdoorUnitSKU: [''],
-      furnaceSKU: [''],
       indoorUnitConfiguration: null,
       coilType: null,
       coilCasing: null

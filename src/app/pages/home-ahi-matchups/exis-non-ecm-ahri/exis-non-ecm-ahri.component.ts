@@ -66,7 +66,8 @@ export class ExisNonEcmAhriComponent implements OnInit {
       commerceInfo: this.commerceInfoGroup.value,
       nominalSize: this.nominalSizeGroup.value,
       levelOneSystemTypeId: 3,
-      sizingConstraint: "Nominal cooling tons"
+      sizingConstraint: "Nominal cooling tons",
+      home: 'ahri'
     }  
     /* sent the infor to product-lines-components */
     this._bridge.sentRebateParams.emit({
