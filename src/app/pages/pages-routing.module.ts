@@ -4,7 +4,7 @@ import { PagesComponent } from './pages.component';
 
 import { HomeComponent } from './home/home.component';
 import { DetailComponent } from './reusable-components/detail/detail.component';
-import { BestDetailComponent } from './reusable-components/best-detail/best-detail.component';
+import { DetailIKnowMyModelComponent } from './reusable-components/detail-i-know-my-model/detail-i-know-my-model.component';
 
 import { HomeAhiMatchupsComponent } from './home-ahi-matchups/home-ahi-matchups.component';
 import { CoolingOnlyAhriComponent } from './home-ahi-matchups/cooling-only-ahri/cooling-only-ahri.component';
@@ -104,7 +104,7 @@ const routes: Routes = [{
 
         {
           path: 'bestDetail/:body',
-          component: BestDetailComponent,
+          component: DetailIKnowMyModelComponent,
           data: { breadcrumb: 'Best detail' }
         },
 

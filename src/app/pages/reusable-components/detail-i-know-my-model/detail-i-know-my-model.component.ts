@@ -4,11 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { BestDetail, Rebate, Accesories} from '../../../models/detailBestOption';
 
 @Component({
-  selector: 'app-best-detail',
-  templateUrl: './best-detail.component.html',
-  styleUrls: ['./best-detail.component.css']
+  selector: 'app-detail-i-know-my-model',
+  templateUrl: './detail-i-know-my-model.component.html',
+  styleUrls: ['./detail-i-know-my-model.component.css']
 })
-export class BestDetailComponent implements OnInit {
+export class DetailIKnowMyModelComponent implements OnInit {
 
   detail!: BestDetail;
 
