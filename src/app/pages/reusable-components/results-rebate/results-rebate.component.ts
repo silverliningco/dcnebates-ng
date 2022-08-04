@@ -304,7 +304,6 @@ PrepareDataAvailableRebates(){
 
 PrepareFilters(){
   let myFilters: any = null;
-  let procesing: any = null;
   let indoorUnitConfiguration: any = null;
   let coilType: any = null;
   let coilCasing: any = null;

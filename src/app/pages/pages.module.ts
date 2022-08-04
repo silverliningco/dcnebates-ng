@@ -39,8 +39,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { IKnowModelNrComponent } from './home-rebate-finder/i-know-model-nr/i-know-model-nr.component';
 import { BestDetailComponent } from './reusable-components/best-detail/best-detail.component';
+import { IKnowModelNrComponent } from './i-know-model-nr/i-know-model-nr.component';
 
 
 
@@ -58,8 +58,8 @@ import { BestDetailComponent } from './reusable-components/best-detail/best-deta
     FurnaceOnlyInstallAhriComponent,
     HeatingCoolingAhriComponent,
     ResultsRebateComponent,
-    IKnowModelNrComponent,
-    BestDetailComponent
+    BestDetailComponent,
+    IKnowModelNrComponent
   ],
   imports: [
     CommonModule,

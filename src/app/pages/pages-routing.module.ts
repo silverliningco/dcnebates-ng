@@ -14,8 +14,8 @@ import { HeatingCoolingAhriComponent } from './home-ahi-matchups/heating-cooling
 import { HomeRebateFinderComponent } from './home-rebate-finder/home-rebate-finder.component';
 import { CoolingOnlyRComponent } from './home-rebate-finder/cooling-only-r/cooling-only-r.component';
 import { HeatingCoolingRComponent } from './home-rebate-finder/heating-cooling-r/heating-cooling-r.component';
-import { IKnowModelNrComponent } from './home-rebate-finder/i-know-model-nr/i-know-model-nr.component'; 
 import { ResultsRebateComponent } from './reusable-components/results-rebate/results-rebate.component'; 
+import { IKnowModelNrComponent } from './i-know-model-nr/i-know-model-nr.component';
 
 
 
@@ -86,14 +86,16 @@ const routes: Routes = [{
               path: 'heating-cooling-r',
               component: HeatingCoolingRComponent,
               data: { breadcrumb: 'Heating and cooling' }
-            },
-            {
-              path: 'i-know-model-nr',
-              component: IKnowModelNrComponent,
-              data: { breadcrumb: 'I know my model nr' }
-            },
+            }
           ]
         },
+
+        {
+          path: 'i-know-my-model-nr',
+          component: IKnowModelNrComponent,
+          data: { breadcrumb: 'I know my model nr' }
+        },
+
         {
           path: 'detail/:body',
           component: DetailComponent,
