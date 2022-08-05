@@ -23,8 +23,9 @@ export class BestDetail {
         public coolingCapacityRated?: number,
         public furnaceConfigurations?: any,
         public totalAvailableRebates?: number,
-        public accesories?:Array<Accesories>,
-        public components?: Array<Component>
+        public accesories?:Array<Accesories>, /* use in results */
+        public components?: Array<Component>, /* use in all */
+        public AHRIReferences?: Array<string> /* use in detail */
     ) {}
 }
 

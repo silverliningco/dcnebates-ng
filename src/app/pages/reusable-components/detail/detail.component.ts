@@ -3,13 +3,14 @@ import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { BestDetail, Rebate, Accesories} from '../../../models/detailBestOption';
 
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
-  
+
   detailR!: Array<BestDetail>;
 
   rebate: Array<Rebate> = [];
@@ -31,8 +32,6 @@ export class DetailComponent implements OnInit {
         this._api.Search(body).subscribe({
           next: (resp) => {
             this.processResult(resp);
-            /* this.processRebate(this.detail.availablerebates);
-            this.processAccesories(this.detail.accesories); */
           },
           error: (e) => alert(e.error),
           complete: () => console.info('complete')
@@ -47,12 +46,6 @@ export class DetailComponent implements OnInit {
     detail.forEach((ele: any) => {
       this.detailR = ele;
     });
-  }
-
-  init(unit: any){
-
-    console.log(unit);
-
   }
 
   processRebate(availableRebates: any){

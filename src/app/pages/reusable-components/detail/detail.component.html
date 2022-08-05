@@ -2,6 +2,7 @@
 <div *ngFor="let detail of detailR">
   <mat-card class="rc-card detail" >
     <div fxLayout="row column" fxLayoutGap="16px Grid">
+      <!-- skus -->
       <div fxFlex="30" fxFlex.sm="81" fxFlex.xs="80">
         <div class="part-detail">
           <div class="title-part">
@@ -9,25 +10,45 @@
             <h4 class="text">SKUS</h4>
           </div>
           <div *ngFor="let unit of detail.components">
-            <div class="content-detail" ng-init="processComponents(unit)" >
-              {{unit|json}}
-              
-              <!-- <div class="group-content" *ngIf="unit.name === 'outdoorUnit'">
+            <div class="content-detail" >              
+              <div class="group-content" *ngIf="unit.type =='outdoorUnit'">
                 <p class="rc-small">Outdoor Unit</p>
-                <p class="data">{{unit.SKU}}</p>
+                <p class="data">{{unit.SKU|json}}</p>
               </div>
-              <div class="group-content" *ngIf="unit.name === 'indoorUnit'">
+              <div class="group-content" *ngIf="unit.type =='indoorUnit'">
                 <p class="rc-small">Indoor Unit</p>
-                <p class="data">{{unit.SKU}}</p>
+                <p class="data">{{unit.SKU|json}}</p>
               </div>
-              <div class="group-content" *ngIf="unit.name === 'furnace'">
+              <div class="group-content" *ngIf="unit.type =='furnace'">
                 <p class="rc-small">Furnace</p>
-                <p class="data">{{unit.SKU || "-" }}</p>
-              </div> -->
+                <p class="data">{{unit.SKU|json}}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- AHRI References -->
+      <div fxFlex="30" fxFlex.sm="80" fxFlex.xs="80">
+        <div class="part-detail">
+          <div class="title-part">
+            <div class="decoration"></div>
+            <h4 class="text">AHRI References</h4>
+          </div>
+          <div class="content-detail">
+            <div class="group-content">
+              <p class="rc-small">List of AHRI References</p>
+              <ul class="rc-list-details">
+                <li *ngFor="let ahri_ref of detail.AHRIReferences">
+                  {{ahri_ref}}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AHRI Ratings -->
       <div fxFlex="40" fxFlex.sm="100" fxFlex.xs="100">
         <div class="part-detail">
           <div class="title-part">
