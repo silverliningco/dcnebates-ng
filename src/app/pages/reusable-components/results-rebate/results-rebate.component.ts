@@ -372,20 +372,18 @@ PrepareFilters(){
 // Function that gets input values from UI and returns payload.
 Payload() {
 
-
-  let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint} = this.myPayloadForm;
+  let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, levelTwoSystemTypeId, sizingConstraint} = this.myPayloadForm;
 
   let body = {
     "commerceInfo": commerceInfo,
     "nominalSize": nominalSize,
     "fuelSource": fuelSource,
     "levelOneSystemTypeId": levelOneSystemTypeId,
-    "levelTwoSystemTypeId": 2,
+    "levelTwoSystemTypeId": levelTwoSystemTypeId,
     "sizingConstraint": sizingConstraint,
-    "filters": JSON.parse(this.PrepareFilters()) 
-  };
+    "filters": JSON.parse(this.PrepareFilters()),
 
-  console.log(decodeURIComponent(JSON.stringify(body)));
+  };
 
   return JSON.stringify(body);
 }
@@ -522,11 +520,14 @@ loadOptionsModelNrs(myDetails:BestDetail[], modelType:string){
         return JSON.stringify(data[key]).trim().includes(modelType);
       });
     });
-
-    myModelNrs.push(res);
+    myModelNrs.push(res![0]);
   });
-  // remove duplicates and asign to variables.
-  return myModelNrs.filter((item,index) => myModelNrs.indexOf(item) === index);
+  // console.log(myModelNrs);
+  let elimimandoDuplicados = myModelNrs.filter((item,index) => myModelNrs.indexOf(item) === index);
+  
+  console.log(elimimandoDuplicados);
+
+  return elimimandoDuplicados
 }
 
 // Function to Get element with the highest rebate amount.  
@@ -643,14 +644,13 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
 
   sentmodelNrs(){
     let rebate:any;
-
-    let {commerceInfo} = this.myPayloadForm;
-
     if (this.myPayloadForm.home === 'ahri'){
       rebate = null;
     }else {
       rebate = this.GetAvailableRebates();
     }
+
+    let {commerceInfo} = this.myPayloadForm;
 
     let body = {
       "commerceInfo": commerceInfo,

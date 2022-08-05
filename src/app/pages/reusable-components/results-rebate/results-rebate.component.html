@@ -400,38 +400,51 @@
                 <div fxLayout="row column" fxLayoutAlign="space-between center" *ngFor="let unit of ahriCombination.components">
                   <div fxFlex="100" fxFlex.sm="55" fxFlex.xs="100" *ngIf="unit.type === 'outdoorUnit'">
                     <h3>{{unit.name}}</h3>
-                    <p><b>SKU: </b>{{unit.SKU}}</p>
+                    <p><b>Outdoor Unit: </b>{{unit.SKU}}</p>
                   </div>
                   <div fxFlex="40" fxFlex.sm="40" fxFlex.xs="100" class="rebate-price rc-hide rc-show-md">
-                      <h5 class="rc-small">REBATES UP</h5>
-                      <h1>{{ahriCombination.totalAvailableRebates | currency}}</h1>
-                  </div>
+                    <h5 class="rc-small">REBATES UP</h5>
+                    <h1>{{ahriCombination.totalAvailableRebates | currency}}</h1>
+                </div>
                 </div>
               </mat-card-title>
 
               <!-- skus of units -->
               <mat-card-subtitle >
-                <div fxLayout="row column" fxLayoutAlign="space-between center" class="model-nrs" fxLayoutGap="16px grid">
-                  <div class="rc-mt-5" fxFlex="30" fxFlex.sm="50" fxFlex.xs="50" *ngIf="showIndoorUnits">
+                <div fxLayout="row column" fxLayoutAlign="space-between center" class="model-nrs" fxLayoutGap="4px grid">
+                  <div fxFlex="100" *ngIf="showIndoorUnits">
                       <span class="rc-small">Indoor Unit</span>
-                      <mat-form-field>
+                      <mat-form-field class="rc-select-multiline">
                         <mat-select [value]="ahriCombination.indoorUnitSKU" (selectionChange)="filterIndoorBySKU($event.value, i)">
-                          <mat-option *ngFor="let val of ahriCombination.indoorUnits" [value]="val"> {{val}}</mat-option>
+                          <div *ngFor="let val of ahriCombination.indoorUnits">
+                            <mat-option class="rc-select-multiline-option"  [value]="val.SKU">
+                              <b>{{val.SKU|json}}</b>
+                              {{val.name|json}} 
+                              <span class="price"> $300.00</span>
+                            </mat-option>
+                          </div>
+                          <!-- <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.indoorUnits" [value]="val.SKU">
+                            <b>{{val.SKU|json}}</b>
+                            {{val.name|json}} 
+                            <span class="price"> $300.00</span>
+                          </mat-option> -->                          
                         </mat-select>
                     </mat-form-field>
                   </div>
-                  <div fxFlex="30" fxFlex.sm="50" fxFlex.xs="50" *ngIf="showFurnaceUnits">
+                  <div fxFlex="100" *ngIf="showFurnaceUnits">
                     <span class="rc-small">Furnace</span>
-                    <mat-form-field>
+                    <mat-form-field class="rc-select-multiline">
                       <mat-select [value]="ahriCombination.furnaceSKU" (selectionChange)="filterFurnaceBySKU($event.value, i)">
-                        <mat-option *ngFor="let val of ahriCombination.furnaceUnits" [value]="val"> {{val}}</mat-option>
+                        <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.furnaceUnits" [value]="val"> 
+                          <b>{{val.SKU|json}}</b>
+                            {{val.name|json}}  
+                          <span class="price"> $300.00</span>
+                        </mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
                 </div>
               </mat-card-subtitle>
-              <!-- skus of units end -->
-
             </mat-card-header>
           </div>
 

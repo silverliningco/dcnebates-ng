@@ -249,6 +249,7 @@ export class HeatingCoolingRComponent implements OnInit {
         "electricUtility": this.utilityGroup.controls['electricUtility'].value, 
         "fossilFuelUtilityId": this.utilityGroup.controls['fossilFuelUtilityId'].value },
       levelOneSystemTypeId: 1,
+      levelTwoSystemTypeId: 2,
       sizingConstraint: "Nominal cooling tons",
       home: 'rebate'
     }  

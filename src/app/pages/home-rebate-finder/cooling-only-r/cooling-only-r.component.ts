@@ -184,6 +184,7 @@ export class CoolingOnlyRComponent implements OnInit {
         "electricUtility": this.utilityGroup.controls['electricUtility'].value
       },
       levelOneSystemTypeId: 2,
+      levelTwoSystemTypeId: 1,
       sizingConstraint: "Nominal cooling tons"
     }  
     /* sent the infor to product-lines-components */

@@ -68,8 +68,10 @@ export class CoolingOnlyAhriComponent implements OnInit {
       commerceInfo: this.commerceInfoGroup.value,
       nominalSize: this.nominalSizeGroup.value,
       levelOneSystemTypeId: 2,
+      levelTwoSystemTypeId: 1,
       sizingConstraint: "Nominal cooling tons",
-      home: 'ahri'
+      home: 'ahri',
+
     }  
     /* sent the infor to product-lines-components */
     this._bridge.sentRebateParams.emit({

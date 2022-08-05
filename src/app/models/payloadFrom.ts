@@ -7,7 +7,8 @@ export class payloadForm {
         public requiredRebates?: any,
         public elegibilityQuestions?: any,
         public utilityProviders?: JSON,
-        public levelOneSystemTypeId?: string,
+        public levelOneSystemTypeId?: number,
+        public levelTwoSystemTypeId?: number,
         public sizingConstraint?: string,
         public home?: string // indicates where the data comes from
     ) {}
