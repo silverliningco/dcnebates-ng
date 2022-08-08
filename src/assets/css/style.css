@@ -183,6 +183,7 @@ h1, h2, h3, h4, h5 {
   .rc-header h1{
     margin: 0 !important;
     color: var(--rc-primary-color);
+    font-weight: bold !important;
   }
   .rc-header img{
     width: 150px;
@@ -563,7 +564,7 @@ h1, h2, h3, h4, h5 {
     border-bottom: 1px solid var(--rc-primary-color);
     padding: 0 10px;
     position: relative;
-    height: 46px;
+    height: 45px;
   }
   .rc-radio-options span.mat-radio-container {
     position: absolute;
@@ -575,7 +576,7 @@ h1, h2, h3, h4, h5 {
     border: 1px solid #aaa;
     border-bottom: 0;
     background-color: #eeeeee;
-    padding: 0.5rem 0.15rem;
+    padding: 0.65rem 0.15rem;
     position: relative;
     color: #444;
     font-size: 14px;
@@ -788,7 +789,7 @@ h1, h2, h3, h4, h5 {
     width: 16px;
     height: 16px;
     font-size: 16px;
-    top: 12px;
+    top: 10px;
     margin-left: 0.5rem;
   }
     /*Rebate Tiers Checked*/
@@ -861,15 +862,21 @@ h1, h2, h3, h4, h5 {
     text-align: center;
     height: 100%;
   }
-.rc-card.results .rebate-price h5.rc-small{
+  .rc-card.results p.outdoor-nb{
+    margin-bottom: 0;
+  }
+  .rc-card.results .rebate-price h5.rc-small{
     margin-bottom: 5px;
     position: absolute;
     top: 1px;
     left: 10px;
     font-size: 9px;
   }
-.rc-card.results .rebate-price h1{
+  .rc-card.results .rebate-price h1{
     font-family: 'Bitter', serif !important;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 0;
   }
 
   @media screen and (min-width: 960px) and (max-width: 1199px){
