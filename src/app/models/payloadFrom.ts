@@ -5,7 +5,7 @@ export class payloadForm {
         public fuelSource?: string,
         public state?: string,
         public requiredRebates?: any,
-        public elegibilityQuestions?: any,
+        public eligibilityCriteria?: any,
         public utilityProviders?: JSON,
         public levelOneSystemTypeId?: number,
         public levelTwoSystemTypeId?: number,

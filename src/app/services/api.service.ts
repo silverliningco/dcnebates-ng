@@ -35,11 +35,11 @@ export class ApiService {
       return this._http.post(url, body);
     }
 
-  ElegibilityQuestions(state: any, utilityProviders:any ): Observable<any> {
+  ElegibilityQuestions(body: any): Observable<any> {
 
-    let url = URL_SERVICIOS + '/elegibility-questions?state=' + state + '&utilityProviders=' + utilityProviders; 
+    let url = URL_SERVICIOS + '/eligibility-criteria' 
 
-    return this._http.get(url);
+    return this._http.post(url, body);
   }
 
   Search(body: any): Observable<any> {

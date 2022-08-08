@@ -29,7 +29,7 @@ export class HeatingCoolingRComponent implements OnInit {
 
   utilityOtherValue: number = 0;
 
-  elegibilityQuestionsGroup !: FormGroup;
+  eligibilityQuestionsGroup !: FormGroup;
   commerceInfoGroup !: FormGroup;
   nominalSizeGroup !: FormGroup;
   furnaceGroup !: FormGroup; 
@@ -74,13 +74,13 @@ export class HeatingCoolingRComponent implements OnInit {
   }
   
   get questions(){
-      return this.elegibilityQuestionsGroup.get('questions') as FormArray;
+      return this.eligibilityQuestionsGroup.get('questions') as FormArray;
   }
 
   ngOnInit(): void {
     
     /* form groups */
-    this.elegibilityQuestionsGroup = this._formBuilder.group({
+    this.eligibilityQuestionsGroup = this._formBuilder.group({
       questions: this._formBuilder.array([])
     });
 
@@ -170,24 +170,34 @@ export class HeatingCoolingRComponent implements OnInit {
   }
 
   /* ElegibilityQuestions */
-  /* NOTE: for the moment this version doesn't consider this step */
-  /* AddQuestion(question:any){
+  AddQuestion(question:any){
     const QuestionFormGroup  = this._formBuilder.group({
-      elegibilityQuestionId: question.elegibilityQuestionId,
+      questionId: question.questionId,
       answer: ['',  Validators.required],
-      question:question.question,
-      alternatives: [question.alternatives]
+      questionText: question.questionText,
+      options: [question.options]
     });
     this.questions.push(QuestionFormGroup);
-  } */
+  }
 
-  /* LoadElegibilityQuestions(){
-    this._api.ElegibilityQuestions(this.stateGroup.controls['state'].value, 
-      JSON.stringify([
-        this.utilityGroup.controls['electricUtility'].value,
-        this.utilityGroup.controls['fossilFuelUtilityId'].value
-      ])
-    ).subscribe({
+  PrepareDataEligibilityQuestions(){
+    let body = {
+      country: "US",
+      state: this.stateGroup.controls['state'].value,
+      utilityProviders: { 
+        electricUtilityId: this.utilityGroup.controls['electricUtility'].value, 
+        fossilFuelUtilityId: this.utilityGroup.controls['fossilFuelUtilityId'].value },
+      fuelSource: this.furnaceGroup.controls['fuelSource'].value,
+      rebateTypes:["electric", "OEM", "distributor", "fossil fuel"],
+      OEM: "Carrier",
+      storeIds: []
+    }
+    return body;
+  }
+
+  LoadEligibilityQuestions(){
+
+    this._api.ElegibilityQuestions(this.PrepareDataEligibilityQuestions()).subscribe({
       next: (resp) => {
 
         this.questions.clear()
@@ -200,7 +210,23 @@ export class HeatingCoolingRComponent implements OnInit {
       error: (e) => alert(e.error),
       complete: () => console.info('complete')
     })
-  } */
+  }
+
+  AnswersEligibilityQuestions(){
+    // Create interface to dynamically asign properties
+    interface IAnswer {
+      [key: string]: string
+    }
+    var myAnswers: IAnswer = {};
+
+    let myQuestions = this.eligibilityQuestionsGroup.value.questions;
+    myQuestions.forEach((question: any) => {
+      myAnswers[question.questionId] = question.answer;
+    });
+
+    return myAnswers;
+
+  }
 
   // utilities
   ChangeState() {
@@ -244,10 +270,10 @@ export class HeatingCoolingRComponent implements OnInit {
       nominalSize: this.nominalSizeGroup.value,
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       state: this.stateGroup.controls['state'].value,
-      /* elegibilityQuestions: this.elegibilityQuestionsGroup.value, */
+      eligibilityCriteria: this.AnswersEligibilityQuestions(),
       utilityProviders: { 
-        "electricUtility": this.utilityGroup.controls['electricUtility'].value, 
-        "fossilFuelUtilityId": this.utilityGroup.controls['fossilFuelUtilityId'].value },
+        electricUtilityId: this.utilityGroup.controls['electricUtility'].value, 
+        fossilFuelUtilityId: this.utilityGroup.controls['fossilFuelUtilityId'].value },
       levelOneSystemTypeId: 1,
       levelTwoSystemTypeId: 2,
       sizingConstraint: "Nominal cooling tons",
@@ -260,6 +286,11 @@ export class HeatingCoolingRComponent implements OnInit {
   }
 
   tabChange(e:any){
+
+    // Call eligibility questions, always it will be the second to last.
+    if(this.stepper?.steps.length -2 == e.selectedIndex){
+      this.LoadEligibilityQuestions()
+    }
     // Confirm that it's the last step (ahri combinations).
     if(this.stepper?.steps.length -1 == e.selectedIndex){
       this.submitForm()

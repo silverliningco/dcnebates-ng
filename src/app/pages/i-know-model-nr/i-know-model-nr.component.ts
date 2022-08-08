@@ -129,7 +129,7 @@ export class IKnowModelNrComponent implements OnInit {
     let body= {
       "country": "US",
       "state": this.stateGroup.controls['state'].value,
-      "utilityProviders": {"electricUtility": this.utilityGroup.controls['electricUtility'].value, "fossilFuelUtilityId": this.utilityGroup.controls['fossilFuelUtilityId'].value},
+      "utilityProviders": {"electricUtilityId": this.utilityGroup.controls['electricUtility'].value, "fossilFuelUtilityId": this.utilityGroup.controls['fossilFuelUtilityId'].value},
       "fuelSource": this.furnaceGroup.controls['fuelSource'].value,
       "rebateTypes":["electric", "OEM", "distributor"],
       "OEM": "Carrier",

@@ -148,7 +148,7 @@ PrepareProductLines(){
 
 PrepareDataAvailableRebates(){
 
-  let {state, utilityProviders, fuelSource} = this.myPayloadForm;
+  let {state, utilityProviders, fuelSource, eligibilityCriteria} = this.myPayloadForm;
 
   let body= {
     "country": "US",
@@ -157,7 +157,8 @@ PrepareDataAvailableRebates(){
     "fuelSource": fuelSource,
     "rebateTypes": ["electric", "OEM", "distributor"],
     "OEM": "Carrier",
-    "storeIds": []
+    "storeIds": [],
+    eligibilityCriteria: eligibilityCriteria
   }
 
   return body;

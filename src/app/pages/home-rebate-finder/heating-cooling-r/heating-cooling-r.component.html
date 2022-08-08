@@ -91,41 +91,9 @@
   </mat-step>
   <!-- Step 2 end  -->
 
-  <!-- NOTE: for the moment this version doesn't consider this step -->
-  <!-- Step 3 Elegibility questions -->
-  <!-- <mat-step [stepControl]="elegibilityQuestionsGroup" errorMessage="Complete the form.">
-    <form [formGroup]="elegibilityQuestionsGroup"> -->
-      <!-- Name of step -->
-      <!-- <ng-template matStepLabel>Elegibility questions</ng-template>
-      <h2 class="rc-main-title">Elegibility questions</h2> -->
-      <!-- Content of step -->
-      <!-- <div fxLayout fxLayoutAlign="center"> -->
-        <!-- User input -->
-        <!-- <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
-          <div formArrayName="questions" *ngFor ="let question of questions.controls; let i = index">
-            <strong>{{question.value.question}}</strong>
-            <div [formGroupName]="i" class="rc-elegibility-questions">
-              <mat-radio-group aria-label="Select an option"  formControlName="answer" >
-                <mat-radio-button *ngFor="let alternative of question.value.alternatives" [value]="alternative">{{alternative}}</mat-radio-button>
-              </mat-radio-group>
-            </div>
-          </div> -->
-          
 
-          <!-- button -->
-         <!--  <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
-            <button type="button" mat-button matStepperPrevious>Back</button>
-            <button type="button" [disabled]="elegibilityQuestionsGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
-              <mat-icon>arrow_forward</mat-icon>
-            </button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </mat-step> -->
-  <!-- Step end 3 -->
 
-  <!-- Step 4 Equipment Size -->
+  <!-- Step 3 Equipment Size -->
   <mat-step [stepControl]="nominalSizeGroup" errorMessage="Complete all fields.">
     <form [formGroup]="nominalSizeGroup">
       <!-- Name of step -->
@@ -188,9 +156,9 @@
       </div>
     </form>
   </mat-step>
-  <!-- Step 4 end  -->
+  <!-- Step 3 end  -->
 
-  <!-- Step 5 Fossil Fuel -->
+  <!-- Step 4 Fossil Fuel -->
   <mat-step [stepControl]="furnaceGroup" errorMessage="Select a furnace fuel.">
     <form [formGroup]="furnaceGroup">
       <!-- Name of step -->
@@ -250,7 +218,40 @@
       </div>
     </form>
   </mat-step>
-  <!-- Step 5 end  -->
+  <!-- Step 4 end  -->
+
+  <!-- Step 5 Elegibility questions -->
+  <mat-step [stepControl]="eligibilityQuestionsGroup" errorMessage="Complete the form.">
+    <form [formGroup]="eligibilityQuestionsGroup">
+      <!-- Name of step -->
+     <ng-template matStepLabel>Eligibility questions</ng-template>
+      <h2 class="rc-main-title">Eligibility questions</h2> 
+      <!-- Content of step -->
+      <div fxLayout fxLayoutAlign="center"> 
+        <!-- User input -->
+       <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
+          <div formArrayName="questions" *ngFor ="let question of questions.controls; let i = index">
+            <strong>{{question.value.questionText}}</strong>
+            <div [formGroupName]="i" class="rc-elegibility-questions">
+              <mat-radio-group aria-label="Select an option"  formControlName="answer" >
+                <mat-radio-button *ngFor="let option of question.value.options" [value]="option">{{option}}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          
+
+          <!-- button -->
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
+            <button type="button" mat-button matStepperPrevious>Back</button>
+            <button type="button" [disabled]="eligibilityQuestionsGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-step> 
+  <!-- Step end 5 -->
 
   <!-- results -->
   <mat-step>
