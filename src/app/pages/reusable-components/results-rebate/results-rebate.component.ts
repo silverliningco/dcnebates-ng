@@ -383,7 +383,7 @@ Payload() {
     "levelTwoSystemTypeId": levelTwoSystemTypeId,
     "sizingConstraint": sizingConstraint,
     "filters": JSON.parse(this.PrepareFilters()),
-
+    "requiredRebates": this.getSelectedRebates()
   };
 
   return JSON.stringify(body);
@@ -391,40 +391,8 @@ Payload() {
 
 CallSearch() {
 
-  let a = {
-    "commerceInfo": {
-      "storeId": 1,
-      "showAllResults": false
-    },
-    "nominalSize": {
-      "heatingBTUH": 58000,
-      "coolingTons": 2
-    },
-      "fuelSource":"Natural Gas",
-    "levelOneSystemTypeId": 1,
-    "levelTwoSystemTypeId": 2,
-    "sizingConstraint": "Nominal cooling tons",
-    "filters": null,
-    "requiredRebates": [{
-        "rebateId": 1,
-        "rebateTierId": 2,
-        "isRequired": false
-      },
-      {
-        "rebateId": 2,
-        "rebateTierId": 3,
-        "isRequired": false
-      },
-      {
-        "rebateId": 6,
-        "rebateTierId": 8,
-        "isRequired": false
-      }
-    ]
-  }
 
-  // this._api.Search(this.Payload()).subscribe({
-    this._api.Search(a).subscribe({
+   this._api.Search(this.Payload()).subscribe({
     next: (resp) => {
       if (resp.length > 0) {
         this.noResultsSearch = false;
@@ -503,6 +471,18 @@ loadOptionsModelNrs(myDetails:BestDetail[], modelType:string){
    
   let myModelNrs: Array<any> = [];
 
+
+  myDetails.forEach(subel => {
+    if (subel[modelType as keyof typeof subel]) {
+      myModelNrs.push(subel[modelType as keyof typeof subel])
+    }
+  });
+
+  console.log(myModelNrs);
+  // remove duplicates and asign to variables.
+  return myModelNrs.filter((item,index) => myModelNrs.indexOf(item) === index);
+
+
   // ver 1
   /* myDetails.forEach(subel => {
 
@@ -515,6 +495,7 @@ loadOptionsModelNrs(myDetails:BestDetail[], modelType:string){
   }); */
 
   // ver 2
+  /*
   myDetails.forEach(subel => {
     let res = subel.components?.filter((data: any) =>{
       return Object.keys(data).some((key: any) => {
@@ -528,7 +509,7 @@ loadOptionsModelNrs(myDetails:BestDetail[], modelType:string){
   
   console.log(elimimandoDuplicados);
 
-  return elimimandoDuplicados
+  return elimimandoDuplicados*/
 }
 
 // Function to Get element with the highest rebate amount.  
@@ -537,16 +518,18 @@ GetHighestRebateAmount(myDetails:BestDetail[]){
     Math, myDetails.map(function (rt: any) {
       return rt.totalAvailableRebates;
     }));
-
+console.log(myBestTotalAvailableRebate);
   return myDetails?.filter(sys => sys.totalAvailableRebates == myBestTotalAvailableRebate)[0];
 }
 
 filterBestResults(resp: BestDetail[][]) {
   var bestResults: any = [];
   resp.forEach(details => {
-    // Get element with the highest rebate amount.  
+    // Get element with the highest rebate amount.
+  
     const mySystem = this.GetHighestRebateAmount(details);
-
+    console.log(mySystem);
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     mySystem.indoorUnits = this.loadOptionsModelNrs(details,"indoorUnit");
     mySystem.furnaceUnits = this.loadOptionsModelNrs(details,"furnace");
 
