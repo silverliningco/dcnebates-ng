@@ -14,6 +14,7 @@
 }
 .rc-card.detail .part .title{
     position: relative;
+    margin-bottom: 1.5rem;
 }
 .rc-card.detail .part .title .text{
     color: var(--rc-accent-color);
@@ -40,7 +41,7 @@
 }
 
 .rc-card.detail .part .content-detail{
-    padding: 20px 8px 20px 16px
+    padding: 5px 8px 20px 16px
 }
 .rc-card.detail .part .content-detail .group-content{
     margin-bottom: 4px;
@@ -67,56 +68,98 @@
         display: none;
     }
 
-/*Detail Available Rebates */
-.rc-card.detail-available-rebates{
-    padding: 1.5rem !important; 
-    margin-right: .5rem;
+/*Accordion tabs for rebates*/
+::ng-deep .rc-card.detail .mat-accordion .mat-expansion-panel{
+    background-color: #F8F8F8;
+    box-shadow: none;
     margin-bottom: .5rem;
 }
-.rc-card.detail-available-rebates .mat-card-title h5{
-    font-weight: bold;
-    margin-left: 2.25rem;
+::ng-deep .rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header.mat-expanded{
+    border-bottom: 1px solid #D7D7D7;
+    border-radius: 0;
 }
-.rc-card.detail-available-rebates .mat-card-title h5::before{
-    background-image: url('../../../../assets/images/icons/bills.png');
-    background-size: 35px 35px;
-    display: inline-block;
-    width: 35px;
-    height: 35px;
-    content: "";
-    position: absolute;
-    top: 1rem;
-    left: 1.25rem;
+::ng-deep .rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header-title{
+    display: initial;
+}
+::ng-deep .rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header-title .price h4{
+    background-color: rgba(49, 120, 191, 0.13);
+    border-radius: 4px;
+    padding: 2px 12px;
+    color: var(--rc-primary-color);
+}
+::ng-deep .rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body{
+    padding: 16px 24px 16px;
 }
 
-.rc-card.detail-available-rebates mat-card-content .description{
-    border-top: 1px solid #D7D7D7;
-    border-bottom: 1px solid #D7D7D7;
-    padding: .5rem 0;
-    margin-bottom: 8px;
-}
-.rc-card.detail-available-rebates mat-card-content .link-list{
+::ng-deep .rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list{
     list-style: none;    
     padding-inline-start: 16px;
+    margin-top: 1rem;
 }
-.rc-card.detail-available-rebates mat-card-content .link-list li a{
+::ng-deep .rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list li a{
     color: var(--rc-primary-color) !important;
     cursor: pointer;
     margin-bottom: .5rem;
 }
-.rc-card.detail-available-rebates mat-card-content .link-list mat-icon{
+::ng-deep .rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list mat-icon{
     font-size: 16px;
     width: 16px;
     height: 20px;
     padding-top: 0px;
     transform: rotate(145deg);
 }
-.rc-card.detail-available-rebates mat-card-content .price-content{
-    height: 100%;
-}
-.rc-card.detail-available-rebates mat-card-content .price{
-    background-color: rgba(49, 120, 191, 0.13);
-    border-radius: 4px;
-    padding: 0.5rem 2rem 1rem 2rem;
-    color: var(--rc-primary-color);
-}
+
+/*Detail Available Rebates 
+        .rc-card.detail-available-rebates{
+            padding: 1.5rem !important; 
+            margin-right: .5rem;
+            margin-bottom: .5rem;
+        }
+        .rc-card.detail-available-rebates .mat-card-title h5{
+            font-weight: bold;
+            margin-left: 2.25rem;
+        }
+        .rc-card.detail-available-rebates .mat-card-title h5::before{
+            background-image: url('../../../../assets/images/icons/bills.png');
+            background-size: 35px 35px;
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            content: "";
+            position: absolute;
+            top: 1rem;
+            left: 1.25rem;
+        }
+
+        .rc-card.detail-available-rebates mat-card-content .description{
+            border-top: 1px solid #D7D7D7;
+            border-bottom: 1px solid #D7D7D7;
+            padding: .5rem 0;
+            margin-bottom: 8px;
+        }
+        .rc-card.detail-available-rebates mat-card-content .link-list{
+            list-style: none;    
+            padding-inline-start: 16px;
+        }
+        .rc-card.detail-available-rebates mat-card-content .link-list li a{
+            color: var(--rc-primary-color) !important;
+            cursor: pointer;
+            margin-bottom: .5rem;
+        }
+        .rc-card.detail-available-rebates mat-card-content .link-list mat-icon{
+            font-size: 16px;
+            width: 16px;
+            height: 20px;
+            padding-top: 0px;
+            transform: rotate(145deg);
+        }
+        .rc-card.detail-available-rebates mat-card-content .price-content{
+            height: 100%;
+        }
+        .rc-card.detail-available-rebates mat-card-content .price{
+            background-color: rgba(49, 120, 191, 0.13);
+            border-radius: 4px;
+            padding: 0.5rem 2rem 1rem 2rem;
+            color: var(--rc-primary-color);
+        }
+    */
