@@ -58,6 +58,8 @@ export class HeatingCoolingRComponent implements OnInit {
   showIndoorUnit: boolean = false;
   showOptions: boolean = false;
 
+  noResultsEQ!: boolean;
+
   /* intercambio de datos */
   data!: any;
 
@@ -201,10 +203,15 @@ export class HeatingCoolingRComponent implements OnInit {
       next: (resp) => {
 
         this.questions.clear()
-
-        resp.forEach((question: any) => {
-          this.AddQuestion(question)
-        });
+        if(resp.length > 0) {
+          resp.forEach((question: any) => {
+            this.AddQuestion(question)
+            this.noResultsEQ = false;
+          });
+        } else {
+          this.noResultsEQ = true;
+        }
+       
         
       },
       error: (e) => alert(e.error),
@@ -221,9 +228,10 @@ export class HeatingCoolingRComponent implements OnInit {
 
     let myQuestions = this.eligibilityQuestionsGroup.value.questions;
     myQuestions.forEach((question: any) => {
-      myAnswers[question.questionId] = question.answer;
+      myAnswers![question.questionId] = question.answer;
     });
 
+    
     return myAnswers;
 
   }

@@ -1,6 +1,14 @@
+
+export class CommerceInfo {
+    constructor(
+        public storeId?:  number,
+        public showAllResults?: boolean,
+    ) {}
+}
+
 export class payloadForm {
     constructor(
-        public commerceInfo?: JSON,
+        public commerceInfo?: CommerceInfo,
         public nominalSize?: JSON,
         public fuelSource?: string,
         public state?: string,

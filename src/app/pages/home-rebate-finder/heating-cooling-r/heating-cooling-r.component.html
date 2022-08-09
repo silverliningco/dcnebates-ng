@@ -238,7 +238,9 @@
               </mat-radio-group>
             </div>
           </div>
-          
+          <div *ngIf="noResultsEQ">
+            No eligibility questions available.
+         </div>
 
           <!-- button -->
           <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">

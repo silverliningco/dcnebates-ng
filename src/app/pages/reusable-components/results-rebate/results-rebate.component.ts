@@ -90,26 +90,26 @@ export class ResultsRebateComponent implements OnInit {
 /* ****************************************************************************************************************************************************** */
 /*                                                          PRODUCT LINE                                                                                  */
 /* ****************************************************************************************************************************************************** */
+  PrepareProductLines(){
 
-PrepareProductLines(){
+    let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint} = this.myPayloadForm;
 
-  let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint} = this.myPayloadForm;
+      let body = {
+        commerceInfo: commerceInfo,
+        nominalSize: nominalSize,
+        fuelSource: fuelSource,
+        levelOneSystemTypeId: levelOneSystemTypeId,
+        sizingConstraint: sizingConstraint
+      }
 
-    let body = {
-      "commerceInfo": commerceInfo,
-      "nominalSize": nominalSize,
-      "fuelSource": fuelSource,
-      "levelOneSystemTypeId": levelOneSystemTypeId,
-      "sizingConstraint": sizingConstraint
-    }
+    //update commerce info with "updated show all results" input.
+    body.commerceInfo!.showAllResults = this.commerceInfoGroup.controls['showAllResults'].value;
 
-    return body;
+      return body;
 
-}
+  }
   
   CallProductLines() {
-    //update commerce info with "updated show all results" input.
-    /* this.myPayloadForm.commerceInfo.showAllResults = this.commerceInfoGroup.controls['showAllResults'].value; */
 
     this._api.ProductLines(this.PrepareProductLines()).subscribe({
       next: (resp) => {
@@ -145,24 +145,23 @@ PrepareProductLines(){
 /* ****************************************************************************************************************************************************** */
 /*                                                        AVAILABLE REBATES                                                                               */
 /* ****************************************************************************************************************************************************** */
+  PrepareDataAvailableRebates(){
 
-PrepareDataAvailableRebates(){
+    let {state, utilityProviders, fuelSource, eligibilityCriteria} = this.myPayloadForm;
 
-  let {state, utilityProviders, fuelSource, eligibilityCriteria} = this.myPayloadForm;
+    let body= {
+      country: "US",
+      state: state,
+      utilityProviders: utilityProviders,
+      fuelSource: fuelSource,
+      rebateTypes: ["electric", "OEM", "distributor"],
+      OEM: "Carrier",
+      storeIds: [],
+      eligibilityCriteria: eligibilityCriteria
+    }
 
-  let body= {
-    "country": "US",
-    "state": state,
-    "utilityProviders": utilityProviders,
-    "fuelSource": fuelSource,
-    "rebateTypes": ["electric", "OEM", "distributor"],
-    "OEM": "Carrier",
-    "storeIds": [],
-    eligibilityCriteria: eligibilityCriteria
-  }
-
-  return body;
-}  
+    return body;
+  }  
 
   GetAvailableRebates() {
    
@@ -376,14 +375,14 @@ Payload() {
   let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, levelTwoSystemTypeId, sizingConstraint} = this.myPayloadForm;
 
   let body = {
-    "commerceInfo": commerceInfo,
-    "nominalSize": nominalSize,
-    "fuelSource": fuelSource,
-    "levelOneSystemTypeId": levelOneSystemTypeId,
-    "levelTwoSystemTypeId": levelTwoSystemTypeId,
-    "sizingConstraint": sizingConstraint,
-    "filters": JSON.parse(this.PrepareFilters()),
-    "requiredRebates": this.getSelectedRebates()
+    commerceInfo: commerceInfo,
+    nominalSize: nominalSize,
+    fuelSource: fuelSource,
+    levelOneSystemTypeId: levelOneSystemTypeId,
+    levelTwoSystemTypeId: this.productLinesGroup.controls['productLine'].value,
+    sizingConstraint: sizingConstraint,
+    filters: JSON.parse(this.PrepareFilters()),
+    requiredRebates: this.getSelectedRebates()
   };
 
   return JSON.stringify(body);
@@ -473,43 +472,17 @@ loadOptionsModelNrs(myDetails:BestDetail[], modelType:string){
 
 
   myDetails.forEach(subel => {
-    if (subel[modelType as keyof typeof subel]) {
-      myModelNrs.push(subel[modelType as keyof typeof subel])
-    }
+    subel.components?.forEach(element => {
+      if(element.type == modelType) {
+        myModelNrs.push(element)
+      }
+    })
+    
   });
 
-  console.log(myModelNrs);
   // remove duplicates and asign to variables.
   return myModelNrs.filter((item,index) => myModelNrs.indexOf(item) === index);
 
-
-  // ver 1
-  /* myDetails.forEach(subel => {
-
-    subel.components?.forEach(element => {
-      if (element[modelType as keyof typeof element]) {
-        myModelNrs.push(element[modelType as keyof typeof element])
-      }
-    });
-    
-  }); */
-
-  // ver 2
-  /*
-  myDetails.forEach(subel => {
-    let res = subel.components?.filter((data: any) =>{
-      return Object.keys(data).some((key: any) => {
-        return JSON.stringify(data[key]).trim().includes(modelType);
-      });
-    });
-    myModelNrs.push(res![0]);
-  });
-  // console.log(myModelNrs);
-  let elimimandoDuplicados = myModelNrs.filter((item,index) => myModelNrs.indexOf(item) === index);
-  
-  console.log(elimimandoDuplicados);
-
-  return elimimandoDuplicados*/
 }
 
 // Function to Get element with the highest rebate amount.  
@@ -525,8 +498,11 @@ console.log(myBestTotalAvailableRebate);
 filterBestResults(resp: BestDetail[][]) {
   var bestResults: any = [];
   resp.forEach(details => {
-    // Get element with the highest rebate amount.
   
+    // if() {
+
+    //}
+    // Get element with the highest rebate amount.
     const mySystem = this.GetHighestRebateAmount(details);
     console.log(mySystem);
     console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
@@ -552,9 +528,13 @@ filterBestResults(resp: BestDetail[][]) {
 }
 
 filterIndoorBySKU(myIndoorUnit: string, i:number) {
+
+  console.log(this.bestResults[i])
   //Search bestOption with user selections
   let myOutdoorUnit = this.bestResults[i].outdoorUnitSKU;
   let myCombination: BestDetail[] = []
+
+  //var result = $filter('filter')($scope.xyz, {id:"1"});
 
   this.results.forEach((subel:BestDetail[]) => {
     let myFind = subel.filter((item: BestDetail)=> item.outdoorUnit == myOutdoorUnit)
@@ -575,8 +555,8 @@ filterIndoorBySKU(myIndoorUnit: string, i:number) {
     }
 
     // compose options for specified model type
-    this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination,"indoorUnitSKU");
-    this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination,"furnaceSKU");
+    this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination,"indoorUnit");
+    this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination,"furnace");
   }
 }
 

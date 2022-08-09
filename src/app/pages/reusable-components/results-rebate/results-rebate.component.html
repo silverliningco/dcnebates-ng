@@ -71,8 +71,8 @@
       
                       <mat-form-field appearance="fill">
                         <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                        <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallFilters()">
-                          <mat-option *ngFor="let val of filter.options" [value]="val"
+                        <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallSearch()">
+                          <mat-option *ngFor="let val of filter.availableOptions" [value]="val"
                             [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
                         </mat-select>
                       </mat-form-field>
@@ -87,8 +87,8 @@
       
                       <mat-form-field appearance="fill">
                         <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                        <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallFilters()">
-                          <mat-option *ngFor="let val of filter.options" [value]="val"
+                        <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallSearch()">
+                          <mat-option *ngFor="let val of filter.availableOptions" [value]="val"
                             [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
                         </mat-select>
                       </mat-form-field>
@@ -103,8 +103,8 @@
       
                       <mat-form-field appearance="fill">
                         <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                        <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallFilters()">
-                          <mat-option *ngFor="let val of filter.options" [value]="val"
+                        <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallSearch()">
+                          <mat-option *ngFor="let val of filter.availableOptions" [value]="val"
                             [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
                         </mat-select>
                       </mat-form-field>
@@ -172,223 +172,6 @@
         
       <!-- *** results combinations *** -->
 
-      <!-- static desing -->
-      <mat-card class="rc-card results">
-        <div fxLayout="row column" fxLayoutAlign="center center" fxLayoutGap="16px grid" >
-      
-          <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
-            <mat-card-header>
-              <mat-card-title>
-                <div fxLayout="row column" fxLayoutAlign="space-between center">
-                  <div fxFlex="100" fxFlex.sm="55" fxFlex.xs="100">
-                    <h3>DLS MULTI 30K 230V HP CDU</h3>
-                    <p class="outdoor-nb"><b>Outdoor Unit: </b>25HCE430AP03</p>
-                  </div>
-                  <div fxFlex="40" fxFlex.sm="40" fxFlex.xs="100" class="rebate-price rc-hide rc-show-md">
-                      <h5 class="rc-small">REBATES UP</h5>
-                      <h1>$1000.00</h1>
-                  </div>
-                </div>
-              </mat-card-title>
-      
-              <!-- skus of units -->
-              <mat-card-subtitle >
-                <div fxLayout="row column" fxLayoutAlign="space-between center" class="model-nrs" fxLayoutGap="4px grid">
-                  <div fxFlex="100">
-                      <span class="rc-small">Indoor Unit</span>
-                      <mat-form-field class="rc-select-multiline">
-                        <mat-select>
-                          <mat-option class="rc-select-multiline-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
-                          <mat-option class="rc-select-multiline-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
-                          <mat-option class="rc-select-multiline-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
-                          <mat-option class="rc-select-multiline-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
-                          <mat-option class="rc-select-multiline-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div fxFlex="100">
-                    <span class="rc-small">Furnace</span>
-                    <mat-form-field class="rc-select-multiline">
-                      <mat-select>
-                        <mat-option class="rc-select-multiline-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
-                        <mat-option class="rc-select-multiline-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
-                        <mat-option class="rc-select-multiline-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
-                        <mat-option class="rc-select-multiline-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
-                        <mat-option class="rc-select-multiline-option" value="59SC5B060E17--14"> <b>59SC5B060E17--14</b> (14S COMFORT SERIES HP 2.5 TONS 14S COMFORT SERIES HP 2.5 TONS) <span class="price"> $300.00</span></mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                </div>
-              </mat-card-subtitle>
-              <!-- skus of units end -->
-      
-            </mat-card-header>
-          </div>
-      
-          <!-- amount -->
-          <div fxFlex="30" class="rc-show rc-hide-md">
-              <div class="rebate-price" fxLayout="row" fxLayoutAlign="center center">
-                <h5 class="rc-small">REBATES UP</h5>
-                <h1>$1000.00</h1>
-              </div>
-          </div>
-        </div>
-      
-          <mat-card-content>
-              <div fxLayout="row column" fxLayoutGap="16px grid">
-                
-                <!-- rebates -->
-                <div fxFlex="25" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
-                    <div class="list-rebates">
-                      <span class="rc-small">Rebates</span>
-                      <ul class="rc-unlisted">
-                        <li>
-                          <mat-icon> money</mat-icon>
-                          Rebate 1
-                        </li>
-                        <li>
-                          <mat-icon> money</mat-icon>
-                          Rebate 2
-                        </li>
-                        <li>
-                          <mat-icon> money</mat-icon>
-                          Rebate 3
-                        </li>
-                      </ul>
-                    </div>
-                </div>
-                <!-- rebates end -->
-      
-                  <!-- accesories -->
-                  <div fxFlex="25" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
-                      <div class="list-accesories">
-                          <span class="rc-small">Accesories</span>
-                            <div>
-                              <mat-checkbox>
-                                Accesorie 1<span class="accesorie-price">+ $100</span>
-                              </mat-checkbox>
-                            </div>
-                            <div>
-                              <mat-checkbox>
-                                Accesorie 2<span class="accesorie-price">+ $100</span>
-                              </mat-checkbox>
-                            </div>
-                            <div>
-                              <mat-checkbox>
-                                Accesorie 3<span class="accesorie-price">+ $100</span>
-                              </mat-checkbox>
-                            </div>
-                      </div>
-                  </div>
-                  <!-- accesories end -->
-      
-                  <!-- AHRI ratings -->
-                  <div fxFlex="20" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
-                      <div class="list-ahri-rating">
-                        <mat-accordion>
-                          <mat-expansion-panel [expanded]="true">
-                            <mat-expansion-panel-header>
-                              <mat-panel-title>
-                                <span class="rc-small">AHRI Ratings</span>
-                              </mat-panel-title>
-                            </mat-expansion-panel-header>
-                              <div fxLayout="row" class="list-ahri-rating-item">
-                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                  <span>SEER</span>
-                                </div>
-                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                  14
-                                </div>                                 
-                              </div>
-                              <div fxLayout="row" class="list-ahri-rating-item">
-                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                  <span>EER</span>
-                                </div>
-                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                  11.5
-                                </div>                                 
-                              </div>
-                              <div fxLayout="row" class="list-ahri-rating-item">
-                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                  <span>HPSF</span>
-                                </div>
-                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">                                      
-                                  8.2
-                                </div>
-                              </div>
-                          </mat-expansion-panel>
-                        </mat-accordion>
-                      </div>
-                  </div>
-                  <!-- AHRI ratings end -->
-      
-                  <!-- performance data -->
-                  <div fxFlex="30" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
-                    <div class="list-detail-performance">
-                      <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100">
-                        <mat-accordion>
-                          <mat-expansion-panel [expanded]="true">
-                            <mat-expansion-panel-header>
-                              <mat-panel-title>
-                                <span class="rc-small">Detail Performance Data</span>
-                              </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <div fxLayout="row" class="list-detail-performance-item">
-                              <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                <span>Heating BTUH</span>
-                              </div>
-                              <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                26 346 
-                              </div>
-                            </div>
-                            <div fxLayout="row" class="list-detail-performance-item">
-                              <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                <span>Cooling BTUH</span>
-                              </div>
-                              <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                  18 300
-                              </div>
-                            </div>
-                            <div fxLayout="row" class="list-detail-performance-item" fxLayoutAlign="space-between center" >
-                              <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                <span>Estimated CO2</span>
-                              </div>
-                              <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50" style="padding-top: 5px;">
-                                <mat-icon class="rc-co2-icon">nature</mat-icon>
-                                <mat-icon class="rc-co2-icon">nature</mat-icon>
-                                <mat-icon class="rc-co2-icon">nature</mat-icon>
-                                <mat-icon class="rc-co2-icon">nature</mat-icon>
-                              </div>
-                            </div>
-                          </mat-expansion-panel>
-                        </mat-accordion>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- performance data end -->
-      
-              </div>
-      
-          </mat-card-content>
-
-          <mat-card-actions>
-            <div fxLayout="row column" fxLayoutAlign="end center" fxLayoutGap="16px grid">
-              <div>
-                <button mat-button class="rc-detail-button" fxLayout fxLayoutAlign="center center" (click)="sentmodelNrs()" target="_blank">
-                  VIEW DETAIL 
-                  <mat-icon>search</mat-icon>
-                </button>
-              </div>
-              <div>
-                <button mat-button class="rc-card-button">
-                  ADD TO CARD 
-                  <mat-icon>add_shopping_cart</mat-icon></button>
-              </div>
-            </div>
-          </mat-card-actions>
-      </mat-card>
-      <!-- static desing end -->
-
       <!-- dinamic desing -->
       <mat-card class="rc-card results" *ngFor="let ahriCombination of bestResults; let i = index">
         <div fxLayout="row column" fxLayoutGap="16px grid" >
@@ -415,30 +198,23 @@
                   <div fxFlex="100" *ngIf="showIndoorUnits">
                       <span class="rc-small">Indoor Unit</span>
                       <mat-form-field class="rc-select-multiline">
-                        <mat-select [value]="ahriCombination.indoorUnitSKU" (selectionChange)="filterIndoorBySKU($event.value, i)">
-                          <div *ngFor="let val of ahriCombination.indoorUnits">
-                            <mat-option class="rc-select-multiline-option"  [value]="val.SKU">
-                              <b>{{val.SKU|json}}</b>
-                              {{val.name|json}} 
-                              <span class="price"> $300.00</span>
-                            </mat-option>
-                          </div>
-                          <!-- <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.indoorUnits" [value]="val.SKU">
-                            <b>{{val.SKU|json}}</b>
-                            {{val.name|json}} 
-                            <span class="price"> $300.00</span>
-                          </mat-option> -->                          
+                        <mat-select [value]="ahriCombination.components[1].SKU" (selectionChange)="filterIndoorBySKU($event.value, i)">
+                          <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.indoorUnits" [value]="val.SKU">
+                            <b>{{val.SKU}}</b>
+                            {{val.name}} 
+                            <!--<span class="price"> $300.00</span>-->
+                          </mat-option>
                         </mat-select>
                     </mat-form-field>
                   </div>
                   <div fxFlex="100" *ngIf="showFurnaceUnits">
                     <span class="rc-small">Furnace</span>
                     <mat-form-field class="rc-select-multiline">
-                      <mat-select [value]="ahriCombination.furnaceSKU" (selectionChange)="filterFurnaceBySKU($event.value, i)">
-                        <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.furnaceUnits" [value]="val"> 
-                          <b>{{val.SKU|json}}</b>
-                            {{val.name|json}}  
-                          <span class="price"> $300.00</span>
+                      <mat-select [value]="ahriCombination.components[2].SKU" (selectionChange)="filterFurnaceBySKU($event.value, i)">
+                        <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.furnaceUnits" [value]="val.SKU"> 
+                          <b>{{val.SKU}}</b>
+                            {{val.name}}  
+                          <!--<span class="price"> $300.00</span>-->
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -461,7 +237,7 @@
               <div fxLayout="row column" fxLayoutGap="16px grid">
                 
                 <!-- rebates -->
-                <div fxFlex="25" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
+                <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
                     <div class="list-rebates">
                       <span class="rc-small">Rebates</span>
                       <ul class="rc-unlisted">
@@ -474,20 +250,7 @@
                 </div>
                 <!-- rebates end -->
 
-                  <!-- accesories -->
-                  <div fxFlex="25" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
-                      <div class="list-accesories">
-                          <span class="rc-small">Accesories</span>
-                            <div *ngFor="let val of ahriCombination.accesories">
-                              <mat-checkbox>
-                                {{val.title}}
-                                <span class="accesorie-price">+ {{val.amount | currency}}</span>
-                              </mat-checkbox>
-                            </div>
-                      </div>
-                  </div>
-                  <!-- accesories end -->
-
+            
                   <!-- AHRI ratings -->
                   <div fxFlex="20" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
                       <div class="list-ahri-rating">
@@ -529,7 +292,7 @@
                   <!-- AHRI ratings end -->
 
                   <!-- performance data -->
-                  <div fxFlex="30" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
+                  <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
                     <div class="list-detail-performance">
                       <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100">
                         <mat-accordion>
@@ -553,17 +316,6 @@
                               </div>
                               <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
                                   18 300
-                              </div>
-                            </div>
-                            <div fxLayout="row" class="list-ahri-rating-item" fxLayoutAlign="space-between center" >
-                              <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                <span>Estimated CO2</span>
-                              </div>
-                              <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50" style="padding-top: 5px;">
-                                <mat-icon class="rc-co2-icon">nature</mat-icon>
-                                <mat-icon class="rc-co2-icon">nature</mat-icon>
-                                <mat-icon class="rc-co2-icon">nature</mat-icon>
-                                <mat-icon class="rc-co2-icon">nature</mat-icon>
                               </div>
                             </div>
                           </mat-expansion-panel>
