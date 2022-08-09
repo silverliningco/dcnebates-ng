@@ -989,9 +989,6 @@ h1, h2, h3, h4, h5 {
   .rc-card.results .mat-button-wrapper mat-icon{
       font-size: 20px;
   }
-  .rc-elegibility-questions .mat-radio-button{
-    display: block;
-  }
 
   /* Start Change style to input combo box */
   .rc-card.results .model-nrs mat-form-field{
@@ -1112,4 +1109,13 @@ h1, h2, h3, h4, h5 {
   .mat-tab-label-active .mat-tab-label-content{
     font-weight: bold;
     color: black;
+  }
+
+  /* Elegibility Questions Styles*/
+  .rc-elegibility-questions {
+    padding: 0.4rem 0 0 1rem;
+  }
+  .rc-elegibility-questions .mat-radio-button{
+    display: block;
+    line-height: 1.6rem;
   }

@@ -239,7 +239,11 @@
             </div>
           </div>
           <div *ngIf="noResultsEQ">
-            No eligibility questions available.
+            <div class="rc-alert info">
+              <mat-icon class="rc-icon-alert">info</mat-icon>
+              <p><b>Eligibility questions</b></p>
+              <p>No eligibility questions available.</p>
+            </div>
          </div>
 
           <!-- button -->
