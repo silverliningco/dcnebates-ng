@@ -373,6 +373,13 @@ Payload() {
 
   let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, levelTwoSystemTypeId, sizingConstraint} = this.myPayloadForm;
 
+  let rebate:any;
+    if (this.myPayloadForm.home === 'ahri'){
+      rebate = null;
+    }else {
+      rebate = this.getSelectedRebates();
+    }
+
   let body = {
     commerceInfo: commerceInfo,
     nominalSize: nominalSize,
@@ -381,7 +388,7 @@ Payload() {
     levelTwoSystemTypeId: this.productLinesGroup.controls['productLine'].value,
     sizingConstraint: sizingConstraint,
     filters: JSON.parse(this.PrepareFilters()),
-    requiredRebates: this.getSelectedRebates()
+    requiredRebates: rebate
   };
 
   return JSON.stringify(body);
