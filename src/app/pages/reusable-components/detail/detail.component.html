@@ -13,15 +13,15 @@
             <div class="content-detail" >              
               <div class="group-content" *ngIf="unit.type =='outdoorUnit'">
                 <p class="rc-small">Outdoor Unit</p>
-                <p class="data">{{unit.SKU|json}}</p>
+                <p class="data">{{unit.SKU}}</p>
               </div>
               <div class="group-content" *ngIf="unit.type =='indoorUnit'">
                 <p class="rc-small">Indoor Unit</p>
-                <p class="data">{{unit.SKU|json}}</p>
+                <p class="data">{{unit.SKU}}</p>
               </div>
               <div class="group-content" *ngIf="unit.type =='furnace'">
                 <p class="rc-small">Furnace</p>
-                <p class="data">{{unit.SKU|json}}</p>
+                <p class="data">{{unit.SKU}}</p>
               </div>
             </div>
           </div>
@@ -120,8 +120,8 @@
                 <div fxLayout fxLayoutAlign="center" fxLayoutGap="8px">
                   <div fxFlex="50">
                     <h4>
-                      {{reb.rebateTitle|json}}
-                      <span *ngIf="reb.rebateTierTitle !='Default'">{{reb.rebateTierTitle|json}}</span>
+                      {{reb.rebateTitle}}
+                      <span class="span-title" *ngIf="reb.rebateTierTitle !='Default'"> - {{reb.rebateTierTitle}}</span>
                     </h4>
                   </div>
                   <div fxFlex="50" class="price" fxLayout fxLayoutAlign="end">
