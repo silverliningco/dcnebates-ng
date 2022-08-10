@@ -1,10 +1,6 @@
 /* note: all the attributes that have type any, does have value null when received the payload */
 export class BestDetail {
     constructor(
-        public outdoorUnit?: string,
-        public indoorUnit?: string,
-        public furnaceUnit?: string,
-
         public indoorUnits?: Array<string>,
         public furnaceUnits?: Array<string>,
 
