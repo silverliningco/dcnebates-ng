@@ -59,7 +59,7 @@ export class HeatingCoolingRComponent implements OnInit {
   showOptions: boolean = false;
 
   myEligibilityQuestions:Array<any> = [];
-  noResultsEQ!: boolean;
+  noResultsEQ: boolean = true;
 
   /* intercambio de datos */
   data!: any;
