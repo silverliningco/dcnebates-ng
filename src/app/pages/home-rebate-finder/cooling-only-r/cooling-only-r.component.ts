@@ -154,7 +154,7 @@ export class CoolingOnlyRComponent implements OnInit {
       utilityProviders: { 
         electricUtilityId: this.utilityGroup.controls['electricUtility'].value },
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
-      rebateTypes:["electric", "OEM", "distributor", "fossil fuel"],
+      rebateTypes:["electric", "OEM", "distributor"],
       OEM: "Carrier",
       storeIds: []
     }
