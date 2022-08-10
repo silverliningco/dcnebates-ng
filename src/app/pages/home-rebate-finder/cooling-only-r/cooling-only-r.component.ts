@@ -59,7 +59,7 @@ export class CoolingOnlyRComponent implements OnInit {
   showOptions: boolean = false;
 
   myEligibilityQuestions:Array<any> = [];
-  noResultsEQ!: boolean;
+  noResultsEQ: boolean = false;
 
   /* intercambio de datos */
   data!: any;
