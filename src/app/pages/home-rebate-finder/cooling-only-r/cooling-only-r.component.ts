@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, FormArray } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
@@ -32,7 +32,8 @@ export class CoolingOnlyRComponent implements OnInit {
   eligibilityQuestionsGroup !: FormGroup;
   commerceInfoGroup !: FormGroup;
   nominalSizeGroup !: FormGroup;
-  furnaceGroup !: FormGroup; stateGroup !: FormGroup;
+  furnaceGroup !: FormGroup; 
+  stateGroup !: FormGroup;
   utilityGroup !: FormGroup;
 
   payload: any;
@@ -57,9 +58,11 @@ export class CoolingOnlyRComponent implements OnInit {
   showIndoorUnit: boolean = false;
   showOptions: boolean = false;
 
+  noResultsEQ!: boolean;
+
   /* intercambio de datos */
   data!: any;
-  
+
   constructor(
     private _formBuilder: FormBuilder,
     public breakpointObserver: BreakpointObserver,
@@ -73,11 +76,11 @@ export class CoolingOnlyRComponent implements OnInit {
   }
   
   get questions(){
-    return this.eligibilityQuestionsGroup.get('questions') as FormArray;
+      return this.eligibilityQuestionsGroup.get('questions') as FormArray;
   }
 
   ngOnInit(): void {
-
+    
     /* form groups */
     this.eligibilityQuestionsGroup = this._formBuilder.group({
       questions: this._formBuilder.array([])
@@ -105,7 +108,33 @@ export class CoolingOnlyRComponent implements OnInit {
     });
 
   }
-    
+
+  /* validators */
+  /* note: it will always show the error: "Cooling tons is required"
+     when "e" is entered as input, because its type = object and its value = null 
+  */
+  ValidateNumber(control: AbstractControl) : ValidationErrors | null  {
+
+      let coolingToms = control.value;
+      let typeCT = typeof coolingToms;
+  
+      if (typeCT === 'number' ){
+        return null;
+      } 
+      else {
+        if (typeCT === 'object' &&  coolingToms === null){
+          return  { null_not_permit : true };
+        } if (typeCT === 'string' &&  coolingToms === ''){
+          return  { need_1_or_3_characters : true };
+        } 
+        else{
+          return  { is_not_number : true };
+        }
+        
+      }
+     
+  }
+
   /* ElegibilityQuestions */
   AddQuestion(question:any){
     const QuestionFormGroup  = this._formBuilder.group({
@@ -122,10 +151,9 @@ export class CoolingOnlyRComponent implements OnInit {
       country: "US",
       state: this.stateGroup.controls['state'].value,
       utilityProviders: { 
-        electricUtilityId: this.utilityGroup.controls['electricUtility'].value
-      },
+        electricUtilityId: this.utilityGroup.controls['electricUtility'].value },
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
-      rebateTypes:["electric", "OEM", "distributor"],
+      rebateTypes:["electric", "OEM", "distributor", "fossil fuel"],
       OEM: "Carrier",
       storeIds: []
     }
@@ -138,10 +166,15 @@ export class CoolingOnlyRComponent implements OnInit {
       next: (resp) => {
 
         this.questions.clear()
-
-        resp.forEach((question: any) => {
-          this.AddQuestion(question)
-        });
+        if(resp.length > 0) {
+          resp.forEach((question: any) => {
+            this.AddQuestion(question)
+            this.noResultsEQ = false;
+          });
+        } else {
+          this.noResultsEQ = true;
+        }
+       
         
       },
       error: (e) => alert(e.error),
@@ -158,9 +191,10 @@ export class CoolingOnlyRComponent implements OnInit {
 
     let myQuestions = this.eligibilityQuestionsGroup.value.questions;
     myQuestions.forEach((question: any) => {
-      myAnswers[question.questionId] = question.answer;
+      myAnswers![question.questionId] = question.answer;
     });
 
+    
     return myAnswers;
 
   }
@@ -199,30 +233,30 @@ export class CoolingOnlyRComponent implements OnInit {
     });
   }
 
-  submitForm() {  
+
+  submitForm() {
 
     this.payload = {
       commerceInfo: this.commerceInfoGroup.value,
       nominalSize: this.nominalSizeGroup.value,
-      fuelSource: this.furnaceGroup.controls['fuelSource'].value,      
-      eligibilityCriteria: this.AnswersEligibilityQuestions(),
+      fuelSource: this.furnaceGroup.controls['fuelSource'].value,
       state: this.stateGroup.controls['state'].value,
+      eligibilityCriteria: this.AnswersEligibilityQuestions(),
       utilityProviders: { 
-        electricUtilityId: this.utilityGroup.controls['electricUtility'].value
-      },
-      levelOneSystemTypeId: 2,
-      levelTwoSystemTypeId: 1,
-      sizingConstraint: "Nominal cooling tons"
+        electricUtilityId: this.utilityGroup.controls['electricUtility'].value },
+      levelOneSystemTypeId: 1,
+      levelTwoSystemTypeId: 2,
+      sizingConstraint: "Nominal cooling tons",
+      home: 'rebate'
     }  
-    /* sent the infor to product-lines-components */
+    /* sent the info to results-rebate */
     this._bridge.sentRebateParams.emit({
       data: this.payload
     });
-  
   }
 
   tabChange(e:any){
-    
+
     // Call eligibility questions, always it will be the second to last.
     if(this.stepper?.steps.length -2 == e.selectedIndex){
       this.LoadEligibilityQuestions()
