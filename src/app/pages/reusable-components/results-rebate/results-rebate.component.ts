@@ -55,7 +55,6 @@ export class ResultsRebateComponent implements OnInit {
        this._bridge.sentRebateParams
                  .subscribe((payload: any) => {
                     this.myPayloadForm = payload.data;
-
                     this.CallProductLines();
                     
                     /* call GetAvailableRebates if home = 'rebate'  */
@@ -529,30 +528,34 @@ filterBestResults(resp: BestDetail[][]) {
 
 filterIndoorBySKU(myIndoorUnit: string, i:number) {
 
-  console.log(this.bestResults[i])
   //Search bestOption with user selections
-  let myOutdoorUnit = this.bestResults[i].outdoorUnitSKU;
+  let myOutdoorUnit = this.bestResults[i].components.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
   let myCombination: BestDetail[] = []
 
-  //var result = $filter('filter')($scope.xyz, {id:"1"});
+  console.log(myOutdoorUnit)
 
   this.results.forEach((subel:BestDetail[]) => {
-    let myFind = subel.filter((item: BestDetail)=> item.outdoorUnit == myOutdoorUnit)
-    if(myFind.length > 0){
-      myCombination = myFind
-    }
-  });
- 
-  if(myIndoorUnit){
-    let myMatchetIndoor = myCombination.filter((item: BestDetail) => item.indoorUnit == myIndoorUnit);
-    if(myMatchetIndoor.length == 1){
-      this.bestResults[i] = myMatchetIndoor[0]
-    }
 
-    else if(myMatchetIndoor.length > 1){
-      // Get element with the highest rebate amount. 
-      this.bestResults[i] =this.GetHighestRebateAmount(myMatchetIndoor)  
-    }
+    subel.forEach(element => {
+      let myFind = element.components?.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
+      if(myFind == myOutdoorUnit){
+        myCombination = subel
+      }
+    });
+    
+  });
+
+  //hasta aqui!
+ console.log(myCombination)
+  if(myIndoorUnit){
+
+
+    myCombination.forEach(element => {
+      let myFind = element.components?.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
+      if(myFind == myIndoorUnit){
+        this.bestResults[i] = element
+      }
+    });
 
     // compose options for specified model type
     this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination,"indoorUnit");
@@ -561,29 +564,40 @@ filterIndoorBySKU(myIndoorUnit: string, i:number) {
 }
 
 filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
-    let myOutdoorUnit = this.bestResults[i].outdoorUnitSKU;
-    let myCombination: BestDetail[] = []
 
-    this.results.forEach((subel:BestDetail[]) => {
-      let myFind = subel.filter((item: BestDetail)=> item.outdoorUnit == myOutdoorUnit)
-      if(myFind.length > 0){
-        myCombination = myFind
+  //Search bestOption with user selections
+  let myOutdoorUnit = this.bestResults[i].components.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
+  let myCombination: BestDetail[] = []
+
+  console.log(myOutdoorUnit)
+
+  this.results.forEach((subel:BestDetail[]) => {
+
+    subel.forEach(element => {
+      let myFind = element.components?.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
+      if(myFind == myOutdoorUnit){
+        myCombination = subel
       }
     });
-    if(myFurnaceUnit){
-      let myMatchetIndoor = myCombination.filter((item: BestDetail) => item.furnaceUnit == myFurnaceUnit);
-      if(myMatchetIndoor.length == 1){
-        this.bestResults[i] = myMatchetIndoor[0]
-      }
-      else if(myMatchetIndoor.length > 1){
-        // Get element with the highest rebate amount. 
-        this.bestResults[i] =this.GetHighestRebateAmount(myMatchetIndoor)  
-      }
+    
+  });
 
-      // compose options for specified model type
-      this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination,"indoorUnitSKU");
-      this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination,"furnaceSKU");
-    }
+  //hasta aqui!
+ console.log(myCombination)
+  if(myFurnaceUnit){
+
+
+    myCombination.forEach(element => {
+      let myFind = element.components?.filter((item: any)=> item.type == "furnace")[0].SKU;
+      if(myFind == myFurnaceUnit){
+        this.bestResults[i] = element
+      }
+    });
+
+    // compose options for specified model type
+    this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination,"indoorUnit");
+    this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination,"furnace");
+  }
 }
 
   // function to remove selections filters from my filters.
