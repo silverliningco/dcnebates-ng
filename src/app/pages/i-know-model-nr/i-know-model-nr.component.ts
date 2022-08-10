@@ -341,7 +341,7 @@ export class IKnowModelNrComponent implements OnInit {
 
   sentmodelNrs(){
     let body: any = this.Payload();
-    let url= '/home/bestDetail/' + body;
+    let url= '/home/detail-i-know-my-model-nr/' + body;
     window.open(url)  
   }
 

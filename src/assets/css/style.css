@@ -816,13 +816,14 @@ h1, h2, h3, h4, h5 {
   }
     /*Rebate Tiers Checked*/
     .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox.mat-checkbox-checked{
-      border-color: var(--rc-accent-color);
+      border-color: #008906;
+      background-color: rgba(1, 252, 11, 0.122);
     }
     .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox.mat-checkbox-checked::after{
       content: "";
     }
     .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox.mat-checkbox-checked .rc-rt-container{
-      color: var(--rc-accent-color);
+      color: #008906;
       font-weight: 600;
     }
     .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox.mat-checkbox-checked .rc-rt-container .rc-info-note{
@@ -1178,6 +1179,11 @@ h1, h2, h3, h4, h5 {
 }
 .rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header-title{
   display: initial;
+  color: var(--rc-text-color);
+}
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header-title h4 span{
+  font-weight: normal;
+  font-style: italic;
 }
 .rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header-title .price h4{
   background-color: rgba(49, 120, 191, 0.13);
