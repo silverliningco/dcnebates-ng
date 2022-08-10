@@ -1119,3 +1119,94 @@ h1, h2, h3, h4, h5 {
     display: block;
     line-height: 1.6rem;
   }
+
+  /*Part of detail*/
+.rc-card.detail .part{
+  position: relative;
+}
+.rc-card.detail .part .title{
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.rc-card.detail .part .title .text{
+  color: var(--rc-accent-color);
+  position: relative;
+  z-index: 5;
+}
+.rc-card.detail .part .title::after{
+  position: relative;
+  z-index: 5;
+  content: '';
+  border-bottom: solid 3px var(--rc-primary-color);
+  width: 30px;
+  display: block;
+}
+.rc-card.detail .part .decoration{
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: #FFF9F1;
+  border-radius: 50%;
+  z-index: 0;
+  left: -10px;
+  top: -5px;
+}
+
+.rc-card.detail .part .content-detail{
+  padding: 5px 8px 20px 16px
+}
+.rc-card.detail .part .content-detail .group-content{
+  margin-bottom: 4px;
+}
+.rc-card.detail .part .content-detail .group-content .rc-small{
+  color: #9a9a9a;
+  font-size: 11px;
+}
+.rc-card.detail .part .content-detail .group-content p.data{
+  font-weight: 600;
+}
+
+/*Accordion tabs for rebates*/
+.rc-card.detail .mat-accordion .mat-expansion-panel{
+  background-color: #F8F8F8;
+  box-shadow: none;
+  margin-bottom: .5rem;
+}
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header.mat-expanded{
+  border-bottom: 1px solid #D7D7D7;
+  border-radius: 0;
+}
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header-title{
+  display: initial;
+}
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header-title .price h4{
+  background-color: rgba(49, 120, 191, 0.13);
+  border-radius: 4px;
+  padding: 2px 12px;
+  color: var(--rc-primary-color);
+}
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body{
+  padding: 16px 24px 16px;
+}
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body p.description{
+  margin-bottom: 1rem;
+}
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list{
+  list-style: none;    
+  padding-inline-start: 16px;
+}
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list li a{
+  color: var(--rc-primary-color) !important;
+  cursor: pointer;
+  margin-bottom: .5rem;
+}
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list mat-icon{
+  font-size: 16px;
+  width: 16px;
+  height: 20px;
+  padding-top: 0px;
+  transform: rotate(145deg);
+}
+.rc-card.detail .mat-card-footer{
+  margin: 1rem 0 0 0;
+}

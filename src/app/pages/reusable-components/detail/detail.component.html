@@ -4,8 +4,8 @@
     <div fxLayout="row column" fxLayoutGap="16px Grid">
       <!-- skus -->
       <div fxFlex="30" fxFlex.sm="81" fxFlex.xs="80">
-        <div class="part-detail">
-          <div class="title-part">
+        <div class="part">
+          <div class="title">
             <div class="decoration"></div>
             <h4 class="text">SKUS</h4>
           </div>
@@ -30,8 +30,8 @@
 
       <!-- AHRI References -->
       <div fxFlex="30" fxFlex.sm="80" fxFlex.xs="80">
-        <div class="part-detail">
-          <div class="title-part">
+        <div class="part">
+          <div class="title">
             <div class="decoration"></div>
             <h4 class="text">AHRI References</h4>
           </div>
@@ -50,8 +50,8 @@
 
       <!-- AHRI Ratings -->
       <div fxFlex="40" fxFlex.sm="100" fxFlex.xs="100">
-        <div class="part-detail">
-          <div class="title-part">
+        <div class="part">
+          <div class="title">
             <div class="decoration"></div> 
             <h4 class="text">AHRI Ratings</h4>
           </div>
@@ -106,45 +106,50 @@
     </div>
 
     <!--Available Rebates-->
-  <!-- <div *ngIf="existRebate"> -->
-    <h2 class="rc-page-subtitle">Available Rebates</h2>
-    <div fxLayout="row column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center stretch" fxLayoutGap="16px grid" fxLayoutGap.sm="8" fxLayoutGap.xs="8">
-        <mat-card *ngFor="let reb of detail.availableRebates" fxFlex="48" fxFlex.sm="100" fxFlex.xs="100" class="rc-detail-available-rebates">
-          <mat-card-title>
-            <h5>
-              {{reb.rebateTitle|json}} 
-              <span *ngIf="reb.rebateTierTitle !='Default'">
-                {{reb.rebateTierTitle|json}}
-              </span>
-            </h5>
-          </mat-card-title>
-
-          <div fxLayout="row column" fxLayoutGap="8px grid">
-            <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
-              <ul class="link-list">
-                <li *ngFor="let link of reb.links">
-                  <a target="_blank" (click)="onNavigate(link.url)">
-                    <mat-icon>link</mat-icon> {{link.title|json}}
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          
-          <mat-card-content>          
-            <div fxLayout="row column" fxLayoutGap="8px grid">
-              <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
-                <div fxLayout fxLayoutAlign="end end" class="price-content">
-                  <div class="price">
-                    <h5 class="rc-small">UP TO</h5>
-                    <h1>{{reb.amount | currency:"USD":"symbol" : '1.0-0'}}</h1>
+    <!-- If Rebates -->
+    <mat-card-footer>
+      <div class="part">
+        <div class="title">
+          <div class="decoration"></div>
+          <h4 class="text">Available Rebates</h4>
+        </div>
+        <mat-accordion multi>
+          <mat-expansion-panel *ngFor="let reb of detail.availableRebates">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <div fxLayout fxLayoutAlign="center" fxLayoutGap="8px">
+                  <div fxFlex="50">
+                    <h4>
+                      {{reb.rebateTitle|json}}
+                      <span *ngIf="reb.rebateTierTitle !='Default'">{{reb.rebateTierTitle|json}}</span>
+                    </h4>
                   </div>
+                  <div fxFlex="50" class="price" fxLayout fxLayoutAlign="end">
+                    <h4>{{reb.amount | currency:"USD":"symbol" : '1.0-0'}}</h4>
+                  </div>
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="available-rebates">
+              <!--<p class="description">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi maiores amet id, architecto repellat veniam, beatae sunt sapiente cum voluptate vero. Illum quas voluptatibus ab. Nihil, recusandae. Illo, dolorem error!
+              </p>-->
+              <div fxLayout="row column" fxLayoutGap="8px grid">
+                <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
+                  <ul class="link-list">
+                    <li *ngFor="let link of reb.links">
+                      <a target="_blank" (click)="onNavigate(link.url)">
+                        <mat-icon>link</mat-icon> {{link.title|json}}
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
-    </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </mat-card-footer>
   <!-- </div> -->
   </mat-card>
 </div>
