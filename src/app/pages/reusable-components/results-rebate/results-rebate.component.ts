@@ -505,11 +505,11 @@ filterBestResults(resp: BestDetail[][]) {
   var bestResults: any = [];
   resp.forEach(details => {
   
-    // if() {
-
-    //}
     // Get element with the highest rebate amount.
-    const mySystem = this.GetHighestRebateAmount(details);
+    let mySystem = this.GetHighestRebateAmount(details);
+    if(!mySystem){
+      mySystem = details[0]
+    }
     console.log(mySystem);
     console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     mySystem.indoorUnits = this.loadOptionsModelNrs(details,"indoorUnit");
