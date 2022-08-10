@@ -58,6 +58,7 @@ export class HeatingCoolingRComponent implements OnInit {
   showIndoorUnit: boolean = false;
   showOptions: boolean = false;
 
+  myEligibilityQuestions:Array<any> = [];
   noResultsEQ!: boolean;
 
   /* intercambio de datos */
@@ -197,21 +198,24 @@ export class HeatingCoolingRComponent implements OnInit {
     return body;
   }
 
-  LoadEligibilityQuestions(){
+  LoadEligibilityQuestions(myOldEligibilityQuestions:any){
 
     this._api.ElegibilityQuestions(this.PrepareDataEligibilityQuestions()).subscribe({
       next: (resp) => {
+        if (JSON.stringify(resp) !== JSON.stringify(myOldEligibilityQuestions)){
+          this.myEligibilityQuestions = resp;
 
-        this.questions.clear()
-        if(resp.length > 0) {
-          resp.forEach((question: any) => {
-            this.AddQuestion(question)
-            this.noResultsEQ = false;
-          });
-        } else {
-          this.noResultsEQ = true;
+
+          this.questions.clear()
+          if(resp.length > 0) {
+            resp.forEach((question: any) => {
+              this.AddQuestion(question)
+              this.noResultsEQ = false;
+            });
+          } else {
+            this.noResultsEQ = true;
+          }
         }
-       
         
       },
       error: (e) => alert(e.error),
@@ -297,7 +301,7 @@ export class HeatingCoolingRComponent implements OnInit {
 
     // Call eligibility questions, always it will be the second to last.
     if(this.stepper?.steps.length -2 == e.selectedIndex){
-      this.LoadEligibilityQuestions()
+      this.LoadEligibilityQuestions(this.myEligibilityQuestions)
     }
     // Confirm that it's the last step (ahri combinations).
     if(this.stepper?.steps.length -1 == e.selectedIndex){

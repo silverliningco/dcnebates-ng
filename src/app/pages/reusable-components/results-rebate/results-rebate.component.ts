@@ -620,7 +620,13 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
   }
 
 
-  sentmodelNrs(){
+  sentmodelNrs(myCombination:BestDetail) {
+
+    let myAHRIs: String[] = []
+    myCombination.components!.forEach(element => {
+      myAHRIs.push(element.SKU!)
+    });
+    
     let rebate:any;
     if (this.myPayloadForm.home === 'ahri'){
       rebate = null;
@@ -632,7 +638,7 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
 
     let body = {
       "commerceInfo": commerceInfo,
-      "skus":[ "24ACB724A003", "CAPMP3617ALA","59MN7B080C17--14"], 
+      "skus": myAHRIs, 
 	    "requiredRebates": rebate
     }
 
