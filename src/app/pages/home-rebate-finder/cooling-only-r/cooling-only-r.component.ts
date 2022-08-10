@@ -243,9 +243,10 @@ export class CoolingOnlyRComponent implements OnInit {
       state: this.stateGroup.controls['state'].value,
       eligibilityCriteria: this.AnswersEligibilityQuestions(),
       utilityProviders: { 
-        electricUtilityId: this.utilityGroup.controls['electricUtility'].value },
-      levelOneSystemTypeId: 1,
-      levelTwoSystemTypeId: 2,
+        electricUtilityId: this.utilityGroup.controls['electricUtility'].value 
+      },
+      levelOneSystemTypeId: 2,
+      // levelTwoSystemTypeId: 2,
       sizingConstraint: "Nominal cooling tons",
       home: 'rebate'
     }  
