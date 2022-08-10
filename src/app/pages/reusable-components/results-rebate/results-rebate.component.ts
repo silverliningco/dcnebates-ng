@@ -631,7 +631,7 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
     if (this.myPayloadForm.home === 'ahri'){
       rebate = null;
     }else {
-      rebate = this.GetAvailableRebates();
+      rebate = this.getSelectedRebates();
     }
 
     let {commerceInfo} = this.myPayloadForm;

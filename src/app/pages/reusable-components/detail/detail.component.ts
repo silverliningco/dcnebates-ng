@@ -27,32 +27,7 @@ export class DetailComponent implements OnInit {
       activatedRoute.params.subscribe( params => {
     
         let body = params['body'] ;
-        let a = {
-          "commerceInfo": {
-            "storeId": 1,
-            "showAllResults": false
-          },
-          "skus":[ "24ACB724A003", "CAPMP3617ALA","59MN7B080C17--14"], 
-          "requiredRebates": [
-                {
-              "rebateId": 1,
-              "rebateTierId": 2,
-              "isRequired": false
-            },
-            {
-              "rebateId": 2,
-              "rebateTierId": 3,
-              "isRequired": false
-            },
-            {
-              "rebateId": 6,
-              "rebateTierId": 8,
-              "isRequired": false
-            }
-          ]
-        }
-  
-        this._api.Search(a).subscribe({
+        this._api.Search(body).subscribe({
           next: (resp) => {
             this.processResult(resp);
           },
