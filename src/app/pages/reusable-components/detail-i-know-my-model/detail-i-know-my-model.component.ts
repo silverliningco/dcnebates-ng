@@ -30,7 +30,7 @@ export class DetailIKnowMyModelComponent implements OnInit {
       this._api.Search(body).subscribe({
         next: (resp) => {
           this.detail = resp;
-          this.processRebate(this.detail.availablerebates);
+          // this.processRebate(this.detail.availablerebates);
           this.processAccesories(this.detail.accesories);
         },
         error: (e) => alert(e.error),

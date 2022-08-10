@@ -3,7 +3,6 @@ import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { BestDetail, Rebate, Accesories} from '../../../models/detailBestOption';
 
-
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -28,8 +27,32 @@ export class DetailComponent implements OnInit {
       activatedRoute.params.subscribe( params => {
     
         let body = params['body'] ;
+        let a = {
+          "commerceInfo": {
+            "storeId": 1,
+            "showAllResults": false
+          },
+          "skus":[ "24ACB724A003", "CAPMP3617ALA","59MN7B080C17--14"], 
+          "requiredRebates": [
+                {
+              "rebateId": 1,
+              "rebateTierId": 2,
+              "isRequired": false
+            },
+            {
+              "rebateId": 2,
+              "rebateTierId": 3,
+              "isRequired": false
+            },
+            {
+              "rebateId": 6,
+              "rebateTierId": 8,
+              "isRequired": false
+            }
+          ]
+        }
   
-        this._api.Search(body).subscribe({
+        this._api.Search(a).subscribe({
           next: (resp) => {
             this.processResult(resp);
           },
@@ -48,28 +71,7 @@ export class DetailComponent implements OnInit {
     });
   }
 
-  processRebate(availableRebates: any){
-
-    availableRebates.forEach((elm1: any) => {
-      this.rebate.push(elm1);
-    });
-
-    if (this.rebate.length > 0){
-      this.existRebate = true;
-    }
-
+  onNavigate(url : any){
+    window.open(url, '_blank');
   }
-
-  processAccesories(accesories: any){
-
-    accesories.forEach((elm1: any) => {
-      this.accesorie.push(elm1);
-    });
-
-    if (this.accesorie.length > 0){
-      this.existAcc = true;
-    }
-
-  }
-
 }

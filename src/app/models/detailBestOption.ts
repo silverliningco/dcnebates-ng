@@ -9,7 +9,7 @@ export class BestDetail {
         public furnaceUnits?: Array<string>,
 
         public name?: string,
-        public availablerebates?: Array<Rebate>,
+        public availableRebates?: Array<Rebate>,
         public EER?: number,
         public AFUE?: any,
         public HSPF?: number,
