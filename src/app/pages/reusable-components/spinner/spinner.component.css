@@ -3,7 +3,11 @@
     justify-content: center; 
     align-items: center;
     height: calc(100vh - 20px);
-    background: #f0f0f0;
+    background: #f0f0f04f;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    left: 0;
   }
   .inner {
     padding: 12px;

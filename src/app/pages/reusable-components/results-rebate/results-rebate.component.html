@@ -177,7 +177,7 @@
           <mat-card class="rc-card results" *ngFor="let ahriCombination of bestResults; let i = index">
             <div fxLayout="row column" fxLayoutGap="16px grid" >
   
-              <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
+              <div fxFlex="100" fxFlex.sm="100" fxFlex.xs="100">
                 <mat-card-header>
   
                   <mat-card-title>
@@ -192,7 +192,7 @@
                   <!-- skus of units -->
                   <mat-card-subtitle >
                     <div fxLayout="row column" fxLayoutAlign="space-between center" class="model-nrs" fxLayoutGap="4px grid">
-                      <div fxFlex="100" *ngIf="showIndoorUnits">
+                      <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" *ngIf="showIndoorUnits">
                           <span class="rc-small">Indoor Unit</span>
                           <mat-form-field class="rc-select-multiline">
                             <mat-select [value]="ahriCombination.components[1].SKU" (selectionChange)="filterIndoorBySKU($event.value, i)">
@@ -204,7 +204,7 @@
                             </mat-select>
                         </mat-form-field>
                       </div>
-                      <div fxFlex="100" *ngIf="showFurnaceUnits">
+                      <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" *ngIf="showFurnaceUnits">
                         <span class="rc-small">Furnace</span>
                         <mat-form-field class="rc-select-multiline">
                           <mat-select [value]="ahriCombination.components[2].SKU" (selectionChange)="filterFurnaceBySKU($event.value, i)">
@@ -227,7 +227,7 @@
                   <div fxLayout="row column" fxLayoutGap="16px grid"> 
                 
                       <!-- AHRI ratings -->
-                      <div fxFlex="20" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
+                      <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
                           <div class="list-ahri-rating">
                             <mat-accordion>
                               <mat-expansion-panel [expanded]="true">
@@ -267,7 +267,7 @@
                       <!-- AHRI ratings end -->
   
                       <!-- performance data -->
-                      <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
+                      <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
                         <div class="list-detail-performance">
                           <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100">
                             <mat-accordion>
