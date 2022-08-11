@@ -1222,3 +1222,8 @@ h1, h2, h3, h4, h5 {
 .rc-card.detail .mat-card-footer{
   margin: 1rem 0 0 0;
 }
+
+/* Change tooltip color */
+.mat-progress-spinner circle, .mat-spinner circle{
+  stroke: #1565c0 !important;
+}

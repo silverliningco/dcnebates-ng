@@ -8,6 +8,7 @@
     width: 100%;
     z-index: 10;
     left: 0;
+    top:0;
   }
   .inner {
     padding: 12px;
