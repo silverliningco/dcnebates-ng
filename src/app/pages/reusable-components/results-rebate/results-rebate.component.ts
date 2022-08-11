@@ -45,6 +45,8 @@ export class ResultsRebateComponent implements OnInit {
   availableRebates!: Array<Rebate>;
   NoExistAvailableRebates: boolean = false;
 
+  showSpinner:boolean = false;
+
   constructor(
     private _formBuilder: FormBuilder,
     private _api: ApiService,
@@ -398,8 +400,7 @@ Payload() {
 }
 
 CallSearch() {
-
-
+  this.showSpinner = true;
    this._api.Search(this.Payload()).subscribe({
     next: (resp) => {
       if (resp.length > 0) {
@@ -411,6 +412,8 @@ CallSearch() {
         this.bestResults = [];
         this.noResultsSearch = true;
       }
+
+      this.showSpinner = false;
     }
   })
 }

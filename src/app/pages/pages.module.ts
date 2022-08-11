@@ -41,7 +41,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { DetailIKnowMyModelComponent } from './reusable-components/detail-i-know-my-model/detail-i-know-my-model.component';
 import { IKnowModelNrComponent } from './i-know-model-nr/i-know-model-nr.component';
-
+import { SpinnerComponent } from './reusable-components/spinner/spinner.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { IKnowModelNrComponent } from './i-know-model-nr/i-know-model-nr.compone
     HeatingCoolingAhriComponent,
     ResultsRebateComponent,
     DetailIKnowMyModelComponent,
-    IKnowModelNrComponent
+    IKnowModelNrComponent,
+    SpinnerComponent,
   ],
   imports: [
     CommonModule,
@@ -85,7 +87,8 @@ import { IKnowModelNrComponent } from './i-know-model-nr/i-know-model-nr.compone
     MatExpansionModule,
     MatDialogModule,
     MatTabsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressSpinnerModule
   ],
   entryComponents:[
   ]
