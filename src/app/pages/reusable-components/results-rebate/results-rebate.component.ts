@@ -619,7 +619,7 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
     } else {
       this.filtersGroup.controls[myFilter].reset();
     }
-    this.CallFilters()
+    this.CallSearch()
   }
 
   isArray(obj: any) {
