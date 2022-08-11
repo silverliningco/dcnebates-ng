@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
@@ -33,7 +33,6 @@ export class IKnowModelNrComponent implements OnInit {
   stateGroup !: FormGroup;
   utilityGroup !: FormGroup;
   furnaceGroup !: FormGroup; 
-  filtersGroup !: FormGroup;
 
   /* utilities */
   sendElectric: Array<any> = [];
