@@ -404,6 +404,8 @@ CallSearch() {
         this.results = resp;
         this.bestResults = this.filterBestResults(resp);
       } else {
+        this.results = [];
+        this.bestResults = [];
         this.noResultsSearch = true;
       }
     }
