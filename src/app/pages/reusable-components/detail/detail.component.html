@@ -13,14 +13,17 @@
             <div class="content-detail" >              
               <div class="group-content" *ngIf="unit.type =='outdoorUnit'">
                 <p class="rc-small">Outdoor Unit</p>
+                <h4>{{unit.name}}</h4>
                 <p class="data">{{unit.SKU}}</p>
               </div>
               <div class="group-content" *ngIf="unit.type =='indoorUnit'">
                 <p class="rc-small">Indoor Unit</p>
+                <h4>{{unit.name}}</h4>
                 <p class="data">{{unit.SKU}}</p>
               </div>
               <div class="group-content" *ngIf="unit.type =='furnace'">
                 <p class="rc-small">Furnace</p>
+                <h4>{{unit.name}}</h4>
                 <p class="data">{{unit.SKU}}</p>
               </div>
             </div>
@@ -28,7 +31,7 @@
         </div>
       </div>
 
-      <!-- AHRI References -->
+      <!-- AHRI References --> 
       <div fxFlex="30" fxFlex.sm="80" fxFlex.xs="80">
         <div class="part">
           <div class="title">
