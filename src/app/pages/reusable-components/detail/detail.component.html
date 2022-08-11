@@ -107,13 +107,13 @@
 
     <!--Available Rebates-->
     <!-- If Rebates -->
-    <mat-card-footer>
+    <mat-card-footer *ngIf="detail.availableRebates !=null">
       <div class="part">
         <div class="title">
           <div class="decoration"></div>
           <h4 class="text">Available Rebates</h4>
         </div>
-        <mat-accordion multi>
+        <mat-accordion multi >
           <mat-expansion-panel *ngFor="let reb of detail.availableRebates">
             <mat-expansion-panel-header>
               <mat-panel-title>

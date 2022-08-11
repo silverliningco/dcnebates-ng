@@ -264,7 +264,7 @@
                                     <span>SEER</span>
                                   </div>
                                   <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                    {{ahriCombination.SEER}}
+                                    {{ahriCombination.SEER || "-"}}
                                   </div>                                 
                                 </div>
                                 <div fxLayout="row" class="list-ahri-rating-item">
@@ -272,7 +272,7 @@
                                     <span>EER</span>
                                   </div>
                                   <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                    {{ahriCombination.EER}}
+                                    {{ahriCombination.EER || "-"}}
                                   </div>                                 
                                 </div>
                                 <div fxLayout="row" class="list-ahri-rating-item">
@@ -280,7 +280,7 @@
                                     <span>HPSF</span>
                                   </div>
                                   <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">                                      
-                                    {{ahriCombination.HSPF}}
+                                    {{ahriCombination.HSPF || "-"}}
                                   </div>
                                 </div>
                             </mat-expansion-panel>
@@ -300,22 +300,40 @@
                                   <span class="rc-small">Detail Performance Data</span>
                                 </mat-panel-title>
                               </mat-expansion-panel-header>
+
                               <div fxLayout="row" class="list-ahri-rating-item">
                                 <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                  <span>Heating BTUH</span>
+                                  <span>Hcap17</span>
                                 </div>
                                 <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                  26 346 
+                                  {{ahriCombination.Hcap17 | number }} 
                                 </div>
                               </div>
                               <div fxLayout="row" class="list-ahri-rating-item">
                                 <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                  <span>Cooling BTUH</span>
+                                  <span>Hcap47</span>
                                 </div>
                                 <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                    18 300
+                                  {{ahriCombination.Hcap47 | number }} 
                                 </div>
                               </div>
+                              <div fxLayout="row" class="list-ahri-rating-item">
+                                <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <span>Furnace output BTUH</span>
+                                </div>
+                                <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  {{ahriCombination.furnaceOutputBTUH | number }}
+                                </div>
+                              </div>
+                              <div fxLayout="row" class="list-ahri-rating-item">
+                                <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <span>Rated cooling capacity</span>
+                                </div>
+                                <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  {{ahriCombination.coolingCapacityRated | number  }}
+                                </div>
+                              </div>
+
                             </mat-expansion-panel>
                           </mat-accordion>
                         </div>
@@ -334,12 +352,13 @@
                     <mat-icon>search</mat-icon>
                   </button>
                 </div>
-                <div>
+                <!-- <div>
                   <button mat-button class="rc-card-button">ADD TO CARD <mat-icon>add_shopping_cart</mat-icon></button>
-                </div>
+                </div> -->
               </div>
             </mat-card-actions>
         </mat-card>
+
         <div *ngIf="noResultsSearch">
           <div class="rc-alert info">
             <mat-icon class="rc-icon-alert">info</mat-icon>
