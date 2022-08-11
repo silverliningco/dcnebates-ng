@@ -38,6 +38,7 @@ export class ResultsRebateComponent implements OnInit {
   showcoilCasing: boolean = false;
   showFurnaceUnits: boolean = false;
   showIndoorUnits: boolean = false;
+  showCardRebate: boolean = false;
 
   /*  AVAILABLE REBATES */
   showRebates: boolean = false;
@@ -60,8 +61,10 @@ export class ResultsRebateComponent implements OnInit {
                     /* call GetAvailableRebates if home = 'rebate'  */
                     if (this.myPayloadForm.home === 'ahri'){
                       this.showRebates = false;
+                      this.showCardRebate = false;
                     }else {
                       this.showRebates = true;
+                      this.showCardRebate = true;
                       this.GetAvailableRebates();
                     }
                     
