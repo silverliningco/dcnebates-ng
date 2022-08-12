@@ -640,8 +640,7 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
   }
 
 
-  sentmodelNrs(myCombination:BestDetail) {
-
+  prepareDataToSend(myCombination:BestDetail){
     let myAHRIs: String[] = []
     myCombination.components!.forEach(element => {
       myAHRIs.push(element.SKU!)
@@ -663,21 +662,28 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
     }
 
     let myBody = JSON.stringify(body)
+    return myBody
+  }
 
-  //  let bodyDetail = JSON.parse(body);
+
+  sentmodelNrs(myCombination:BestDetail) {
+
+    let myBody = this.prepareDataToSend(myCombination);
+
    let url= '/home/detail/' + myBody;
    window.open(url) 
  }
 
 
-openDialog(myCombination:BestDetail){
-  this.dialogRef.open(TableViewComponent, {
-    data: {
-      name: myCombination
-    }
-  });
-}
+  openDialog(myCombination:BestDetail){
 
+    let myBody = this.prepareDataToSend(myCombination);
 
+    this.dialogRef.open(TableViewComponent, {
+      data: {
+        name: myBody
+      }
+    });
+  }
 
 }

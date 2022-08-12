@@ -63,43 +63,43 @@
               <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="50">
                 <div class="group-content">
                   <p class="rc-small">Cooling capacity</p>
-                  <p class="data">{{detail.coolingCapacityRated | number}}</p>
+                  <p class="data">{{(detail.coolingCapacityRated | number) || "N/A" }}</p>
                 </div>
                 <div class="group-content">
                   <p class="rc-small">SEER</p>
-                  <p class="data">{{detail.SEER || "-" }}</p>
+                  <p class="data">{{(detail.SEER | number) || "N/A" }}</p>
                 </div>
                 <div class="group-content">
                   <p class="rc-small">EER</p>
-                  <p class="data">{{detail.EER || "-" }}</p>
+                  <p class="data">{{(detail.EER | number) || "N/A" }}</p>
                 </div>
               </div>
               <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="50">
                 <div class="group-content">
                   <p class="rc-small">HSPF</p>
-                  <p class="data">{{detail.HSPF || "-" }}</p>
+                  <p class="data">{{(detail.HSPF | number) || "N/A" }}</p>
                 </div>
                 <div class="group-content">
                   <p class="rc-small">HCap 47</p>
-                  <p class="data">{{detail.Hcap47 | number}}</p>
+                  <p class="data">{{(detail.Hcap47 | number) || "N/A" }}</p>
                 </div>
                 <div class="group-content">
                   <p class="rc-small">HCap 17</p>
-                  <p class="data">{{detail.Hcap17 | number}}</p>
+                  <p class="data">{{(detail.Hcap17 | number) || "N/A" }}</p>
                 </div>
               </div>
               <div fxFlex="33" fxFlex.sm="33" fxFlex.xs="50">
                 <div class="group-content">
                   <p class="rc-small">AFUE</p>
-                  <p class="data">{{detail.AFUE || "-" }}</p>
+                  <p class="data">{{(detail.AFUE | number) || "N/A" }}</p>
                 </div>
                 <div class="group-content">
                   <p class="rc-small">Furnace output BTUH</p>
-                  <p class="data">{{detail.furnaceOutputBTUH | number}}</p>
+                  <p class="data">{{(detail.furnaceOutputBTUH | number) || "N/A" }}</p>
                 </div>
                 <div class="group-content">
                   <p class="rc-small">Rated cooling capacity</p>
-                  <p class="data">{{detail.coolingCapacityRated | number}}</p>
+                  <p class="data">{{(detail.coolingCapacityRated | number) || "N/A" }}</p>
                 </div>
               </div>
             </div>
