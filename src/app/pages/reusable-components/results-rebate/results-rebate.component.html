@@ -362,7 +362,7 @@
                     <div fxFlex="100" fxFlex.sm="70" class="rc-hide rc-show-md rc-show-sm">
                           <div class="rebate-price" fxLayout="row" fxLayoutAlign="center center">
                             <h5 class="rc-small">REBATES UP</h5>
-                            <h1>{{(ahriCombination.totalAvailableRebates | currency) || "$0.0"}}</h1>
+                            <h1>{{(ahriCombination.totalAvailableRebates | currency) || "$0.00"}}</h1>
                           </div>
                     </div>
                   </mat-card-title>
@@ -403,7 +403,7 @@
               <div fxFlex="30" class="rc-show rc-hide-md rc-hide-sm">
                   <div class="rebate-price" fxLayout="row" fxLayoutAlign="center center">
                     <h5 class="rc-small">REBATES UP</h5>
-                    <h1>{{(ahriCombination.totalAvailableRebates | currency) || "$0.0"}}</h1>
+                    <h1>{{(ahriCombination.totalAvailableRebates | currency) || "$0.00"}}</h1>
                   </div>
               </div>
             </div>
@@ -424,7 +424,6 @@
                           </ul>
 
                           <div *ngIf="ahriCombination.availableRebates == null">
-                            <p><b>No Results</b></p>
                             <p>Sorry, we couldn't find any results.</p>
                           </div>
                           

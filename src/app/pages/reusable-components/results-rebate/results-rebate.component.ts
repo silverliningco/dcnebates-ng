@@ -412,7 +412,11 @@ CallSearch() {
       if (resp.length > 0) {
         this.noResultsSearch = false;
         this.results = resp;
-        this.bestResults = this.filterBestResults(resp);
+        let myBestResults = this.filterBestResults(resp);
+        myBestResults.sort(function(a:any, b:any) {
+          return b.totalAvailableRebates - a.totalAvailableRebates;
+        });
+        this.bestResults = myBestResults;
       } else {
         this.results = [];
         this.bestResults = [];
