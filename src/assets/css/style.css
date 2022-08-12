@@ -52,12 +52,28 @@ h1, h2, h3, h4, h5 {
   margin-top: -9px;
 }
 
+.rc-show{
+  display: initial;
+}
 .rc-hide{
   display: none;
 }
 
-.rc-show{
-  display: initial;
+@media only screen and (max-width:960px){
+  .rc-show-md{
+    display: inline-block;
+  }
+  .rc-hide-md{
+    display: none;
+  }
+}
+@media only screen and (max-width:767px){
+  .rc-show-sm{
+    display: inline-block;
+  }
+  .rc-hide-sm{
+    display: none;
+  }
 }
 
 .rc-img-float{
@@ -82,27 +98,11 @@ h1, h2, h3, h4, h5 {
 }
 /* End Change Style ToolTip Component*/
 
-@media only screen and (max-width:960px){
-  .rc-show-md{
-    display: inline-block;
-  }
-  .rc-hide-md{
-    display: none;
-  }
-}
-
-@media only screen and (max-width:767px){
-  .rc-show-sm{
-    display: inline-block;
-  }
-  .rc-hide-sm{
-    display: none;
-  }
-}
 .rc-radio-label{
   color: var(--rc-text-light-color);
   font-size: 12px;
   display: block;
+  margin-bottom: 10px;
 }
 
 /* Start title in page*/
@@ -210,6 +210,20 @@ h1, h2, h3, h4, h5 {
   .rc-header img{
     width: 150px;
   }
+
+  @media only screen and (max-width: 676px){
+    .rc-header h1{
+      font-size: 26px;
+    }
+    .rc-header img {
+      width: 100px;
+    }
+  }
+  @media only screen and (max-width: 424px){
+    .rc-header h1{
+      font-size: 22px;
+    }
+  }  
 /* End header */
 
 /* Start breadcrumb */
@@ -590,6 +604,11 @@ h1, h2, h3, h4, h5 {
     position: relative;
     height: 45px;
   }
+  @media only screen and (max-width: 959px){
+    .rc-radio-options{
+      height: 41px;
+    }
+  }
   .rc-radio-options span.mat-radio-container {
     position: absolute;
     left: -99999em;
@@ -858,7 +877,11 @@ h1, h2, h3, h4, h5 {
   }
   .rc-card.results .mat-card-subtitle{
     margin-bottom: 1.5rem !important;
-
+  }
+  @media only screen and (max-width: 767px){
+    .rc-card.results .mat-card-subtitle{
+      margin-bottom: .25rem !important;
+    }
   }
   .rc-card.results .mat-card-header-text{
     width: 100%;

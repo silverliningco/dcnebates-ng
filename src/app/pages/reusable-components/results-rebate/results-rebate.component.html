@@ -5,7 +5,7 @@
   <div class="rc-filter-stock">
     <form [formGroup]="commerceInfoGroup">
       <h5 class="rc-filter-group-title">Stock status</h5>
-      <mat-radio-group #rGroup formControlName="showAllResults" fxLayout="row" (change)="CallProductLines()">
+      <mat-radio-group #rGroup formControlName="showAllResults" fxLayout="row" fxLayout.xs="column" (change)="CallProductLines()">
         <mat-radio-button [value]="false" radioGroup="rGroup">Stock items only</mat-radio-button>
         <mat-radio-button [value]="true" radioGroup="rGroup">Show all</mat-radio-button>
       </mat-radio-group>
@@ -193,7 +193,7 @@
                   <mat-card-subtitle >
                     <div fxLayout="row column" fxLayoutAlign="space-between center" class="model-nrs" fxLayoutGap="4px grid">
                       <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" *ngIf="showIndoorUnits">
-                          <span class="rc-small">Indoor Unit</span>
+                          <span class="rc-small"><b>Indoor Unit</b></span>
                           <mat-form-field class="rc-select-multiline">
                             <mat-select [value]="ahriCombination.components[1].SKU" (selectionChange)="filterIndoorBySKU($event.value, i)">
                               <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.indoorUnits" [value]="val.SKU">
@@ -205,7 +205,7 @@
                         </mat-form-field>
                       </div>
                       <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" *ngIf="showFurnaceUnits">
-                        <span class="rc-small">Furnace</span>
+                        <span class="rc-small"><b>Furnace</b></span>
                         <mat-form-field class="rc-select-multiline">
                           <mat-select [value]="ahriCombination.components[2].SKU" (selectionChange)="filterFurnaceBySKU($event.value, i)">
                             <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.furnaceUnits" [value]="val.SKU"> 
@@ -225,7 +225,6 @@
   
               <mat-card-content>
                   <div fxLayout="row column" fxLayoutGap="16px grid"> 
-                
                       <!-- AHRI ratings -->
                       <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
                           <div class="list-ahri-rating">
@@ -233,7 +232,7 @@
                               <mat-expansion-panel [expanded]="true">
                                 <mat-expansion-panel-header>
                                   <mat-panel-title>
-                                    <span class="rc-small">AHRI Ratings</span>
+                                    <span class="rc-small"><b>AHRI Ratings</b></span>
                                   </mat-panel-title>
                                 </mat-expansion-panel-header>
                                   <div fxLayout="row" class="list-ahri-rating-item">
@@ -274,39 +273,39 @@
                               <mat-expansion-panel [expanded]="true">
                                 <mat-expansion-panel-header>
                                   <mat-panel-title>
-                                    <span class="rc-small">Detail Performance Data</span>
+                                    <span class="rc-small"><b>Detail Performance Data</b></span>
                                   </mat-panel-title>
                                 </mat-expansion-panel-header>
   
-                                <div fxLayout="row" class="list-ahri-rating-item">
+                                <div fxLayout="row" fxLayoutAlign="space-between start" class="list-ahri-rating-item">
                                   <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
                                     <span>Hcap17</span>
                                   </div>
-                                  <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <div fxFlex="35" fxFlex.md="45" fxFlex.sm="45" fxFlex.xs="45">
                                     {{ahriCombination.Hcap17 | number }} 
                                   </div>
                                 </div>
-                                <div fxLayout="row" class="list-ahri-rating-item">
+                                <div fxLayout="row" fxLayoutAlign="space-between start"class="list-ahri-rating-item">
                                   <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
                                     <span>Hcap47</span>
                                   </div>
-                                  <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <div fxFlex="35" fxFlex.md="45" fxFlex.sm="45" fxFlex.xs="45">
                                     {{ahriCombination.Hcap47 | number }} 
                                   </div>
                                 </div>
-                                <div fxLayout="row" class="list-ahri-rating-item">
+                                <div fxLayout="row" fxLayoutAlign="space-between start"class="list-ahri-rating-item">
                                   <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
                                     <span>Furnace output BTUH</span>
                                   </div>
-                                  <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <div fxFlex="35" fxFlex.md="45" fxFlex.sm="45" fxFlex.xs="45">
                                     {{ahriCombination.furnaceOutputBTUH | number }}
                                   </div>
                                 </div>
-                                <div fxLayout="row" class="list-ahri-rating-item">
+                                <div fxLayout="row" fxLayoutAlign="space-between start"class="list-ahri-rating-item">
                                   <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
                                     <span>Rated cooling capacity</span>
                                   </div>
-                                  <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <div fxFlex="35" fxFlex.md="45" fxFlex.sm="45" fxFlex.xs="45">
                                     {{ahriCombination.coolingCapacityRated | number  }}
                                   </div>
                                 </div>
@@ -341,29 +340,32 @@
         <!-- for rebates -->
         <div *ngIf="showCardRebate === true">
           <mat-card class="rc-card results" *ngFor="let ahriCombination of bestResults; let i = index">
-            <div fxLayout="row column" fxLayoutGap="16px grid" >
+            <div fxLayout="row column" fxLayoutAlign="space-between start" fxLayoutGap="16px grid" >
   
               <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
                 <mat-card-header>
   
-                  <mat-card-title>
-                    <div fxLayout="row column" fxLayoutAlign="space-between center" *ngFor="let unit of ahriCombination.components">
-                      <div fxFlex="100" fxFlex.sm="55" fxFlex.xs="100" *ngIf="unit.type === 'outdoorUnit'">
+                  <mat-card-title fxLayout="row column" fxLayoutAlign="space-between center" class="123">
+                    <div *ngFor="let unit of ahriCombination.components">
+                      <div fxFlex="100" *ngIf="unit.type === 'outdoorUnit'">
                         <h3>{{unit.name}}</h3>
                         <p><b>Outdoor Unit: </b>{{unit.SKU}}</p>
+                      
                       </div>
-                      <div fxFlex="40" fxFlex.sm="40" fxFlex.xs="100" class="rebate-price rc-hide rc-show-md">
-                        <h5 class="rc-small">REBATES UP</h5>
-                        <h1>{{ahriCombination.totalAvailableRebates | currency}}</h1>
-                    </div>
-                    </div>
+                    </div>  
+                    <div fxFlex="100" fxFlex.sm="70" class="rc-hide rc-show-md rc-show-sm">
+                          <div class="rebate-price" fxLayout="row" fxLayoutAlign="center center">
+                            <h5 class="rc-small">REBATES UP</h5>
+                            <h1>{{ahriCombination.totalAvailableRebates | currency}}</h1>
+                          </div>
+                        </div>
                   </mat-card-title>
   
                   <!-- skus of units -->
                   <mat-card-subtitle >
                     <div fxLayout="row column" fxLayoutAlign="space-between center" class="model-nrs" fxLayoutGap="4px grid">
                       <div fxFlex="100" *ngIf="showIndoorUnits">
-                          <span class="rc-small">Indoor Unit</span>
+                          <span class="rc-small"><b>Indoor Unit</b></span>
                           <mat-form-field class="rc-select-multiline">
                             <mat-select [value]="ahriCombination.components[1].SKU" (selectionChange)="filterIndoorBySKU($event.value, i)">
                               <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.indoorUnits" [value]="val.SKU">
@@ -375,7 +377,7 @@
                         </mat-form-field>
                       </div>
                       <div fxFlex="100" *ngIf="showFurnaceUnits">
-                        <span class="rc-small">Furnace</span>
+                        <span class="rc-small"><b>Furnace</b></span>
                         <mat-form-field class="rc-select-multiline">
                           <mat-select [value]="ahriCombination.components[2].SKU" (selectionChange)="filterFurnaceBySKU($event.value, i)">
                             <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.furnaceUnits" [value]="val.SKU"> 
@@ -392,7 +394,7 @@
               </div>
   
               <!-- amount -->
-              <div fxFlex="30" class="rc-show rc-hide-md">
+              <div fxFlex="30" class="rc-show rc-hide-md rc-hide-sm">
                   <div class="rebate-price" fxLayout="row" fxLayoutAlign="center center">
                     <h5 class="rc-small">REBATES UP</h5>
                     <h1>{{ahriCombination.totalAvailableRebates | currency}}</h1>
@@ -406,7 +408,7 @@
                     <!-- rebates -->
                     <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
                         <div class="list-rebates">
-                          <span class="rc-small">Rebates</span>
+                          <span class="rc-small"><b>Rebates</b></span>
                           <ul class="rc-unlisted">
                             <li *ngFor="let rebate of ahriCombination.availableRebates">
                               <mat-icon> money</mat-icon>
@@ -425,7 +427,7 @@
                               <mat-expansion-panel [expanded]="true">
                                 <mat-expansion-panel-header>
                                   <mat-panel-title>
-                                    <span class="rc-small">AHRI Ratings</span>
+                                    <span class="rc-small"><b>AHRI Ratings</b></span>
                                   </mat-panel-title>
                                 </mat-expansion-panel-header>
                                   <div fxLayout="row" class="list-ahri-rating-item">
@@ -459,14 +461,14 @@
                       <!-- AHRI ratings end -->
   
                       <!-- performance data -->
-                      <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
+                      <div fxFlex="40" fxFlex.md="80" fxFlex.sm="80" fxFlex.xs="100">
                         <div class="list-detail-performance">
                           <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100">
                             <mat-accordion>
                               <mat-expansion-panel [expanded]="true">
                                 <mat-expansion-panel-header>
                                   <mat-panel-title>
-                                    <span class="rc-small">Detail Performance Data</span>
+                                    <span class="rc-small"><b>Detail Performance Data</b></span>
                                   </mat-panel-title>
                                 </mat-expansion-panel-header>
   
