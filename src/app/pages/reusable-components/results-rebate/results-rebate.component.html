@@ -412,12 +412,19 @@
                     <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
                         <div class="list-rebates">
                           <span class="rc-small"><b>Rebates</b></span>
-                          <ul class="rc-unlisted">
+
+                          <ul class="rc-unlisted" *ngIf="ahriCombination.availableRebates != null">
                             <li *ngFor="let rebate of ahriCombination.availableRebates">
                               <mat-icon> money</mat-icon>
-                              {{rebate.rebateTitle || "No-rebates-for-this-combination"}}
+                              {{rebate.rebateTitle}}
                             </li>
                           </ul>
+
+                          <div *ngIf="ahriCombination.availableRebates == null">
+                            <p><b>No Results</b></p>
+                            <p>Sorry, we couldn't find any results.</p>
+                          </div>
+                          
                         </div>
                     </div>
                     <!-- rebates end -->
