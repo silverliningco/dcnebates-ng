@@ -675,13 +675,25 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
  }
 
 
-  openDialog(myCombination:BestDetail){
+  openDialog(myCombination:BestDetail, i:number) {
 
-    let myBody = this.prepareDataToSend(myCombination);
-
+    //Get systems with selected outdoor unit
+    let myOutdoorUnit = this.bestResults[i].components.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
+    let mySystems: BestDetail[] = []
+    this.results.forEach((subel:BestDetail[]) => {
+      subel.forEach(element => {
+        let myFind = element.components?.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
+        if(myFind == myOutdoorUnit){
+          mySystems = subel
+        }
+      });
+    });
+  
     this.dialogRef.open(TableViewComponent, {
       data: {
-        name: myBody
+        commerceInfo:  this.myPayloadForm.commerceInfo,
+        requiredRebates: this.getSelectedRebates(),
+        systems:mySystems
       }
     });
   }
