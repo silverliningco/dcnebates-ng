@@ -687,14 +687,10 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
       });
     });
   
-
-
-
-    let myBody = this.prepareDataToSend(myCombination);
-
     this.dialogRef.open(TableViewComponent, {
       data: {
-        combination: myBody,
+        commerceInfo:  this.myPayloadForm.commerceInfo,
+        requiredRebates: this.getSelectedRebates(),
         systems:mySystems
       }
     });

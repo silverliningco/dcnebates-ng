@@ -1,49 +1,50 @@
-<h1 mat-dialog-title>Combination for Outdoor Unit: 24ACB724A003<b></b></h1>
-{{mySystems | json}}
+<div *ngFor="let unit of mySystems[0].components">
+    <h1 mat-dialog-title *ngIf="unit.type === 'outdoorUnit'">Combination for Outdoor Unit: {{unit.SKU}}</h1>
+</div>
 <div mat-dialog-content>
     <div class="table-overflow">
         <table>
           <thead>
             <tr>
               <th>N°</th>
-              <th>Indoor Unit</th>
-              <th >FURNACE</th>
-              <th >Configuration</th>
+              <th *ngFor="let unit of mySystems[0].components">{{unit.type|uppercase}}</th>
+              <th *ngIf="mySystems[0].furnaceConfigurations">Configuration</th>
               <th>SEER</th>
               <th>EER</th>
-              <th >HSPF</th>
-              <th>AFUE</th>
+              <th *ngIf="mySystems[0].HSPF">HSPF</th>
+              <th *ngIf="mySystems[0].AFUE">AFUE</th>
               <th>Hcap17</th>
               <th>Hcap47</th>
-              <th >Furnace output BTUH</th>
+              <th>Furnace BTUH</th>
               <th>Cooling capacity</th>
+              <th>Total available rebates</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let ahriCombination of mySystems">
-              <td data-title="n°">1</td>
-              <td data-title="Indoor unit"  matTooltip="FAN COIL VS MODULAR ALUM 3T" matTooltipPosition="right">FE4ANB003L00</td>
-              <td data-title="Furnace">--</td>
-              <td data-title="Configuration">
-                <ul class="rc-list-in-table">
-                  <li>--</li>
+            <tr *ngFor="let ahriCombination of mySystems; index as i">
+              <td data-title="n°">{{i+1}}</td>
+              <ng-container>
+                <td *ngFor="let unit of ahriCombination.components" data-title="{{unit.type}}" matTooltip="{{unit.name}}" matTooltipPosition="right">{{unit.SKU}}</td>
+              </ng-container>
+              <td  *ngIf="ahriCombination.furnaceConfigurations" data-title="Configuration">
+                <ul *ngFor="let configuration of ahriCombination.furnaceConfigurations" class="rc-list-in-table">
+                  <li>{{configuration}}</li>
                 </ul>
               </td>
-              <td data-title="SEER">16</td>
-              <td data-title="EER">13</td>
-              <td data-title="HSPF">N/A</td>
-              <td data-title="AFUE">--</td>
-              <td data-title="Hcap17">N/A</td>
-              <td data-title="Hcap47">N/A</td>
-              <td data-title="Furnace output BTUH">N/A</td>
-              <td data-title="Cooling capacity">24,400</td>
+              <td data-title="SEER">{{ahriCombination.SEER}}</td>
+              <td data-title="EER">{{ahriCombination.EER}}</td>
+              <td data-title="HSPF" *ngIf="ahriCombination.HSPF">{{ahriCombination.HSPF}}</td>
+              <td data-title="AFUE" *ngIf="ahriCombination.AFUE">{{ahriCombination.AFUE}}</td>
+              <td data-title="Hcap17">{{ahriCombination.Hcap17}}</td>
+              <td data-title="Hcap47">{{ahriCombination.Hcap47}}</td>
+              <td data-title="furnaceOutputBTUH">{{ahriCombination.furnaceOutputBTUH}}</td>
+              <td data-title="coolingCapacityRated">{{ahriCombination.coolingCapacityRated}}</td>
+              <td data-title="Total rebate">{{ahriCombination.totalAvailableRebates | currency:"USD":"symbol" : '1.0-0'}}</td>
               <td data-title="Details">
-                <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']"
-                  [queryParams]=""
-                  target="_blank">
+                <button class="rc-btn rc-btn-secondary"  (click)="sendModelNrs(ahriCombination)">
                   <mat-icon>search</mat-icon>
-                </a>
+                </button>
               </td>
             </tr>
           </tbody>

@@ -1,5 +1,6 @@
 import { Component, Inject, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { BestDetail } from '../../../models/detailBestOption';
 
 @Component({
   selector: 'app-table-view',
@@ -8,16 +9,18 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 })
 export class TableViewComponent implements OnInit {
 
-  myCombination: any;
+  commerceInfo: any;
+  requiredRebates: any = [];
   mySystems: any;
 
-  constructor( 
+  constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialog
   ) {
-    this.myCombination = data.combination;
+    this.commerceInfo = data.commerceInfo;
+    this.requiredRebates = data.requiredRebates;
     this.mySystems = data.systems;
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -25,5 +28,20 @@ export class TableViewComponent implements OnInit {
   closeDialog() {
     this.dialogRef.closeAll();
   }
-  
+
+  sendModelNrs(myCombination: BestDetail) {
+
+    let myAHRIs: String[] = []
+    myCombination.components!.forEach(element => {
+      myAHRIs.push(element.SKU!)
+    });
+
+    let body = {
+      commerceInfo: this.commerceInfo,
+      skus: myAHRIs,
+      requiredRebates: this.requiredRebates
+    }
+    let url = '/home/detail/' + JSON.stringify(body);
+    window.open(url)
+  }
 }
