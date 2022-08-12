@@ -29,7 +29,7 @@ export class ResultsRebateComponent implements OnInit {
   filters: Array<any> = [];
 
   /*  receives information from the other components*/
-  myPayloadForm: payloadForm = new payloadForm;
+  myPayloadForm: payloadForm = new payloadForm; 
   myPayloadRebate!: any;
 
   /* display title when exist filter */
@@ -376,7 +376,7 @@ PrepareFilters(){
 // Function that gets input values from UI and returns payload.
 Payload() {
 
-  let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, levelTwoSystemTypeId, sizingConstraint} = this.myPayloadForm;
+  let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint} = this.myPayloadForm;
 
   let rebate:any;
     if (this.myPayloadForm.home === 'ahri'){
@@ -493,6 +493,8 @@ loadOptionsModelNrs(myDetails:BestDetail[], modelType:string){
     })
     
   });
+  let a = myModelNrs.filter((item,index) => myModelNrs.indexOf(item) === index);
+  console.log(a);
 
   // remove duplicates and asign to variables.
   return myModelNrs.filter((item,index) => myModelNrs.indexOf(item) === index);
