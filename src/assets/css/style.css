@@ -1008,6 +1008,11 @@ h1, h2, h3, h4, h5 {
       margin-right: 1rem;
       color: white;
   }
+  .rc-card.results .rc-table-button {
+      background: var(--rc-primary-light-color);
+      margin-right: 1rem;
+      color: white;
+  }
   .rc-card.results .mat-button-wrapper{
       font-family: 'Raleway', sans-serif;
       font-weight: bold;
