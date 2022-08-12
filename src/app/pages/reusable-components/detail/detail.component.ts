@@ -12,13 +12,6 @@ export class DetailComponent implements OnInit {
 
   detailR!: Array<BestDetail>;
 
-  rebate: Array<Rebate> = [];
-  existRebate: boolean = false;
-  existLink: boolean = false;
-
-  accesorie: Array<Accesories> = [];
-  existAcc: boolean = false;
-
   constructor(
     public activatedRoute: ActivatedRoute, 
     private _api: ApiService

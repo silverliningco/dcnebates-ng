@@ -9,6 +9,7 @@ import { bridgeService } from '../../../services/bridge.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TableViewComponent } from '../table-view/table-view.component';
 
+
 @Component({
   selector: 'app-results-rebate',
   templateUrl: './results-rebate.component.html',
@@ -48,6 +49,7 @@ export class ResultsRebateComponent implements OnInit {
   NoExistAvailableRebates: boolean = false;
 
   showSpinner:boolean = false;
+  index: number = 0;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -682,6 +684,13 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
         name: myBody
       }
     });
+  }
+
+
+  public demo1TabIndex = 1;
+  public demo1BtnClick() {
+    const tabCount = 2;
+    this.demo1TabIndex = (this.demo1TabIndex + 1) % tabCount;
   }
 
 }
