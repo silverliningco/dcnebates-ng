@@ -34,6 +34,9 @@ a{
 h1, h2, h3, h4, h5 {
   font-family: 'Raleway', sans-serif;
 }
+.bitter-font{  
+  font-family: 'Bitter', serif !important;
+}
 
 /* Classes used in general in the style of the whole app */
 .rc-lead{
