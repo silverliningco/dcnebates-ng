@@ -8,13 +8,15 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 })
 export class TableViewComponent implements OnInit {
 
-  myCombinations: any;
+  myCombination: any;
+  mySystems: any;
 
   constructor( 
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialog
   ) {
-    this.myCombinations = data;
+    this.myCombination = data.combination;
+    this.mySystems = data.systems;
    }
 
   ngOnInit(): void {

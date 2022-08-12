@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>Combination for Outdoor Unit: 24ACB724A003<b></b></h1>
-
+{{mySystems | json}}
 <div mat-dialog-content>
     <div class="table-overflow">
         <table>
@@ -21,84 +21,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let ahriCombination of mySystems">
               <td data-title="n°">1</td>
-              <td data-title="Indoor unit" matTooltip="FAN COIL VS MODULAR ALUM 3T" matTooltipPosition="right">FE4ANB003L00</td>
-              <td data-title="Furnace">--</td>
-              <td data-title="Configuration">
-                <ul class="rc-list-in-table">
-                  <li>--</li>
-                </ul>
-              </td>
-              <td data-title="SEER">16</td>
-              <td data-title="EER">13</td>
-              <td data-title="HSPF">N/A</td>
-              <td data-title="AFUE">--</td>
-              <td data-title="Hcap17">N/A</td>
-              <td data-title="Hcap47">N/A</td>
-              <td data-title="Furnace output BTUH">N/A</td>
-              <td data-title="Cooling capacity">24,400</td>
-              <td data-title="Details">
-                <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']"
-                  [queryParams]=""
-                  target="_blank">
-                  <mat-icon>search</mat-icon>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td data-title="n°">1</td>
-              <td data-title="Indoor unit" matTooltip="FAN COIL VS MODULAR ALUM 3T" matTooltipPosition="right">FE4ANB003L00</td>
-              <td data-title="Furnace">--</td>
-              <td data-title="Configuration">
-                <ul class="rc-list-in-table">
-                  <li>--</li>
-                </ul>
-              </td>
-              <td data-title="SEER">16</td>
-              <td data-title="EER">13</td>
-              <td data-title="HSPF">N/A</td>
-              <td data-title="AFUE">--</td>
-              <td data-title="Hcap17">N/A</td>
-              <td data-title="Hcap47">N/A</td>
-              <td data-title="Furnace output BTUH">N/A</td>
-              <td data-title="Cooling capacity">24,400</td>
-              <td data-title="Details">
-                <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']"
-                  [queryParams]=""
-                  target="_blank">
-                  <mat-icon>search</mat-icon>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td data-title="n°">1</td>
-              <td data-title="Indoor unit" matTooltip="FAN COIL VS MODULAR ALUM 3T" matTooltipPosition="right">FE4ANB003L00</td>
-              <td data-title="Furnace">--</td>
-              <td data-title="Configuration">
-                <ul class="rc-list-in-table">
-                  <li>--</li>
-                </ul>
-              </td>
-              <td data-title="SEER">16</td>
-              <td data-title="EER">13</td>
-              <td data-title="HSPF">N/A</td>
-              <td data-title="AFUE">--</td>
-              <td data-title="Hcap17">N/A</td>
-              <td data-title="Hcap47">N/A</td>
-              <td data-title="Furnace output BTUH">N/A</td>
-              <td data-title="Cooling capacity">24,400</td>
-              <td data-title="Details">
-                <a class="rc-btn rc-btn-secondary" [routerLink]="['/home/detail']"
-                  [queryParams]=""
-                  target="_blank">
-                  <mat-icon>search</mat-icon>
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td data-title="n°">1</td>
-              <td data-title="Indoor unit" matTooltip="FAN COIL VS MODULAR ALUM 3T" matTooltipPosition="right">FE4ANB003L00</td>
+              <td data-title="Indoor unit"  matTooltip="FAN COIL VS MODULAR ALUM 3T" matTooltipPosition="right">FE4ANB003L00</td>
               <td data-title="Furnace">--</td>
               <td data-title="Configuration">
                 <ul class="rc-list-in-table">
