@@ -6,6 +6,8 @@ import { Rebate, RebateTier } from '../../../models/rebate';
 import { resultsSearch} from '../../../models/resultSearch';
 import { BestDetail } from '../../../models/detailBestOption';
 import { bridgeService } from '../../../services/bridge.service';
+import { MatDialog } from '@angular/material/dialog';
+import { TableViewComponent } from '../table-view/table-view.component';
 
 @Component({
   selector: 'app-results-rebate',
@@ -51,6 +53,7 @@ export class ResultsRebateComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _api: ApiService,
     public _bridge: bridgeService,
+    private dialogRef: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -665,6 +668,16 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
    let url= '/home/detail/' + myBody;
    window.open(url) 
  }
+
+
+openDialog(myCombination:BestDetail){
+  this.dialogRef.open(TableViewComponent, {
+    data: {
+      name: myCombination
+    }
+  });
+}
+
 
 
 }

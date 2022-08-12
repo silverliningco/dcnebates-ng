@@ -42,7 +42,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { DetailIKnowMyModelComponent } from './reusable-components/detail-i-know-my-model/detail-i-know-my-model.component';
 import { IKnowModelNrComponent } from './i-know-model-nr/i-know-model-nr.component';
 import { SpinnerComponent } from './reusable-components/spinner/spinner.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { TableViewComponent } from './reusable-components/table-view/table-view.component';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     DetailIKnowMyModelComponent,
     IKnowModelNrComponent,
     SpinnerComponent,
+    TableViewComponent,
   ],
   imports: [
     CommonModule,
