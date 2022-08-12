@@ -59,6 +59,7 @@ export class ResultsRebateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.showSpinner = true;
     /* receiving form data */
        this._bridge.sentRebateParams
                  .subscribe((payload: any) => {
@@ -552,7 +553,6 @@ filterIndoorBySKU(myIndoorUnit: string, i:number) {
   let myOutdoorUnit = this.bestResults[i].components.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
   let myCombination: BestDetail[] = []
 
-  console.log(myOutdoorUnit)
 
   this.results.forEach((subel:BestDetail[]) => {
 
@@ -565,10 +565,7 @@ filterIndoorBySKU(myIndoorUnit: string, i:number) {
     
   });
 
-  //hasta aqui!
- console.log(myCombination)
   if(myIndoorUnit){
-
 
     myCombination.forEach(element => {
       let myFind = element.components?.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
@@ -589,8 +586,6 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
   let myOutdoorUnit = this.bestResults[i].components.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
   let myCombination: BestDetail[] = []
 
-  console.log(myOutdoorUnit)
-
   this.results.forEach((subel:BestDetail[]) => {
 
     subel.forEach(element => {
@@ -602,10 +597,7 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
     
   });
 
-  //hasta aqui!
- console.log(myCombination)
   if(myFurnaceUnit){
-
 
     myCombination.forEach(element => {
       let myFind = element.components?.filter((item: any)=> item.type == "furnace")[0].SKU;
