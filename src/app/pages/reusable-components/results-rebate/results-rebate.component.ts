@@ -487,7 +487,6 @@ loadOptionsModelNrs(myDetails:BestDetail[], modelType:string){
    
   let myModelNrs: Array<any> = [];
 
-
   myDetails.forEach(subel => {
     subel.components?.forEach(element => {
       if(element.type == modelType) {
@@ -496,11 +495,12 @@ loadOptionsModelNrs(myDetails:BestDetail[], modelType:string){
     })
     
   });
-  let a = myModelNrs.filter((item,index) => myModelNrs.indexOf(item) === index);
-  console.log(a);
 
   // remove duplicates and asign to variables.
-  return myModelNrs.filter((item,index) => myModelNrs.indexOf(item) === index);
+  const skus = myModelNrs.map(o => o.SKU)
+  
+
+  return myModelNrs.filter(({SKU}, index) => !skus.includes(SKU, index + 1));
 
 }
 
@@ -510,7 +510,6 @@ GetHighestRebateAmount(myDetails:BestDetail[]){
     Math, myDetails.map(function (rt: any) {
       return rt.totalAvailableRebates;
     }));
-console.log(myBestTotalAvailableRebate);
   return myDetails?.filter(sys => sys.totalAvailableRebates == myBestTotalAvailableRebate)[0];
 }
 
@@ -523,8 +522,7 @@ filterBestResults(resp: BestDetail[][]) {
     if(!mySystem){
       mySystem = details[0]
     }
-    console.log(mySystem);
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
     mySystem.indoorUnits = this.loadOptionsModelNrs(details,"indoorUnit");
     mySystem.furnaceUnits = this.loadOptionsModelNrs(details,"furnace");
 
