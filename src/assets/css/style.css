@@ -34,7 +34,7 @@ a{
 h1, h2, h3, h4, h5 {
   font-family: 'Raleway', sans-serif;
 }
-.bitter-font{  
+.bitter-font{
   font-family: 'Bitter', serif !important;
 }
 
@@ -226,7 +226,7 @@ h1, h2, h3, h4, h5 {
     .rc-header h1{
       font-size: 22px;
     }
-  }  
+  }
 /* End header */
 
 /* Start breadcrumb */
@@ -466,16 +466,16 @@ h1, h2, h3, h4, h5 {
     background-color: white;
     cursor: pointer;
   }
-  .rc-card.line img.checked, 
-  .rc-radio-img span.mat-radio-container, 
-  .rc-radio-img img.checked, 
-  .rc-radio-img .mat-radio-checked img.unchecked, 
+  .rc-card.line img.checked,
+  .rc-radio-img span.mat-radio-container,
+  .rc-radio-img img.checked,
+  .rc-radio-img .mat-radio-checked img.unchecked,
   .rc-radio-img label.mat-radio-label:hover img.unchecked,
   .rc-card.line:hover img.unchecked{
     display: none;
   }
   .rc-card.line:hover img.checked,
-  .rc-radio-img .mat-radio-checked img.checked, 
+  .rc-radio-img .mat-radio-checked img.checked,
   .rc-radio-img label.mat-radio-label:hover img.checked {
     display: inline-block;
   }
@@ -541,14 +541,14 @@ h1, h2, h3, h4, h5 {
     font-size: 14px;
   }
   .rc-filters .mat-expansion-panel-header,
-  .rc-filters .mat-expansion-panel-header.mat-expanded{      
+  .rc-filters .mat-expansion-panel-header.mat-expanded{
     height: auto;
     pointer-events: none;
   }
   .rc-filters .mat-expansion-panel-header .mat-expansion-indicator{
     display: none;
   }
-  .rc-filters .mat-expansion-panel-header h4{ 
+  .rc-filters .mat-expansion-panel-header h4{
     padding-left: .5rem;
     color: var(--rc-primary-dark-color);
   }
@@ -701,7 +701,7 @@ h1, h2, h3, h4, h5 {
     }
   /* End tabs transforn in button option for responsive*/
 /* End Product Lines Style*/
-    
+
 /* Checkbox filters */
   .rc-filter-group .mat-list-base{
     margin-bottom: 0.85rem;
@@ -794,7 +794,7 @@ h1, h2, h3, h4, h5 {
     white-space: normal;
   }
     /*Checked*/
-    .rc-checked-rebate .mat-checkbox.mat-checkbox-checked{ 
+    .rc-checked-rebate .mat-checkbox.mat-checkbox-checked{
       border-color: var(--rc-primary-color);
     }
     .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox-label{
@@ -870,12 +870,12 @@ h1, h2, h3, h4, h5 {
 
 /* Start Card Result Page */
   .rc-card.results {
-    margin-top: 1rem;    
+    margin-top: 1rem;
     padding: 1.5rem !important;
   }
   .rc-card.results .model-nrs {
     border-bottom: 1px solid #d7d7d7;
-    width: 100%;    
+    width: 100%;
     padding-bottom: 6px;
   }
   .rc-card.results .mat-card-subtitle{
@@ -1090,7 +1090,7 @@ h1, h2, h3, h4, h5 {
   .list-detail-performance mat-expansion-panel.mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body,
   .list-ahri-rating mat-expansion-panel.mat-expansion-panel  .mat-expansion-panel-content .mat-expansion-panel-body{
     padding: 10px 0px 10px 16px;
-  }  
+  }
   @media screen and (max-width: 599px){
     .list-detail-performance mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header,
     .list-ahri-rating mat-expansion-panel.mat-expansion-panel mat-expansion-panel-header{
@@ -1123,7 +1123,7 @@ h1, h2, h3, h4, h5 {
 
 
 /* End styles in Results Page */
-  
+
 
 /*Change check position in the card*/
   .rc-list-accesories .mat-checkbox-layout{
@@ -1235,7 +1235,7 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 1rem;
 }
 .rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list{
-  list-style: none;    
+  list-style: none;
   padding-inline-start: 16px;
 }
 .rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list li a{
@@ -1257,4 +1257,23 @@ h1, h2, h3, h4, h5 {
 /* Change tooltip color */
 .mat-progress-spinner circle, .mat-spinner circle{
   stroke: #1565c0 !important;
+}
+
+/*Detail collapse in Available Rebates*/
+@media only screen and (max-width: 959px){
+  .mat-expansion-panel-header {
+    height: 90px!important;
+    background-color: #efefef !important;
+  }
+  .rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header-title .price h4{
+    width: 100%;
+    padding: 7px 12px;
+    font-size: 25px;
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 560px){
+  .mat-expansion-panel-header {
+    height: 135px!important;
+  }
 }

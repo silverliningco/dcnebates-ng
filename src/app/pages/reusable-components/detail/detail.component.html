@@ -10,7 +10,7 @@
             <h4 class="text">SKUS</h4>
           </div>
           <div *ngFor="let unit of detail.components">
-            <div class="content-detail" >              
+            <div class="content-detail" >
               <div class="group-content" *ngIf="unit.type =='outdoorUnit'">
                 <p class="rc-small">Outdoor Unit</p>
                 <h4 class="bitter-font">{{unit.name}}</h4>
@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <!-- AHRI References --> 
+      <!-- AHRI References -->
       <div fxFlex="30" fxFlex.sm="80" fxFlex.xs="80">
         <div class="part">
           <div class="title">
@@ -55,7 +55,7 @@
       <div fxFlex="40" fxFlex.sm="100" fxFlex.xs="100">
         <div class="part">
           <div class="title">
-            <div class="decoration"></div> 
+            <div class="decoration"></div>
             <h4 class="text">AHRI Ratings</h4>
           </div>
           <div class="content-detail">
@@ -120,14 +120,14 @@
           <mat-expansion-panel *ngFor="let reb of detail.availableRebates">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <div fxLayout fxLayoutAlign="center" fxLayoutGap="8px">
-                  <div fxFlex="50">
+                <div fxLayout fxLayoutAlign="center" fxLayoutGap="8px grid" fxLayout.sm="column" fxLayout.xs="column">
+                  <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
                     <h4>
                       {{reb.rebateTitle}}
                       <span class="span-title" *ngIf="reb.rebateTierTitle !='Default'"> - {{reb.rebateTierTitle}}</span>
                     </h4>
                   </div>
-                  <div fxFlex="50" class="price" fxLayout fxLayoutAlign="end">
+                  <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100" class="price" fxLayout fxLayoutAlign="end">
                     <h4>{{reb.amount | currency:"USD":"symbol" : '1.0-0'}}</h4>
                   </div>
                 </div>
@@ -165,11 +165,11 @@
       <mat-card *ngFor="let acc of accesorie" fxFlex="48" fxFlex.sm="100" fxFlex.xs="100" class="rc-detail-available-rebates">
         <mat-card-title>
           <h5>
-            {{acc.title}} 
+            {{acc.title}}
           </h5>
         </mat-card-title>
-        
-        <mat-card-content>          
+
+        <mat-card-content>
           <div fxLayout="row column" fxLayoutGap="8px grid">
             <div fxFlex="50" fxFlex.sm="100" fxFlex.xs="100">
               <div fxLayout fxLayoutAlign="end end" class="price-content">
