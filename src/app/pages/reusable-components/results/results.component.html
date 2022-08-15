@@ -18,7 +18,7 @@
       <!-- ======= rebates and filters ======= -->
       <div fxFlex="30" fxFlex.sm="100" fxFlex.xs="100">
         <div class="rc-rebates-filters">
-          <mat-tab-group dynamicHeight [(selectedIndex)]="index">
+          <mat-tab-group dynamicHeight [(selectedIndex)]="tabGroup.selectedIndex">
           
             <!-- *** rebates *** -->
             <mat-tab label="REBATES" *ngIf="showRebates">

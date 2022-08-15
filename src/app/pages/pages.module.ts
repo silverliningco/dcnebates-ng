@@ -20,7 +20,10 @@ import { CoolingOnlyAhriComponent } from './home-ahi-matchups/cooling-only-ahri/
 import { ExisNonEcmAhriComponent } from './home-ahi-matchups/exis-non-ecm-ahri/exis-non-ecm-ahri.component';
 import { FurnaceOnlyInstallAhriComponent } from './home-ahi-matchups/furnace-only-install-ahri/furnace-only-install-ahri.component';
 import { HeatingCoolingAhriComponent } from './home-ahi-matchups/heating-cooling-ahri/heating-cooling-ahri.component'; 
-import { ResultsRebateComponent } from './reusable-components/results-rebate/results-rebate.component';
+import { ResultsComponent } from './reusable-components/results/results.component';
+import { IKnowModelNrComponent } from './i-know-model-nr/i-know-model-nr.component';
+import { SpinnerComponent } from './reusable-components/spinner/spinner.component';
+import { TableViewComponent } from './reusable-components/table-view/table-view.component';
 
 /* angular material */
 import {MatCardModule} from '@angular/material/card';
@@ -39,11 +42,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { DetailIKnowMyModelComponent } from './reusable-components/detail-i-know-my-model/detail-i-know-my-model.component';
-import { IKnowModelNrComponent } from './i-know-model-nr/i-know-model-nr.component';
-import { SpinnerComponent } from './reusable-components/spinner/spinner.component';
+import {DetailIKnowMyModelComponent } from './reusable-components/detail-i-know-my-model/detail-i-know-my-model.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { TableViewComponent } from './reusable-components/table-view/table-view.component';
 
 
 @NgModule({
@@ -59,7 +59,7 @@ import { TableViewComponent } from './reusable-components/table-view/table-view.
     ExisNonEcmAhriComponent,
     FurnaceOnlyInstallAhriComponent,
     HeatingCoolingAhriComponent,
-    ResultsRebateComponent,
+    ResultsComponent,
     DetailIKnowMyModelComponent,
     IKnowModelNrComponent,
     SpinnerComponent,
