@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
@@ -30,6 +30,7 @@ export class IKnowModelNrComponent implements OnInit {
   stepperOrientation: Observable<StepperOrientation>;
 
   /* FORM GRUP */
+  eligibilityQuestionsGroup !: FormGroup;
   stateGroup !: FormGroup;
   utilityGroup !: FormGroup;
   furnaceGroup !: FormGroup; 
@@ -39,6 +40,9 @@ export class IKnowModelNrComponent implements OnInit {
   sendGasOil: Array<any> = [];
   electricity:  Array<utilityInfo> = [];
   fossilFuel: Array<utilityInfo> = [];
+
+  myEligibilityQuestions:Array<any> = [];
+  noResultsEQ: boolean = true;
 
   constructor(
     private _api: ApiService,
@@ -50,6 +54,10 @@ export class IKnowModelNrComponent implements OnInit {
       .observe('(min-width: 800px)')
       .pipe(
         map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
+  }
+
+  get questions(){
+      return this.eligibilityQuestionsGroup.get('questions') as FormArray;
   }
 
   ngOnInit(): void {
@@ -66,6 +74,11 @@ export class IKnowModelNrComponent implements OnInit {
     this.furnaceGroup = this._formBuilder.group({
       fuelSource: ['', Validators.required],
     });
+
+    this.eligibilityQuestionsGroup = this._formBuilder.group({
+      questions: this._formBuilder.array([])
+    });
+
   }
 
   // utilities
@@ -108,7 +121,8 @@ export class IKnowModelNrComponent implements OnInit {
       commerceInfo: {    
         "storeId": 1,
         "showAllResults": false  
-      }
+      },
+      eligibilityCriteria: this.AnswersEligibilityQuestions()
     };
 
     return JSON.stringify(payload);
@@ -120,6 +134,84 @@ export class IKnowModelNrComponent implements OnInit {
     window.open(url)  
   }
 
+
+  /* ElegibilityQuestions */
+  AddQuestion(question:any){
+    const QuestionFormGroup  = this._formBuilder.group({
+      questionId: question.questionId,
+      answer: ['',  Validators.required],
+      questionText: question.questionText,
+      options: [question.options]
+    });
+    this.questions.push(QuestionFormGroup);
+  }
+
+  PrepareDataEligibilityQuestions(){
+    let body = {
+      country: "US",
+      state: this.stateGroup.controls['state'].value,
+      utilityProviders: { 
+        electricUtilityId: this.utilityGroup.controls['electricUtility'].value, 
+        fossilFuelUtilityId: this.utilityGroup.controls['fossilFuelUtilityId'].value },
+      fuelSource: this.furnaceGroup.controls['fuelSource'].value,
+      rebateTypes:["electric", "OEM", "distributor", "fossil fuel"],
+      OEM: "Carrier",
+      storeIds: []
+    }
+    return body;
+  }
+
+  LoadEligibilityQuestions(myOldEligibilityQuestions:any){
+
+    this._api.ElegibilityQuestions(this.PrepareDataEligibilityQuestions()).subscribe({
+      next: (resp) => {
+        if (JSON.stringify(resp) !== JSON.stringify(myOldEligibilityQuestions)){
+          this.myEligibilityQuestions = resp;
+
+
+          this.questions.clear()
+          if(resp.length > 0) {
+            resp.forEach((question: any) => {
+              this.AddQuestion(question)
+              this.noResultsEQ = false;
+            });
+          } else {
+            this.noResultsEQ = true;
+          }
+        }
+        
+      },
+      error: (e) => alert(e.error),
+      complete: () => console.info('complete')
+    })
+  }
+
+  AnswersEligibilityQuestions(){
+    // Create interface to dynamically asign properties
+    interface IAnswer {
+      [key: string]: string
+    }
+    var myAnswers: IAnswer = {};
+
+    let myQuestions = this.eligibilityQuestionsGroup.value.questions;
+    myQuestions.forEach((question: any) => {
+      myAnswers![question.questionId] = question.answer;
+    });
+
+    
+    return myAnswers;
+
+  }
+
+
+  tabChange(e:any){
+
+    // Call eligibility questions, always it will be the last. for I know my model nr.
+    if(this.stepper?.steps.length -1 == e.selectedIndex){
+      this.LoadEligibilityQuestions(this.myEligibilityQuestions)
+    }
+   
+  }
 }
 
  
