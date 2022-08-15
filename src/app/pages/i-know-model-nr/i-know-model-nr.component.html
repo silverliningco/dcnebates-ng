@@ -1,4 +1,4 @@
-<mat-stepper #stepper linear >
+<mat-stepper #stepper linear  [orientation]="(stepperOrientation | async)!"  (selectionChange)="tabChange($event)">
 
     <!-- Step 1 State -->
     <mat-step [stepControl]="stateGroup" errorMessage="Select an state.">
@@ -92,7 +92,7 @@
 
     <!-- Step 3 Fossil Fuel -->
     <mat-step [stepControl]="furnaceGroup" errorMessage="Select a furnace fuel.">
-      <form [formGroup]="furnaceGroup" (ngSubmit)="sentmodelNrs()">
+      <form [formGroup]="furnaceGroup">
         <!-- Name of step -->
         <ng-template matStepLabel>Fossil Fuel</ng-template>
         <h2 class="rc-main-title">Fossil Fuel</h2>
@@ -133,7 +133,7 @@
             <!-- button -->
             <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
               <button type="button" mat-button matStepperPrevious>Back</button>
-              <button type="submit" [disabled]="furnaceGroup.invalid" mat-raised-button color="primary" matStepperNext>
+              <button type="button" [disabled]="furnaceGroup.invalid" mat-raised-button color="primary" matStepperNext>
                 Continue
                 <mat-icon>arrow_forward</mat-icon>
               </button>
@@ -152,4 +152,43 @@
       </form>
     </mat-step>
     <!-- Step 3 end  -->
+
+  <!-- Step 4 Elegibility questions -->
+  <mat-step [stepControl]="eligibilityQuestionsGroup" errorMessage="Complete the form."  (ngSubmit)="sentmodelNrs()">
+    <form [formGroup]="eligibilityQuestionsGroup" (ngSubmit)="sentmodelNrs()">
+      <!-- Name of step -->
+     <ng-template matStepLabel>Eligibility questions</ng-template>
+      <h2 class="rc-main-title">Eligibility questions</h2> 
+      <!-- Content of step -->
+      <div fxLayout fxLayoutAlign="center"> 
+        <!-- User input -->
+       <div fxFlex="40" fxLayout="column" fxLayoutAlign="center stretch" fxFlex.xs="100" fxFlex.sm="70" fxFlex.md="40" fxLayoutGap="20">
+          <div formArrayName="questions" *ngFor ="let question of questions.controls; let i = index">
+            <strong>{{question.value.questionText}}</strong>
+            <div [formGroupName]="i" class="rc-elegibility-questions">
+              <mat-radio-group aria-label="Select an option"  formControlName="answer" >
+                <mat-radio-button *ngFor="let option of question.value.options" [value]="option">{{option}}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <div *ngIf="noResultsEQ">
+            <div class="rc-alert info">
+              <mat-icon class="rc-icon-alert">info</mat-icon>
+              <p>Whoa, looks like no rebate eligibility questions apply. Just smack the "Continue" button.</p>
+            </div>
+         </div>
+
+          <!-- button -->
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
+            <button type="button" mat-button matStepperPrevious>Back</button>
+            <button type="submit" [disabled]="eligibilityQuestionsGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-step> 
+  <!-- Step end 4 -->
+
   </mat-stepper>
