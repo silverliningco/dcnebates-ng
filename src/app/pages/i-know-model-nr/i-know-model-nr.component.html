@@ -154,8 +154,8 @@
     <!-- Step 3 end  -->
 
   <!-- Step 4 Elegibility questions -->
-  <mat-step [stepControl]="eligibilityQuestionsGroup" errorMessage="Complete the form."  (ngSubmit)="sentmodelNrs()">
-    <form [formGroup]="eligibilityQuestionsGroup" (ngSubmit)="sentmodelNrs()">
+  <mat-step [stepControl]="eligibilityQuestionsGroup" errorMessage="Complete the form.">
+    <form [formGroup]="eligibilityQuestionsGroup">
       <!-- Name of step -->
      <ng-template matStepLabel>Eligibility questions</ng-template>
       <h2 class="rc-main-title">Eligibility questions</h2> 
@@ -181,7 +181,7 @@
           <!-- button -->
           <div fxLayout="row" fxLayoutAlign="space-between center" class="rc-stepper-buttons">
             <button type="button" mat-button matStepperPrevious>Back</button>
-            <button type="submit" [disabled]="eligibilityQuestionsGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
+            <button type="button" [disabled]="eligibilityQuestionsGroup.invalid" mat-raised-button color="primary" matStepperNext>Continue
               <mat-icon>arrow_forward</mat-icon>
             </button>
           </div>
@@ -190,5 +190,18 @@
     </form>
   </mat-step> 
   <!-- Step end 4 -->
+
+  <!-- results -->
+  <mat-step>
+
+      <ng-template matStepLabel>AHRI Combinations</ng-template>
+      <h2 class="rc-main-title">AHRI Combinations</h2>
+      
+
+      <!-- reusable component --> 
+      <app-results-rebate></app-results-rebate>
+
+  </mat-step>
+  <!-- results end -->
 
   </mat-stepper>

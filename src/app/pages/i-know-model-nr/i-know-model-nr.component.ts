@@ -5,7 +5,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { bridgeService } from '../../services/bridge.service';
 import { ApiService } from '../../services/api.service';
 import { utilityInfo } from '../../models/utility';
 
@@ -31,9 +31,12 @@ export class IKnowModelNrComponent implements OnInit {
 
   /* FORM GRUP */
   eligibilityQuestionsGroup !: FormGroup;
+  commerceInfoGroup !: FormGroup;
   stateGroup !: FormGroup;
   utilityGroup !: FormGroup;
   furnaceGroup !: FormGroup; 
+
+  payload: any;
 
   /* utilities */
   sendElectric: Array<any> = [];
@@ -45,10 +48,10 @@ export class IKnowModelNrComponent implements OnInit {
   noResultsEQ: boolean = true;
 
   constructor(
-    private _api: ApiService,
     private _formBuilder: FormBuilder,
-    public router: Router,
     public breakpointObserver: BreakpointObserver,
+    public _bridge: bridgeService,
+    private _api: ApiService
   ) { 
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -61,6 +64,11 @@ export class IKnowModelNrComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.commerceInfoGroup = this._formBuilder.group({
+      storeId: 1,
+      showAllResults: [false, Validators.required],
+    });
 
     this.stateGroup = this._formBuilder.group({
       state: ['', Validators.required]
@@ -114,7 +122,7 @@ export class IKnowModelNrComponent implements OnInit {
     });
   }
 
- 
+/*
   Payload() {
     let payload = {
       fuelSource: this.furnaceGroup.controls['fuelSource'].value,
@@ -133,7 +141,7 @@ export class IKnowModelNrComponent implements OnInit {
     let url= '/home/detail-i-know-my-model-nr/' + body;
     window.open(url)  
   }
-
+*/
 
   /* ElegibilityQuestions */
   AddQuestion(question:any){
@@ -203,14 +211,36 @@ export class IKnowModelNrComponent implements OnInit {
 
   }
 
+  submitForm() {
+
+    this.payload = {
+      commerceInfo: this.commerceInfoGroup.value,
+      fuelSource: this.furnaceGroup.controls['fuelSource'].value,
+      state: this.stateGroup.controls['state'].value,
+      eligibilityCriteria: this.AnswersEligibilityQuestions(),
+      utilityProviders: { 
+        electricUtilityId: this.utilityGroup.controls['electricUtility'].value, 
+        fossilFuelUtilityId: this.utilityGroup.controls['fossilFuelUtilityId'].value },
+      levelOneSystemTypeId: 1,
+      sizingConstraint: "Nominal cooling tons",
+      home: 'rebate'
+    }  
+    /* sent the info to results-rebate */
+    this._bridge.sentRebateParams.emit({
+      data: this.payload
+    });
+  }
 
   tabChange(e:any){
 
-    // Call eligibility questions, always it will be the last. for I know my model nr.
-    if(this.stepper?.steps.length -1 == e.selectedIndex){
+    // Call eligibility questions, always it will be the second to last.
+    if(this.stepper?.steps.length -2 == e.selectedIndex){
       this.LoadEligibilityQuestions(this.myEligibilityQuestions)
     }
-   
+    // Confirm that it's the last step (ahri combinations).
+    if(this.stepper?.steps.length -1 == e.selectedIndex){
+      this.submitForm()
+    }
   }
 }
 
