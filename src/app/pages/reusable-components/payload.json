@@ -1,0 +1,37 @@
+[
+    [
+        {
+            "name": "brush",
+            "punctuation": 20,
+            "componets": [
+                {
+                    "SKU": "24AC",
+                    "name": "toothbrush",
+                    "type": "cleaning item"
+                },
+                {
+                    "SKU": "23AC",
+                    "name": "hair brush",
+                    "type": "cleaning item"
+                }
+            ]
+        },
+        {
+            "name": "glue",
+            "punctuation": 15,
+            "componets": [
+                {
+                    "SKU": "24Ak",
+                    "name": "paper glue",
+                    "type": "hardware store"
+                },
+                {
+                    "SKU": "23Ak",
+                    "name": "floor glue",
+                    "type": "hardware store"
+                }
+            ]
+        }
+
+    ]
+]
