@@ -12,6 +12,7 @@ export class TableViewComponent implements OnInit {
   commerceInfo: any;
   requiredRebates: any = [];
   mySystems: any;
+  home:string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -20,6 +21,7 @@ export class TableViewComponent implements OnInit {
     this.commerceInfo = data.commerceInfo;
     this.requiredRebates = data.requiredRebates;
     this.mySystems = data.systems;
+    this.home = data.home;
   }
 
   ngOnInit(): void {

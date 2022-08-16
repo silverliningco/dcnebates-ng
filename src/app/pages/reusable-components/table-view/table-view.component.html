@@ -17,7 +17,7 @@
               <th>Hcap47</th>
               <th>Furnace BTUH</th>
               <th>Cooling capacity</th>
-              <th>Total available rebates</th>
+              <th *ngIf="home != 'ahri'">Total available rebates</th>
               <th></th>
             </tr>
           </thead>
@@ -25,22 +25,22 @@
             <tr *ngFor="let ahriCombination of mySystems; index as i">
               <td data-title="n°">{{i+1}}</td>
               <ng-container>
-                <td *ngFor="let unit of ahriCombination.components" data-title="{{unit.type}}" matTooltip="{{unit.name}}" matTooltipPosition="right">{{unit.SKU}}</td>
+                <td data-title="{{unit.type}}" *ngFor="let unit of ahriCombination.components" data-title="{{unit.type}}" matTooltip="{{unit.name}}" matTooltipPosition="right">{{unit.SKU}}</td>
               </ng-container>
-              <td  *ngIf="ahriCombination.furnaceConfigurations" data-title="Configuration">
+              <td data-title="configuration" *ngIf="ahriCombination.furnaceConfigurations" data-title="Configuration">
                 <ul *ngFor="let configuration of ahriCombination.furnaceConfigurations" class="rc-list-in-table">
                   <li>{{configuration}}</li>
                 </ul>
               </td>
-              <td data-title="SEER">{{ahriCombination.SEER}}</td>
-              <td data-title="EER">{{ahriCombination.EER}}</td>
-              <td data-title="HSPF" *ngIf="ahriCombination.HSPF">{{ahriCombination.HSPF}}</td>
+              <td data-title="SEER">{{(ahriCombination.SEER | number) || "N/A"}}</td>
+              <td data-title="EER">{{(ahriCombination.EER | number) || "N/A"}}</td>
+              <td data-title="HSPF" *ngIf="ahriCombination.HSPF">{{(ahriCombination.HSPF | number) || "N/A"}}</td>
               <td data-title="AFUE" *ngIf="ahriCombination.AFUE">{{ahriCombination.AFUE}}</td>
-              <td data-title="Hcap17">{{ahriCombination.Hcap17}}</td>
-              <td data-title="Hcap47">{{ahriCombination.Hcap47}}</td>
-              <td data-title="furnaceOutputBTUH">{{ahriCombination.furnaceOutputBTUH}}</td>
-              <td data-title="coolingCapacityRated">{{ahriCombination.coolingCapacityRated}}</td>
-              <td data-title="Total rebate">{{ahriCombination.totalAvailableRebates | currency:"USD":"symbol" : '1.0-0'}}</td>
+              <td data-title="Hcap17">{{(ahriCombination.Hcap17 | number) || "N/A" }} </td>
+              <td data-title="Hcap47">{{(ahriCombination.Hcap47 | number) || "N/A" }} </td>
+              <td data-title="furnaceOutputBTUH">{{(ahriCombination.furnaceOutputBTUH | number) || "N/A" }}</td>
+              <td data-title="coolingCapacityRated">{{(ahriCombination.coolingCapacityRated | number)  || "N/A"  }}</td>
+              <td data-title="Total rebate" *ngIf="home != 'ahri'">{{ahriCombination.totalAvailableRebates | currency:"USD":"symbol" : '1.0-0'}}</td>
               <td data-title="Details">
                 <button class="rc-btn rc-btn-secondary"  (click)="sendModelNrs(ahriCombination)">
                   <mat-icon>search</mat-icon>

@@ -694,7 +694,8 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
       data: {
         commerceInfo:  this.myPayloadForm.commerceInfo,
         requiredRebates: this.getSelectedRebates(),
-        systems:mySystems
+        systems:mySystems,
+        home : this.myPayloadForm.home
       }
     });
   }
