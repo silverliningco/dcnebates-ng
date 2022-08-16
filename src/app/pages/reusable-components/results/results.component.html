@@ -18,7 +18,7 @@
       <!-- ======= rebates and filters ======= -->
       <div fxFlex="30" fxFlex.sm="100" fxFlex.xs="100">
         <div class="rc-rebates-filters">
-          <mat-tab-group dynamicHeight [(selectedIndex)]="tabGroup.selectedIndex">
+          <mat-tab-group dynamicHeight>
           
             <!-- *** rebates *** -->
             <mat-tab label="REBATES" *ngIf="showRebates">
@@ -183,8 +183,8 @@
                   <mat-card-title>
                     <div fxLayout="row column" fxLayoutAlign="space-between center" *ngFor="let unit of ahriCombination.components">
                       <div fxFlex="100" fxFlex.sm="55" fxFlex.xs="100" *ngIf="unit.type === 'outdoorUnit'">
-                        <h3>{{unit.name}}</h3>
-                        <p><b>Outdoor Unit: </b>{{unit.SKU}}</p>
+                        <h3><b>{{unit.name}}</b></h3>
+                        <h3>Outdoor Unit: {{unit.SKU}}</h3>
                       </div>
                     </div>
                   </mat-card-title>
