@@ -31,8 +31,10 @@
         </div>
       </div>
 
-      <!-- AHRI References -->
+      <!-- AHRI References  and  configuration -->
       <div fxFlex="30" fxFlex.sm="80" fxFlex.xs="80">
+
+        <!-- AHRI References -->
         <div class="part">
           <div class="title">
             <div class="decoration"></div>
@@ -47,6 +49,29 @@
                 </li>
               </ul>
             </div>
+          </div>
+        </div>
+
+        <!-- configuration -->
+        <div class="part">
+          <div *ngIf="detail.furnaceConfigurations != null">
+            <div class="title">
+              <div class="decoration"></div>
+              <h4 class="text">Furnace configurations</h4>
+            </div>
+            <div class="content-detail">
+              <div class="group-content">
+                <p class="rc-small">List of Configurations</p>
+                <ul class="rc-list-details">
+                  <li *ngFor="let configuration of detail.furnaceConfigurations">
+                    {{configuration}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="detail.furnaceConfigurations == null">
+            <p>Sorry, we couldn't find any configuration.</p>
           </div>
         </div>
       </div>
