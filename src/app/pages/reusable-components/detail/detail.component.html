@@ -110,8 +110,8 @@
 
     <!--Available Rebates-->
     <!-- If Rebates -->
-    <mat-card-footer *ngIf="detail.availableRebates !=null">
-      <div class="part">
+    <mat-card-footer>
+      <div class="part" *ngIf="detail.availableRebates !=null">
         <div class="title">
           <div class="decoration"></div>
           <h4 class="text">Available Rebates</h4>
@@ -152,7 +152,14 @@
           </mat-expansion-panel>
         </mat-accordion>
       </div>
+
+      <div fxLayout="row column" fxLayoutAlign="end center" fxLayoutGap="16px grid">
+        <div class="rc-card results">
+          <button mat-button class="rc-card-button">ADD TO CART <mat-icon>add_shopping_cart</mat-icon></button>
+        </div>
+      </div>
     </mat-card-footer>
+
   <!-- </div> -->
   </mat-card>
 </div>
