@@ -18,11 +18,11 @@
       <!-- ======= rebates and filters ======= -->
       <div fxFlex="30" fxFlex.sm="100" fxFlex.xs="100">
         <div class="rc-rebates-filters">
-          <mat-tab-group dynamicHeight [(selectedIndex)]="tabGroup.selectedIndex">
+          <mat-tab-group dynamicHeight selectedIndex="0">
           
-            <!-- *** rebates *** -->
-            <mat-tab label="REBATES" *ngIf="showRebates">
-              <div class="rc-result-rebates" >
+           <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
+            <!-- *** rebates *** --> 
+              <div class="rc-result-rebates" *ngIf="tab == 'REBATES'">
                 <mat-card class="rc-available-rebate">                
                   <!-- rebstes list -->
                   <mat-card-content>
@@ -58,12 +58,12 @@
                   </mat-card-content>
               </mat-card>
               </div>
-            </mat-tab>
+            
             <!-- *** rebates end *** -->
   
             <!-- *** filters ***-->
-            <mat-tab label="FILTERS">
-              <mat-card class="rc-rb-filters">
+            
+              <mat-card class="rc-rb-filters"  *ngIf="tab == 'FILTERS'">
                 <form [formGroup]="filtersGroup" fxLayout="column" fxLayoutAlign="center" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
                   <!-- indoorUnitConfiguration -->
                   <h5 class="rc-filter-group-title" *ngIf="showIndoorUnitConfig">Indoor Unit</h5>

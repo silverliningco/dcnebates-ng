@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { payloadForm } from '../../../models/payloadFrom';
@@ -8,7 +8,6 @@ import { BestDetail } from '../../../models/detailBestOption';
 import { bridgeService } from '../../../services/bridge.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TableViewComponent } from '../table-view/table-view.component';
-import { MatTabGroup} from '@angular/material/tabs';
 
 
 @Component({
@@ -17,8 +16,6 @@ import { MatTabGroup} from '@angular/material/tabs';
   styleUrls: ['./results.component.css']
 })
 export class ResultsComponent implements OnInit {
-
-  @ViewChild(MatTabGroup) tabGroup!: MatTabGroup;
 
   /* FORM GRUP */
   commerceInfoGroup !: FormGroup;
@@ -54,6 +51,9 @@ export class ResultsComponent implements OnInit {
   showSpinner:boolean = false;
   index: number = 0;
 
+
+  tabs = ['REBATES','FILTERS'];
+
   constructor(
     private _formBuilder: FormBuilder,
     private _api: ApiService,
@@ -73,11 +73,11 @@ export class ResultsComponent implements OnInit {
                     if (this.myPayloadForm.home === 'ahri'){
                       this.showRebates = false;
                       this.showCardRebate = false;
-                      this.tabGroup.selectedIndex = 1;
+                      // remove rebates tab
+                      this.tabs.splice(0, 1);
                     }else {
                       this.showRebates = true;
                       this.showCardRebate = true;
-                      this.tabGroup.selectedIndex = 0;
                       this.GetAvailableRebates();
                     }
                     
