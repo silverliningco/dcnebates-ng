@@ -25,7 +25,7 @@
             <tr *ngFor="let ahriCombination of mySystems; index as i">
               <td data-title="n°">{{i+1}}</td>
               <ng-container>
-                <td data-title="{{unit.type}}" *ngFor="let unit of ahriCombination.components" data-title="{{unit.type}}" matTooltip="{{unit.name}}" matTooltipPosition="right">{{unit.SKU}}</td>
+                <td data-title="{{unit.type}}" *ngFor="let unit of ahriCombination.components" data-title="{{unit.type}}" matTooltip="{{unit.name}}" matTooltipPosition="right">{{unit.SKU ?? unit.name}}</td>
               </ng-container>
               <td data-title="configuration" *ngIf="ahriCombination.furnaceConfigurations" data-title="Configuration">
                 <ul *ngFor="let configuration of ahriCombination.furnaceConfigurations" class="rc-list-in-table">
