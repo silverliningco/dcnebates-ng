@@ -183,7 +183,7 @@
                     <div *ngFor="let unit of ahriCombination.components">
                       <div fxFlex="100" *ngIf="unit.type === 'outdoorUnit'">
                         <h3> {{unit.SKU}}</h3>
-                        <p>Outdoor Unit: <b>{{unit.name}} </b></p>
+                        <p>Outdoor Unit: <b>{{unit.name  | uppercase}} </b></p>
                       </div>
                     </div>  
                     <div fxFlex="100" fxFlex.sm="70" class="rc-hide rc-show-md rc-show-sm">

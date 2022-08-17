@@ -13,17 +13,17 @@
             <div class="content-detail" >
               <div class="group-content" *ngIf="unit.type =='outdoorUnit'">
                 <p class="rc-small">Outdoor Unit</p>
-                <h4 class="bitter-font">{{unit.name}}</h4>
+                <h4 class="bitter-font">{{unit.name | uppercase}}</h4>
                 <p class="data">{{unit.SKU}}</p>
               </div>
               <div class="group-content" *ngIf="unit.type =='indoorUnit'">
                 <p class="rc-small">Indoor Unit</p>
-                <h4 class="bitter-font">{{unit.name}}</h4>
+                <h4 class="bitter-font">{{unit.name | uppercase}}</h4>
                 <p class="data">{{unit.SKU}}</p>
               </div>
               <div class="group-content" *ngIf="unit.type =='furnace'">
                 <p class="rc-small">Furnace</p>
-                <h4 class="bitter-font">{{unit.name}}</h4>
+                <h4 class="bitter-font">{{unit.name | uppercase}}</h4>
                 <p class="data">{{unit.SKU}}</p>
               </div>
             </div>
