@@ -867,3 +867,5 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
   * en el caso en que aparece furnace, siempre hay indoor? por que no se evalua si hay o no, se da por hecho que 
     siempre hay
 */
+
+
