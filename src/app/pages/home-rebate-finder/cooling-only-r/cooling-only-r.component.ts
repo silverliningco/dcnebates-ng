@@ -253,6 +253,7 @@ export class CoolingOnlyRComponent implements OnInit {
       levelOneSystemTypeId: 2,
       // levelTwoSystemTypeId: 2,
       sizingConstraint: "Nominal cooling tons",
+      rebateTypes:["electric", "OEM", "distributor"],
       home: 'rebate'
     }  
     /* sent the info to results-rebate */

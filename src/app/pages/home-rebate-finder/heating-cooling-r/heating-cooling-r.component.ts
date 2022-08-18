@@ -289,6 +289,7 @@ export class HeatingCoolingRComponent implements OnInit {
       levelOneSystemTypeId: 1,
       levelTwoSystemTypeId: 2,
       sizingConstraint: "Nominal cooling tons",
+      rebateTypes: ["electric", "OEM", "distributor", "fossil fuel"],
       home: 'rebate'
     }  
     /* sent the info to results-rebate */

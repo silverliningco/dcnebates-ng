@@ -15,6 +15,7 @@ export class payloadForm {
         public requiredRebates?: any,
         public eligibilityCriteria?: any,
         public utilityProviders?: JSON,
+        public rebateTypes?: JSON,
         public levelOneSystemTypeId?: number,
         public levelTwoSystemTypeId?: number,
         public sizingConstraint?: string,

@@ -162,14 +162,14 @@ export class ResultsComponent implements OnInit {
 /* ****************************************************************************************************************************************************** */
   PrepareDataAvailableRebates(){
 
-    let {state, utilityProviders, fuelSource, eligibilityCriteria} = this.myPayloadForm;
+    let {state, utilityProviders, fuelSource, eligibilityCriteria, rebateTypes} = this.myPayloadForm;
 
     let body= {
       country: "US",
       state: state,
       utilityProviders: utilityProviders,
       fuelSource: fuelSource,
-      rebateTypes: ["electric", "OEM", "distributor"],
+      rebateTypes: rebateTypes,
       OEM: "Carrier",
       storeIds: [],
       eligibilityCriteria: eligibilityCriteria
