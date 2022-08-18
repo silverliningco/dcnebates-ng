@@ -177,7 +177,8 @@
 
           <!-- si hay varios por card prueva -->
           <mat-card class="rc-card results" *ngFor="let ahriCombination of bestResults; let i = index">
-            <div fxLayout="row column" fxLayoutAlign="space-between start" fxLayoutGap="16px grid" >
+            <!-- con total rebate -->
+            <div fxLayout="row column" fxLayoutAlign="space-between start" fxLayoutGap="16px grid" *ngIf="ahriCombination.lengthAnyCombination < 2">
   
               <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
                 <mat-card-header>
@@ -189,7 +190,7 @@
                         <p>Outdoor Unit: <b>{{unit.name  | uppercase}} </b></p>
                       </div>
                     </div>  
-                    <div fxFlex="100" fxFlex.sm="70" class="rc-hide rc-show-md rc-show-sm" *ngIf="ahriCombination.lengthAnyCombination < 2">
+                    <div fxFlex="100" fxFlex.sm="70" class="rc-hide rc-show-md rc-show-sm">
                           <div class="rebate-price" fxLayout="row" fxLayoutAlign="center center">
                             <h5 class="rc-small">REBATES UP</h5>
                             <h1>{{(ahriCombination.totalAvailableRebates | currency) || "$0.00"}}</h1>
@@ -230,7 +231,68 @@
               </div>
   
               <!-- amount -->
-              <div fxFlex="30" class="rc-show rc-hide-md rc-hide-sm" *ngIf="ahriCombination.lengthAnyCombination < 2">
+              <div fxFlex="30" class="rc-show rc-hide-md rc-hide-sm">
+                  <div class="rebate-price" fxLayout="row" fxLayoutAlign="center center">
+                    <h5 class="rc-small">REBATES UP</h5>
+                    <h1>{{(ahriCombination.totalAvailableRebates | currency) || "$0.00"}}</h1>
+                  </div>
+              </div>
+            </div>
+
+            <!-- sin total rebate -->
+            <div fxLayout="row column" fxLayoutAlign="space-between start" fxLayoutGap="16px grid"  *ngIf="ahriCombination.lengthAnyCombination > 1">
+              <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
+                <mat-card-header>
+  
+                  <mat-card-title fxLayout="row column" fxLayoutAlign="space-between center" class="123">
+                    <div *ngFor="let unit of ahriCombination.components">
+                      <div fxFlex="100" *ngIf="unit.type === 'outdoorUnit'">
+                        <h3> {{unit.SKU}}</h3>
+                        <p>Outdoor Unit: <b>{{unit.name  | uppercase}} </b></p>
+                      </div>
+                    </div>  
+                    <div fxFlex="100" fxFlex.sm="70" class="rc-hide rc-show-md rc-show-sm">
+                          <div class="rebate-price" fxLayout="row" fxLayoutAlign="center center">
+                            <h5 class="rc-small">REBATES UP</h5>
+                            <h1>{{(ahriCombination.totalAvailableRebates | currency) || "$0.00"}}</h1>
+                          </div>
+                    </div>
+                  </mat-card-title>
+  
+                  <!-- skus of units -->
+                  <mat-card-subtitle >
+                    <div fxLayout="row column" fxLayoutAlign="space-between center" class="model-nrs" fxLayoutGap="4px grid">
+                      <div fxFlex="100" *ngIf="showIndoorUnits">
+                          <span class="rc-small"><b>Indoor Unit</b></span>
+                          <mat-form-field class="rc-select-multiline">
+                            <mat-select [value]="ahriCombination.components[1].SKU" (selectionChange)="filterIndoorBySKU($event.value, i)">
+                              <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.indoorUnits" [value]="val.SKU">
+                                <b>{{val.SKU}}</b>
+                                {{val.name}} 
+                                <!--<span class="price"> $300.00</span>-->
+                              </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div fxFlex="100" *ngIf="showFurnaceUnits">
+                        <span class="rc-small"><b>Furnace</b></span>
+                        <mat-form-field class="rc-select-multiline">
+                          <mat-select [value]="ahriCombination.components[2].SKU" (selectionChange)="filterFurnaceBySKU($event.value, i)">
+                            <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.furnaceUnits" [value]="val.SKU"> 
+                              <b>{{val.SKU}}</b>
+                                {{val.name}}  
+                              <!--<span class="price"> $300.00</span>-->
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </div>
+  
+              <!-- amount -->
+              <div fxFlex="30" class="rc-show rc-hide-md rc-hide-sm">
                   <div class="rebate-price" fxLayout="row" fxLayoutAlign="center center">
                     <h5 class="rc-small">REBATES UP</h5>
                     <h1>{{(ahriCombination.totalAvailableRebates | currency) || "$0.00"}}</h1>
