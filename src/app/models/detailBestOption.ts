@@ -3,6 +3,8 @@ export class BestDetail {
     constructor(
         public indoorUnits?: Array<string>,
         public furnaceUnits?: Array<string>,
+        public anyCombination?: Array<BestDetail>,
+        public lengthAnyCombination?: number,
 
         public name?: string,
         public availableRebates?: Array<Rebate>,

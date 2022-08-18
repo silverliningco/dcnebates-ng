@@ -553,71 +553,223 @@ filterBestResults(resp: BestDetail[][]) {
     bestResults.push(mySystem);
   });
 
-  return (bestResults);
+  // this.searchMore(bestResults);
+  return this.searchMore(bestResults);
+  // return (bestResults);
+}
+
+searchMore(bestResults: any){
+
+  let myOutdoorUnit: string = '';
+  let myIndoorUnit: string = '';
+  let myfurnace: string = 'null';
+  let myCombination1: BestDetail[] = [];
+  let myCombination2: Array<BestDetail>  = [];
+  let myCombination3: Array<BestDetail> = [];
+
+console.log(bestResults.length);
+
+  bestResults.forEach((element:any) => {
+
+    myOutdoorUnit = '';
+    myIndoorUnit = '';
+    myfurnace = 'null';
+    myCombination1 = [];
+    myCombination2 = [];
+    myCombination3 = [];
+    
+    element.components.forEach((ele1:any) => {
+      switch (ele1.type) {
+        case 'outdoorUnit':
+          myOutdoorUnit = ele1.SKU;
+          break;
+        case 'indoorUnit':
+          myIndoorUnit = ele1.SKU;
+          break;
+        case 'furnace':
+          myfurnace = ele1.SKU;
+          break;
+      }
+    });
+
+    this.results.forEach((subel:BestDetail[]) => {
+      subel.forEach(ele2 => {
+        let myFind = ele2.components?.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
+        if(myFind == myOutdoorUnit){
+          myCombination1 = subel
+        }
+      });
+      
+    });
+
+    if (myfurnace === 'null'){
+
+        myCombination1.forEach(ele3 => {
+          let myFind = ele3.components?.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
+          if(myFind == myIndoorUnit){
+            
+            myCombination2.push(ele3);
+            element.anyCombination = myCombination2;
+            element.lengthAnyCombination = myCombination2.length;
+          }
+        });
+
+    } else {
+      myCombination1.forEach(ele4 => {
+        let myFind = ele4.components?.filter((item: any)=> item.type == "furnace")[0].SKU;
+        if(myFind === myfurnace){
+          myCombination2.push(ele4);
+        }
+      });
+
+      if(myIndoorUnit){
+
+        myCombination2.forEach(ele5 => {
+          let myFind = ele5.components?.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
+          if(myFind === myIndoorUnit){
+            myCombination3.push(ele5);
+            element.anyCombination = myCombination3;
+            element.lengthAnyCombination = myCombination3.length;
+          }
+        });
+    
+      }
+    }
+
+  });
+
+  return bestResults;
 }
 
 filterIndoorBySKU(myIndoorUnit: string, i:number) {
+  
+  this.bestResults[i].lengthAnyCombination = 0;
+  let myfurnace!: any;
+  let myCombination1: BestDetail[] = [];
+  let myCombination2: Array<BestDetail>  = [];
+  let myCombination3: Array<BestDetail> = [];
 
   //Search bestOption with user selections
   let myOutdoorUnit = this.bestResults[i].components.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
-  let myCombination: BestDetail[] = []
-
-
+  this.bestResults[i].components.forEach((element: any) => {
+    if (element.type === 'furnace'){
+      myfurnace = this.bestResults[i].components.filter((item: any)=> item.type == "furnace")[0].SKU;
+    } else {
+      myfurnace = null;
+    }
+  });
+  
   this.results.forEach((subel:BestDetail[]) => {
-
     subel.forEach(element => {
       let myFind = element.components?.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
       if(myFind == myOutdoorUnit){
-        myCombination = subel
+        myCombination1 = subel
       }
     });
     
   });
 
-  if(myIndoorUnit){
+  if (myfurnace === null){
+    if(myIndoorUnit){
 
-    myCombination.forEach(element => {
-      let myFind = element.components?.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
-      if(myFind == myIndoorUnit){
-        this.bestResults[i] = element
+      myCombination1.forEach(element => {
+        let myFind = element.components?.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
+        if(myFind == myIndoorUnit){
+          myCombination2.push(element);
+          this.bestResults[i] = element;
+          this.bestResults[i].anyCombination = myCombination2;
+          this.bestResults[i].lengthAnyCombination = myCombination2.length;;
+        }
+      });
+
+      console.log(this.bestResults[i]);
+  
+      // compose options for specified model type
+      this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination1,"indoorUnit");
+      this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination1,"furnace");
+    }
+
+  } else {
+    myCombination1.forEach(element => {
+      let myFind = element.components?.filter((item: any)=> item.type == "furnace")[0].SKU;
+      if(myFind === myfurnace){
+        myCombination2.push(element);
       }
     });
 
-    // compose options for specified model type
-    this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination,"indoorUnit");
-    this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination,"furnace");
+    if(myIndoorUnit){
+
+      myCombination2.forEach(element => {
+        let myFind = element.components?.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
+        if(myFind === myIndoorUnit){
+          myCombination3.push(element);
+          this.bestResults[i] = element;
+          this.bestResults[i].anyCombination = myCombination3;
+          this.bestResults[i].lengthAnyCombination = myCombination3.length;;
+        }
+      });
+
+      console.log(myCombination3);
+
+      console.log(this.bestResults[i]);
+  
+      // compose options for specified model type
+      this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination1,"indoorUnit");
+      this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination1,"furnace");
+    }
+
   }
+
 }
+
 
 filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
 
+  this.bestResults[i].lengthAnyCombination = 0;
+
   //Search bestOption with user selections
   let myOutdoorUnit = this.bestResults[i].components.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
-  let myCombination: BestDetail[] = []
+  let myIndoorUnit = this.bestResults[i].components.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
+  let myCombination1: BestDetail[] = [];
+  let myCombination2: Array<BestDetail>  = [];
+  let myCombination3: Array<BestDetail> = [];
 
+  // select by outdoor unit
   this.results.forEach((subel:BestDetail[]) => {
 
     subel.forEach(element => {
       let myFind = element.components?.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
-      if(myFind == myOutdoorUnit){
-        myCombination = subel
+      if(myFind === myOutdoorUnit){
+        myCombination1 = subel
       }
     });
     
   });
 
+  // select by indoor unit
+  myCombination1.forEach(element => {
+    let myFind = element.components?.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
+    if(myFind === myIndoorUnit){
+      myCombination2.push(element);
+    }
+  });
+
+  // select by furnace
   if(myFurnaceUnit){
 
-    myCombination.forEach(element => {
+    myCombination2.forEach(element => {
       let myFind = element.components?.filter((item: any)=> item.type == "furnace")[0].SKU;
-      if(myFind == myFurnaceUnit){
-        this.bestResults[i] = element
+      if(myFind === myFurnaceUnit){
+        myCombination3.push(element);
+        this.bestResults[i] = element;
+        this.bestResults[i].anyCombination = myCombination3;
+        this.bestResults[i].lengthAnyCombination = myCombination3.length;;
       }
     });
 
     // compose options for specified model type
-    this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination,"indoorUnit");
-    this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination,"furnace");
+    this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination1,"indoorUnit");
+    this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination1,"furnace");
   }
 }
 
@@ -709,4 +861,9 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
 
 }
 
-
+/* 
+  * arreglar los estilos del togle
+  * se debe de mostrar los resultados del togle ordenamos de mayor a menor
+  * en el caso en que aparece furnace, siempre hay indoor? por que no se evalua si hay o no, se da por hecho que 
+    siempre hay
+*/
