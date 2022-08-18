@@ -250,12 +250,6 @@
                         <h3> {{unit.SKU}}</h3>
                         <p>Outdoor Unit: <b>{{unit.name  | uppercase}} </b></p>
                       </div>
-                    </div>  
-                    <div fxFlex="100" fxFlex.sm="70" class="rc-hide rc-show-md rc-show-sm">
-                          <div class="rebate-price" fxLayout="row" fxLayoutAlign="center center">
-                            <h5 class="rc-small">REBATES UP</h5>
-                            <h1>{{(ahriCombination.totalAvailableRebates | currency) || "$0.00"}}</h1>
-                          </div>
                     </div>
                   </mat-card-title>
   
@@ -289,14 +283,6 @@
                     </div>
                   </mat-card-subtitle>
                 </mat-card-header>
-              </div>
-  
-              <!-- amount -->
-              <div fxFlex="30" class="rc-show rc-hide-md rc-hide-sm">
-                  <div class="rebate-price" fxLayout="row" fxLayoutAlign="center center">
-                    <h5 class="rc-small">REBATES UP</h5>
-                    <h1>{{(ahriCombination.totalAvailableRebates | currency) || "$0.00"}}</h1>
-                  </div>
               </div>
             </div>
 
@@ -376,7 +362,7 @@
                                             <span>SEER</span>
                                           </div>
                                           <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                            {{((anyresults.SEER | json) | number) || "N/A"}}
+                                            {{((anyresults.SEER) | number) || "N/A"}}
                                           </div>                                 
                                         </div>
                                         <div fxLayout="row" class="list-ahri-rating-item">
@@ -384,7 +370,7 @@
                                             <span>EER</span>
                                           </div>
                                           <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                            {{((anyresults.EER | json) | number) || "N/A"}}
+                                            {{((anyresults.EER) | number) || "N/A"}}
                                           </div>                                 
                                         </div>
                                         <div fxLayout="row" class="list-ahri-rating-item">
@@ -392,7 +378,7 @@
                                             <span>HPSF</span>
                                           </div>
                                           <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">                                      
-                                            {{((anyresults.HSPF | json) | number) || "N/A"}}
+                                            {{((anyresults.HSPF) | number) || "N/A"}}
                                           </div>
                                         </div>
                                         <div fxLayout="row" class="list-ahri-rating-item">
@@ -400,7 +386,7 @@
                                             <span>AFUE</span>
                                           </div>
                                           <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">                                      
-                                            {{((anyresults.AFUE | json) | number) || "N/A"}}
+                                            {{((anyresults.AFUE) | number) || "N/A"}}
                                           </div>
                                         </div>
                                     </mat-expansion-panel>
@@ -426,7 +412,7 @@
                                           <span>Hcap17</span>
                                         </div>
                                         <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                          {{((anyresults.Hcap17 | json) | number) || "N/A" }} 
+                                          {{((anyresults.Hcap17) | number) || "N/A" }} 
                                         </div>
                                       </div>
                                       <div fxLayout="row" class="list-ahri-rating-item">
@@ -434,7 +420,7 @@
                                           <span>Hcap47</span>
                                         </div>
                                         <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                          {{((anyresults.Hcap47 | json) | number) || "N/A" }} 
+                                          {{((anyresults.Hcap47) | number) || "N/A" }} 
                                         </div>
                                       </div>
                                       <div fxLayout="row" class="list-ahri-rating-item">
@@ -442,7 +428,7 @@
                                           <span>Furnace output BTUH</span>
                                         </div>
                                         <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                          {{((anyresults.furnaceOutputBTUH| json) | number) || "N/A" }}
+                                          {{((anyresults.furnaceOutputBTUH) | number) || "N/A" }}
                                         </div>
                                       </div>
                                       <div fxLayout="row" class="list-ahri-rating-item">
@@ -450,7 +436,7 @@
                                           <span>Rated cooling capacity</span>
                                         </div>
                                         <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-                                          {{((anyresults.coolingCapacityRated | json) | number)  || "N/A"  }}
+                                          {{((anyresults.coolingCapacityRated ) | number)  || "N/A"  }}
                                         </div>
                                       </div>
               
