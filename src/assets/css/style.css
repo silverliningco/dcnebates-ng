@@ -1011,6 +1011,13 @@ h1, h2, h3, h4, h5 {
       margin-right: 1rem;
       color: white;
   }
+
+  .rc-card.results .pdf-card-button {
+    background: var(--rc-warn-color);
+    margin-right: 1rem;
+    color: white;
+  }
+
   .rc-card.results .rc-table-button {
       background: var(--rc-primary-light-color);
       margin-right: 1rem;
@@ -1205,52 +1212,62 @@ h1, h2, h3, h4, h5 {
 }
 
 /*Accordion tabs for rebates*/
-.rc-card.detail .mat-accordion .mat-expansion-panel{
+.rc-card.detail .mat-accordion .mat-expansion-panel,
+.card-accordion .mat-expansion-panel{
   background-color: #F8F8F8;
-  box-shadow: none;
+  box-shadow: none !important;
   margin-bottom: .5rem;
 }
 .rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header.mat-expanded{
   border-bottom: 1px solid #D7D7D7;
   border-radius: 0;
 }
-.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header-title{
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header-title,
+.mat-accordion.card-accordion .mat-expansion-panel .mat-expansion-panel-header-title{
   display: initial;
   color: var(--rc-text-color);
 }
-.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header-title h4 span{
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header-title h4 span,
+.mat-accordion.card-accordion .mat-expansion-panel .mat-expansion-panel-header-title h4 span{
   font-weight: normal;
   font-style: italic;
 }
-.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header-title .price h4{
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-header-title .price h4,
+.mat-accordion.card-accordion .mat-expansion-panel .mat-expansion-panel-header-title .price h4{
   background-color: rgba(49, 120, 191, 0.13);
   border-radius: 4px;
   padding: 2px 12px;
   color: var(--rc-primary-color);
 }
-.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body{
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body,
+.mat-accordion.card-accordion .mat-expansion-panel .mat-expansion-panel-body{
   padding: 16px 24px 16px;
 }
-.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body p.description{
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body p.description,
+.mat-accordion.card-accordion .mat-expansion-panel .mat-expansion-panel-body p.description{
   margin-bottom: 1rem;
 }
-.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list{
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list,
+.mat-accordion.card-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list{
   list-style: none;
   padding-inline-start: 16px;
 }
-.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list li a{
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list li a,
+.mat-accordion.card-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list li a{
   color: var(--rc-primary-color) !important;
   cursor: pointer;
   margin-bottom: .5rem;
 }
-.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list mat-icon{
+.rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list mat-icon,
+.mat-accordion.card-accordion .mat-expansion-panel .mat-expansion-panel-body .link-list mat-icon{
   font-size: 16px;
   width: 16px;
   height: 20px;
   padding-top: 0px;
   transform: rotate(145deg);
 }
-.rc-card.detail .mat-card-footer{
+.rc-card.detail .mat-card-footer,
+.card-accordion .mat-card-footer{
   margin: 1rem 0 0 0;
 }
 
