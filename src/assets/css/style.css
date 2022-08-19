@@ -1239,6 +1239,9 @@ h1, h2, h3, h4, h5 {
   padding: 2px 12px;
   color: var(--rc-primary-color);
 }
+.mat-accordion.card-accordion .mat-expansion-panel .mat-expansion-panel-header-title .price h4:empty{
+  display: none !important;
+}
 .rc-card.detail .mat-accordion .mat-expansion-panel .mat-expansion-panel-body,
 .mat-accordion.card-accordion .mat-expansion-panel .mat-expansion-panel-body{
   padding: 16px 24px 16px;
