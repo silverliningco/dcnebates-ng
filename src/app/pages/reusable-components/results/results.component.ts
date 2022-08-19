@@ -8,6 +8,7 @@ import { BestDetail } from '../../../models/detailBestOption';
 import { bridgeService } from '../../../services/bridge.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TableViewComponent } from '../table-view/table-view.component';
+import { retry } from 'rxjs';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class ResultsComponent implements OnInit {
   showFurnaceUnits: boolean = false;
   showIndoorUnits: boolean = false;
   showCardRebate: boolean = false;
+  showIndoor: boolean = false;
 
   /*  AVAILABLE REBATES */
   showRebates: boolean = false;
@@ -132,6 +134,14 @@ export class ResultsComponent implements OnInit {
           this.productLines = resp
 
           this.productLinesGroup.controls['productLine'].setValue(resp[0].id);
+          /* hidden indoor unit for Mini-Split (multi zone) */
+          console.log(this.productLinesGroup.controls['productLine'].setValue(resp[0].id));
+          let productLine = this.productLinesGroup.controls['productLine'].value;
+          if(productLine === 'Mini-Split (multi zone)'){
+            this.showIndoor = false;
+          } else {
+            this.showIndoor = true;
+          }
           this.CallFilters();
           this.noResultsPL = false;
         } else {
@@ -602,7 +612,11 @@ console.log(bestResults.length);
       
     });
 
-    if (myfurnace === 'null'){
+    if (myIndoorUnit === '') {
+      console.log('a');
+      element.anyCombination = myCombination1;
+      element.lengthAnyCombination = myCombination1.length;
+    } else if (myfurnace === 'null'){
 
         myCombination1.forEach(ele3 => {
           let myFind = ele3.components?.filter((item: any)=> item.type == "indoorUnit")[0].SKU;

@@ -213,6 +213,7 @@
                             </mat-select>
                         </mat-form-field>
                       </div>
+
                       <div fxFlex="100" *ngIf="showFurnaceUnits">
                         <span class="rc-small"><b>Furnace</b></span>
                         <mat-form-field class="rc-select-multiline">
@@ -256,7 +257,7 @@
                   <!-- skus of units -->
                   <mat-card-subtitle >
                     <div fxLayout="row column" fxLayoutAlign="space-between center" class="model-nrs" fxLayoutGap="4px grid">
-                      <div fxFlex="100" *ngIf="showIndoorUnits">
+                      <div fxFlex="100" *ngIf="showIndoor">
                           <span class="rc-small"><b>Indoor Unit</b></span>
                           <mat-form-field class="rc-select-multiline">
                             <mat-select [value]="ahriCombination.components[1].SKU" (selectionChange)="filterIndoorBySKU($event.value, i)">
