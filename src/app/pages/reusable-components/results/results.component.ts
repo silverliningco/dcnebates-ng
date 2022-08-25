@@ -8,7 +8,6 @@ import { BestDetail } from '../../../models/detailBestOption';
 import { bridgeService } from '../../../services/bridge.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TableViewComponent } from '../table-view/table-view.component';
-import { retry } from 'rxjs';
 
 
 @Component({
@@ -31,6 +30,9 @@ export class ResultsComponent implements OnInit {
   resultSearch: resultsSearch = new resultsSearch;
   bestResults!: any;
   filters: Array<any> = [];
+
+  /* search */
+  oneCard: Array<BestDetail> = []; // el conrenido de cada tarjeta
 
   /*  receives information from the other components*/
   myPayloadForm: payloadForm = new payloadForm; 
@@ -420,29 +422,6 @@ Payload() {
   return JSON.stringify(body);
 }
 
-CallSearch() {
-  this.showSpinner = true;
-   this._api.Search(this.Payload()).subscribe({
-    next: (resp) => {
-      if (resp.length > 0) {
-        this.noResultsSearch = false;
-        this.results = resp;
-        let myBestResults = this.filterBestResults(resp);
-        myBestResults.sort(function(a:any, b:any) {
-          return b.totalAvailableRebates - a.totalAvailableRebates;
-        });
-        this.bestResults = myBestResults;
-      } else {
-        this.results = [];
-        this.bestResults = [];
-        this.noResultsSearch = true;
-      }
-
-      this.showSpinner = false;
-    }
-  })
-}
-
 // Function that call filters from API and update UI. 
 // also calls Search function to load results.
 CallFilters() { 
@@ -478,6 +457,23 @@ CallFilters() {
   })
 }
 
+CallSearch() {
+  this.showSpinner = true;
+   this._api.Search(this.Payload()).subscribe({
+    next: (resp) => {
+      if (resp.length > 0) {
+        this.noResultsSearch = false;
+        this.results = resp;
+        this.totalRebateMax();
+      } else {
+        this.noResultsSearch = true;
+      }
+
+      this.showSpinner = false;
+    }
+  })
+}
+
 showTitleFilter(filters: any) {
 
   this.showIndoorUnitConfig = false;
@@ -504,158 +500,241 @@ showTitleFilter(filters: any) {
 
 }
 
-// Function to compose options for specified model type
-loadOptionsModelNrs(myDetails:BestDetail[], modelType:string){
-   
-  let myModelNrs: Array<any> = [];
-
-  myDetails.forEach(subel => {
-    subel.components?.forEach(element => {
-      if(element.type == modelType) {
-        myModelNrs.push(element)
-      }
-    })
+totalRebateMax(){
     
-  });
-
-  // remove duplicates and asign to variables.
-  const skus = myModelNrs.map(o => o.SKU)
+  // recorriendo toda la respuesta del search
+  this.results.forEach((element:any) => {
+    // debuelve los resultados ordenamos del maxino al minimo
+    let max =  element.sort((a: any, b:any) =>{
+      return Number.parseInt(b.totalAvailableRebates) - Number.parseInt(a.totalAvailableRebates)
+    }) ;
+    this.oneCard.push(max[0]);; // colocando el maximo de cada grupo a cada card
+  });  
   
+  this.getUnitOptionstoSelect2();
 
-  return myModelNrs.filter(({SKU}, index) => !skus.includes(SKU, index + 1));
+  this.searchUnits();
 
+  return this.sortDescendingOneCard();
 }
 
-// Function to Get element with the highest rebate amount.  
-GetHighestRebateAmount(myDetails:BestDetail[]){
-  let myBestTotalAvailableRebate = Math.max.apply(
-    Math, myDetails.map(function (rt: any) {
-      return rt.totalAvailableRebates;
-    }));
-  return myDetails?.filter(sys => sys.totalAvailableRebates == myBestTotalAvailableRebate)[0];
-}
+searchUnits(){
 
-filterBestResults(resp: BestDetail[][]) {
-  var bestResults: any = [];
-  resp.forEach(details => {
-  
-    // Get element with the highest rebate amount.
-    let mySystem = this.GetHighestRebateAmount(details);
-    if(!mySystem){
-      mySystem = details[0]
-    }
-
-    mySystem.indoorUnits = this.loadOptionsModelNrs(details,"indoorUnit");
-    mySystem.furnaceUnits = this.loadOptionsModelNrs(details,"furnace");
-
-    if (mySystem.furnaceUnits.length === 0){
-      this.showFurnaceUnits = false;
-    } else {
-      this.showFurnaceUnits = true;
-    }
-
-    if (mySystem.indoorUnits.length === 0){
-      this.showIndoorUnits = false;
-    } else {
-      this.showIndoorUnits = true;
-    }
-
-    bestResults.push(mySystem);
-  });
-
-  // this.searchMore(bestResults);
-  return this.searchMore(bestResults);
-  // return (bestResults);
-}
-
-searchMore(bestResults: any){
-
+  // variables to save the unit id to current card
   let myOutdoorUnit: string = '';
   let myIndoorUnit: string = '';
-  let myfurnace: string = 'null';
-  let myCombination1: BestDetail[] = [];
-  let myCombination2: Array<BestDetail>  = [];
-  let myCombination3: Array<BestDetail> = [];
+  let myfurnace: string = '';
 
-console.log(bestResults.length);
+  // variables that save unit searches in results
+  let myEqualUnitsOutdoors: any = [];
+  let myEqualUnitsIndoors: any = [];
+  let myEqualUnitsfurnace:any = [];
 
-  bestResults.forEach((element:any) => {
 
+  /* looping through results */
+  this.oneCard.forEach((element:any) => {
+  
     myOutdoorUnit = '';
     myIndoorUnit = '';
-    myfurnace = 'null';
-    myCombination1 = [];
-    myCombination2 = [];
-    myCombination3 = [];
+    myfurnace = '';
+    myEqualUnitsOutdoors = [];
+    myEqualUnitsIndoors = [];
+    myEqualUnitsfurnace = [];
     
+  
+    // save the value of units
     element.components.forEach((ele1:any) => {
       switch (ele1.type) {
         case 'outdoorUnit':
-          myOutdoorUnit = ele1.SKU;
+          myOutdoorUnit = ele1.id;
           break;
         case 'indoorUnit':
-          myIndoorUnit = ele1.SKU;
+          myIndoorUnit = ele1.id;
           break;
         case 'furnace':
-          myfurnace = ele1.SKU;
+          myfurnace = ele1.id;
           break;
       }
     });
+  
+    // se buscar entro de this.results todos los registros con el mismo aoutddor unit
+    myEqualUnitsOutdoors = this.searchOutdoortUnit(myOutdoorUnit);
+  
+    // busca las combinaciones para el resto de tipo de unidades
+    if (myfurnace != '' && myIndoorUnit === ''){
+      myEqualUnitsfurnace = this.searchComponetUnit(myEqualUnitsOutdoors, 'furnace', myfurnace);
+      element.equalUnits = myEqualUnitsfurnace;
+      element.lengthEqualUnits = myEqualUnitsfurnace.length;
+    } else if (myIndoorUnit != '' && myfurnace == ''){
+      myEqualUnitsIndoors = this.searchComponetUnit(myEqualUnitsOutdoors, 'indoorUnit', myIndoorUnit);
+      element.equalUnits = myEqualUnitsIndoors;
+      element.lengthEqualUnits = myEqualUnitsIndoors.length;
+    } else if (myfurnace != '' && myIndoorUnit != '') {
+      myEqualUnitsfurnace = this.searchComponetUnit(myEqualUnitsOutdoors, 'furnace', myfurnace);
 
-    this.results.forEach((subel:BestDetail[]) => {
-      subel.forEach(ele2 => {
-        let myFind = ele2.components?.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
-        if(myFind == myOutdoorUnit){
-          myCombination1 = subel
-        }
-      });
-      
-    });
-
-    if (myIndoorUnit === '') {
-      console.log('a');
-      element.anyCombination = myCombination1;
-      element.lengthAnyCombination = myCombination1.length;
-    } else if (myfurnace === 'null'){
-
-        myCombination1.forEach(ele3 => {
-          let myFind = ele3.components?.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
-          if(myFind == myIndoorUnit){
-            
-            myCombination2.push(ele3);
-            element.anyCombination = myCombination2;
-            element.lengthAnyCombination = myCombination2.length;
-          }
-        });
-
+      myEqualUnitsIndoors = this.searchComponetUnit(myEqualUnitsfurnace, 'indoorUnit', myIndoorUnit);
+      element.equalUnits = myEqualUnitsIndoors;
+      element.lengthEqualUnits = myEqualUnitsIndoors.length;
     } else {
-      myCombination1.forEach(ele4 => {
-        let myFind = ele4.components?.filter((item: any)=> item.type == "furnace")[0].SKU;
-        if(myFind === myfurnace){
-          myCombination2.push(ele4);
-        }
-      });
-
-      if(myIndoorUnit){
-
-        myCombination2.forEach(ele5 => {
-          let myFind = ele5.components?.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
-          if(myFind === myIndoorUnit){
-            myCombination3.push(ele5);
-            element.anyCombination = myCombination3;
-            element.lengthAnyCombination = myCombination3.length;
-          }
-        });
-    
-      }
+      let message = 'error';
     }
 
+
+  
   });
 
-  return bestResults;
+  return this.oneCard;
 }
 
-filterIndoorBySKU(myIndoorUnit: string, i:number) {
+searchOutdoortUnit(myIDUnitToSearch: string){
+
+  let myOutdoors: any = [];
+
+  this.results.forEach((subel:BestDetail[]) => {
+    subel.forEach(ele2 => {
+      let myFind = ele2.components?.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
+      if(myFind == myIDUnitToSearch){
+        myOutdoors = subel
+      }
+    });
+    
+  });
+
+  return myOutdoors;
+
+}
+
+/* 
+busca entro de la collecion de datos todas las unidades que coinsiden con el id que buscamos
+
+nota:
+  collectionData -> la funte de datos
+  unitType -> outdoor, indoor, furnace
+  myUnitToSearch -> el id de la unidad a nucar
+*/
+searchComponetUnit(collectionData:any, unitType: string, myIDUnitToSearch: string){
+
+  let myEqualUnit: any = [];
+
+  collectionData.forEach((conbination:any) => {
+    let myFind = conbination.components?.filter((item: any)=> item.type === unitType)[0].id;
+    if(myFind === myIDUnitToSearch){
+      myEqualUnit.push(conbination);
+    }
+  });
+
+  return myEqualUnit;
+
+}
+
+getUnitOptionstoSelect2(){
+
+  let myOptionsIndoor:Array<string> = [];
+  let myOptionsfurnace:Array<string> = [];
+
+  // reecortiendo oneCard
+  for (let i = 0; i < this.oneCard.length; i++) {
+    
+    // limpienado las variables, cada ves que salte de aoutdoor
+    myOptionsIndoor = [];
+    myOptionsfurnace = [];
+
+    // recortiendo results para obtener los components
+    this.results[i].forEach((everyCombinationOutdoor:any) => {
+      everyCombinationOutdoor.components.forEach((eachComponent:any) => {
+        switch (eachComponent.type) {
+          case 'indoorUnit':
+            myOptionsIndoor.push(eachComponent.id);
+            break;
+          case 'furnace':
+            myOptionsfurnace.push(eachComponent.id);
+            break;
+        } 
+      });
+    });
+
+    this.oneCard[i].optionsIndoorsToSelect = this.deleteDuplicateUnitSelect(myOptionsIndoor);
+    this.oneCard[i].optionsfurnaceUnitsToSelect = this.deleteDuplicateUnitSelect(myOptionsfurnace);
+  }
+
+}
+
+deleteDuplicateUnitSelect(idUnit: Array<string>){
+
+  let uniqueUnit = idUnit.filter((item,index) => {
+    return idUnit.indexOf(item) ===index;
+  });
+
+  return uniqueUnit;
+}
+
+
+sortDescendingOneCard(){
+
+  let newOrder = this.oneCard.sort((a: any, b:any) =>{
+    return Number.parseInt(b.totalAvailableRebates) - Number.parseInt(a.totalAvailableRebates)
+  }) ;
+
+  this.oneCard = newOrder;
+
+  console.log(this.oneCard);
+}
+
+filterByID(myUnitID: string, unit:any, i:number) {
+
+  // falta hacer el que las opciones se carguen en la nuevo elemento del card, o talves se debe de 
+  // cargar en una una sola en cada una de las conbinaciones ????
+  
+  this.oneCard[i].lengthAnyCombination = 0;
+
+  // variables to save the unit id to current card
+  let myOutdoorUnit: string = '';
+  let myIndoorUnit: string = '';
+  let myfurnace: string = '';
+
+  // variables that save unit searches in results
+    let myEqualUnitsOutdoors: any = [];
+    let myEqualUnitsIndoors: any = [];
+    let myEqualUnitsfurnace:any = [];
+
+  //Search bestOption with user selections
+  myOutdoorUnit = this.bestResults[i].components.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
+  this.bestResults[i].components.forEach((element: any) => {
+    if (element.type === 'furnace'){
+      myfurnace = this.bestResults[i].components.filter((item: any)=> item.type == "furnace")[0].SKU;
+    } else {
+      myfurnace = '';
+    }
+  });
+  
+  // se buscar entro de this.results todos los registros con el mismo aoutddor unit
+  myEqualUnitsOutdoors = this.searchOutdoortUnit(myOutdoorUnit);
+
+  // busca las combinaciones para el resto de tipo de unidades
+  if (myfurnace != '' && myIndoorUnit === ''){
+    myEqualUnitsfurnace = this.searchComponetUnit(myEqualUnitsOutdoors, 'furnace', myfurnace);
+    this.bestResults[i] = myEqualUnitsfurnace;
+    this.bestResults[i].anyCombination = myEqualUnitsfurnace;
+    this.bestResults[i].lengthAnyCombination = myEqualUnitsfurnace.length;
+  } else if (myIndoorUnit != '' && myfurnace == ''){
+    myEqualUnitsIndoors = this.searchComponetUnit(myEqualUnitsOutdoors, 'indoorUnit', myIndoorUnit);
+    this.bestResults[i] = myEqualUnitsIndoors;
+    this.bestResults[i].anyCombination = myEqualUnitsIndoors;
+    this.bestResults[i].lengthAnyCombination = myEqualUnitsIndoors.length;
+  } else if (myfurnace != '' && myIndoorUnit != '') {
+    myEqualUnitsfurnace = this.searchComponetUnit(myEqualUnitsOutdoors, 'furnace', myfurnace);
+
+    myEqualUnitsIndoors = this.searchComponetUnit(myEqualUnitsfurnace, 'indoorUnit', myIndoorUnit);
+    this.bestResults[i] = myEqualUnitsIndoors;
+    this.bestResults[i].anyCombination = myEqualUnitsIndoors;
+    this.bestResults[i].lengthAnyCombination = myEqualUnitsIndoors.length;
+  } else {
+    let message = 'error';
+  }
+}
+
+
+/* filterIndoorBySKU(myIndoorUnit: string, i:number) {
   
   this.bestResults[i].lengthAnyCombination = 0;
   let myfurnace!: any;
@@ -734,10 +813,10 @@ filterIndoorBySKU(myIndoorUnit: string, i:number) {
 
   }
 
-}
+} */
 
 
-filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
+/* filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
 
   this.bestResults[i].lengthAnyCombination = 0;
 
@@ -785,7 +864,7 @@ filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
     this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination1,"indoorUnit");
     this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination1,"furnace");
   }
-}
+} */
 
   // function to remove selections filters from my filters.
   removeFilter(myFilter: any, option: any): void {

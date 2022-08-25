@@ -1,12 +1,6 @@
 /* note: all the attributes that have type any, does have value null when received the payload */
 export class BestDetail {
     constructor(
-        // old
-        public indoorUnits?: Array<string>,
-        public furnaceUnits?: Array<string>,
-        public anyCombination?: Array<BestDetail>,
-        public lengthAnyCombination?: number,
-
         // by procesing data
         public equalUnits?: Array<BestDetail>,
         public lengthEqualUnits?: number,
@@ -31,14 +25,16 @@ export class BestDetail {
         public furnaceConfigurations?: any,
         public totalAvailableRebates?: number,
         public configurationOptions?: Array<jsonStructureSearch>,
-
+       
         // future
         public accesories?:Array<Accesories>, 
+
     ) {}
 }
 
 export class jsonStructureSearch{
     constructor(
+        public id?: string,
         public SKU?: string,
         public name?: string,
         public type?: string
