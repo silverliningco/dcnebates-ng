@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { payloadForm } from '../../../models/payloadFrom';
 import { Rebate, RebateTier } from '../../../models/rebate';
-import { resultsSearch} from '../../../models/resultSearch';
-import { BestDetail } from '../../../models/detailBestOption';
+import { BestDetail, jsonStructureSearch } from '../../../models/detailBestOption';
 import { bridgeService } from '../../../services/bridge.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TableViewComponent } from '../table-view/table-view.component';
@@ -25,14 +24,14 @@ export class ResultsComponent implements OnInit {
   /* PRODUC LINE */
   productLines!: any;
   noResultsPL!: boolean;
-  noResultsSearch!: boolean;
-  results!: any;
-  resultSearch: resultsSearch = new resultsSearch;
-  bestResults!: any;
+
   filters: Array<any> = [];
 
   /* search */
-  oneCard: Array<BestDetail> = []; // el conrenido de cada tarjeta
+  noResultsSearch!: boolean;
+  results!: any; // guarda todos los resultados del endpoint search
+  oneCard: Array<BestDetail> = []; // el contenido de cada tarjeta
+  
 
   /*  receives information from the other components*/
   myPayloadForm: payloadForm = new payloadForm; 
@@ -42,13 +41,10 @@ export class ResultsComponent implements OnInit {
   showIndoorUnitConfig: boolean = false;
   showCoilType: boolean = false;
   showcoilCasing: boolean = false;
-  showFurnaceUnits: boolean = false;
-  showIndoorUnits: boolean = false;
   showCardRebate: boolean = false;
   showIndoor: boolean = false;
 
   /*  AVAILABLE REBATES */
-  showRebates: boolean = false;
   availableRebates!: Array<Rebate>;
   NoExistAvailableRebates: boolean = false;
 
@@ -67,27 +63,25 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit(): void {
     this.showSpinner = true;
-    /* receiving form data */
+    // receiving form data
        this._bridge.sentRebateParams
                  .subscribe((payload: any) => {
                     this.myPayloadForm = payload.data;
                     this.CallProductLines();
                     
-                    /* call GetAvailableRebates if home = 'rebate'  */
+                    // call GetAvailableRebates if home = 'rebate'
                     if (this.myPayloadForm.home === 'ahri'){
-                      this.showRebates = false;
                       this.showCardRebate = false;
                       // remove rebates tab
                       this.tabs.splice(0, 1);
                     }else {
-                      this.showRebates = true;
                       this.showCardRebate = true;
                       this.GetAvailableRebates();
                     }
                     
          });
    
-    /* form control */
+    // form control
     this.commerceInfoGroup = this._formBuilder.group({
       storeId: 1,
       showAllResults: [false],
@@ -133,10 +127,11 @@ export class ResultsComponent implements OnInit {
     this._api.ProductLines(this.PrepareProductLines()).subscribe({
       next: (resp) => {
         if (resp.length > 0) {
+          this.results = [];
           this.productLines = resp
 
           this.productLinesGroup.controls['productLine'].setValue(resp[0].id);
-          /* hidden indoor unit for Mini-Split (multi zone) */
+          // hidden indoor unit for Mini-Split (multi zone)
           console.log(this.productLinesGroup.controls['productLine'].setValue(resp[0].id));
           let productLine = this.productLinesGroup.controls['productLine'].value;
           if(productLine === 'Mini-Split (multi zone)'){
@@ -204,19 +199,19 @@ export class ResultsComponent implements OnInit {
   processingAvailableRebates(myResp: any) {
     this.availableRebates = [];
 
-    /* confirm if exists data */
+    // confirm if exists data
     if (myResp.length === 0) {
       this.NoExistAvailableRebates = true;
     } else {
       this.NoExistAvailableRebates = false;
     }
 
-    /* processing data */
+    // processing data
     if (myResp.length > 0) {
       for (let indx = 0; indx < myResp.length; indx++) {
         const reb = myResp[indx];
 
-        /* matches the level RebateTier in the defined model */
+        // matches the level RebateTier in the defined model
         let myTier: Array<RebateTier> = [];
 
         var myMax = Math.max.apply(Math, reb.rebateTiers.map(function (rt: any) { return rt.accessibilityRank; }))
@@ -253,7 +248,7 @@ export class ResultsComponent implements OnInit {
   }
 
 
-  /* Elegibility detail codes */
+  // Elegibility detail codes
   reb_tier_change(rebTier: RebateTier, reb: Rebate) {
 
     // If there are multiple rebate tiers in a given rebate,
@@ -501,6 +496,8 @@ showTitleFilter(filters: any) {
 }
 
 totalRebateMax(){
+
+  this.oneCard=[];
     
   // recorriendo toda la respuesta del search
   this.results.forEach((element:any) => {
@@ -511,7 +508,7 @@ totalRebateMax(){
     this.oneCard.push(max[0]);; // colocando el maximo de cada grupo a cada card
   });  
   
-  this.getUnitOptionstoSelect2();
+  this.getUnitOptionstoSelect2(this.oneCard);
 
   this.searchUnits();
 
@@ -627,13 +624,13 @@ searchComponetUnit(collectionData:any, unitType: string, myIDUnitToSearch: strin
 
 }
 
-getUnitOptionstoSelect2(){
+getUnitOptionstoSelect2(oneCard:any){
 
-  let myOptionsIndoor:Array<string> = [];
-  let myOptionsfurnace:Array<string> = [];
+  let myOptionsIndoor: Array<jsonStructureSearch> = [];
+  let myOptionsfurnace: Array<jsonStructureSearch> = [];
 
   // reecortiendo oneCard
-  for (let i = 0; i < this.oneCard.length; i++) {
+  for (let i = 0; i < oneCard.length; i++) {
     
     // limpienado las variables, cada ves que salte de aoutdoor
     myOptionsIndoor = [];
@@ -644,28 +641,41 @@ getUnitOptionstoSelect2(){
       everyCombinationOutdoor.components.forEach((eachComponent:any) => {
         switch (eachComponent.type) {
           case 'indoorUnit':
-            myOptionsIndoor.push(eachComponent.id);
+            myOptionsIndoor.push(eachComponent);
             break;
           case 'furnace':
-            myOptionsfurnace.push(eachComponent.id);
+            myOptionsfurnace.push(eachComponent);
             break;
         } 
       });
     });
 
     this.oneCard[i].optionsIndoorsToSelect = this.deleteDuplicateUnitSelect(myOptionsIndoor);
-    this.oneCard[i].optionsfurnaceUnitsToSelect = this.deleteDuplicateUnitSelect(myOptionsfurnace);
+    this.oneCard[i].optionsfurnaceToSelect = this.deleteDuplicateUnitSelect(myOptionsfurnace);
   }
 
 }
 
-deleteDuplicateUnitSelect(idUnit: Array<string>){
+deleteDuplicateUnitSelect(options: Array<jsonStructureSearch>){
 
-  let uniqueUnit = idUnit.filter((item,index) => {
-    return idUnit.indexOf(item) ===index;
-  });
+  let newOptions: Array<jsonStructureSearch> = [];
+  let uniqueObject:any = {};
 
-  return uniqueUnit;
+  for (let i in options){
+
+    // extract the id
+    let optID:any = options[i]['id'];
+
+    // use the id as the index
+    uniqueObject[optID] = options[i];
+  }
+
+  // loop for push the unique into array
+  for (let i in uniqueObject){
+    newOptions.push(uniqueObject[i]);
+  }
+
+  return newOptions;
 }
 
 
@@ -675,12 +685,10 @@ sortDescendingOneCard(){
     return Number.parseInt(b.totalAvailableRebates) - Number.parseInt(a.totalAvailableRebates)
   }) ;
 
-  this.oneCard = newOrder;
-
-  console.log(this.oneCard);
+  return this.oneCard = newOrder;
 }
 
-filterByID(myUnitID: string, unit:any, i:number) {
+filterByID(myUnitID: string, i:number) {
 
   // falta hacer el que las opciones se carguen en la nuevo elemento del card, o talves se debe de 
   // cargar en una una sola en cada una de las conbinaciones ????
@@ -688,9 +696,9 @@ filterByID(myUnitID: string, unit:any, i:number) {
   this.oneCard[i].lengthAnyCombination = 0;
 
   // variables to save the unit id to current card
-  let myOutdoorUnit: string = '';
-  let myIndoorUnit: string = '';
-  let myfurnace: string = '';
+  let myOutdoorUnit: any = '';
+  let myIndoorUnit: any = '';
+  let myfurnace: any = '';
 
   // variables that save unit searches in results
     let myEqualUnitsOutdoors: any = [];
@@ -698,10 +706,27 @@ filterByID(myUnitID: string, unit:any, i:number) {
     let myEqualUnitsfurnace:any = [];
 
   //Search bestOption with user selections
-  myOutdoorUnit = this.bestResults[i].components.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
-  this.bestResults[i].components.forEach((element: any) => {
+  myOutdoorUnit = this.oneCard[i].components!.filter((item: any)=> item.type == "outdoorUnit")[0].id;
+
+  // buscando la unidad si importatr su type
+  let a: any = {};
+  this.results[0].forEach((ele1:any)=> {
+    ele1.components.forEach((ele2:any) => {
+      if (ele2.id === myUnitID){
+        a= ele2;
+      }
+    });
+  });
+
+  if (a.type === 'indoorUnit'){
+    myIndoorUnit = a.id;
+  } else {
+    myfurnace = a.id;
+  }
+
+  this.oneCard[i].components!.forEach((element: any) => {
     if (element.type === 'furnace'){
-      myfurnace = this.bestResults[i].components.filter((item: any)=> item.type == "furnace")[0].SKU;
+      myfurnace = this.oneCard[i].components!.filter((item: any)=> item.type == "furnace")[0].id;
     } else {
       myfurnace = '';
     }
@@ -713,24 +738,28 @@ filterByID(myUnitID: string, unit:any, i:number) {
   // busca las combinaciones para el resto de tipo de unidades
   if (myfurnace != '' && myIndoorUnit === ''){
     myEqualUnitsfurnace = this.searchComponetUnit(myEqualUnitsOutdoors, 'furnace', myfurnace);
-    this.bestResults[i] = myEqualUnitsfurnace;
-    this.bestResults[i].anyCombination = myEqualUnitsfurnace;
-    this.bestResults[i].lengthAnyCombination = myEqualUnitsfurnace.length;
+    console.log(myEqualUnitsIndoors);
+    this.oneCard[i] = myEqualUnitsfurnace;
+    this.oneCard[i].anyCombination = myEqualUnitsfurnace;
+    this.oneCard[i].lengthAnyCombination = myEqualUnitsfurnace.length;
   } else if (myIndoorUnit != '' && myfurnace == ''){
     myEqualUnitsIndoors = this.searchComponetUnit(myEqualUnitsOutdoors, 'indoorUnit', myIndoorUnit);
-    this.bestResults[i] = myEqualUnitsIndoors;
-    this.bestResults[i].anyCombination = myEqualUnitsIndoors;
-    this.bestResults[i].lengthAnyCombination = myEqualUnitsIndoors.length;
+    console.log(myEqualUnitsIndoors);
+    this.oneCard[i] = myEqualUnitsIndoors;
+    this.oneCard[i].anyCombination = myEqualUnitsIndoors;
+    this.oneCard[i].lengthAnyCombination = myEqualUnitsIndoors.length;
   } else if (myfurnace != '' && myIndoorUnit != '') {
     myEqualUnitsfurnace = this.searchComponetUnit(myEqualUnitsOutdoors, 'furnace', myfurnace);
-
     myEqualUnitsIndoors = this.searchComponetUnit(myEqualUnitsfurnace, 'indoorUnit', myIndoorUnit);
-    this.bestResults[i] = myEqualUnitsIndoors;
-    this.bestResults[i].anyCombination = myEqualUnitsIndoors;
-    this.bestResults[i].lengthAnyCombination = myEqualUnitsIndoors.length;
+    console.log(myEqualUnitsIndoors);
+    this.oneCard[i] = myEqualUnitsIndoors;
+    this.oneCard[i].anyCombination = myEqualUnitsIndoors;
+    this.oneCard[i].lengthAnyCombination = myEqualUnitsIndoors.length;
   } else {
     let message = 'error';
   }
+
+  // console.log(this.oneCard[i]);
 }
 
 
@@ -924,7 +953,7 @@ filterByID(myUnitID: string, unit:any, i:number) {
   openDialog(myCombination:BestDetail, i:number) {
 
     //Get systems with selected outdoor unit
-    let myOutdoorUnit = this.bestResults[i].components.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
+    let myOutdoorUnit = this.oneCard[i].components!.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
     let mySystems: BestDetail[] = []
     this.results.forEach((subel:BestDetail[]) => {
       subel.forEach(element => {

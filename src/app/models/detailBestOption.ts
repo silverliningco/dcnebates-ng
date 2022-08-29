@@ -10,8 +10,8 @@ export class BestDetail {
         // by procesing data
         public equalUnits?: Array<BestDetail>,
         public lengthEqualUnits?: number,
-        public optionsIndoorsToSelect?: Array<string>,
-        public optionsfurnaceUnitsToSelect?: Array<string>,
+        public optionsIndoorsToSelect?: Array<jsonStructureSearch>,
+        public optionsfurnaceToSelect?: Array<jsonStructureSearch>,
 
         // payload
         public EER?: number,
@@ -31,14 +31,16 @@ export class BestDetail {
         public furnaceConfigurations?: any,
         public totalAvailableRebates?: number,
         public configurationOptions?: Array<jsonStructureSearch>,
-
+       
         // future
         public accesories?:Array<Accesories>, 
+ 
     ) {}
 }
 
 export class jsonStructureSearch{
     constructor(
+        public id?: string,
         public SKU?: string,
         public name?: string,
         public type?: string
