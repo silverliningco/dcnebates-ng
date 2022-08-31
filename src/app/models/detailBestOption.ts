@@ -1,14 +1,9 @@
 /* note: all the attributes that have type any, does have value null when received the payload */
 export class BestDetail {
     constructor(
-        // old
-        public indoorUnits?: Array<string>,
-        public furnaceUnits?: Array<string>,
-        public anyCombination?: Array<BestDetail>,
-        public lengthAnyCombination?: number,
 
         // by procesing data
-        public equalUnits?: Array<BestDetail>,
+        public equalUnits?: Array<any>,
         public lengthEqualUnits?: number,
         public optionsIndoorsToSelect?: Array<jsonStructureSearch>,
         public optionsfurnaceToSelect?: Array<jsonStructureSearch>,
@@ -26,12 +21,13 @@ export class BestDetail {
         public AHRIReferences?: Array<string>,
         public availableRebates?: Array<Rebate>,
         public furnaceInputBTUH?: any,
-        public furnaceOutputBTUH?: any,
+        public furnaceOutputBTUH?: number,
         public coolingCapacityRated?: number,
         public furnaceConfigurations?: any,
         public totalAvailableRebates?: number,
         public configurationOptions?: Array<jsonStructureSearch>,
-       
+        public grupOptions?: Array<EqualUnitsOptions>,
+
         // future
         public accesories?:Array<Accesories>, 
  
@@ -69,5 +65,19 @@ export class Links {
     constructor(
         public url?: string,
         public title?: string
+    ) {}
+}
+
+export class EqualUnitsOptions {
+    constructor(
+        public furnaceConfigurations?: string,
+        public EER?: number,
+        public AFUE?: any,
+        public HSPF?: number,
+        public SEER?: number,
+        public Hcap17?: number,
+        public Hcap47?: number,
+        public furnaceOutputBTUH?: number,
+        public coolingCapacityRated?: number
     ) {}
 }

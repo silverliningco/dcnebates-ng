@@ -175,7 +175,7 @@
       <!-- *** results combinations *** -->
           <!-- si hay varios por card prueva -->
           <mat-card class="rc-card results" *ngFor="let ahriCombination of oneCard; let i = index">
-            <!--header con total rebate -->
+            <!-- unit ids -->
             <div fxLayout="row column" fxLayoutAlign="space-between start" fxLayoutGap="16px grid">
 
               <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
@@ -188,18 +188,14 @@
                         <p>Outdoor Unit: <b>{{unit.SKU}} </b></p>
                       </div>
                     </div>
-                    <div fxFlex="100" fxFlex.sm="70" class="rc-hide rc-show-md rc-show-sm">
-                          <div class="rebate-price" fxLayout="row" fxLayoutAlign="center center">
-                            <h5 class="rc-small">REBATES UP</h5>
-                            <h1>{{(ahriCombination.totalAvailableRebates | currency) || "$0.00"}}</h1>
-                          </div>
-                    </div>
                   </mat-card-title>
 
                   <!-- skus of units -->
-                  <mat-card-subtitle *ngFor="let unit of ahriCombination.components">
+                  <mat-card-subtitle >
                     <div fxLayout="row column" fxLayoutAlign="space-between center" class="model-nrs" fxLayoutGap="4px grid">
-                      <div fxFlex="100" *ngIf="unit.type === 'indoorUnit'">
+                      <!-- indoor -->
+                      <div fxFlex="100"  *ngFor="let unit of ahriCombination.components">
+                        <div *ngIf="unit.type === 'indoorUnit'">
                           <span class="rc-small"><b>{{unit.type}}</b></span>
                           <mat-form-field class="rc-select-multiline">
                             <mat-select [value]="unit.id" (selectionChange)="filterByID($event.value, i)">
@@ -209,17 +205,36 @@
                                 <!--<span class="price"> $300.00</span>-->
                               </mat-option>
                             </mat-select>
-                        </mat-form-field>
+                          </mat-form-field>
+                        </div>
                       </div>
-                      <div fxFlex="100" *ngIf="unit.type === 'furnace'" >
-                        <span class="rc-small"><b>{{unit.type}}</b></span>
-                        <mat-form-field class="rc-select-multiline">
-                          <mat-select [value]="unit.id" (selectionChange)="filterByID($event.value, i)">
-                            <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.optionsfurnaceToSelect" [value]="val.id">
-                              <b>{{val.SKU}}</b>
-                                {{val.name}}
-                              <!--<span class="price"> $300.00</span>-->
-                            </mat-option>
+                      <!-- furnace -->
+                      <div fxFlex="100"  *ngFor="let unit of ahriCombination.components">
+                        <div  *ngIf="unit.type === 'furnace'" >
+                          <span class="rc-small"><b>{{unit.type}}</b></span>
+                          <mat-form-field class="rc-select-multiline">
+                            <mat-select [value]="unit.id" (selectionChange)="filterByID($event.value, i)">
+                              <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.optionsfurnaceToSelect" [value]="val.id">
+                                <b>{{val.SKU}}</b>
+                                  {{val.name}}
+                                <!--<span class="price"> $300.00</span>-->
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <!-- options -->
+                      <div fxFlex="100" *ngIf="ahriCombination.lengthEqualUnits != 1" >
+                        <span class="rc-small"><b>Furnace configurations</b></span>
+                        <mat-form-field class="rc-select-multiline" >
+                          <mat-select>
+                              <div *ngFor="let eq of ahriCombination.equalUnits">
+                                <div >
+                                  <mat-option class="rc-select-multiline-option">
+                                    {{eq.furnaceConfigurations}}
+                                </mat-option>
+                                </div>
+                              </div>
                           </mat-select>
                         </mat-form-field>
                       </div>
@@ -236,8 +251,10 @@
                 </div>
               </div>
             </div>
+            <!-- unit ids end -->
 
-              <mat-card-content>
+            <!-- Ratings without options -->  
+            <mat-card-content *ngIf="ahriCombination.lengthEqualUnits === 1">
                   <div fxLayout="row column" fxLayoutGap="16px grid">
 
                     <!-- rebates and configuration -->
@@ -270,7 +287,6 @@
                       </div>
                     </div>
                     <!-- rebates and configuration end -->
-
 
                       <!-- AHRI ratings -->
                       <div fxFlex="20" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
@@ -373,7 +389,148 @@
                       <!-- performance data end -->
 
                   </div>
-              </mat-card-content>
+            </mat-card-content>
+            <!-- Ratings without options end -->  
+
+            <!-- Ratings with options -->  
+            <mat-card-content *ngIf="ahriCombination.lengthEqualUnits != 1">
+
+              <div fxLayout="row column" fxLayoutGap="16px grid">
+
+                <!-- rebates and configuration -->
+                <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100" >
+                  <!-- rebates -->
+                  <div class="list-rebates" *ngIf="showCardRebate === true">
+                    <span class="rc-small"><b>Rebates</b></span>
+                    <ul class="rc-unlisted" *ngIf="ahriCombination.availableRebates != null">
+                      <li *ngFor="let rebate of ahriCombination.availableRebates">
+                        <mat-icon> money</mat-icon>
+                        {{rebate.rebateTitle}}
+                      </li>
+                    </ul>
+                    <div *ngIf="ahriCombination.availableRebates == null">
+                      <p>Sorry, we couldn't find any results.</p>
+                    </div>
+                  </div>
+
+                  <!-- furnace configuration -->
+                  <div class="list-rebates">
+                    <span class="rc-small"><b>Furnace configurations</b></span>
+                    <div class="rc-unlisted" *ngIf="ahriCombination.furnaceConfigurations != null">
+                      <ul *ngFor="let configuration of ahriCombination.furnaceConfigurations">
+                        <li>{{configuration}}</li>
+                      </ul>
+                    </div>
+                    <div *ngIf="ahriCombination.furnaceConfigurations == null">
+                      <p>Sorry, we couldn't find any configuration.</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- rebates and configuration end -->
+
+                  <!-- AHRI ratings -->
+                  <div fxFlex="20" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="100">
+                      <div class="list-ahri-rating">
+                        <mat-accordion>
+                          <mat-expansion-panel [expanded]="true">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                <span class="rc-small"><b>AHRI Ratings</b></span>
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                              <div fxLayout="row" class="list-ahri-rating-item">
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <span>SEER</span>
+                                </div>
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  {{(ahriCombination.SEER | number) || "N/A"}}
+                                </div>
+                              </div>
+                              <div fxLayout="row" class="list-ahri-rating-item">
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <span>EER</span>
+                                </div>
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  {{(ahriCombination.EER | number) || "N/A"}}
+                                </div>
+                              </div>
+                              <div fxLayout="row" class="list-ahri-rating-item">
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <span>HPSF</span>
+                                </div>
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  {{(ahriCombination.HSPF | number) || "N/A"}}
+                                </div>
+                              </div>
+                              <div fxLayout="row" class="list-ahri-rating-item">
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  <span>AFUE</span>
+                                </div>
+                                <div fxFlex="50" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                  {{(ahriCombination.AFUE | number) || "N/A"}}
+                                </div>
+                              </div>
+                          </mat-expansion-panel>
+                        </mat-accordion>
+                      </div>
+                  </div>
+                  <!-- AHRI ratings end -->
+
+                  <!-- performance data -->
+                  <div fxFlex="40" fxFlex.md="80" fxFlex.sm="80" fxFlex.xs="100">
+                    <div class="list-detail-performance">
+                      <div fxFlex="100" fxFlex.md="100" fxFlex.sm="100" fxFlex.xs="100">
+                        <mat-accordion>
+                          <mat-expansion-panel [expanded]="true">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                <span class="rc-small"><b>Detail Performance Data</b></span>
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+
+                            <div fxLayout="row" class="list-ahri-rating-item">
+                              <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                <span>Hcap17</span>
+                              </div>
+                              <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                {{(ahriCombination.Hcap17 | number) || "N/A" }}
+                              </div>
+                            </div>
+                            <div fxLayout="row" class="list-ahri-rating-item">
+                              <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                <span>Hcap47</span>
+                              </div>
+                              <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                {{(ahriCombination.Hcap47 | number) || "N/A" }}
+                              </div>
+                            </div>
+                            <div fxLayout="row" class="list-ahri-rating-item">
+                              <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                <span>Furnace output BTUH</span>
+                              </div>
+                              <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                {{(ahriCombination.furnaceOutputBTUH | number) || "N/A" }}
+                              </div>
+                            </div>
+                            <div fxLayout="row" class="list-ahri-rating-item">
+                              <div fxFlex="60" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                <span>Rated cooling capacity</span>
+                              </div>
+                              <div fxFlex="40" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+                                {{(ahriCombination.coolingCapacityRated | number)  || "N/A"  }}
+                              </div>
+                            </div>
+
+                          </mat-expansion-panel>
+                        </mat-accordion>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- performance data end -->
+
+              </div>
+            </mat-card-content>
+            <!-- Ratings with options end -->  
 
               <mat-card-actions>
                 <div fxLayout="row column" fxLayoutAlign="end center" fxLayoutGap="16px grid">

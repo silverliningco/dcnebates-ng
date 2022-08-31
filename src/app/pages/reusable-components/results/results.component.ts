@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { payloadForm } from '../../../models/payloadFrom';
 import { Rebate, RebateTier } from '../../../models/rebate';
-import { BestDetail, jsonStructureSearch } from '../../../models/detailBestOption';
+import { BestDetail, jsonStructureSearch, EqualUnitsOptions} from '../../../models/detailBestOption';
 import { bridgeService } from '../../../services/bridge.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TableViewComponent } from '../table-view/table-view.component';
@@ -31,6 +31,7 @@ export class ResultsComponent implements OnInit {
   noResultsSearch!: boolean;
   results!: any; // guarda todos los resultados del endpoint search
   oneCard: Array<BestDetail> = []; // el contenido de cada tarjeta
+  equalUnitsOptions: Array<EqualUnitsOptions> = []; // el contenido de cada tarjeta
   
 
   /*  receives information from the other components*/
@@ -132,7 +133,6 @@ export class ResultsComponent implements OnInit {
 
           this.productLinesGroup.controls['productLine'].setValue(resp[0].id);
           // hidden indoor unit for Mini-Split (multi zone)
-          console.log(this.productLinesGroup.controls['productLine'].setValue(resp[0].id));
           let productLine = this.productLinesGroup.controls['productLine'].value;
           if(productLine === 'Mini-Split (multi zone)'){
             this.showIndoor = false;
@@ -589,7 +589,7 @@ searchOutdoortUnit(myIDUnitToSearch: string){
 
   this.results.forEach((subel:BestDetail[]) => {
     subel.forEach(ele2 => {
-      let myFind = ele2.components?.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
+      let myFind = ele2.components?.filter((item: any)=> item.type == "outdoorUnit")[0].id;
       if(myFind == myIDUnitToSearch){
         myOutdoors = subel
       }
@@ -650,9 +650,54 @@ getUnitOptionstoSelect2(oneCard:any){
       });
     });
 
-    this.oneCard[i].optionsIndoorsToSelect = this.deleteDuplicateUnitSelect(myOptionsIndoor);
-    this.oneCard[i].optionsfurnaceToSelect = this.deleteDuplicateUnitSelect(myOptionsfurnace);
+    oneCard[i].optionsIndoorsToSelect = this.deleteDuplicateUnitSelect(myOptionsIndoor);
+    oneCard[i].optionsfurnaceToSelect = this.deleteDuplicateUnitSelect(myOptionsfurnace);
   }
+
+  return oneCard;
+}
+
+getUnitOptionstoSelect3(outdoor:any){
+
+  // variables that save unit searches in results
+  let myEqualUnitsOutdoors: any = [];
+
+  let myOptionsIndoor: Array<jsonStructureSearch> = [];
+  let myOptionsfurnace: Array<jsonStructureSearch> = [];
+
+    
+    // limpienado las variables, cada ves que salte de aoutdoor
+    myOptionsIndoor = [];
+    myOptionsfurnace = [];
+
+    this.results.forEach((subel:BestDetail[]) => {
+      subel.forEach(element => {
+        let myFind = element.components?.filter((item: any)=> item.type == "outdoorUnit")[0].id;
+        if(myFind == outdoor){
+          myEqualUnitsOutdoors = subel
+        }
+      });
+    });
+
+    myEqualUnitsOutdoors.forEach((units:any) => {
+      units.components.forEach((eachComponent:any) => {
+        switch (eachComponent.type) {
+          case 'indoorUnit':
+            myOptionsIndoor.push(eachComponent);
+            break;
+          case 'furnace':
+            myOptionsfurnace.push(eachComponent);
+            break;
+        } 
+      });
+    });
+
+    
+
+    myOptionsIndoor = this.deleteDuplicateUnitSelect(myOptionsIndoor);
+    myOptionsfurnace = this.deleteDuplicateUnitSelect(myOptionsfurnace);
+
+    return [myOptionsIndoor, myOptionsfurnace];
 
 }
 
@@ -693,7 +738,8 @@ filterByID(myUnitID: string, i:number) {
   // falta hacer el que las opciones se carguen en la nuevo elemento del card, o talves se debe de 
   // cargar en una una sola en cada una de las conbinaciones ????
   
-  this.oneCard[i].lengthAnyCombination = 0;
+  this.oneCard[i].lengthEqualUnits = 0;
+  this.oneCard[i].equalUnits = [];
 
   // variables to save the unit id to current card
   let myOutdoorUnit: any = '';
@@ -723,177 +769,75 @@ filterByID(myUnitID: string, i:number) {
   } else {
     myfurnace = a.id;
   }
-
-  this.oneCard[i].components!.forEach((element: any) => {
-    if (element.type === 'furnace'){
-      myfurnace = this.oneCard[i].components!.filter((item: any)=> item.type == "furnace")[0].id;
-    } else {
-      myfurnace = '';
-    }
-  });
   
   // se buscar entro de this.results todos los registros con el mismo aoutddor unit
-  myEqualUnitsOutdoors = this.searchOutdoortUnit(myOutdoorUnit);
+  this.results.forEach((subel:BestDetail[]) => {
+    subel.forEach(element => {
+      let myFind = element.components?.filter((item: any)=> item.type == "outdoorUnit")[0].id;
+      if(myFind == myOutdoorUnit){
+        myEqualUnitsOutdoors = subel
+      }
+    });
+    
+  });
 
   // busca las combinaciones para el resto de tipo de unidades
-  if (myfurnace != '' && myIndoorUnit === ''){
-    myEqualUnitsfurnace = this.searchComponetUnit(myEqualUnitsOutdoors, 'furnace', myfurnace);
-    console.log(myEqualUnitsIndoors);
-    this.oneCard[i] = myEqualUnitsfurnace;
-    this.oneCard[i].anyCombination = myEqualUnitsfurnace;
-    this.oneCard[i].lengthAnyCombination = myEqualUnitsfurnace.length;
-  } else if (myIndoorUnit != '' && myfurnace == ''){
-    myEqualUnitsIndoors = this.searchComponetUnit(myEqualUnitsOutdoors, 'indoorUnit', myIndoorUnit);
-    console.log(myEqualUnitsIndoors);
-    this.oneCard[i] = myEqualUnitsIndoors;
-    this.oneCard[i].anyCombination = myEqualUnitsIndoors;
-    this.oneCard[i].lengthAnyCombination = myEqualUnitsIndoors.length;
+  if (myfurnace === '' && myIndoorUnit != ''){
+    console.log('a');
+    myEqualUnitsOutdoors.forEach((element :any)=> {
+      let myFind = element.components?.filter((item: any)=> item.type == "indoorUnit")[0].id;
+      if(myFind == myIndoorUnit){
+        myEqualUnitsIndoors.push(element);
+        this.oneCard[i] = element;
+        this.oneCard[i].equalUnits = myEqualUnitsIndoors;
+        this.oneCard[i].lengthEqualUnits = myEqualUnitsIndoors.length;
+      }
+    });
+  } else if (myfurnace != '' && myIndoorUnit === ''){
+    console.log('b');
+    myEqualUnitsOutdoors.forEach((element :any)=> {
+      let myFind = element.components?.filter((item: any)=> item.type == "furnace")[0].id;
+      console.log(element.components?.filter((item: any)=> item.type == "furnace")[0].id);
+      if(myFind === myfurnace){
+        myEqualUnitsfurnace.push(element);
+        this.oneCard[i] = element;
+        this.oneCard[i].equalUnits = myEqualUnitsfurnace;
+        this.oneCard[i].lengthEqualUnits = myEqualUnitsfurnace.length;
+      }
+    });
   } else if (myfurnace != '' && myIndoorUnit != '') {
-    myEqualUnitsfurnace = this.searchComponetUnit(myEqualUnitsOutdoors, 'furnace', myfurnace);
-    myEqualUnitsIndoors = this.searchComponetUnit(myEqualUnitsfurnace, 'indoorUnit', myIndoorUnit);
-    console.log(myEqualUnitsIndoors);
-    this.oneCard[i] = myEqualUnitsIndoors;
-    this.oneCard[i].anyCombination = myEqualUnitsIndoors;
-    this.oneCard[i].lengthAnyCombination = myEqualUnitsIndoors.length;
+    console.log('c');
+    myEqualUnitsOutdoors.forEach((element :any)=> {
+      let myFind = element.components?.filter((item: any)=> item.type == "furnace")[0].id;
+      if(myFind === myfurnace){
+        myEqualUnitsfurnace.push(element);
+      }
+
+      myEqualUnitsfurnace.forEach((element:any) => {
+        let myFind = element.components?.filter((item: any)=> item.type == "indoorUnit")[0].id;
+        if(myFind === myIndoorUnit){
+          myEqualUnitsIndoors.push(element);
+          this.oneCard[i] = element;
+          this.oneCard[i].equalUnits = myEqualUnitsIndoors;
+          this.oneCard[i].lengthEqualUnits = myEqualUnitsIndoors.length;;
+        }
+      });
+    });
   } else {
+    console.log('d');
     let message = 'error';
   }
 
+  // obteniendo las opciones
+  let options = this.getUnitOptionstoSelect3(myOutdoorUnit);
+
+  this.oneCard[i].optionsIndoorsToSelect = options[0];
+  this.oneCard[i].optionsfurnaceToSelect = options[1];
+
   // console.log(this.oneCard[i]);
+  // console.log(this.oneCard[i].equalUnits);
+
 }
-
-
-/* filterIndoorBySKU(myIndoorUnit: string, i:number) {
-  
-  this.bestResults[i].lengthAnyCombination = 0;
-  let myfurnace!: any;
-  let myCombination1: BestDetail[] = [];
-  let myCombination2: Array<BestDetail>  = [];
-  let myCombination3: Array<BestDetail> = [];
-
-  //Search bestOption with user selections
-  let myOutdoorUnit = this.bestResults[i].components.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
-  this.bestResults[i].components.forEach((element: any) => {
-    if (element.type === 'furnace'){
-      myfurnace = this.bestResults[i].components.filter((item: any)=> item.type == "furnace")[0].SKU;
-    } else {
-      myfurnace = null;
-    }
-  });
-  
-  this.results.forEach((subel:BestDetail[]) => {
-    subel.forEach(element => {
-      let myFind = element.components?.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
-      if(myFind == myOutdoorUnit){
-        myCombination1 = subel
-      }
-    });
-    
-  });
-
-  if (myfurnace === null){
-    if(myIndoorUnit){
-
-      myCombination1.forEach(element => {
-        let myFind = element.components?.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
-        if(myFind == myIndoorUnit){
-          myCombination2.push(element);
-          this.bestResults[i] = element;
-          this.bestResults[i].anyCombination = myCombination2;
-          this.bestResults[i].lengthAnyCombination = myCombination2.length;;
-        }
-      });
-
-      console.log(this.bestResults[i]);
-  
-      // compose options for specified model type
-      this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination1,"indoorUnit");
-      this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination1,"furnace");
-    }
-
-  } else {
-    myCombination1.forEach(element => {
-      let myFind = element.components?.filter((item: any)=> item.type == "furnace")[0].SKU;
-      if(myFind === myfurnace){
-        myCombination2.push(element);
-      }
-    });
-
-    if(myIndoorUnit){
-
-      myCombination2.forEach(element => {
-        let myFind = element.components?.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
-        if(myFind === myIndoorUnit){
-          myCombination3.push(element);
-          this.bestResults[i] = element;
-          this.bestResults[i].anyCombination = myCombination3;
-          this.bestResults[i].lengthAnyCombination = myCombination3.length;;
-        }
-      });
-
-      console.log(myCombination3);
-
-      console.log(this.bestResults[i]);
-  
-      // compose options for specified model type
-      this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination1,"indoorUnit");
-      this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination1,"furnace");
-    }
-
-  }
-
-} */
-
-
-/* filterFurnaceBySKU(myFurnaceUnit: string, i:number) {
-
-  this.bestResults[i].lengthAnyCombination = 0;
-
-  //Search bestOption with user selections
-  let myOutdoorUnit = this.bestResults[i].components.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
-  let myIndoorUnit = this.bestResults[i].components.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
-  let myCombination1: BestDetail[] = [];
-  let myCombination2: Array<BestDetail>  = [];
-  let myCombination3: Array<BestDetail> = [];
-
-  // select by outdoor unit
-  this.results.forEach((subel:BestDetail[]) => {
-
-    subel.forEach(element => {
-      let myFind = element.components?.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
-      if(myFind === myOutdoorUnit){
-        myCombination1 = subel
-      }
-    });
-    
-  });
-
-  // select by indoor unit
-  myCombination1.forEach(element => {
-    let myFind = element.components?.filter((item: any)=> item.type == "indoorUnit")[0].SKU;
-    if(myFind === myIndoorUnit){
-      myCombination2.push(element);
-    }
-  });
-
-  // select by furnace
-  if(myFurnaceUnit){
-
-    myCombination2.forEach(element => {
-      let myFind = element.components?.filter((item: any)=> item.type == "furnace")[0].SKU;
-      if(myFind === myFurnaceUnit){
-        myCombination3.push(element);
-        this.bestResults[i] = element;
-        this.bestResults[i].anyCombination = myCombination3;
-        this.bestResults[i].lengthAnyCombination = myCombination3.length;;
-      }
-    });
-
-    // compose options for specified model type
-    this.bestResults[i].indoorUnits = this.loadOptionsModelNrs(myCombination1,"indoorUnit");
-    this.bestResults[i].furnaceUnits = this.loadOptionsModelNrs(myCombination1,"furnace");
-  }
-} */
 
   // function to remove selections filters from my filters.
   removeFilter(myFilter: any, option: any): void {
@@ -903,6 +847,17 @@ filterByID(myUnitID: string, i:number) {
       this.filtersGroup.controls[myFilter].reset();
     }
     this.CallSearch()
+  }
+
+  lengthEqualUnits2(configurationOptions:BestDetail, i: any, equalUnits:any){
+  
+    console.log(equalUnits);
+
+
+    this.oneCard[i].grupOptions = this.equalUnitsOptions;
+
+    // console.log(this.equalUnitsOptions);
+
   }
 
   isArray(obj: any) {
