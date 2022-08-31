@@ -502,9 +502,11 @@ totalRebateMax(){
   // recorriendo toda la respuesta del search
   this.results.forEach((element:any) => {
     // debuelve los resultados ordenamos del maxino al minimo
-    let max =  element.sort((a: any, b:any) =>{
-      return Number.parseInt(b.totalAvailableRebates) - Number.parseInt(a.totalAvailableRebates)
-    }) ;
+    let max =  element.sort( function(a: any, b:any) {
+      if (a.totalAvailableRebates < b.totalAvailableRebates || a.totalAvailableRebates === null) return +1;
+      if (a.totalAvailableRebates > b.totalAvailableRebates || b.totalAvailableRebates === null) return -1;
+      return 0;
+  }) ;
     this.oneCard.push(max[0]);; // colocando el maximo de cada grupo a cada card
   });  
   
@@ -726,11 +728,18 @@ deleteDuplicateUnitSelect(options: Array<jsonStructureSearch>){
 
 sortDescendingOneCard(){
 
-  let newOrder = this.oneCard.sort((a: any, b:any) =>{
-    return Number.parseInt(b.totalAvailableRebates) - Number.parseInt(a.totalAvailableRebates)
+  // console.log(this.oneCard);
+
+  let newOrder = this.oneCard.sort( function(a: any, b:any) {
+    // return Number.parseInt(b.totalAvailableRebates) - Number.parseInt(a.totalAvailableRebates)
+    
+      if (a.totalAvailableRebates < b.totalAvailableRebates || a.totalAvailableRebates === null) return +1;
+      if (a.totalAvailableRebates > b.totalAvailableRebates || b.totalAvailableRebates === null) return -1;
+      return 0;
+     
   }) ;
 
-  return this.oneCard = newOrder;
+  this.oneCard = newOrder;
 }
 
 filterByID(myUnitID: string, i:number) {

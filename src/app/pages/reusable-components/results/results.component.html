@@ -278,11 +278,11 @@
                         <span class="rc-small"><b>Furnace configurations</b></span>
                         <div class="rc-unlisted" *ngIf="ahriCombination.furnaceConfigurations != null">
                           <ul *ngFor="let configuration of ahriCombination.furnaceConfigurations">
-                            <li>{{configuration}}</li>
+                            <li>{{configuration }}</li>
                           </ul>
                         </div>
-                        <div *ngIf="ahriCombination.furnaceConfigurations == null">
-                          <p>Sorry, we couldn't find any configuration.</p>
+                        <div *ngIf="ahriCombination.furnaceConfigurations === null">
+                          <p>"N/A"</p>
                         </div>
                       </div>
                     </div>
@@ -421,8 +421,8 @@
                         <li>{{configuration}}</li>
                       </ul>
                     </div>
-                    <div *ngIf="ahriCombination.furnaceConfigurations == null">
-                      <p>Sorry, we couldn't find any configuration.</p>
+                    <div *ngIf="ahriCombination.furnaceConfigurations === null">
+                      <p>"N/A"</p>
                     </div>
                   </div>
                 </div>
