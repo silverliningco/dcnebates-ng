@@ -512,12 +512,12 @@ totalRebateMax(){
   
   this.getUnitOptionstoSelect2(this.oneCard);
 
-  this.searchUnits();
+  this.searchUnits(this.oneCard);
 
   return this.sortDescendingOneCard();
 }
 
-searchUnits(){
+searchUnits(oneCard:any){
 
   // variables to save the unit id to current card
   let myOutdoorUnit: string = '';
@@ -525,20 +525,20 @@ searchUnits(){
   let myfurnace: string = '';
 
   // variables that save unit searches in results
-  let myEqualUnitsOutdoors: any = [];
-  let myEqualUnitsIndoors: any = [];
-  let myEqualUnitsfurnace:any = [];
+  let myEqualUnitsOutdoors: any;
+  let myEqualUnitsIndoors: any;
+  let myEqualUnitsfurnace:any;
 
 
   /* looping through results */
-  this.oneCard.forEach((element:any) => {
+  oneCard.forEach((element:any) => {
   
     myOutdoorUnit = '';
     myIndoorUnit = '';
     myfurnace = '';
-    myEqualUnitsOutdoors = [];
-    myEqualUnitsIndoors = [];
-    myEqualUnitsfurnace = [];
+    myEqualUnitsOutdoors = null;
+    myEqualUnitsIndoors = null;
+    myEqualUnitsfurnace = null;
     
   
     // save the value of units
@@ -555,36 +555,43 @@ searchUnits(){
           break;
       }
     });
+
+    console.log(`out ${myOutdoorUnit} / indo ${myIndoorUnit} / fur ${myfurnace}`)
   
     // se buscar entro de this.results todos los registros con el mismo aoutddor unit
-    myEqualUnitsOutdoors = this.globalSearch('myOutdoorUnit', this.results, ['id'] );
-  
+    myEqualUnitsOutdoors = this.SearchInResults(myOutdoorUnit, this.results, ['id'] );
+
     // busca las combinaciones para el resto de tipo de unidades
     if (myfurnace != '' && myIndoorUnit === ''){
-      myEqualUnitsfurnace = this.globalSearch('myfurnace', myEqualUnitsOutdoors[0], ['id'] );
-      element.equalUnits = myEqualUnitsfurnace;
+      myEqualUnitsfurnace = this.globalSearch(myfurnace, myEqualUnitsOutdoors, ['id'] );
+      element.equalUnits = myEqualUnitsfurnace[0];
       element.lengthEqualUnits = myEqualUnitsfurnace.length;
     } else if (myfurnace === '' && myIndoorUnit != ''){
-      myEqualUnitsIndoors = this.globalSearch('myIndoorUnit', myEqualUnitsOutdoors[0], ['id'] );
-      element.equalUnits = myEqualUnitsIndoors;
+      myEqualUnitsIndoors = this.globalSearch(myIndoorUnit, myEqualUnitsOutdoors, ['id'] );
+      
+      element.equalUnits = myEqualUnitsIndoors[0];
       element.lengthEqualUnits = myEqualUnitsIndoors.length;
-    } else if (myfurnace != '' && myIndoorUnit != '') {
-      myEqualUnitsfurnace = this.globalSearch('myfurnace', myEqualUnitsOutdoors[0], ['id'] );
+      console.log(element.equalUnits);
+      console.log("---------------------------------------------------------------------------------");
 
-      myEqualUnitsIndoors = this.globalSearch('myIndoorUnit', myEqualUnitsfurnace[0], ['id'] );
+    } /* else if (myfurnace != '' && myIndoorUnit != '') {
+      myEqualUnitsfurnace = this.globalSearch(myfurnace, myEqualUnitsOutdoors, ['id'] );
+
+      myEqualUnitsIndoors = this.globalSearch(myIndoorUnit, myEqualUnitsfurnace, ['id'] );
 
       element.equalUnits = myEqualUnitsIndoors;
       element.lengthEqualUnits = myEqualUnitsIndoors.length;
     } else {
       let message = 'error';
     }
-
+ */
 
   
   });
 
   return this.oneCard;
 }
+
 
 
 filterByID(myUnitID: string, i:number) {
@@ -643,7 +650,6 @@ filterByID(myUnitID: string, i:number) {
     console.log('b');
     myEqualUnitsOutdoors.forEach((element :any)=> {
       let myFind = element.components?.filter((item: any)=> item.type == "furnace")[0].id;
-      console.log(element.components?.filter((item: any)=> item.type == "furnace")[0].id);
       if(myFind === myfurnace){
         myEqualUnitsfurnace.push(element);
         this.oneCard[i] = element;
@@ -685,11 +691,44 @@ filterByID(myUnitID: string, i:number) {
 
 }
 
-globalSearch (event: any, objectData:any,  combinations: Array<any>) {
+globalSearch (event: any, objectData:Array<any>,  combinations: Array<any>) {
+
+  console.log(event);
     
   let input = event;
 
-  let results: Array<any> = [];
+  let result: Array<any> = [];
+
+  let b = objectData.filter((data:any) => {
+    let combinationQueries = "";
+
+    combinations.forEach((arg:any) => {
+      combinationQueries +=
+      data.hasOwnProperty(arg) && data[arg].trim() + "";
+    });
+
+    return Object.keys(data).some((key:any) => {
+      return(
+        (data[key] != undefined && 
+          data[key] != null && 
+          JSON.stringify(data[key]).trim().includes(input)) ||
+        combinationQueries.trim().includes(input)  
+      );
+    });
+  });
+
+  if(b.length != 0){
+    result = b
+  }
+  
+  return result;
+}
+
+SearchInResults (event: any, objectData:Array<any>,  combinations: Array<any>) {
+    
+  let input = event;
+
+  let result: Array<any> = [];
 
   objectData.forEach((conb:any) => {
     
@@ -698,14 +737,14 @@ globalSearch (event: any, objectData:any,  combinations: Array<any>) {
 
     combinations.forEach((arg:any) => {
       combinationQueries +=
-      data.hasOwnProperty(arg) && data[arg].toLowerCase().trim() + "";
+      data.hasOwnProperty(arg) && data[arg].trim() + "";
     });
 
     let a =  Object.keys(data).some((key:any) => {
       return(
         (data[key] != undefined && 
           data[key] != null && 
-          JSON.stringify(data[key]).toLowerCase().trim().includes(input)) ||
+          JSON.stringify(data[key]).trim().includes(input)) ||
           combinationQueries.trim().includes(input)  
       );
     });
@@ -713,13 +752,11 @@ globalSearch (event: any, objectData:any,  combinations: Array<any>) {
    });
 
   if(b.length != 0){
-    results.push(b);
+    result.push(b);
   }
    
   });
-
-  console.log(results)
-  return results;
+  return result;
 }
 
 
