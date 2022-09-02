@@ -2,12 +2,6 @@
 export class BestDetail {
     constructor(
 
-        // by procesing data
-        public equalUnits?: Array<any>,
-        public lengthEqualUnits?: number,
-        public optionsIndoorsToSelect?: Array<jsonStructureSearch>,
-        public optionsfurnaceToSelect?: Array<jsonStructureSearch>,
-
         // payload
         public EER?: number,
         public AFUE?: any,
@@ -16,31 +10,49 @@ export class BestDetail {
         public Hcap17?: number,
         public Hcap47?: number,
         public fuelTypes?: any,
-        public components?: Array<jsonStructureSearch>,
+        public components?: Array<ComponentDetail>,
         public equipmentTags?: any,
         public AHRIReferences?: Array<string>,
-        public availableRebates?: Array<Rebate>,
+        public availableRebates?: Array<AvailableRebate>,
         public furnaceInputBTUH?: any,
         public furnaceOutputBTUH?: number,
         public coolingCapacityRated?: number,
         public furnaceConfigurations?: any,
         public totalAvailableRebates?: number,
-        public configurationOptions?: Array<jsonStructureSearch>,
-        public grupOptions?: Array<EqualUnitsOptions>,
-
+        public configurationOptions?: Array<ComponentDetail>,
         // future
         public accesories?:Array<Accesories>, 
  
     ) {}
 }
-
-export class jsonStructureSearch{
+export class ComponentDetail{ 
     constructor(
-        public id?: string,
-        public SKU?: string,
-        public name?: string,
-        public type?: string
+    public id?: string,
+    public SKU?: string,
+    public name?: string,
+    public type?: string
     ){}
+}
+  
+export class Card{
+    constructor(
+        public active: BestDetail,
+        public options: Array<BestDetail>,
+        public indoorOptions?: Array<ComponentDetail>,
+        public furnaceOptions?: Array<ComponentDetail>,
+        public configurationOptions?: Array<ComponentDetail>
+    ){}
+}
+  
+export class AvailableRebate {
+    constructor(
+        public rebateId: number,
+        public rebateTitle: string,
+        public description: string,
+        public amount: number,
+        public links?: Array<any>,
+        public rebateTierTitle?: string   
+    ) {}
 }
 
 export class Accesories{
@@ -49,6 +61,7 @@ export class Accesories{
         public amount?: number
     ){}
 }
+
 
 export class Rebate {
     constructor(
@@ -65,19 +78,5 @@ export class Links {
     constructor(
         public url?: string,
         public title?: string
-    ) {}
-}
-
-export class EqualUnitsOptions {
-    constructor(
-        public furnaceConfigurations?: string,
-        public EER?: number,
-        public AFUE?: any,
-        public HSPF?: number,
-        public SEER?: number,
-        public Hcap17?: number,
-        public Hcap47?: number,
-        public furnaceOutputBTUH?: number,
-        public coolingCapacityRated?: number
     ) {}
 }
