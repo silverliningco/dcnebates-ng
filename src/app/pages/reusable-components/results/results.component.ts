@@ -71,8 +71,7 @@ export class ResultsComponent implements OnInit {
           this.CallProductLines();
           
           // call GetAvailableRebates if home = 'rebate'
-          this.originData();
-          /* if (this.myPayloadForm.home === 'ahri'){
+          if (this.myPayloadForm.home === 'ahri'){
             this.showCardRebate = false;
             this.sizeSelect = 100;
             // remove rebates tab
@@ -81,7 +80,7 @@ export class ResultsComponent implements OnInit {
             this.showCardRebate = true;
             this.sizeSelect = 70;
             this.GetAvailableRebates();
-          } */
+          }
                     
          });
    
@@ -103,18 +102,6 @@ export class ResultsComponent implements OnInit {
   }
 
 
-  originData(){
-    if (this.myPayloadForm.home === 'ahri'){
-      this.showCardRebate = false;
-      this.sizeSelect = 100;
-      // remove rebates tab
-      this.tabs.splice(0, 1);
-    }else {
-      this.showCardRebate = true;
-      this.sizeSelect = 70;
-      this.GetAvailableRebates();
-    }
-  }
 
 /* ****************************************************************************************************************************************************** */
 /*                                                          PRODUCT LINE                                                                                  */
@@ -172,7 +159,6 @@ export class ResultsComponent implements OnInit {
     this.filters = [];
 
     this.showSpinner = true;
-    this.originData();
     this.CallFilters();
 
   }
