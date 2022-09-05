@@ -65,56 +65,65 @@
             <!-- *** filters ***-->
 
               <mat-card class="rc-rb-filters"  *ngIf="tab == 'FILTERS'">
-                <form [formGroup]="filtersGroup" fxLayout="column" fxLayoutAlign="center" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
-                  <!-- indoorUnitConfiguration -->
-                  <h5 class="rc-filter-group-title" *ngIf="showIndoorUnitConfig">Indoor Unit</h5>
-                  <div *ngFor="let filter of filters" class="rc-filter-group">
-                    <div *ngIf="filter.filterName === 'indoorUnitConfiguration'">
-
-                      <mat-form-field appearance="fill">
-                        <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                        <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallSearch()">
-                          <mat-option *ngFor="let val of filter.availableOptions" [value]="val"
-                            [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
+                
+                <!-- exist filters -->
+                <div *ngIf="!notFilters">
+                  <form [formGroup]="filtersGroup" fxLayout="column" fxLayoutAlign="center" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
+                    <!-- indoorUnitConfiguration -->
+                    <h5 class="rc-filter-group-title" *ngIf="showIndoorUnitConfig">Indoor Unit</h5>
+                    <div *ngFor="let filter of filters" class="rc-filter-group">
+                      <div *ngIf="filter.filterName === 'indoorUnitConfiguration'">
+  
+                        <mat-form-field appearance="fill">
+                          <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
+                          <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallSearch()">
+                            <mat-option *ngFor="let val of filter.availableOptions" [value]="val"
+                              [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
                     </div>
-                  </div>
-                  <!-- indoorUnitConfiguration end -->
-
-                  <!-- Coil Type -->
-                  <h5 class="rc-filter-group-title" *ngIf="showCoilType">Coil Type</h5>
-                  <div *ngFor="let filter of filters" class="rc-filter-group">
-                    <div *ngIf="filter.filterName === 'coilType'">
-
-                      <mat-form-field appearance="fill">
-                        <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                        <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallSearch()">
-                          <mat-option *ngFor="let val of filter.availableOptions" [value]="val"
-                            [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
+                    <!-- indoorUnitConfiguration end -->
+  
+                    <!-- Coil Type -->
+                    <h5 class="rc-filter-group-title" *ngIf="showCoilType">Coil Type</h5>
+                    <div *ngFor="let filter of filters" class="rc-filter-group">
+                      <div *ngIf="filter.filterName === 'coilType'">
+  
+                        <mat-form-field appearance="fill">
+                          <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
+                          <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallSearch()">
+                            <mat-option *ngFor="let val of filter.availableOptions" [value]="val"
+                              [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
                     </div>
-                  </div>
-                  <!-- Coil Type end -->
-
-                  <!-- Coil Casing -->
-                  <h5 class="rc-filter-group-title" *ngIf="showcoilCasing">Coil Type</h5>
-                  <div *ngFor="let filter of filters" class="rc-filter-group">
-                    <div *ngIf="filter.filterName === 'coilCasing'">
-
-                      <mat-form-field appearance="fill">
-                        <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
-                        <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallSearch()">
-                          <mat-option *ngFor="let val of filter.availableOptions" [value]="val"
-                            [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
+                    <!-- Coil Type end -->
+  
+                    <!-- Coil Casing -->
+                    <h5 class="rc-filter-group-title" *ngIf="showcoilCasing">Coil Type</h5>
+                    <div *ngFor="let filter of filters" class="rc-filter-group">
+                      <div *ngIf="filter.filterName === 'coilCasing'">
+  
+                        <mat-form-field appearance="fill">
+                          <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
+                          <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallSearch()">
+                            <mat-option *ngFor="let val of filter.availableOptions" [value]="val"
+                              [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
                     </div>
-                  </div>
-                  <!-- Coil Casing end -->
-
-                </form>
+                    <!-- Coil Casing end -->
+  
+                  </form>
+                </div>
+                 
+                <!-- doesn't exist filters  -->
+                <div  *ngIf="notFilters">
+                  <p>Sorry, we couldn't find any filters.</p>
+                </div>
               </mat-card>
             </mat-tab>
             <!-- *** filters end *** -->
@@ -394,7 +403,7 @@
               <mat-card-actions>
                 <div fxLayout="row column" fxLayoutAlign="end center" fxLayoutGap="16px grid">
                   <div>
-                    <button mat-button class="rc-table-button" fxLayout fxLayoutAlign="center center" (click)="openDialog(ahriCombination.active, i)">
+                    <button mat-button class="rc-table-button" fxLayout fxLayoutAlign="center center" (click)="openDialog(i)">
                       VIEW IN TABLE
                       <mat-icon> table_chart</mat-icon>
                     </button>

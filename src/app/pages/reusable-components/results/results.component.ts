@@ -24,14 +24,15 @@ export class ResultsComponent implements OnInit {
   productLines!: any;
   noResultsPL!: boolean;
 
-  filters: Array<any> = [];
-
-  sizeSelect!: number;
+  /* filgters */
+  filters: Array<any> = [];  
+  notFilters!: boolean;
 
   /* search */
   noResultsSearch!: boolean;
   results!: any; // guarda todos los resultados del endpoint search
   myCards: Array<Card> = [];
+  sizeSelect!: number;
 
   /*  receives information from the other components*/
   myPayloadForm: payloadForm = new payloadForm; 
@@ -142,6 +143,7 @@ export class ResultsComponent implements OnInit {
           this.noResultsPL = false;
         } else {
           this.noResultsPL = true;
+          this.showSpinner = false;
         }
       },
       error: (e) => alert(e.error),
@@ -328,6 +330,11 @@ export class ResultsComponent implements OnInit {
 /*                                                        AVAILABLE REBATES END                                                                           */
 /* ****************************************************************************************************************************************************** */
 
+
+/* ****************************************************************************************************************************************************** */
+/*                                                        FILTERS                                                                                         */
+/* ****************************************************************************************************************************************************** */
+
 PrepareFilters(){
   let myFilters: any = null;
   let indoorUnitConfiguration: any = null;
@@ -426,6 +433,7 @@ CallFilters() {
   this._api.Filters(this.Payload()).subscribe({
     next: (resp) => {
       if (resp.length > 0) {
+        this.notFilters = false;
         this.filters = resp;
         this.filtersGroup.reset();
         // Set selected values
@@ -437,6 +445,8 @@ CallFilters() {
           }
         });
         this.filtersGroup.enable();
+      } else {
+        this.notFilters = true;
       }
 
       this.showTitleFilter(this.filters);
@@ -446,6 +456,110 @@ CallFilters() {
     },
     error: (e) => alert(e.error),
     complete: () => console.info('complete')
+  })
+}
+
+
+ // function to remove selections filters from my filters.
+ removeFilter(myFilter: any, option: any): void {
+  if (option) {
+    this.filtersGroup.controls[myFilter].setValue(this.filtersGroup.controls[myFilter].value.filter((e: string) => e !== option))
+  } else {
+    this.filtersGroup.controls[myFilter].reset();
+  }
+  this.CallSearch()
+}
+
+
+showTitleFilter(filters: any) {
+
+  this.showIndoorUnitConfig = false;
+  this.showCoilType = false;
+  this.showcoilCasing = false;
+
+  filters.forEach((ele: any) => {
+    if (ele.filterName === 'indoorUnitConfiguration') {
+      this.showIndoorUnitConfig = true
+    }
+  });
+
+  filters.forEach((ele: any) => {
+    if (ele.filterName === 'coilType') {
+      this.showCoilType = true
+    }
+  });
+
+  filters.forEach((ele: any) => {
+    if (ele.filterName === 'coilCasing') {
+      this.showcoilCasing = true
+    }
+  });
+
+}
+
+
+// for applied filters
+isArray(obj: any) {
+  if (Array.isArray(obj)) {
+    return true
+
+  } else {
+    return false
+  }
+}
+
+/* ****************************************************************************************************************************************************** */
+/*                                                        FILTERS END                                                                                     */
+/* ****************************************************************************************************************************************************** */
+
+
+/* ****************************************************************************************************************************************************** */
+/*                                                        SEARCH                                                                                          */
+/* ****************************************************************************************************************************************************** */
+
+CallSearch() {
+  
+  this.showSpinner = true;
+   this._api.Search(this.Payload()).subscribe({
+    next: (resp) => {
+      
+      if (resp.length > 0) {
+        this.noResultsSearch = false;
+        this.results = resp;
+        this.myCards = [];
+        
+        // recorriendo toda la respuesta del search
+        resp.forEach((element:any) => {
+          let myCard: Card;
+          // debuelve los resultados ordenamos del maxino al minimo
+          let max =  element.sort( function(a: any, b:any) {
+            if (a.totalAvailableRebates < b.totalAvailableRebates || a.totalAvailableRebates === null) return +1;
+            if (a.totalAvailableRebates > b.totalAvailableRebates || b.totalAvailableRebates === null) return -1;
+            return 0;
+          });
+
+          myCard ={
+            active: max[0], // colocando el maximo de cada grupo a cada card
+            options: max,
+            indoorOptions: this.getComponentOptions(max, 'indoorUnit'),
+            furnaceOptions: this.getComponentOptions(max, 'furnace'),
+            configurationOptions:  this.getConfigurationOptions(max[0].components, max),
+          }
+
+          this.myCards.push(myCard);
+        });  
+
+        // Ordenar cards de manera descendente por totalAvailableRebates
+        this.myCards.sort( function(a: Card, b:Card) {
+          if (a.active.totalAvailableRebates! < b.active.totalAvailableRebates! || a.active.totalAvailableRebates === null) return +1;
+          if (a.active.totalAvailableRebates! > b.active.totalAvailableRebates! || b.active.totalAvailableRebates === null) return -1;
+          return 0;
+        }) ;
+  
+      } else {
+        this.noResultsSearch = true;
+      }
+    }
   })
 }
 
@@ -492,78 +606,7 @@ getConfigurationOptions(myComponents:ComponentDetail[],myOptions: BestDetail[]) 
   return myUniqueComponents;
 
 }
-CallSearch() {
-  
-  this.showSpinner = true;
-   this._api.Search(this.Payload()).subscribe({
-    next: (resp) => {
-      if (resp.length > 0) {
-        this.noResultsSearch = false;
-        this.results = resp;
-        this.myCards = [];
-        
-        // recorriendo toda la respuesta del search
-        resp.forEach((element:any) => {
-          let myCard: Card;
-          // debuelve los resultados ordenamos del maxino al minimo
-          let max =  element.sort( function(a: any, b:any) {
-            if (a.totalAvailableRebates < b.totalAvailableRebates || a.totalAvailableRebates === null) return +1;
-            if (a.totalAvailableRebates > b.totalAvailableRebates || b.totalAvailableRebates === null) return -1;
-            return 0;
-          });
 
-          myCard ={
-            active: max[0], // colocando el maximo de cada grupo a cada card
-            options: max,
-            indoorOptions: this.getComponentOptions(max, 'indoorUnit'),
-            furnaceOptions: this.getComponentOptions(max, 'furnace'),
-            configurationOptions:  this.getConfigurationOptions(max[0].components, max),
-          }
-
-          this.myCards.push(myCard);
-        });  
-
-        // Ordenar cards de manera descendente por totalAvailableRebates
-        this.myCards.sort( function(a: Card, b:Card) {
-          if (a.active.totalAvailableRebates! < b.active.totalAvailableRebates! || a.active.totalAvailableRebates === null) return +1;
-          if (a.active.totalAvailableRebates! > b.active.totalAvailableRebates! || b.active.totalAvailableRebates === null) return -1;
-          return 0;
-        }) ;
-  
-      } else {
-        this.noResultsSearch = true;
-      }
-
-      this.showSpinner = false;
-    }
-  })
-}
-
-showTitleFilter(filters: any) {
-
-  this.showIndoorUnitConfig = false;
-  this.showCoilType = false;
-  this.showcoilCasing = false;
-
-  filters.forEach((ele: any) => {
-    if (ele.filterName === 'indoorUnitConfiguration') {
-      this.showIndoorUnitConfig = true
-    }
-  });
-
-  filters.forEach((ele: any) => {
-    if (ele.filterName === 'coilType') {
-      this.showCoilType = true
-    }
-  });
-
-  filters.forEach((ele: any) => {
-    if (ele.filterName === 'coilCasing') {
-      this.showcoilCasing = true
-    }
-  });
-
-}
 
 
 filterByConfigurationOptions(myUnitID: string, myCard: Card){
@@ -625,26 +668,14 @@ filterByID(myUnitID: string, myUnitType: string, myCard: Card) {
 }
 
 
+/* ****************************************************************************************************************************************************** */
+/*                                                        SEARCH  END                                                                                     */
+/* ****************************************************************************************************************************************************** */
 
-  // function to remove selections filters from my filters.
-  removeFilter(myFilter: any, option: any): void {
-    if (option) {
-      this.filtersGroup.controls[myFilter].setValue(this.filtersGroup.controls[myFilter].value.filter((e: string) => e !== option))
-    } else {
-      this.filtersGroup.controls[myFilter].reset();
-    }
-    this.CallSearch()
-  }
+ 
 
 
-  isArray(obj: any) {
-    if (Array.isArray(obj)) {
-      return true
-
-    } else {
-      return false
-    }
-  }
+  
 
 
   prepareDataToSend(myCombination:BestDetail){
@@ -682,7 +713,7 @@ filterByID(myUnitID: string, myUnitType: string, myCard: Card) {
  }
 
 
-  openDialog(myCombination:BestDetail, i:number) {
+  openDialog( i:number) {
 
     //Get systems with selected outdoor unit
     let myOutdoorUnit = this.myCards[i].active.components!.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
@@ -708,12 +739,5 @@ filterByID(myUnitID: string, myUnitType: string, myCard: Card) {
 
 
 }
-
-/* 
-  * arreglar los estilos del togle
-  * se debe de mostrar los resultados del togle ordenamos de mayor a menor
-  * en el caso en que aparece furnace, siempre hay indoor? por que no se evalua si hay o no, se da por hecho que 
-    siempre hay
-*/
 
 
