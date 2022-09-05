@@ -50,8 +50,8 @@ export class ResultsComponent implements OnInit {
   NoExistAvailableRebates: boolean = false;
 
   showSpinner:boolean = false;
-  index: number = 0;
 
+  resetTab: number = 0;
   tabs = ['REBATES','FILTERS'];
 
   constructor(
@@ -79,6 +79,7 @@ export class ResultsComponent implements OnInit {
           }else {
             this.showCardRebate = true;
             this.sizeSelect = 70;
+            this.resetTab = 0;
             this.GetAvailableRebates();
           }
                     
@@ -157,7 +158,7 @@ export class ResultsComponent implements OnInit {
   SelectProductLine() {
     this.filtersGroup.reset();
     this.filters = [];
-
+    this.resetTab = 0;
     this.showSpinner = true;
     this.CallFilters();
 

@@ -19,9 +19,9 @@
       <div fxFlex="30" fxFlex.sm="100" fxFlex.xs="100">
         <div class="rc-rebates-filters">
 
-          <mat-tab-group dynamicHeight selectedIndex="0">
+          <mat-tab-group dynamicHeight [(selectedIndex)]="resetTab">
 
-           <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
+           <mat-tab *ngFor="let tab of tabs" [label]="tab">
             <!-- *** rebates *** -->
               <div class="rc-result-rebates" *ngIf="tab == 'REBATES'">
                 <mat-card class="rc-available-rebate">
