@@ -71,7 +71,8 @@ export class ResultsComponent implements OnInit {
           this.CallProductLines();
           
           // call GetAvailableRebates if home = 'rebate'
-          if (this.myPayloadForm.home === 'ahri'){
+          this.originData();
+          /* if (this.myPayloadForm.home === 'ahri'){
             this.showCardRebate = false;
             this.sizeSelect = 100;
             // remove rebates tab
@@ -80,7 +81,7 @@ export class ResultsComponent implements OnInit {
             this.showCardRebate = true;
             this.sizeSelect = 70;
             this.GetAvailableRebates();
-          }
+          } */
                     
          });
    
@@ -99,6 +100,20 @@ export class ResultsComponent implements OnInit {
       coilType: null,
       coilCasing: null
     });
+  }
+
+
+  originData(){
+    if (this.myPayloadForm.home === 'ahri'){
+      this.showCardRebate = false;
+      this.sizeSelect = 100;
+      // remove rebates tab
+      this.tabs.splice(0, 1);
+    }else {
+      this.showCardRebate = true;
+      this.sizeSelect = 70;
+      this.GetAvailableRebates();
+    }
   }
 
 /* ****************************************************************************************************************************************************** */
@@ -154,11 +169,12 @@ export class ResultsComponent implements OnInit {
   // Function that reset filters and load filters with selected product line
   SelectProductLine() {
     this.filtersGroup.reset();
-
     this.filters = [];
 
     this.showSpinner = true;
+    this.originData();
     this.CallFilters();
+
   }
 
 /* ****************************************************************************************************************************************************** */
@@ -524,6 +540,7 @@ CallSearch() {
     next: (resp) => {
       
       if (resp.length > 0) {
+        this.showSpinner = false;
         this.noResultsSearch = false;
         this.results = resp;
         this.myCards = [];
@@ -557,6 +574,7 @@ CallSearch() {
         }) ;
   
       } else {
+        this.showSpinner = false;
         this.noResultsSearch = true;
       }
     }
