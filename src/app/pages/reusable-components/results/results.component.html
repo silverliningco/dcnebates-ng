@@ -281,18 +281,7 @@
                         </div>
                       </div>
 
-                      <!-- furnace configuration -->
-                      <div class="list-rebates">
-                        <span class="rc-small"><b>Furnace configurations</b></span>
-                        <div class="rc-unlisted" *ngIf="ahriCombination.active.furnaceConfigurations != null">
-                          <ul *ngFor="let configuration of ahriCombination.active.furnaceConfigurations">
-                            <li>{{configuration }}</li>
-                          </ul>
-                        </div>
-                        <div *ngIf="ahriCombination.active.furnaceConfigurations === null">
-                          <p>"N/A"</p>
-                        </div>
-                      </div>
+                      
                     </div>
                     <!-- rebates and configuration end -->
 
