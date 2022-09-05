@@ -178,7 +178,8 @@
             <!-- unit ids -->
             <div fxLayout="row column" fxLayoutAlign="space-between start" fxLayoutGap="16px grid">
 
-              <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100">
+              <!-- with rebate -->
+              <div fxFlex="{{sizeSelect}}" fxFlex.sm="100" fxFlex.xs="100" >
                 <mat-card-header>
 
                   <mat-card-title fxLayout="row column" fxLayoutAlign="space-between center" class="123">
@@ -239,9 +240,10 @@
                   </mat-card-subtitle>
                 </mat-card-header>
               </div>
+              <!-- with rebate end -->
 
               <!-- amount -->
-              <div fxFlex="30" class="rc-show rc-hide-md rc-hide-sm">
+              <div fxFlex="30" class="rc-show rc-hide-md rc-hide-sm"  *ngIf="showCardRebate === true">
                 <div class="rebate-price" fxLayout="row" fxLayoutAlign="center center">
                   <h5 class="rc-small">REBATES UP</h5>
                   <h1>{{(ahriCombination.active.totalAvailableRebates | currency) || "$0.00"}}</h1>

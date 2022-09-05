@@ -26,6 +26,8 @@ export class ResultsComponent implements OnInit {
 
   filters: Array<any> = [];
 
+  sizeSelect!: number;
+
   /* search */
   noResultsSearch!: boolean;
   results!: any; // guarda todos los resultados del endpoint search
@@ -70,10 +72,12 @@ export class ResultsComponent implements OnInit {
           // call GetAvailableRebates if home = 'rebate'
           if (this.myPayloadForm.home === 'ahri'){
             this.showCardRebate = false;
+            this.sizeSelect = 100;
             // remove rebates tab
             this.tabs.splice(0, 1);
           }else {
             this.showCardRebate = true;
+            this.sizeSelect = 70;
             this.GetAvailableRebates();
           }
                     
