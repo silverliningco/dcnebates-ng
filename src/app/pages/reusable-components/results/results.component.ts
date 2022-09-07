@@ -24,28 +24,22 @@ export class ResultsComponent implements OnInit {
   productLines!: any;
   noResultsPL!: boolean;
 
-  /* filters */
+  /* filgters */
   filters: Array<any> = [];  
   notFilters!: boolean;
 
-  /* display title when exist filter */
-  showIndoorUnitConfig: boolean = false;
-  showCoilType: boolean = false;
-  showcoilCasing: boolean = false;
-  showCardRebate: boolean = false;
-  showIndoor: boolean = false;
-  showElectricalPhase: boolean = false;
-  showCoastal: boolean = false;
-
   /* search */
   noResultsSearch!: boolean;
-  results!: any; // guarda todos los resultados del endpoint search
   myCards: Array<Card> = [];
   sizeSelect!: number;
 
   /*  receives information from the other components*/
   myPayloadForm: payloadForm = new payloadForm; 
   myPayloadRebate!: any;
+
+  /* display title when exist filter */
+  showCardRebate: boolean = false;
+  showIndoor: boolean = false;
 
   /*  AVAILABLE REBATES */
   availableRebates!: Array<Rebate>;
@@ -102,7 +96,7 @@ export class ResultsComponent implements OnInit {
       coilType: null,
       coilCasing: null,
       electricalPhase: null,
-      coastal: null
+      coastal: null,
     });
   }
 
@@ -135,7 +129,6 @@ export class ResultsComponent implements OnInit {
     this._api.ProductLines(this.PrepareProductLines()).subscribe({
       next: (resp) => {
         if (resp.length > 0) {
-          this.results = [];
           this.productLines = resp
 
           this.productLinesGroup.controls['productLine'].setValue(resp[0].id);
@@ -342,55 +335,19 @@ export class ResultsComponent implements OnInit {
 /*                                                        FILTERS                                                                                         */
 /* ****************************************************************************************************************************************************** */
 
-// format filters -> { "indoorUnitConfiguration": ["Multipoise"], "coilType": ["A-Coil","Slope Coil"], "coilCasing": ["Cased"] }
 PrepareFilters(){
-  let myFilters: any = null;
-  let indoorUnitConfiguration: any = null;
-  let coilType: any = null;
-  let coilCasing: any = null;
-  let electricalPhase: any = null;
-  let coastal: any = null;
 
-  let prepateCombinacionFilters :Array<any> = [];
+  let myfilters: any = {};
 
   Object.entries(this.filtersGroup.value).forEach(
     ([key, value]) => {
-      if (value != null) {
-        switch  (key){
-          case 'indoorUnitConfiguration':
-            let val1 = JSON.stringify(value);
-            indoorUnitConfiguration = `"${key}": ${val1}`;
-            prepateCombinacionFilters.push(`"${key}": ${val1}`);
-            break;
-          case 'coilType':
-            let val2 = JSON.stringify(value);
-            coilType = `"${key}": ${val2}`;
-            prepateCombinacionFilters.push(coilType);
-            break;
-          case 'coilCasing':
-            let val3 = JSON.stringify(value);
-            coilCasing = `"${key}": ${val3}`;
-            prepateCombinacionFilters.push(coilCasing);
-            break;
-          case 'coastal':
-            let val4 = JSON.stringify(value);
-            coastal = `"${key}": ${val4}`;
-            prepateCombinacionFilters.push(coastal);
-            break;
-          case 'electricalPhase':
-            let val5 = JSON.stringify(value);
-            electricalPhase = `"${key}": ${val5}`;
-            prepateCombinacionFilters.push(electricalPhase);
-            break;
-        }
-      } 
+      if (value && value != "") {
+        myfilters[key] = (Array.isArray(value)) ? value : [value];
+      }
     }
   );
-
-  
-  myFilters = `{${prepateCombinacionFilters}}`
-
-  return decodeURIComponent(myFilters);
+  console.log(myfilters);
+    return myfilters;
 }
 
 
@@ -413,8 +370,8 @@ Payload() {
     levelOneSystemTypeId: levelOneSystemTypeId,
     levelTwoSystemTypeId: this.productLinesGroup.controls['productLine'].value,
     sizingConstraint: sizingConstraint,
-    filters: JSON.parse(this.PrepareFilters()),
-    availableRebates: rebate
+    filters: this.PrepareFilters(),
+    requiredRebates: rebate
   };
 
   return JSON.stringify(body);
@@ -434,14 +391,14 @@ CallFilters() {
         this.filtersGroup.reset();
         // Set selected values
         resp.forEach((filter: any) => {
-          this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
+          
+            this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
+         
         });
         this.filtersGroup.enable();
       } else {
         this.notFilters = true;
       }
-
-      this.showTitleFilter(this.filters);
 
       // Call search.
       this.CallSearch();
@@ -460,48 +417,6 @@ CallFilters() {
     this.filtersGroup.controls[myFilter].reset();
   }
   this.CallSearch()
-}
-
-
-showTitleFilter(filters: any) {
-
-  this.showIndoorUnitConfig = false;
-  this.showCoilType = false;
-  this.showcoilCasing = false;
-  this.showElectricalPhase = false;
-  this.showCoastal = false;
-
-  filters.forEach((ele: any) => {
-    if (ele.filterName === 'indoorUnitConfiguration') {
-      this.showIndoorUnitConfig = true
-    }
-  });
-
-  filters.forEach((ele: any) => {
-    if (ele.filterName === 'coilType') {
-      this.showCoilType = true
-    }
-  });
-
-  filters.forEach((ele: any) => {
-    if (ele.filterName === 'coilCasing') {
-      this.showcoilCasing = true
-    }
-  });
-
-  filters.forEach((ele: any) => {
-    if (ele.filterName === 'electricalPhase') {
-      this.showElectricalPhase= true
-    }
-  });
-
-  filters.forEach((ele: any) => {
-    if (ele.filterName === 'coastal') {
-      this.showCoastal = true
-    }
-  });
-
-
 }
 
 
@@ -529,12 +444,11 @@ CallSearch() {
   this.showSpinner = true;
    this._api.Search(this.Payload()).subscribe({
     next: (resp) => {
-      this.myCards = [];
-
+      
       if (resp.length > 0) {
         this.showSpinner = false;
         this.noResultsSearch = false;
-        this.results = resp;
+        this.myCards = [];
         
         // recorriendo toda la respuesta del search
         resp.forEach((element:any) => {
@@ -722,25 +636,13 @@ filterByID(myUnitID: string, myUnitType: string, myCard: Card) {
  }
 
 
-  openDialog( i:number) {
+  openDialog(myOptions: BestDetail[]) {
 
-    //Get systems with selected outdoor unit
-    let myOutdoorUnit = this.myCards[i].active.components!.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
-    let mySystems: BestDetail[] = []
-    this.results.forEach((subel:BestDetail[]) => {
-      subel.forEach(element => {
-        let myFind = element.components?.filter((item: any)=> item.type == "outdoorUnit")[0].SKU;
-        if(myFind == myOutdoorUnit){
-          mySystems = subel
-        }
-      });
-    });
-  
     this.dialogRef.open(TableViewComponent, {
       data: {
         commerceInfo:  this.myPayloadForm.commerceInfo,
         requiredRebates: this.getSelectedRebates(),
-        systems:mySystems,
+        systems:myOptions,
         home : this.myPayloadForm.home
       }
     });
