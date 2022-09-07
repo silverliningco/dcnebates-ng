@@ -48,7 +48,7 @@ export class ResultsComponent implements OnInit {
   showSpinner:boolean = false;
 
   resetTab: number = 0;
-  tabs = ['REBATES','FILTERS'];
+  tabs: Array<string> = [];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -58,10 +58,12 @@ export class ResultsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
     this.showSpinner = true;
     // receiving form data
        this._bridge.sentRebateParams
         .subscribe((payload: any) => {
+          this.tabs = ['REBATES','FILTERS'];
         
           this.myPayloadForm = payload.data;
           this.CallProductLines();
