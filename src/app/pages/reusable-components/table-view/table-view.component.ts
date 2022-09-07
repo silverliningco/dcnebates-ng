@@ -10,7 +10,7 @@ import { BestDetail } from '../../../models/detailBestOption';
 export class TableViewComponent implements OnInit {
 
   commerceInfo: any;
-  requiredRebates: any = [];
+  availableRebates: any = [];
   mySystems: any;
   home:string;
 
@@ -19,7 +19,7 @@ export class TableViewComponent implements OnInit {
     private dialogRef: MatDialog
   ) {
     this.commerceInfo = data.commerceInfo;
-    this.requiredRebates = data.requiredRebates;
+    this.availableRebates = data.availableRebates;
     this.mySystems = data.systems;
     this.home = data.home;
   }
@@ -41,7 +41,7 @@ export class TableViewComponent implements OnInit {
     let body = {
       commerceInfo: this.commerceInfo,
       skus: myAHRIs,
-      requiredRebates: this.requiredRebates
+      availableRebates: this.availableRebates
     }
     let url = '/home/detail/' + JSON.stringify(body);
     window.open(url)
