@@ -16,6 +16,7 @@ import { CoolingOnlyRComponent } from './home-rebate-finder/cooling-only-r/cooli
 import { HeatingCoolingRComponent } from './home-rebate-finder/heating-cooling-r/heating-cooling-r.component';
 import { ResultsComponent } from './reusable-components/results/results.component'; 
 import { IKnowModelNrComponent } from './i-know-model-nr/i-know-model-nr.component';
+import { ReleasesComponent } from './releases/releases.component';
 
 
 
@@ -112,6 +113,12 @@ const routes: Routes = [{
           path: 'result-rebate',
           component: ResultsComponent,
           data: { breadcrumb: 'result-rebate' }
+        },
+
+        {
+          path: 'releases',
+          component: ReleasesComponent,
+          data: { breadcrumb: 'Releases' }
         },
 
       ]

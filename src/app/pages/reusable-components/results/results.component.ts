@@ -24,9 +24,18 @@ export class ResultsComponent implements OnInit {
   productLines!: any;
   noResultsPL!: boolean;
 
-  /* filgters */
+  /* filters */
   filters: Array<any> = [];  
   notFilters!: boolean;
+
+  /* display title when exist filter */
+  showIndoorUnitConfig: boolean = false;
+  showCoilType: boolean = false;
+  showcoilCasing: boolean = false;
+  showCardRebate: boolean = false;
+  showIndoor: boolean = false;
+  showElectricalPhase: boolean = false;
+  showCoastal: boolean = false;
 
   /* search */
   noResultsSearch!: boolean;
@@ -37,13 +46,6 @@ export class ResultsComponent implements OnInit {
   /*  receives information from the other components*/
   myPayloadForm: payloadForm = new payloadForm; 
   myPayloadRebate!: any;
-
-  /* display title when exist filter */
-  showIndoorUnitConfig: boolean = false;
-  showCoilType: boolean = false;
-  showcoilCasing: boolean = false;
-  showCardRebate: boolean = false;
-  showIndoor: boolean = false;
 
   /*  AVAILABLE REBATES */
   availableRebates!: Array<Rebate>;
@@ -98,7 +100,9 @@ export class ResultsComponent implements OnInit {
     this.filtersGroup = this._formBuilder.group({
       indoorUnitConfiguration: null,
       coilType: null,
-      coilCasing: null
+      coilCasing: null,
+      electricalPhase: null,
+      coastal: null
     });
   }
 
@@ -338,11 +342,16 @@ export class ResultsComponent implements OnInit {
 /*                                                        FILTERS                                                                                         */
 /* ****************************************************************************************************************************************************** */
 
+// format filters -> { "indoorUnitConfiguration": ["Multipoise"], "coilType": ["A-Coil","Slope Coil"], "coilCasing": ["Cased"] }
 PrepareFilters(){
   let myFilters: any = null;
   let indoorUnitConfiguration: any = null;
   let coilType: any = null;
   let coilCasing: any = null;
+  let electricalPhase: any = null;
+  let coastal: any = null;
+
+  let prepateCombinacionFilters :Array<any> = [];
 
   Object.entries(this.filtersGroup.value).forEach(
     ([key, value]) => {
@@ -350,15 +359,29 @@ PrepareFilters(){
         switch  (key){
           case 'indoorUnitConfiguration':
             let val1 = JSON.stringify(value);
+            let myKey = JSON.stringify(key);
             indoorUnitConfiguration = `"${key}": ${val1}`;
+            prepateCombinacionFilters.push(`"${key}": ${val1}`);
             break;
           case 'coilType':
             let val2 = JSON.stringify(value);
             coilType = `"${key}": ${val2}`;
+            prepateCombinacionFilters.push(coilType);
             break;
           case 'coilCasing':
             let val3 = JSON.stringify(value);
             coilCasing = `"${key}": ${val3}`;
+            prepateCombinacionFilters.push(coilCasing);
+            break;
+          case 'coastal':
+            let val4 = JSON.stringify(value);
+            coastal = `"${key}": ${val4}`;
+            prepateCombinacionFilters.push(coastal);
+            break;
+          case 'electricalPhase':
+            let val5 = JSON.stringify(value);
+            electricalPhase = `"${key}": ${val5}`;
+            prepateCombinacionFilters.push(electricalPhase);
             break;
         }
       } else {
@@ -372,30 +395,19 @@ PrepareFilters(){
           case 'coilCasing':
             coilCasing = null;
             break;
+          case 'coastal':
+            coastal = null;
+            break;
+          case 'electricalPhase':
+            electricalPhase = null;
+            break;
         }
       }
     }
   );
 
   
-  if (indoorUnitConfiguration === null && coilType === null &&  coilCasing === null){
-    myFilters = null;
-    return myFilters;
-  } else if (indoorUnitConfiguration != null && coilType === null &&  coilCasing === null){
-    myFilters= `{ ${indoorUnitConfiguration} }`;
-  } else if (indoorUnitConfiguration === null && coilType != null &&  coilCasing === null){
-    myFilters= `{ ${coilType} }`;
-  } else if (indoorUnitConfiguration === null && coilType === null &&  coilCasing != null){
-    myFilters= `{ ${coilCasing} }`;
-  } else if (indoorUnitConfiguration != null && coilType != null &&  coilCasing === null){
-    myFilters= `{ ${indoorUnitConfiguration}, ${coilType} }`;
-  } else if (indoorUnitConfiguration === null && coilType != null &&  coilCasing != null){
-    myFilters= `{ ${coilType}, ${coilCasing} }`;
-  } else if (indoorUnitConfiguration != null && coilType === null &&  coilCasing != null){
-    myFilters= `{ ${indoorUnitConfiguration}, ${coilCasing} }`;
-  } else if (indoorUnitConfiguration != null && coilType != null &&  coilCasing != null){
-    myFilters= `{ ${indoorUnitConfiguration}, ${coilType}, ${coilCasing} }`;
-  }
+  myFilters = `{${prepateCombinacionFilters}}`
 
   return decodeURIComponent(myFilters);
 }
@@ -421,7 +433,7 @@ Payload() {
     levelTwoSystemTypeId: this.productLinesGroup.controls['productLine'].value,
     sizingConstraint: sizingConstraint,
     filters: JSON.parse(this.PrepareFilters()),
-    requiredRebates: rebate
+    availableRebates: rebate
   };
 
   return JSON.stringify(body);
@@ -441,11 +453,14 @@ CallFilters() {
         this.filtersGroup.reset();
         // Set selected values
         resp.forEach((filter: any) => {
-          if (filter.filterName === 'coastal') {
+          if (filter.filterName === '') {
+            console.log('hola mama');
             this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues[0]);
           } else {
             this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
           }
+
+          // this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
         });
         this.filtersGroup.enable();
       } else {
@@ -479,6 +494,8 @@ showTitleFilter(filters: any) {
   this.showIndoorUnitConfig = false;
   this.showCoilType = false;
   this.showcoilCasing = false;
+  this.showElectricalPhase = false;
+  this.showCoastal = false;
 
   filters.forEach((ele: any) => {
     if (ele.filterName === 'indoorUnitConfiguration') {
@@ -497,6 +514,19 @@ showTitleFilter(filters: any) {
       this.showcoilCasing = true
     }
   });
+
+  filters.forEach((ele: any) => {
+    if (ele.filterName === 'electricalPhase') {
+      this.showElectricalPhase= true
+    }
+  });
+
+  filters.forEach((ele: any) => {
+    if (ele.filterName === 'coastal') {
+      this.showCoastal = true
+    }
+  });
+
 
 }
 
@@ -525,12 +555,12 @@ CallSearch() {
   this.showSpinner = true;
    this._api.Search(this.Payload()).subscribe({
     next: (resp) => {
-      
+      this.myCards = [];
+
       if (resp.length > 0) {
         this.showSpinner = false;
         this.noResultsSearch = false;
         this.results = resp;
-        this.myCards = [];
         
         // recorriendo toda la respuesta del search
         resp.forEach((element:any) => {

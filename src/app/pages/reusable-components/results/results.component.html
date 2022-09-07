@@ -1,4 +1,6 @@
 <spinner [show]="showSpinner"> </spinner>
+
+<!-- exist product lines results -->
 <div *ngIf="!this.noResultsPL">
 
   <!-- Stock status -->
@@ -11,6 +13,7 @@
       </mat-radio-group>
     </form>
   </div>
+  <!-- Stock status end -->
 
   <!--Results-->
   <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxLayoutAlign="center start" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16">
@@ -59,17 +62,15 @@
                   </mat-card-content>
               </mat-card>
               </div>
-
             <!-- *** rebates end *** -->
 
             <!-- *** filters ***-->
-
               <mat-card class="rc-rb-filters"  *ngIf="tab == 'FILTERS'">
-                
                 <!-- exist filters -->
                 <div *ngIf="!notFilters">
                   <form [formGroup]="filtersGroup" fxLayout="column" fxLayoutAlign="center" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
-                    <!-- indoorUnitConfiguration -->
+
+                    <!-- filter -> indoorUnitConfiguration -->
                     <h5 class="rc-filter-group-title" *ngIf="showIndoorUnitConfig">Indoor Unit</h5>
                     <div *ngFor="let filter of filters" class="rc-filter-group">
                       <div *ngIf="filter.filterName === 'indoorUnitConfiguration'">
@@ -83,9 +84,9 @@
                         </mat-form-field>
                       </div>
                     </div>
-                    <!-- indoorUnitConfiguration end -->
+                    <!-- filter -> indoorUnitConfiguration end -->
   
-                    <!-- Coil Type -->
+                    <!-- filter -> Coil Type -->
                     <h5 class="rc-filter-group-title" *ngIf="showCoilType">Coil Type</h5>
                     <div *ngFor="let filter of filters" class="rc-filter-group">
                       <div *ngIf="filter.filterName === 'coilType'">
@@ -99,9 +100,9 @@
                         </mat-form-field>
                       </div>
                     </div>
-                    <!-- Coil Type end -->
+                    <!-- filter -> Coil Type end -->
   
-                    <!-- Coil Casing -->
+                    <!-- filter -> Coil Casing -->
                     <h5 class="rc-filter-group-title" *ngIf="showcoilCasing">Coil Type</h5>
                     <div *ngFor="let filter of filters" class="rc-filter-group">
                       <div *ngIf="filter.filterName === 'coilCasing'">
@@ -115,7 +116,39 @@
                         </mat-form-field>
                       </div>
                     </div>
-                    <!-- Coil Casing end -->
+                    <!-- filter -> Coil Casing end -->
+
+                    <!-- filter -> electricalPhase -->
+                    <h5 class="rc-filter-group-title" *ngIf="showElectricalPhase">Electrical Phase</h5>
+                    <div *ngFor="let filter of filters" class="rc-filter-group">
+                      <div *ngIf="filter.filterName === 'electricalPhase'">
+  
+                        <mat-form-field appearance="fill">
+                          <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
+                          <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallSearch()">
+                            <mat-option *ngFor="let val of filter.availableOptions" [value]="val"
+                              [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <!-- filter -> electricalPhase end -->
+
+                    <!-- filter -> coastal -->
+                    <h5 class="rc-filter-group-title" *ngIf="showCoastal">Coastal</h5>
+                    <div *ngFor="let filter of filters" class="rc-filter-group">
+                      <div *ngIf="filter.filterName === 'coastal'">
+  
+                        <mat-form-field appearance="fill">
+                          <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
+                          <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallSearch()">
+                            <mat-option *ngFor="let val of filter.availableOptions" [value]="val"
+                              [disabled]="filter.availableOptions.indexOf(val) == -1 ? true:false"> {{val}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <!-- filter -> coastal end -->
   
                   </form>
                 </div>
@@ -124,6 +157,7 @@
                 <div  *ngIf="notFilters">
                   <p>Sorry, we couldn't find any filters.</p>
                 </div>
+
               </mat-card>
             </mat-tab>
             <!-- *** filters end *** -->
@@ -424,11 +458,15 @@
       </div>
       <!-- ======= machine combination  end ======= -->
   </div>
+  <!--Results end-->
 
 </div>
+<!-- exist product lines results end-->
 
+<!-- doesn't product lines results -->
 <div *ngIf="this.noResultsPL" class="rc-alert info">
   <mat-icon class="rc-icon-alert">info</mat-icon>
   <p><b>No Results</b></p>
   <p>Sorry, we couldn't find any results.</p>
 </div>
+<!-- doesn't product lines results end-->
