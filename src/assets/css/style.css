@@ -1297,3 +1297,7 @@ h1, h2, h3, h4, h5 {
     height: 135px!important;
   }
 }
+
+.rc-panel-header-cards{
+  height: auto !important;
+}
