@@ -359,7 +359,6 @@ PrepareFilters(){
         switch  (key){
           case 'indoorUnitConfiguration':
             let val1 = JSON.stringify(value);
-            let myKey = JSON.stringify(key);
             indoorUnitConfiguration = `"${key}": ${val1}`;
             prepateCombinacionFilters.push(`"${key}": ${val1}`);
             break;
@@ -384,25 +383,7 @@ PrepareFilters(){
             prepateCombinacionFilters.push(electricalPhase);
             break;
         }
-      } else {
-        switch  (key){
-          case 'indoorUnitConfiguration':
-            indoorUnitConfiguration = null;
-            break;
-          case 'coilType':
-            coilType = null;
-            break;
-          case 'coilCasing':
-            coilCasing = null;
-            break;
-          case 'coastal':
-            coastal = null;
-            break;
-          case 'electricalPhase':
-            electricalPhase = null;
-            break;
-        }
-      }
+      } 
     }
   );
 
