@@ -434,14 +434,7 @@ CallFilters() {
         this.filtersGroup.reset();
         // Set selected values
         resp.forEach((filter: any) => {
-          if (filter.filterName === '') {
-            console.log('hola mama');
-            this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues[0]);
-          } else {
-            this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
-          }
-
-          // this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
+          this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
         });
         this.filtersGroup.enable();
       } else {
