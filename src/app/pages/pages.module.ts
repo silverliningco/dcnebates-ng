@@ -45,6 +45,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {DetailIKnowMyModelComponent } from './reusable-components/detail-i-know-my-model/detail-i-know-my-model.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ReleasesComponent } from './releases/releases.component';
+import { PipeRPipe } from './reusable-components/results/pipe-r.pipe';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { ReleasesComponent } from './releases/releases.component';
     SpinnerComponent,
     TableViewComponent,
     ReleasesComponent,
+    PipeRPipe,
   ],
   imports: [
     CommonModule,

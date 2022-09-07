@@ -69,11 +69,9 @@
                 <!-- exist filters -->
                 <div *ngIf="!notFilters">
                   <form [formGroup]="filtersGroup" fxLayout="column" fxLayoutAlign="center" fxLayoutAlign.xs="center stretch" fxLayoutAlign.sm="center stretch" fxLayoutGap="16 4">
-                    <!-- indoorUnitConfiguration -->
                     <div *ngFor="let filter of filters" class="rc-filter-group">
                       <div >
-                        <h5 class="rc-filter-group-title">{{filter.filterName}}</h5>
-  
+                        <h5 class="rc-filter-group-title">{{filter.filterName | pipeR}}</h5>
                         <mat-form-field appearance="fill">
                           <mat-label class="rc-radio-label">{{filter.filterName}}</mat-label>
                           <mat-select multiple [formControlName]="filter.filterName" (selectionChange)="CallSearch()">
@@ -83,10 +81,6 @@
                         </mat-form-field>
                       </div>
                     </div>
-                    <!-- indoorUnitConfiguration end -->
-  
-                    
-  
                   </form>
                 </div>
                  
@@ -128,7 +122,8 @@
                   <ng-container *ngIf='isArray(selectedFilter.value) else elseIsarray'>
                     <ng-container *ngFor="let f of  $any(selectedFilter).value">
 
-                      <mat-chip  *ngIf='selectedFilter.value != "*"'  color="primary" (removed)="removeFilter(selectedFilter.key, f)">{{f}}
+                      <mat-chip  *ngIf='selectedFilter.value != "*"'  color="primary" (removed)="removeFilter(selectedFilter.key, f)">
+                        {{f}}
                         <button matChipRemove>
                           <mat-icon>cancel</mat-icon>
                         </button>
@@ -176,7 +171,7 @@
                       <!-- indoor -->
                       <div fxFlex="100"  *ngFor="let unit of ahriCombination.active.components">
                         <div *ngIf="unit.type === 'indoorUnit'">
-                          <span class="rc-small"><b>{{unit.type}}</b></span>
+                          <span class="rc-small"><b>{{unit.type  | pipeR}}</b></span>
                           <mat-form-field class="rc-select-multiline">
                             <mat-select [value]="unit.id" (selectionChange)="filterByID($event.value, unit.type, ahriCombination)">
                               <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.indoorOptions" [value]="val.id">
@@ -192,7 +187,7 @@
                       <div fxFlex="100"  *ngFor="let unit of ahriCombination.active.components">
                        
                         <div  *ngIf="unit.type === 'furnace'" >
-                          <span class="rc-small"><b>{{unit.type}}</b></span>
+                          <span class="rc-small"><b>{{unit.type  | pipeR}}</b></span>
                           <mat-form-field class="rc-select-multiline">
                             <mat-select [value]="unit.id" (selectionChange)="filterByID($event.value, unit.type, ahriCombination)">
                               <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.furnaceOptions" [value]="val.id">
@@ -206,7 +201,7 @@
                       </div>
                       <!-- options -->
                       <div fxFlex="100"  *ngFor="let co of ahriCombination.active.configurationOptions">
-                        <span class="rc-small"><b>{{co.type}}</b></span>
+                        <span class="rc-small"><b>{{co.type  | pipeR}}</b></span>
                         <mat-form-field class="rc-select-multiline" >
                           <mat-select [value]="co.id" (selectionChange)="filterByConfigurationOptions($event.value,  ahriCombination)">
                             <mat-option class="rc-select-multiline-option"  *ngFor="let val of ahriCombination.configurationOptions" [value]="val.id">
