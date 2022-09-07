@@ -371,7 +371,7 @@ Payload() {
     levelTwoSystemTypeId: this.productLinesGroup.controls['productLine'].value,
     sizingConstraint: sizingConstraint,
     filters: this.PrepareFilters(),
-    requiredRebates: rebate
+    availableRebates: rebate
   };
 
   return JSON.stringify(body);
@@ -619,7 +619,7 @@ filterByID(myUnitID: string, myUnitType: string, myCard: Card) {
     let body = {
       "commerceInfo": commerceInfo,
       "skus": myAHRIs, 
-	    "requiredRebates": rebate
+	    "availableRebates": rebate
     }
 
     let myBody = JSON.stringify(body)
@@ -641,7 +641,7 @@ filterByID(myUnitID: string, myUnitType: string, myCard: Card) {
     this.dialogRef.open(TableViewComponent, {
       data: {
         commerceInfo:  this.myPayloadForm.commerceInfo,
-        requiredRebates: this.getSelectedRebates(),
+        availableRebates: this.getSelectedRebates(),
         systems:myOptions,
         home : this.myPayloadForm.home
       }

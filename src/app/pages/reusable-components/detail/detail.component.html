@@ -171,7 +171,7 @@
                   <ul class="link-list">
                     <li *ngFor="let link of reb.links">
                       <a target="_blank" (click)="onNavigate(link.url)">
-                        <mat-icon>link</mat-icon> {{link.title|json}}
+                        <mat-icon>link</mat-icon> {{link.title}}
                       </a>
                     </li>
                   </ul>

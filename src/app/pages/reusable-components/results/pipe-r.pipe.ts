@@ -6,8 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PipeRPipe implements PipeTransform {
 
   transform(value: unknown, ...args: unknown[]): unknown {
-
-    console.log(value);
     switch  (value){
       case 'indoorUnitConfiguration':
         value = 'Indoor unit configuration'
