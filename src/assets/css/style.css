@@ -823,20 +823,23 @@ h1, h2, h3, h4, h5 {
   .rc-rt-title {
     width: 95%;
   }
-  .rc-rt-container{
-    color: var(--rc-text-light-color);
-  }
+  
+.rc-checked-rebate .rc-rt-container{
+  color: var(--rc-primary-color);
+}
+  .rc-checked-rebate .rc-rebate-tier.mat-checkbox-disabled .rc-rt-container {
+
+color: #4c4c4c;
+
+}
   .rc-rt-container .rc-info-note{
     text-transform: none;
     font-weight: 400;
   }
   .rc-rt-container .rc-icon-info {
-    position: absolute;
     width: 16px;
     height: 16px;
     font-size: 16px;
-    top: 10px;
-    margin-left: 0.5rem;
   }
     /*Rebate Tiers Checked*/
     .rc-checked-rebate .mat-checkbox.mat-checkbox-checked .mat-checkbox.mat-checkbox-checked{
@@ -1300,4 +1303,8 @@ h1, h2, h3, h4, h5 {
 
 .rc-panel-header-cards{
   height: auto !important;
+}
+.rc-disabled-note-rt{
+  color:#a19d9d;
+  text-transform: lowercase;
 }

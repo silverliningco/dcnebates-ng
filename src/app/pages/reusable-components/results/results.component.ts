@@ -219,7 +219,9 @@ export class ResultsComponent implements OnInit {
         // matches the level RebateTier in the defined model
         let myTier: Array<RebateTier> = [];
 
-        var myMax = Math.max.apply(Math, reb.rebateTiers.map(function (rt: any) { return rt.accessibilityRank; }))
+        let myAvailableRebateTiers = reb.rebateTiers?.filter((rt:any) => rt.isAvailable == true);
+
+        var myMax = Math.max.apply(Math, myAvailableRebateTiers.map(function (rt: any) { return rt.accessibilityRank; }))
 
         let myFirstOccurrence = false;
 

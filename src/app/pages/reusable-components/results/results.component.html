@@ -36,15 +36,16 @@
                           <div>
                             <div *ngFor="let rebTier of reb.rebateTiers" [ngClass]="rebTier.completed ? 'checked' : ''" >
                               <div class="rc-rb-h100" *ngIf="rebTier.title != 'Default'" >
-                                <mat-checkbox class="rc-hide-checkbox "
+                                <mat-checkbox class="rc-rebate-tier rc-hide-checkbox "
                                   [(ngModel)]="rebTier.completed"
                                  [disabled]="!rebTier.isAvailable"
                                   (change)="reb_tier_change(rebTier, reb)">
                                   <div class="rc-rt-container"  >
-                                      {{rebTier.title}}
-
+                                      {{rebTier.title}} 
                                       <mat-icon class="rc-icon-info" matTooltipPosition="right" matTooltip='{{rebTier.notes || "Meets basic requirements of the form"}}' aria-label="Info about Rebate Tier">info</mat-icon>
 
+<p class="rc-small rc-disabled-note-rt" *ngIf="!rebTier.isAvailable">This rebate tier is not accessible because selections in available rebates. </p>
+                                     
 
                                     <p class="rc-rebate-info-note" *ngIf="rebTier.title === 'Default'">
                                       <mat-icon>info</mat-icon> {{rebTier.notes || "Meets basic requirements of the form"}}
