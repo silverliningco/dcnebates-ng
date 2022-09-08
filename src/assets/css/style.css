@@ -1308,3 +1308,7 @@ color: #4c4c4c;
   color:#a19d9d;
   text-transform: lowercase;
 }
+
+p.rc-disabled-note-rt::first-letter{
+  text-transform: uppercase;
+}
