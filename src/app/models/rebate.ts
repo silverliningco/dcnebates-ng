@@ -5,7 +5,8 @@ export class RebateTier {
   public title: string,
   public completed?: boolean,
   public defaultTier?: boolean,
-  public notes?: string
+  public notes?: string,
+  public isAvailable?: boolean,
   ) {}
 }
 
@@ -16,6 +17,7 @@ export class Rebate {
   public rebateType: string,
   public notes: string,
   public rebateTiers?: Array<RebateTier>,
-  public completed?: boolean
+  public completed?: boolean,
+  public disabled?: boolean
   ) {}
 }

@@ -203,6 +203,7 @@ export class ResultsComponent implements OnInit {
   processingAvailableRebates(myResp: any) {
     this.availableRebates = [];
 
+
     // confirm if exists data
     if (myResp.length === 0) {
       this.NoExistAvailableRebates = true;
@@ -225,8 +226,10 @@ export class ResultsComponent implements OnInit {
         reb.rebateTiers?.forEach((element: any) => {
           let myDefault = false;
           if (!myFirstOccurrence && myMax == element.accessibilityRank) {
-            myFirstOccurrence = true;
-            myDefault = (myMax == element.accessibilityRank) ? true : false;
+            if(element.isAvailable === true){
+              myFirstOccurrence = true;
+              myDefault = (myMax == element.accessibilityRank) ? true : false;
+            } 
           }
 
           myTier.push({
@@ -234,9 +237,11 @@ export class ResultsComponent implements OnInit {
             rebateTierId: element.rebateTierId,
             completed: myDefault,
             defaultTier: myDefault,
-            notes: element.notes
+            notes: element.notes,
+            isAvailable: element.isAvailable
           });
         });
+
 
         this.availableRebates.push({
           title: reb.title,
@@ -244,7 +249,8 @@ export class ResultsComponent implements OnInit {
           rebateTiers: myTier,
           notes: reb.notes,
           rebateType: reb.rebateNotes,
-          completed: true
+          completed: myFirstOccurrence,
+          disabled: myFirstOccurrence
         });
       }
     }
