@@ -572,15 +572,16 @@ export class ResultsComponent implements OnInit {
       myCard.active = myActive
     }
   }
-
+// this function obtains user selections and return true or false if user made a reset selection
   obtainUserSelections(myUnitID: string, myUnitType: string, myCard: Card) {
-
+    let isReset = false; 
     // si el unit id es empty string resetearemos el componente, caso contrario,
     if (myUnitID == "") {
       
       console.log("reset ", myUnitType)
       // Quitar de la seleccion de usuarios el elemento con el unitType seleccionado.
       myCard.userSelections = myCard?.userSelections?.filter((item: any) => item.type != myUnitType);
+      isReset = true;
 
     } else {
       // Si la selección del usuario esta dentro de myCard.userSelections, cambiamos el valor del id por la seleccion, 
@@ -595,6 +596,7 @@ export class ResultsComponent implements OnInit {
         myCard?.userSelections?.push({ id: myUnitID, type: myUnitType })
       }
     }
+    return isReset;
   }
 
   obtainOptionsToUpdate(myUnitID: string, myUnitType: string, myCard: Card) {
@@ -616,6 +618,9 @@ export class ResultsComponent implements OnInit {
 
     let myOptionsToUpdate = this.obtainOptionsToUpdate(myUnitID, myUnitType, myCard)
 
+    console.log('userSelections' ,myCard?.userSelections)
+    console.log('myOptionsToUpdate' ,myOptionsToUpdate)
+
     // actualizar  las opciones de los componentes que combinen con las selecciones del usuario (diferentes a la seleccion actual)
     myOptionsToUpdate!.forEach(element => {
 
@@ -636,17 +641,22 @@ export class ResultsComponent implements OnInit {
 
       if (element.type == "indoorUnit") {
         myCard.indoorOptions = this.getComponentOptions(myCardOptions, 'indoorUnit')
-        if (myCard?.userSelections?.length == myCard?.active?.components?.length) {
-          myCard!.indoorOptions!.push({ id: "", name: "Select", type: "reset" })
+        console.log(myCard.indoorOptions)
+        if (myCard?.userSelections?.length == myCard?.active?.components?.length/* || myCard.indoorOptions.length == 1*/) {
+          myCard!.indoorOptions!.unshift({ id: "", name: "Reset", type: "reset" })
         }
       }
       if (element.type == "furnace") {
         myCard.furnaceOptions = this.getComponentOptions(myCardOptions, 'furnace')
+        console.log(myCard.furnaceOptions)
 
-        if (myCard?.userSelections?.length == myCard?.active?.components?.length) {
-          myCard!.furnaceOptions!.push({ id: "", name: "Select", type: "reset" })
+        if (myCard?.userSelections?.length == myCard?.active?.components?.length/* || myCard.furnaceOptions.length == 1*/) {
+          myCard!.furnaceOptions!.unshift({ id: "", name: "Reset", type: "reset" })
         }
       }
+      
+        
+      
 
     });
 
@@ -681,6 +691,10 @@ export class ResultsComponent implements OnInit {
           });
         });
       })
+    } else{
+      let myTempComponents = myCard.active.components
+        myCard.active = new BestDetail();
+        myCard.active.components = myTempComponents;
     }
 
     // In case there is no combination we reset the card
@@ -688,7 +702,7 @@ export class ResultsComponent implements OnInit {
       //reset values minus components
       // This should never happen.
       let myTempComponents = myCard.active.components
-      myCard.active == new BestDetail();
+      myCard.active = new BestDetail();
       myCard.active.components = myTempComponents;
       
     } else {
