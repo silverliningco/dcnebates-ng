@@ -42,6 +42,7 @@ export class Card{
         public furnaceOptions?: Array<ComponentDetail>,
         public configurationOptions?: Array<ComponentDetail>,
         
+        public showResetCard: boolean = false,
         public userSelections?: Array<ComponentDetail> ,
     ){}
 }

@@ -226,8 +226,8 @@
                     <h1>{{(ahriCombination.active.totalAvailableRebates | currency) || "$0.00"}}</h1>
                     
                   </div>
-                  <div fxLayoutAlign="center center" >
-                    <button mat-button class="rc-reset-button" fxLayout fxLayoutAlign="center center" (click)="openDialog(ahriCombination.options)">
+                  <div fxLayoutAlign="center center" *ngIf="ahriCombination.showResetCard">
+                    <button mat-button class="rc-reset-button"  fxLayout fxLayoutAlign="center center" (click)="resetCardComponents(ahriCombination)">
                       RESET CARD
                       <mat-icon> undo</mat-icon>
                     </button>

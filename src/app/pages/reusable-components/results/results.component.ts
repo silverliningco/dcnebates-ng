@@ -49,6 +49,7 @@ export class ResultsComponent implements OnInit {
   resetTab: number = 0;
   tabs: Array<string> = [];
 
+
   constructor(
     private _formBuilder: FormBuilder,
     private _api: ApiService,
@@ -62,7 +63,7 @@ export class ResultsComponent implements OnInit {
     // receiving form data
     this._bridge.sentRebateParams
       .subscribe((payload: any) => {
-        /*
+        
         this.tabs = ['REBATES','FILTERS'];
       
         this.myPayloadForm = payload.data;
@@ -78,7 +79,7 @@ export class ResultsComponent implements OnInit {
           this.resetTab = 0;
           this.GetAvailableRebates();
         }
-             */
+             
       });
 
     // form control
@@ -99,38 +100,7 @@ export class ResultsComponent implements OnInit {
       coastal: null,
     });
 
-
-
-    /* only for development */
-    this.tabs = ['REBATES', 'FILTERS'];
-
-    this.myPayloadForm = {
-      "commerceInfo": { "storeId": 1, "showAllResults": false },
-      "nominalSize": JSON.parse('{"heatingBTUH":58000,"coolingTons":2}'),
-      "fuelSource": "Natural Gas",
-      "state": "MA",
-      "eligibilityCriteria": { "existingHeatingSystemFuelSource": "Electric resistance", "existingFurnaceOrBoilerType": "Condensing" },
-      "utilityProviders": JSON.parse('{"electricUtilityId":5,"fossilFuelUtilityId":5}'),
-      "levelOneSystemTypeId": 1,
-      "levelTwoSystemTypeId": 2,
-      "sizingConstraint": "Nominal cooling tons",
-      "rebateTypes": JSON.parse('["electric","OEM","distributor","fossil fuel"]'),
-      "home": "rebate"
-    }
-    this.CallProductLines();
-
-    // call GetAvailableRebates if home = 'rebate'
-    if (this.myPayloadForm.home === 'ahri') {
-      this.showCardRebate = false;
-      // remove rebates tab
-      this.tabs.splice(0, 1);
-    } else {
-      this.showCardRebate = true;
-      this.resetTab = 0;
-      this.GetAvailableRebates();
-    }
-
-    /* only for development */
+    
   }
 
 
@@ -479,6 +449,19 @@ export class ResultsComponent implements OnInit {
   /*                                                        SEARCH                                                                                          */
   /* ****************************************************************************************************************************************************** */
 
+  initCard(myBestDetails: BestDetail[]){
+    let myCard: Card;
+    myCard = {
+      active: myBestDetails[0], // colocando el maximo de cada grupo a cada card
+      options: myBestDetails,
+      indoorOptions: this.getComponentOptions(myBestDetails, 'indoorUnit'),
+      furnaceOptions: this.getComponentOptions(myBestDetails, 'furnace'),
+      configurationOptions: this.getConfigurationOptions(myBestDetails[0].components!, myBestDetails),
+      userSelections: [{ id: myBestDetails[0].components!.filter((item: any) => item.type == 'outdoorUnit')[0].id, type: 'outdoorUnit' }],
+      showResetCard: false
+    }
+    return myCard;
+  }
   CallSearch() {
 
     this.showSpinner = true;
@@ -492,7 +475,6 @@ export class ResultsComponent implements OnInit {
 
           // recorriendo toda la respuesta del search
           resp.forEach((element: any) => {
-            let myCard: Card;
             // debuelve los resultados ordenamos del maxino al minimo
             let max = element.sort(function (a: any, b: any) {
               if (a.totalAvailableRebates < b.totalAvailableRebates || a.totalAvailableRebates === null) return +1;
@@ -500,14 +482,7 @@ export class ResultsComponent implements OnInit {
               return 0;
             });
 
-            myCard = {
-              active: max[0], // colocando el maximo de cada grupo a cada card
-              options: max,
-              indoorOptions: this.getComponentOptions(max, 'indoorUnit'),
-              furnaceOptions: this.getComponentOptions(max, 'furnace'),
-              configurationOptions: this.getConfigurationOptions(max[0].components, max),
-              userSelections: [{ id: max[0].components!.filter((item: any) => item.type == 'outdoorUnit')[0].id, type: 'outdoorUnit' }]
-            }
+            let myCard = this.initCard(max)
 
             this.myCards.push(myCard);
           });
@@ -571,8 +546,6 @@ export class ResultsComponent implements OnInit {
 
   }
 
-
-
   filterByConfigurationOptions(myUnitID: string, myCard: Card) {
     let myActive: BestDetail = {}
 
@@ -599,19 +572,12 @@ export class ResultsComponent implements OnInit {
       myCard.active = myActive
     }
   }
-  /*
-       Se agregara las selecciones del usuario a mycard.userSelections para mantenerlas
-     
-       si el numero de selecciones es igual al numero de componentes hacemos la busqueda
-     
-       caso contrario limpiamos/ actualizamos los options de los componentes que no se han seleccionado
-       //probar que el valor userSelection se mantiene en la siguiente seleccion
-     */
 
   obtainUserSelections(myUnitID: string, myUnitType: string, myCard: Card) {
 
     // si el unit id es empty string resetearemos el componente, caso contrario,
     if (myUnitID == "") {
+      
       console.log("reset ", myUnitType)
       // Quitar de la seleccion de usuarios el elemento con el unitType seleccionado.
       myCard.userSelections = myCard?.userSelections?.filter((item: any) => item.type != myUnitType);
@@ -651,7 +617,6 @@ export class ResultsComponent implements OnInit {
     let myOptionsToUpdate = this.obtainOptionsToUpdate(myUnitID, myUnitType, myCard)
 
     // actualizar  las opciones de los componentes que combinen con las selecciones del usuario (diferentes a la seleccion actual)
-
     myOptionsToUpdate!.forEach(element => {
 
       let myCardOptions: BestDetail[] = []
@@ -686,6 +651,13 @@ export class ResultsComponent implements OnInit {
     });
 
 
+  }
+  resetCardComponents(myCard: Card){
+    myCard!.active = myCard.options[0]
+    myCard!.indoorOptions = this.getComponentOptions(myCard.options, 'indoorUnit')
+    myCard!.furnaceOptions = this.getComponentOptions(myCard.options, 'furnace')
+    myCard!.showResetCard = false
+    myCard!.userSelections = [{ id: myCard.options[0].components!.filter((item: any) => item.type == 'outdoorUnit')[0].id, type: 'outdoorUnit' }]
   }
 
   componentsChangeHandler(myUnitID: string, myUnitType: string, myCard: Card) {
@@ -725,6 +697,7 @@ export class ResultsComponent implements OnInit {
     }
 
     
+    myCard.showResetCard = true
   }
 
 
