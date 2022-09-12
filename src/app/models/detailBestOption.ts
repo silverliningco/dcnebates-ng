@@ -30,7 +30,7 @@ export class ComponentDetail{
     public id?: string,
     public SKU?: string,
     public name?: string,
-    public type?: string
+    public type?: string,
     ){}
 }
   
@@ -40,7 +40,9 @@ export class Card{
         public options: Array<BestDetail>,
         public indoorOptions?: Array<ComponentDetail>,
         public furnaceOptions?: Array<ComponentDetail>,
-        public configurationOptions?: Array<ComponentDetail>
+        public configurationOptions?: Array<ComponentDetail>,
+        
+        public userSelections?: Array<ComponentDetail> ,
     ){}
 }
   
