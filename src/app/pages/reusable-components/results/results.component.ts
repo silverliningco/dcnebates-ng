@@ -515,6 +515,9 @@ export class ResultsComponent implements OnInit {
     });
 
     const myUniqueComponents = [...new Map(myComponentsDetail.map((m) => [m.id, m])).values()];
+    
+    // add reset option
+    myUniqueComponents.push({ id: "0", name: "Select a component", type: "reset" })
 
     return myUniqueComponents;
   }
@@ -572,16 +575,17 @@ export class ResultsComponent implements OnInit {
       myCard.active = myActive
     }
   }
-// this function obtains user selections and return true or false if user made a reset selection
+
+  // this function obtains user selections
   obtainUserSelections(myUnitID: string, myUnitType: string, myCard: Card) {
-    let isReset = false; 
+ 
     // si el unit id es empty string resetearemos el componente, caso contrario,
-    if (myUnitID == "") {
+    if (myUnitID == "0") {
       
       console.log("reset ", myUnitType)
       // Quitar de la seleccion de usuarios el elemento con el unitType seleccionado.
       myCard.userSelections = myCard?.userSelections?.filter((item: any) => item.type != myUnitType);
-      isReset = true;
+
 
     } else {
       // Si la selección del usuario esta dentro de myCard.userSelections, cambiamos el valor del id por la seleccion, 
@@ -596,15 +600,14 @@ export class ResultsComponent implements OnInit {
         myCard?.userSelections?.push({ id: myUnitID, type: myUnitType })
       }
     }
-    return isReset;
   }
 
   obtainOptionsToUpdate(myUnitID: string, myUnitType: string, myCard: Card) {
 
     let myOptionsToUpdate;
     // Definir el unit option a actualizar.
-    if (myUnitID == "") {
-      myOptionsToUpdate = [{ type: myUnitType }];
+    if (myUnitID == "0") {
+      myOptionsToUpdate = [{type: myUnitType }];
     } else {
 
       myOptionsToUpdate = myCard?.active.components?.filter((item: any) => item.type != myUnitType && item.type != 'outdoorUnit' && item.type != "reset");
@@ -628,8 +631,9 @@ export class ResultsComponent implements OnInit {
       myCard.options.forEach((option: BestDetail) => {
         let countOks = 0;
         myCard?.userSelections!.forEach(selection => {
-          option.components!.forEach(comp => {
+            option.components!.forEach(comp => {
             if (selection.id == comp.id) {
+            
               countOks++
               if (myCard?.userSelections!.length == countOks) {
                 myCardOptions.push(option)
@@ -642,17 +646,17 @@ export class ResultsComponent implements OnInit {
       if (element.type == "indoorUnit") {
         myCard.indoorOptions = this.getComponentOptions(myCardOptions, 'indoorUnit')
         console.log(myCard.indoorOptions)
-        if (myCard?.userSelections?.length == myCard?.active?.components?.length/* || myCard.indoorOptions.length == 1*/) {
-          myCard!.indoorOptions!.unshift({ id: "", name: "Reset", type: "reset" })
-        }
+        //if (myCard?.userSelections?.length == myCard?.active?.components?.length || myCard.indoorOptions.length == 1) {
+         // myCard!.indoorOptions!.unshift({ id: "", name: "Reset", type: "reset" })
+        //}
       }
       if (element.type == "furnace") {
         myCard.furnaceOptions = this.getComponentOptions(myCardOptions, 'furnace')
         console.log(myCard.furnaceOptions)
 
-        if (myCard?.userSelections?.length == myCard?.active?.components?.length/* || myCard.furnaceOptions.length == 1*/) {
-          myCard!.furnaceOptions!.unshift({ id: "", name: "Reset", type: "reset" })
-        }
+       // if (myCard?.userSelections?.length == myCard?.active?.components?.length || myCard.furnaceOptions.length == 1) {
+        //  myCard!.furnaceOptions!.unshift({ id: "", name: "Reset", type: "reset" })
+        //}
       }
       
         
@@ -662,6 +666,7 @@ export class ResultsComponent implements OnInit {
 
 
   }
+
   resetCardComponents(myCard: Card){
     myCard!.active = myCard.options[0]
     myCard!.indoorOptions = this.getComponentOptions(myCard.options, 'indoorUnit')
@@ -694,7 +699,22 @@ export class ResultsComponent implements OnInit {
     } else{
       let myTempComponents = myCard.active.components
         myCard.active = new BestDetail();
+        
         myCard.active.components = myTempComponents;
+        /*let myOptionsToUpdate = this.obtainOptionsToUpdate(myUnitID, myUnitType, myCard) 
+        myOptionsToUpdate!.forEach(select => {
+          myCard.active.components!.forEach(comp => {
+            if(comp.type == select.type){
+              console.log(comp);
+              
+              console.log("reset ", comp.type , "ID selected",myUnitID)
+              comp.id = "0";
+              comp.SKU = "";
+              comp.name= "Select a component"
+              //comp = { id: "0", name: "Select a component", type: "reset" }
+            }
+          });
+        });*/
     }
 
     // In case there is no combination we reset the card
@@ -709,7 +729,7 @@ export class ResultsComponent implements OnInit {
       myCard.active = myActive
       myCard.configurationOptions = this.getConfigurationOptions(myActive.components!, myCard.options)
     }
-
+console.log(myCard.active)
     
     myCard.showResetCard = true
   }

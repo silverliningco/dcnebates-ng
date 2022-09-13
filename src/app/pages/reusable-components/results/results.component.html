@@ -175,6 +175,7 @@
                         <div fxFlex="100"  *ngFor="let unit of ahriCombination.active.components">
                           <div *ngIf="unit.type === 'indoorUnit'">
                             <span class="rc-small"><b>{{unit.type  | pipeR}}</b></span>
+                           
                             <mat-form-field class="rc-select-multiline">
                               <mat-select [value]="unit.id" (selectionChange)="componentsChangeHandler($event.value, unit.type, ahriCombination)">
                                 <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.indoorOptions" [value]="val.id">
@@ -191,6 +192,7 @@
                          
                           <div  *ngIf="unit.type === 'furnace'" >
                             <span class="rc-small"><b>{{unit.type  | pipeR}}</b></span>
+                            
                             <mat-form-field class="rc-select-multiline">
                               <mat-select [value]="unit.id" (selectionChange)="componentsChangeHandler($event.value, unit.type, ahriCombination)">
                                 <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.furnaceOptions" [value]="val.id">
