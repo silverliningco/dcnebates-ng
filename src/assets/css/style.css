@@ -1022,6 +1022,7 @@ color: #4c4c4c;
     color: white;
     font-size: 12px;
   }
+
   .rc-card.results .pdf-card-button {
     background: var(--rc-warn-color);
     margin-right: 1rem;

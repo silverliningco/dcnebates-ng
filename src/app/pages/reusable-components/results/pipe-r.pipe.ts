@@ -31,9 +31,6 @@ export class PipeRPipe implements PipeTransform {
       case 'furnaceConfiguration':
         value = 'Furnace configuration'
         break;
-      case 'matchedIndoorUnits':
-        value = 'Matched indoor units'
-        break;
 
     }
     return value;

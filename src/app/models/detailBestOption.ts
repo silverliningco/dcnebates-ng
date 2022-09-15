@@ -1,4 +1,3 @@
-/* note: all the attributes that have type any, does have value null when received the payload */
 export class BestDetail {
     constructor(
 
@@ -25,25 +24,34 @@ export class BestDetail {
  
     ) {}
 }
+
 export class ComponentDetail{ 
     constructor(
     public id?: string,
     public SKU?: string,
     public name?: string,
     public type?: string,
+    public desable?: boolean
+    ){}
+}
+
+export class OptionsbyType{ 
+    constructor(
+    public nameOption?: string,
+    public options?:  Array<ComponentDetail> 
     ){}
 }
   
 export class Card{
     constructor(
         public active: BestDetail,
+        public bestOption: BestDetail,
+        public showResetCard: boolean,
         public options: Array<BestDetail>,
+        public allOptions: Array<OptionsbyType>,
         public indoorOptions?: Array<ComponentDetail>,
         public furnaceOptions?: Array<ComponentDetail>,
-        public configurationOptions?: Array<ComponentDetail>,
-        
-        public showResetCard: boolean = false,
-        public userSelections?: Array<ComponentDetail> ,
+        public configurationOptions?: Array<ComponentDetail>
     ){}
 }
   

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
-import { payloadForm, } from '../../../models/payloadFrom';
+import { payloadForm,  } from '../../../models/payloadFrom';
 import { Rebate, RebateTier } from '../../../models/rebate';
-import { BestDetail, Card, ComponentDetail } from '../../../models/detailBestOption';
+import { BestDetail, Card, ComponentDetail, OptionsbyType} from '../../../models/detailBestOption';
 import { bridgeService } from '../../../services/bridge.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TableViewComponent } from '../table-view/table-view.component';
@@ -25,15 +25,16 @@ export class ResultsComponent implements OnInit {
   noResultsPL!: boolean;
 
   /* filgters */
-  filters: Array<any> = [];
+  filters: Array<any> = [];  
   notFilters!: boolean;
 
   /* search */
   noResultsSearch!: boolean;
   myCards: Array<Card> = [];
+  resultsSearch!: any;
 
   /*  receives information from the other components*/
-  myPayloadForm: payloadForm = new payloadForm;
+  myPayloadForm: payloadForm = new payloadForm; 
   myPayloadRebate!: any;
 
   /* display title when exist filter */
@@ -44,11 +45,10 @@ export class ResultsComponent implements OnInit {
   availableRebates!: Array<Rebate>;
   NoExistAvailableRebates: boolean = false;
 
-  showSpinner: boolean = false;
+  showSpinner:boolean = false;
 
   resetTab: number = 0;
   tabs: Array<string> = [];
-
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -58,31 +58,30 @@ export class ResultsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    
     this.showSpinner = true;
     // receiving form data
-    this._bridge.sentRebateParams
-      .subscribe((payload: any) => {
+       this._bridge.sentRebateParams
+        .subscribe((payload: any) => {
+          this.tabs = ['REBATES','FILTERS'];
         
-        this.tabs = ['REBATES','FILTERS'];
-      
-        this.myPayloadForm = payload.data;
-        this.CallProductLines();
-        
-        // call GetAvailableRebates if home = 'rebate'
-        if (this.myPayloadForm.home === 'ahri'){
-          this.showCardRebate = false;
-          // remove rebates tab
-          this.tabs.splice(0, 1);
-        }else {
-          this.showCardRebate = true;
-          this.resetTab = 0;
-          this.GetAvailableRebates();
-        }
-             
-      });
-
-    // form control
+          this.myPayloadForm = payload.data;
+          this.CallProductLines();
+          
+          // call GetAvailableRebates if home = 'rebate'
+          if (this.myPayloadForm.home === 'ahri'){
+            this.showCardRebate = false;
+            // remove rebates tab
+            this.tabs.splice(0, 1);
+          }else {
+            this.showCardRebate = true;
+            this.resetTab = 0;
+            this.GetAvailableRebates();
+          }
+                    
+         });
+   
+         // form control
     this.commerceInfoGroup = this._formBuilder.group({
       storeId: 1,
       showAllResults: [false],
@@ -99,34 +98,32 @@ export class ResultsComponent implements OnInit {
       electricalPhase: null,
       coastal: null,
     });
-
-    
   }
 
 
 
-  /* ****************************************************************************************************************************************************** */
-  /*                                                          PRODUCT LINE                                                                                  */
-  /* ****************************************************************************************************************************************************** */
-  PrepareProductLines() {
+/* ****************************************************************************************************************************************************** */
+/*                                                          PRODUCT LINE                                                                                  */
+/* ****************************************************************************************************************************************************** */
+  PrepareProductLines(){
 
-    let { commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint } = this.myPayloadForm;
+    let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint} = this.myPayloadForm;
 
-    let body = {
-      commerceInfo: commerceInfo,
-      nominalSize: nominalSize,
-      fuelSource: fuelSource,
-      levelOneSystemTypeId: levelOneSystemTypeId,
-      sizingConstraint: sizingConstraint
-    }
+      let body = {
+        commerceInfo: commerceInfo,
+        nominalSize: nominalSize,
+        fuelSource: fuelSource,
+        levelOneSystemTypeId: levelOneSystemTypeId,
+        sizingConstraint: sizingConstraint
+      }
 
     //update commerce info with "updated show all results" input.
     body.commerceInfo!.showAllResults = this.commerceInfoGroup.controls['showAllResults'].value;
 
-    return body;
+      return body;
 
   }
-
+  
   CallProductLines() {
 
     this._api.ProductLines(this.PrepareProductLines()).subscribe({
@@ -137,7 +134,7 @@ export class ResultsComponent implements OnInit {
           this.productLinesGroup.controls['productLine'].setValue(resp[0].id);
           // hidden indoor unit for Mini-Split (multi zone)
           let productLine = this.productLinesGroup.controls['productLine'].value;
-          if (productLine === 'Mini-Split (multi zone)') {
+          if(productLine === 'Mini-Split (multi zone)'){
             this.showIndoor = false;
           } else {
             this.showIndoor = true;
@@ -164,19 +161,19 @@ export class ResultsComponent implements OnInit {
 
   }
 
-  /* ****************************************************************************************************************************************************** */
-  /*                                                          PRODUCT LINE END                                                                              */
-  /* ****************************************************************************************************************************************************** */
+/* ****************************************************************************************************************************************************** */
+/*                                                          PRODUCT LINE END                                                                              */
+/* ****************************************************************************************************************************************************** */
 
 
-  /* ****************************************************************************************************************************************************** */
-  /*                                                        AVAILABLE REBATES                                                                               */
-  /* ****************************************************************************************************************************************************** */
-  PrepareDataAvailableRebates() {
+/* ****************************************************************************************************************************************************** */
+/*                                                        AVAILABLE REBATES                                                                               */
+/* ****************************************************************************************************************************************************** */
+  PrepareDataAvailableRebates(){
 
-    let { state, utilityProviders, fuelSource, eligibilityCriteria, rebateTypes } = this.myPayloadForm;
+    let {state, utilityProviders, fuelSource, eligibilityCriteria, rebateTypes} = this.myPayloadForm;
 
-    let body = {
+    let body= {
       country: "US",
       state: state,
       utilityProviders: utilityProviders,
@@ -188,10 +185,10 @@ export class ResultsComponent implements OnInit {
     }
 
     return body;
-  }
+  }  
 
   GetAvailableRebates() {
-
+   
     this._api.AvailableRebates(this.PrepareDataAvailableRebates()).subscribe({
       next: (resp: any) => {
         this.processingAvailableRebates(resp)
@@ -220,7 +217,7 @@ export class ResultsComponent implements OnInit {
         // matches the level RebateTier in the defined model
         let myTier: Array<RebateTier> = [];
 
-        let myAvailableRebateTiers = reb.rebateTiers?.filter((rt: any) => rt.isAvailable == true);
+        let myAvailableRebateTiers = reb.rebateTiers?.filter((rt:any) => rt.isAvailable == true);
 
         var myMax = Math.max.apply(Math, myAvailableRebateTiers.map(function (rt: any) { return rt.accessibilityRank; }))
 
@@ -229,10 +226,10 @@ export class ResultsComponent implements OnInit {
         reb.rebateTiers?.forEach((element: any) => {
           let myDefault = false;
           if (!myFirstOccurrence && myMax == element.accessibilityRank) {
-            if (element.isAvailable === true) {
+            if(element.isAvailable === true){
               myFirstOccurrence = true;
               myDefault = (myMax == element.accessibilityRank) ? true : false;
-            }
+            } 
           }
 
           myTier.push({
@@ -337,433 +334,529 @@ export class ResultsComponent implements OnInit {
 
   }
 
-  /* ****************************************************************************************************************************************************** */
-  /*                                                        AVAILABLE REBATES END                                                                           */
-  /* ****************************************************************************************************************************************************** */
+/* ****************************************************************************************************************************************************** */
+/*                                                        AVAILABLE REBATES END                                                                           */
+/* ****************************************************************************************************************************************************** */
 
 
-  /* ****************************************************************************************************************************************************** */
-  /*                                                        FILTERS                                                                                         */
-  /* ****************************************************************************************************************************************************** */
+/* ****************************************************************************************************************************************************** */
+/*                                                        FILTERS                                                                                         */
+/* ****************************************************************************************************************************************************** */
 
-  PrepareFilters() {
+PrepareFilters(){
 
-    let myfilters: any = {};
+  let myfilters: any = {};
 
-    Object.entries(this.filtersGroup.value).forEach(
-      ([key, value]) => {
-        if (value && value != "") {
-          myfilters[key] = (Array.isArray(value)) ? value : [value];
-        }
+  Object.entries(this.filtersGroup.value).forEach(
+    ([key, value]) => {
+      if (value && value != "") {
+        myfilters[key] = (Array.isArray(value)) ? value : [value];
       }
-    );
+    }
+  );
     return myfilters;
-  }
+}
 
 
-  // Function that gets input values from UI and returns payload.
-  Payload() {
+// Function that gets input values from UI and returns payload.
+Payload() {
 
-    let { commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint } = this.myPayloadForm;
+  let {commerceInfo, nominalSize, fuelSource, levelOneSystemTypeId, sizingConstraint} = this.myPayloadForm;
 
-    let rebate: any;
-    if (this.myPayloadForm.home === 'ahri') {
+  let rebate:any;
+    if (this.myPayloadForm.home === 'ahri'){
       rebate = null;
-    } else {
+    }else {
       rebate = this.getSelectedRebates();
     }
 
-    let body = {
-      commerceInfo: commerceInfo,
-      nominalSize: nominalSize,
-      fuelSource: fuelSource,
-      levelOneSystemTypeId: levelOneSystemTypeId,
-      levelTwoSystemTypeId: this.productLinesGroup.controls['productLine'].value,
-      sizingConstraint: sizingConstraint,
-      filters: this.PrepareFilters(),
-      availableRebates: rebate
-    };
+  let body = {
+    commerceInfo: commerceInfo,
+    nominalSize: nominalSize,
+    fuelSource: fuelSource,
+    levelOneSystemTypeId: levelOneSystemTypeId,
+    levelTwoSystemTypeId: this.productLinesGroup.controls['productLine'].value,
+    sizingConstraint: sizingConstraint,
+    filters: this.PrepareFilters(),
+    availableRebates: rebate
+  };
 
-    return JSON.stringify(body);
-  }
+  return JSON.stringify(body);
+}
 
-  // Function that call filters from API and update UI. 
-  // also calls Search function to load results.
-  CallFilters() {
+// Function that call filters from API and update UI. 
+// also calls Search function to load results.
+CallFilters() { 
 
-    this.filtersGroup.disable();
+  this.filtersGroup.disable();
 
-    this._api.Filters(this.Payload()).subscribe({
-      next: (resp) => {
-        if (resp.length > 0) {
-          this.notFilters = false;
-          this.filters = resp;
-          this.filtersGroup.reset();
-          // Set selected values
-          resp.forEach((filter: any) => {
-
+  this._api.Filters(this.Payload()).subscribe({
+    next: (resp) => {
+      if (resp.length > 0) {
+        this.notFilters = false;
+        this.filters = resp;
+        this.filtersGroup.reset();
+        // Set selected values
+        resp.forEach((filter: any) => {
+          
             this.filtersGroup.controls[filter.filterName].setValue(filter.selectedValues);
+         
+        });
+        this.filtersGroup.enable();
+      } else {
+        this.notFilters = true;
+      }
 
-          });
-          this.filtersGroup.enable();
-        } else {
-          this.notFilters = true;
-        }
+      // Call search.
+      this.CallSearch();
+    },
+    error: (e) => alert(e.error),
+    complete: () => console.info('complete')
+  })
+}
 
-        // Call search.
-        this.CallSearch();
-      },
-      error: (e) => alert(e.error),
-      complete: () => console.info('complete')
-    })
+
+ // function to remove selections filters from my filters.
+ removeFilter(myFilter: any, option: any): void {
+  if (option) {
+    this.filtersGroup.controls[myFilter].setValue(this.filtersGroup.controls[myFilter].value.filter((e: string) => e !== option))
+  } else {
+    this.filtersGroup.controls[myFilter].reset();
   }
+  this.CallSearch()
+}
 
 
-  // function to remove selections filters from my filters.
-  removeFilter(myFilter: any, option: any): void {
-    if (option) {
-      this.filtersGroup.controls[myFilter].setValue(this.filtersGroup.controls[myFilter].value.filter((e: string) => e !== option))
-    } else {
-      this.filtersGroup.controls[myFilter].reset();
-    }
-    this.CallSearch()
+// for applied filters
+isArray(obj: any) {
+  if (Array.isArray(obj)) {
+    return true
+
+  } else {
+    return false
   }
+}
+
+/* ****************************************************************************************************************************************************** */
+/*                                                        FILTERS END                                                                                     */
+/* ****************************************************************************************************************************************************** */
 
 
-  // for applied filters
-  isArray(obj: any) {
-    if (Array.isArray(obj)) {
-      return true
+/* ****************************************************************************************************************************************************** */
+/*                                                        SEARCH                                                                                          */
+/* ****************************************************************************************************************************************************** */
 
-    } else {
-      return false
-    }
-  }
+CallSearch() {
+  
+  this.showSpinner = true;
+   this._api.Search(this.Payload()).subscribe({
+    next: (resp) => {
 
-  /* ****************************************************************************************************************************************************** */
-  /*                                                        FILTERS END                                                                                     */
-  /* ****************************************************************************************************************************************************** */
-
-
-  /* ****************************************************************************************************************************************************** */
-  /*                                                        SEARCH                                                                                          */
-  /* ****************************************************************************************************************************************************** */
-
-  initCard(myBestDetails: BestDetail[]){
-    let myCard: Card;
-    myCard = {
-      active: myBestDetails[0], // colocando el maximo de cada grupo a cada card
-      options: myBestDetails,
-      indoorOptions: this.getComponentOptions(myBestDetails, 'indoorUnit'),
-      furnaceOptions: this.getComponentOptions(myBestDetails, 'furnace'),
-      configurationOptions: this.getConfigurationOptions(myBestDetails[0].components!, myBestDetails),
-      userSelections: [{ id: myBestDetails[0].components!.filter((item: any) => item.type == 'outdoorUnit')[0].id, type: 'outdoorUnit' }],
-      showResetCard: false
-    }
-    return myCard;
-  }
-  CallSearch() {
-
-    this.showSpinner = true;
-    this._api.Search(this.Payload()).subscribe({
-      next: (resp) => {
-
-        if (resp.length > 0) {
-          this.showSpinner = false;
-          this.noResultsSearch = false;
-          this.myCards = [];
-
-          // recorriendo toda la respuesta del search
-          resp.forEach((element: any) => {
-            // debuelve los resultados ordenamos del maxino al minimo
-            let max = element.sort(function (a: any, b: any) {
-              if (a.totalAvailableRebates < b.totalAvailableRebates || a.totalAvailableRebates === null) return +1;
-              if (a.totalAvailableRebates > b.totalAvailableRebates || b.totalAvailableRebates === null) return -1;
-              return 0;
-            });
-
-            let myCard = this.initCard(max)
-
-            this.myCards.push(myCard);
-          });
-
-          // Ordenar cards de manera descendente por totalAvailableRebates
-          this.myCards.sort(function (a: Card, b: Card) {
-            if (a.active.totalAvailableRebates! < b.active.totalAvailableRebates! || a.active.totalAvailableRebates === null) return +1;
-            if (a.active.totalAvailableRebates! > b.active.totalAvailableRebates! || b.active.totalAvailableRebates === null) return -1;
+      this.resultsSearch = JSON.stringify(resp) ;
+      
+      if (resp.length > 0) {
+        this.showSpinner = false;
+        this.noResultsSearch = false;
+        this.myCards = [];
+        
+        // recorriendo toda la respuesta del search
+        resp.forEach((element:any) => {
+          let myCard: Card;
+          // debuelve los resultados ordenamos del maxino al minimo
+          let max =  element.sort( function(a: any, b:any) {
+            if (a.totalAvailableRebates < b.totalAvailableRebates || a.totalAvailableRebates === null) return +1;
+            if (a.totalAvailableRebates > b.totalAvailableRebates || b.totalAvailableRebates === null) return -1;
             return 0;
           });
 
-        } else {
-          this.showSpinner = false;
-          this.noResultsSearch = true;
+          myCard ={
+            active: max[0], // colocando el maximo de cada grupo a cada card
+            bestOption: max[0],
+            showResetCard: false,
+            options: max,
+            allOptions: this.getComponentOptionsbyType(max, max[0]),
+            indoorOptions: this.getComponentOptions(max, 'indoorUnit'),
+            furnaceOptions: this.getComponentOptions(max, 'furnace'),
+            configurationOptions:  this.getConfigurationOptions(max[0].components, max),
+          }
+
+          this.myCards.push(myCard);
+        });  
+        // Ordenar cards de manera descendente por totalAvailableRebates
+        this.myCards.sort( function(a: Card, b:Card) {
+          if (a.active.totalAvailableRebates! < b.active.totalAvailableRebates! || a.active.totalAvailableRebates === null) return +1;
+          if (a.active.totalAvailableRebates! > b.active.totalAvailableRebates! || b.active.totalAvailableRebates === null) return -1;
+          return 0;
+        }) ;
+  
+      } else {
+        this.showSpinner = false;
+        this.noResultsSearch = true;
+      }
+    }
+  })
+}
+
+getComponentOptionsbyType(combinations: BestDetail[], bestOption: BestDetail){
+
+  // se excluye outdoorunit por que se sabe de antemano que los cards biene agrupados por este
+  let Posibletype: string[] = [];
+  let options: OptionsbyType[] = [];
+  let myOption: OptionsbyType = {};
+
+  const {components} = bestOption;
+
+  // al saber que ya los cards estan agrupados por outdoorUnit, se excluye este
+  for (const component of components!) {
+    if (component.type != "outdoorUnit"){
+      Posibletype.push(component.type!)
+    }
+  }
+
+  // elimnando elementos duplicados
+  let myType = new Set(Posibletype)
+
+  // agregando las opciones encontradas
+  for (const type of myType) {
+    let gruopO = this.getComponentOptions(combinations, type)
+    
+    myOption = {
+      nameOption: type,
+      options: gruopO
+    } 
+    options.push(myOption)
+  }
+
+  return options;
+
+}
+
+getComponentOptions(combinations: Array<BestDetail>, type: string){
+  let myComponentsDetail:ComponentDetail[] = []
+  combinations.forEach((det:BestDetail) => {
+    
+      let myFind = det.components?.filter((item: any)=> item.type == type);
+      // If filter finds components with specific type
+      if(myFind![0]){
+        myFind![0].desable = false;
+        myComponentsDetail.push(myFind![0]);
+        // console.log(myFind![0]);
+      }
+    
+  });
+
+  const myUniqueComponents = [...new Map(myComponentsDetail.map((m) => [m.id, m])).values()];
+
+  return myUniqueComponents;
+}
+
+
+getConfigurationOptions(myComponents:ComponentDetail[],myOptions: BestDetail[]) {
+
+  let myConfigurationOptions:any[] = []
+
+  myOptions.forEach((option:BestDetail) => {
+    
+    let countOks = 0;
+    myComponents!.forEach(element => {
+      option.components!.forEach(anotherEl => {
+        if(element.id == anotherEl.id ) {
+          countOks++
+          if(option.components!.length == countOks){
+            if(option.configurationOptions){
+              myConfigurationOptions.push(option.configurationOptions[0])
+
+            }
+          }
+        }
+      });
+    });
+  })
+
+  let myUniqueComponents = [...new Map(myConfigurationOptions.map((m) => [m.id, m])).values()];
+
+  return myUniqueComponents;
+
+}
+
+
+
+filterByConfigurationOptions(myUnitID: string, myCard: Card){
+  let myActive:BestDetail = {}
+
+  myCard.options.forEach((option:BestDetail) => {
+    
+    let countOks = 0;
+    myCard?.active.components!.forEach(element => {
+      option.components!.forEach(anotherEl => {
+        if(element.id == anotherEl.id ) {
+          countOks++
+          if(option.components!.length == countOks){
+            if(option.configurationOptions![0].id == myUnitID){
+              myActive = option
+            }
+          }
+        }
+      });
+    });
+  })
+  // En caso no se haya encontrado la combinacion retornamos un mensaje.
+  if(Object.keys(myActive).length === 0){
+    alert("It's not a valid combination.")
+  }else{
+    myCard.active = myActive
+  }
+}
+
+filterByID(myUnitID: string, myUnitType: string, myCard: Card) {
+
+  // avilitar el bototn reset card
+  myCard.showResetCard = true;
+
+  let myActive:BestDetail = {}
+  let myComponents = myCard?.active.components?.filter((item: any)=> item.type != myUnitType);
+
+  //asignar input seleccionado a components para hacer la busqueda
+  myComponents?.push({id:myUnitID, type: myUnitType})
+
+  myCard.options.forEach((option:BestDetail) => {
+    let countOks = 0;
+    myComponents!.forEach(element => {
+      option.components!.forEach(anotherEl => {
+        if(element.id == anotherEl.id ) {
+          countOks++
+          if(option.components!.length == countOks){
+            myActive = option
+          }
+        }
+      });
+    });
+  })
+
+  this.desableElements(myUnitID, myCard, myUnitType);
+
+  // En caso no se haya encontrado la combinacion retornamos un mensaje.
+  if(Object.keys(myActive).length === 0){
+    console.log("It's not a valid combination.")
+    let {options: rawOptions} = myCard;
+    let newCombination = this.SearchInResponses(rawOptions, ['id'], myUnitID);
+    myCard.active = newCombination[0];
+    myCard.configurationOptions = this.getConfigurationOptions(myCard.active.components!, myCard.options);
+  }else{
+    myCard.active = myActive;
+    myCard.configurationOptions = this.getConfigurationOptions(myActive.components!, myCard.options);
+  }
+}
+
+desableElements(myUnitID:any,  card:any, myUnitType:any){
+
+  let {options: rawOptions, allOptions} = card;
+  let groupOptiosActive = this.SearchInResponses(rawOptions, ['id'], myUnitID);
+
+  let optionsActive: any[] = [];
+
+  // opteniendo todos los types que existen
+  let Type: string[] = [];
+  for (const option of allOptions) {
+    let {nameOption: type} = option;
+    Type.push(type);  
+  }
+  // elimiando los types duplicados
+  let myType = new Set(Type)
+
+
+  // asignando a optionsActive lo que corresponde
+  for (const itemType of myType) { // indoor y furnace
+    let comb: string[] = [];
+    for (const combinacionAc of groupOptiosActive) {
+      
+      for (const component of combinacionAc.components) {
+        let {type} = component;
+        if (itemType == type){
+          comb.push(component.id);
         }
       }
-    })
+    }
+
+    // hacer el esquema anotado en goodnotes aqui
+    let a = {
+      nameOption: itemType,
+      options: new Set(comb) 
+    }
+    optionsActive.push(a);
   }
 
-  getComponentOptions(combinations: Array<BestDetail>, type: string) {
-    let myComponentsDetail: ComponentDetail[] = []
-    combinations.forEach((det: BestDetail) => {
+  console.log(optionsActive);
 
-      let myFind = det.components?.filter((item: any) => item.type == type);
-      // If filter finds components with specific type
-      if (myFind![0]) {
-        myComponentsDetail.push(myFind![0])
+
+  // actibando y desactivando las opciones del dropdown
+  // todos se pasan a desable = true, para luego ser pasados a false solo los que son iguales
+  for (const myOption of allOptions) {
+    for (const itemsOption of myOption.options) {
+
+      // pasando todas las opciones a desable = true
+      itemsOption.desable = true;
+
+      // pasando a true los que se encuentran dentro de optionsActive
+      for (const intemAct of optionsActive) {
+
+        for (const ite of intemAct.options) {
+          if (itemsOption.id == ite){
+            console.log(itemsOption.id, ite)
+            itemsOption.desable = false;
+          }
+        }
       }
-
-    });
-
-    const myUniqueComponents = [...new Map(myComponentsDetail.map((m) => [m.id, m])).values()];
-    
-    // add reset option
-    myUniqueComponents.push({ id: "0", name: "Select a component", type: "reset" })
-
-    return myUniqueComponents;
-  }
-  getConfigurationOptions(myComponents: ComponentDetail[], myOptions: BestDetail[]) {
-
-    let myConfigurationOptions: any[] = []
-
-    myOptions.forEach((option: BestDetail) => {
-
-      let countOks = 0;
-      myComponents!.forEach(element => {
-        option.components!.forEach(anotherEl => {
-          if (element.id == anotherEl.id) {
-            countOks++
-            if (option.components!.length == countOks) {
-              if (option.configurationOptions) {
-                myConfigurationOptions.push(option.configurationOptions[0])
-
-              }
-            }
-          }
-        });
-      });
-    })
-
-    let myUniqueComponents = [...new Map(myConfigurationOptions.map((m) => [m.id, m])).values()];
-
-    return myUniqueComponents;
-
-  }
-
-  filterByConfigurationOptions(myUnitID: string, myCard: Card) {
-    let myActive: BestDetail = {}
-
-    myCard.options.forEach((option: BestDetail) => {
-
-      let countOks = 0;
-      myCard?.active.components!.forEach(element => {
-        option.components!.forEach(anotherEl => {
-          if (element.id == anotherEl.id) {
-            countOks++
-            if (option.components!.length == countOks) {
-              if (option.configurationOptions![0].id == myUnitID) {
-                myActive = option
-              }
-            }
-          }
-        });
-      });
-    })
-    // En caso no se haya encontrado la combinacion retornamos un mensaje.
-    if (Object.keys(myActive).length === 0) {
-      alert("It's not a valid combination.")
-    } else {
-      myCard.active = myActive
     }
   }
 
-  // this function obtains user selections
-  obtainUserSelections(myUnitID: string, myUnitType: string, myCard: Card) {
- 
-    // si el unit id es empty string resetearemos el componente, caso contrario,
-    if (myUnitID == "0") {
-      
-      console.log("reset ", myUnitType)
-      // Quitar de la seleccion de usuarios el elemento con el unitType seleccionado.
-      myCard.userSelections = myCard?.userSelections?.filter((item: any) => item.type != myUnitType);
+  console.log(allOptions)
 
 
-    } else {
-      // Si la selección del usuario esta dentro de myCard.userSelections, cambiamos el valor del id por la seleccion, 
-      //Caso contrario agregarmos la seleccion al arreglo userSelections.
-      if (myCard?.userSelections?.findIndex(x => x.type === myUnitType) != -1) {
-        myCard?.userSelections?.forEach(element => {
-          if (element.type == myUnitType) {
-            element.id = myUnitID;
-          }
-        });
+}
+
+desableElements1(myUnitID:any,  card:any, myUnitType:any){
+
+  let myUnit = {
+    type: myUnitType, 
+    value: myUnitID
+  }
+
+  let {options: rawOptions} = card;
+  let groupOptiosActive = this.SearchInResponses(rawOptions, ['id'], myUnit);
+
+  let optionIn: Array<string> = [];
+  let optionFu: Array<string> = [];
+
+  for (let unit of groupOptiosActive){
+    let comp = unit.components;
+    for ( let component of comp){
+      if (myUnit.type === "furnace"){
+        // se va obtener todos los indoors
+        if(component.type === "indoorUnit"){
+          optionIn.push(component.id);
+        }
       } else {
-        myCard?.userSelections?.push({ id: myUnitID, type: myUnitType })
+        // se va obtener todos los furnace
+        if(component.type === "furnace"){
+          optionFu.push(component.id);
+        }
       }
     }
   }
 
-  obtainOptionsToUpdate(myUnitID: string, myUnitType: string, myCard: Card) {
+  // elimiando loa repetidos
+  let myoptionIn = new Set(optionIn); 
+  let myOptionFu = new Set(optionFu);
 
-    let myOptionsToUpdate;
-    // Definir el unit option a actualizar.
-    if (myUnitID == "0") {
-      myOptionsToUpdate = [{type: myUnitType }];
-    } else {
-
-      myOptionsToUpdate = myCard?.active.components?.filter((item: any) => item.type != myUnitType && item.type != 'outdoorUnit' && item.type != "reset");
+  // todos se pasan a desable = true, para luego ser pasados a false solo los que son iguales
+  if(myUnit.type == "indoorUnit"){
+    for (const unit of card.furnaceOptions) {
+      unit.desable = true
     }
-    return myOptionsToUpdate
-  }
 
-  updateCardOptions(myUnitID: string, myUnitType: string, myCard: Card) {
-
-    this.obtainUserSelections(myUnitID, myUnitType, myCard)
-
-    let myOptionsToUpdate = this.obtainOptionsToUpdate(myUnitID, myUnitType, myCard)
-
-    console.log('userSelections' ,myCard?.userSelections)
-    console.log('myOptionsToUpdate' ,myOptionsToUpdate)
-
-    // actualizar  las opciones de los componentes que combinen con las selecciones del usuario (diferentes a la seleccion actual)
-    myOptionsToUpdate!.forEach(element => {
-
-      let myCardOptions: BestDetail[] = []
-      myCard.options.forEach((option: BestDetail) => {
-        let countOks = 0;
-        myCard?.userSelections!.forEach(selection => {
-            option.components!.forEach(comp => {
-            if (selection.id == comp.id) {
-            
-              countOks++
-              if (myCard?.userSelections!.length == countOks) {
-                myCardOptions.push(option)
-              }
-            }
-          });
-        });
+    for (const myfurnace of myOptionFu) {
+      card.furnaceOptions.find((unit:any) => {
+        if (unit.id == myfurnace){
+          // console.log(unit.id)
+          unit.desable = false;
+        }
       })
+    }
+  } else {
+    for (const unit of card.indoorOptions) {
+      unit.desable = true
+    }
 
-      if (element.type == "indoorUnit") {
-        myCard.indoorOptions = this.getComponentOptions(myCardOptions, 'indoorUnit')
-        console.log(myCard.indoorOptions)
-        //if (myCard?.userSelections?.length == myCard?.active?.components?.length || myCard.indoorOptions.length == 1) {
-         // myCard!.indoorOptions!.unshift({ id: "", name: "Reset", type: "reset" })
-        //}
-      }
-      if (element.type == "furnace") {
-        myCard.furnaceOptions = this.getComponentOptions(myCardOptions, 'furnace')
-        console.log(myCard.furnaceOptions)
-
-       // if (myCard?.userSelections?.length == myCard?.active?.components?.length || myCard.furnaceOptions.length == 1) {
-        //  myCard!.furnaceOptions!.unshift({ id: "", name: "Reset", type: "reset" })
-        //}
-      }
-      
-        
-      
-
-    });
-
-
-  }
-
-  resetCardComponents(myCard: Card){
-    myCard!.active = myCard.options[0]
-    myCard!.indoorOptions = this.getComponentOptions(myCard.options, 'indoorUnit')
-    myCard!.furnaceOptions = this.getComponentOptions(myCard.options, 'furnace')
-    myCard!.showResetCard = false
-    myCard!.userSelections = [{ id: myCard.options[0].components!.filter((item: any) => item.type == 'outdoorUnit')[0].id, type: 'outdoorUnit' }]
-  }
-
-  componentsChangeHandler(myUnitID: string, myUnitType: string, myCard: Card) {
-    let myActive: BestDetail = {}
-
-    //Update card options(furnace options, indoor options)
-    this.updateCardOptions(myUnitID, myUnitType, myCard)
-
-    //set active card
-    if (myCard?.userSelections?.length == myCard?.active?.components?.length) {
-      myCard.options.forEach((option: BestDetail) => {
-        let countOks = 0;
-        myCard?.userSelections!.forEach(element => {
-          option.components!.forEach(anotherEl => {
-            if (element.id == anotherEl.id) {
-              countOks++
-              if (option.components!.length == countOks) {
-                myActive = option
-              }
-            }
-          });
-        });
+    for (const myindoor of myoptionIn) {
+      card.indoorOptions.find((unit:any) => {
+        if (unit.id == myindoor){
+          // console.log(unit.id)
+          unit.desable = false;
+        }
       })
-    } else{
-      let myTempComponents = myCard.active.components
-        myCard.active = new BestDetail();
-        
-        myCard.active.components = myTempComponents;
-        /*let myOptionsToUpdate = this.obtainOptionsToUpdate(myUnitID, myUnitType, myCard) 
-        myOptionsToUpdate!.forEach(select => {
-          myCard.active.components!.forEach(comp => {
-            if(comp.type == select.type){
-              console.log(comp);
-              
-              console.log("reset ", comp.type , "ID selected",myUnitID)
-              comp.id = "0";
-              comp.SKU = "";
-              comp.name= "Select a component"
-              //comp = { id: "0", name: "Select a component", type: "reset" }
-            }
-          });
-        });*/
     }
+  }
 
-    // In case there is no combination we reset the card
-    if (Object.keys(myActive).length === 0) {
-      //reset values minus components
-      // This should never happen.
-      let myTempComponents = myCard.active.components
-      myCard.active = new BestDetail();
-      myCard.active.components = myTempComponents;
-      
-    } else {
-      myCard.active = myActive
-      myCard.configurationOptions = this.getConfigurationOptions(myActive.components!, myCard.options)
-    }
-console.log(myCard.active)
+}
+
+SearchInResponses (objectData:Array<any>,  combinations: Array<any>, unit: any) {
     
-    myCard.showResetCard = true
+  let input = unit;
+  let result: Array<any> = [];
+
+  
+    let b = objectData.filter((data:any) => {
+      let combinationQueries = "";
+  
+      combinations.forEach((arg:any) => {
+        combinationQueries +=
+        data.hasOwnProperty(arg) && data[arg].trim() + "";
+      });
+  
+      return Object.keys(data).some((key:any) => {
+        return(
+          (data[key] != undefined && 
+            data[key] != null && 
+            JSON.stringify(data[key]).trim().includes(input)) ||
+          combinationQueries.trim().includes(input)  
+        );
+      });
+    });
+  
+    if(b.length != 0){
+      result = b
+    }
+  
+  return result;
+}
+
+Reset(myCard:  Card, myType: string){
+
+}
+
+ResetCard(myCard:  Card){
+
+  myCard.showResetCard= false
+  myCard.active = myCard.bestOption;
+
+  // reset allOptions
+  let {allOptions} = myCard;
+
+  for (const myOption of allOptions) {
+    let {options} = myOption;
+    for (const element of options!) {
+      element.desable = false
+    }
   }
 
-
-  /* ****************************************************************************************************************************************************** */
-  /*                                                        SEARCH  END                                                                                     */
-  /* ****************************************************************************************************************************************************** */
+  console.log(allOptions)
+}
 
 
+/* ****************************************************************************************************************************************************** */
+/*                                                        SEARCH  END                                                                                     */
+/* ****************************************************************************************************************************************************** */
 
-
-
-
-
-  prepareDataToSend(myCombination: BestDetail) {
+  prepareDataToSend(myCombination:BestDetail){
     let myAHRIs: String[] = []
     myCombination.components!.forEach(element => {
       myAHRIs.push(element.SKU!)
     });
-
-    let rebate: any;
-    if (this.myPayloadForm.home === 'ahri') {
+    
+    let rebate:any;
+    if (this.myPayloadForm.home === 'ahri'){
       rebate = null;
-    } else {
+    }else {
       rebate = this.getSelectedRebates();
     }
 
-    let { commerceInfo } = this.myPayloadForm;
+    let {commerceInfo} = this.myPayloadForm;
 
     let body = {
       "commerceInfo": commerceInfo,
-      "skus": myAHRIs,
-      "availableRebates": rebate
+      "skus": myAHRIs, 
+	    "availableRebates": rebate
     }
 
     let myBody = JSON.stringify(body)
@@ -771,28 +864,26 @@ console.log(myCard.active)
   }
 
 
-  sentmodelNrs(myCombination: BestDetail) {
+  sentmodelNrs(myCombination:BestDetail) {
 
     let myBody = this.prepareDataToSend(myCombination);
 
-    let url = '/home/detail/' + myBody;
-    window.open(url)
-  }
+   let url= '/home/detail/' + myBody;
+   window.open(url) 
+ }
 
 
   openDialog(myOptions: BestDetail[]) {
 
     this.dialogRef.open(TableViewComponent, {
       data: {
-        commerceInfo: this.myPayloadForm.commerceInfo,
+        commerceInfo:  this.myPayloadForm.commerceInfo,
         availableRebates: this.getSelectedRebates(),
-        systems: myOptions,
-        home: this.myPayloadForm.home
+        systems:myOptions,
+        home : this.myPayloadForm.home
       }
     });
   }
 
 
 }
-
-

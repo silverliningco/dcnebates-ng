@@ -44,7 +44,7 @@
                                       {{rebTier.title}} 
                                       <mat-icon class="rc-icon-info" matTooltipPosition="right" matTooltip='{{rebTier.notes || "Meets basic requirements of the form"}}' aria-label="Info about Rebate Tier">info</mat-icon>
 
-<p class="rc-small rc-disabled-note-rt" *ngIf="!rebTier.isAvailable">This rebate tier is not accessible because selections in available rebates. </p>
+                                      <p class="rc-small rc-disabled-note-rt" *ngIf="!rebTier.isAvailable">This rebate tier is not accessible because selections in available rebates. </p>
                                      
 
                                     <p class="rc-rebate-info-note" *ngIf="rebTier.title === 'Default'">
@@ -152,13 +152,12 @@
           <!-- si hay varios por card prueva -->
           <div *ngIf="!noResultsSearch">
             <mat-card class="rc-card results" *ngFor="let ahriCombination of myCards; let i = index">
-              <!-- unit ids -->
+              <!-- unit ids, amount and reset button -->
               <div fxLayout="row column" fxLayoutAlign="space-between start" fxLayoutGap="16px grid">
-  
-                <!-- with rebate -->
+                <!-- options by units -->
                 <div fxFlex="70" fxFlex.sm="100" fxFlex.xs="100" >
                   <mat-card-header>
-  
+                    <!-- outdoor -->
                     <mat-card-title fxLayout="row column" fxLayoutAlign="space-between center" class="123">
                       <div *ngFor="let unit of ahriCombination.active.components">
                         <div fxFlex="100" *ngIf="unit.type === 'outdoorUnit'">
@@ -168,42 +167,28 @@
                       </div>
                     </mat-card-title>
   
-                    <!-- skus of units -->
+                    <!-- others units  -->
                     <mat-card-subtitle >
+                      <!-- indoor and furnace -->
                       <div fxLayout="row column" fxLayoutAlign="space-between center" class="model-nrs" fxLayoutGap="4px grid">
-                        <!-- indoor -->
-                        <div fxFlex="100"  *ngFor="let unit of ahriCombination.active.components">
-                          <div *ngIf="unit.type === 'indoorUnit'">
-                            <span class="rc-small"><b>{{unit.type  | pipeR}}</b></span>
-                           
-                            <mat-form-field class="rc-select-multiline">
-                              <mat-select [value]="unit.id" (selectionChange)="componentsChangeHandler($event.value, unit.type, ahriCombination)">
-                                <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.indoorOptions" [value]="val.id">
-                                  <b>{{val.SKU}}</b>
-                                  {{val.name}}
-                                  <!--<span class="price"> $300.00</span>-->
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
+                        <div fxFlex="100" *ngFor="let val of ahriCombination.allOptions" >
+                          <span class="rc-small"><b>{{val.nameOption | pipeR}}</b></span>
+                          <mat-form-field class="rc-select-multiline">
+                            <div *ngFor="let unit of ahriCombination.active.components">
+                              <div *ngIf="unit.type === val.nameOption ">
+                                <mat-select [value]="unit.id" (selectionChange)="filterByID($event.value, val.nameOption!, ahriCombination)">
+                                  <!-- <mat-option class="rc-select-multiline-option">Reset</mat-option> -->
+                                  <mat-option class="rc-select-multiline-option" *ngFor="let op of val.options" [value]="op.id" disabled="{{op.desable}}">
+                                    <b>{{op.SKU}}</b>
+                                      {{op.name}}
+                                    <!--<span class="price"> $300.00</span>-->
+                                  </mat-option>
+                                </mat-select>
+                              </div>
+                            </div>
+                          </mat-form-field>
                         </div>
-                        <!-- furnace -->
-                        <div fxFlex="100"  *ngFor="let unit of ahriCombination.active.components">
-                         
-                          <div  *ngIf="unit.type === 'furnace'" >
-                            <span class="rc-small"><b>{{unit.type  | pipeR}}</b></span>
-                            
-                            <mat-form-field class="rc-select-multiline">
-                              <mat-select [value]="unit.id" (selectionChange)="componentsChangeHandler($event.value, unit.type, ahriCombination)">
-                                <mat-option class="rc-select-multiline-option" *ngFor="let val of ahriCombination.furnaceOptions" [value]="val.id">
-                                  <b>{{val.SKU}}</b>
-                                    {{val.name}}
-                                  <!--<span class="price"> $300.00</span>-->
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
-                        </div>
+
                         <!-- options -->
                         <div fxFlex="100"  *ngFor="let co of ahriCombination.active.configurationOptions">
                           <span class="rc-small"><b>{{co.type  | pipeR}}</b></span>
@@ -219,9 +204,9 @@
                     </mat-card-subtitle>
                   </mat-card-header>
                 </div>
-                <!-- with rebate end -->
+                <!-- options by units end -->
   
-                <!-- amount -->
+                <!-- amount reset snd button -->
                 <div fxFlex="30" fxFlex.xs="100" fxLayout="column" class="rc-show rc-hide-md rc-hide-sm">
                   <div fxFlex="100"class="rebate-price" fxLayout="row" fxLayoutAlign="center center"  *ngIf="showCardRebate === true">
                     <h5 class="rc-small">REBATES UP</h5>
@@ -229,16 +214,17 @@
                     
                   </div>
                   <div fxLayoutAlign="center center" *ngIf="ahriCombination.showResetCard">
-                    <button mat-button class="rc-reset-button"  fxLayout fxLayoutAlign="center center" (click)="resetCardComponents(ahriCombination)">
+                    <button mat-button class="rc-reset-button" fxLayout fxLayoutAlign="center center" (click)="ResetCard(ahriCombination)">
                       RESET CARD
                       <mat-icon> undo</mat-icon>
                     </button>
                   
                   </div>
                 </div>
+                <!-- amount reset and button -->
                   
               </div>
-              <!-- unit ids end -->
+              <!-- unit ids, amount and reset button end -->
   
               <!-- Ratings without options -->  
               <mat-card-content>
