@@ -50,8 +50,6 @@ export class Card{
         public showResetCard: boolean,
         public options: Array<BestDetail>,
         public allOptions: Array<OptionsbyType>,
-        public indoorOptions?: Array<ComponentDetail>,
-        public furnaceOptions?: Array<ComponentDetail>,
         public configurationOptions?: Array<ComponentDetail>
     ){}
 }

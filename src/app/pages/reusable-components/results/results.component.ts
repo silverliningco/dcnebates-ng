@@ -475,8 +475,6 @@ CallSearch() {
             showResetCard: false,
             options: max,
             allOptions: this.getComponentOptionsbyType(max, max[0]),
-            indoorOptions: this.getComponentOptions(max, 'indoorUnit'),
-            furnaceOptions: this.getComponentOptions(max, 'furnace'),
             configurationOptions:  this.getConfigurationOptions(max[0].components, max),
           }
 
@@ -540,7 +538,6 @@ getComponentOptions(combinations: Array<BestDetail>, type: string){
       if(myFind![0]){
         myFind![0].desable = false;
         myComponentsDetail.push(myFind![0]);
-        // console.log(myFind![0]);
       }
     
   });
@@ -633,7 +630,10 @@ filterByID(myUnitID: string, myUnitType: string, myCard: Card) {
     });
   })
 
-  this.desableElements(myUnitID, myCard, myUnitType);
+
+  if (myCard.allOptions.length > 1){
+    this.desableElements(myUnitID, myCard, myUnitType);
+  }
 
   // En caso no se haya encontrado la combinacion retornamos un mensaje.
   if(Object.keys(myActive).length === 0){
@@ -653,7 +653,6 @@ desableElements(myUnitID:any,  card:any, myUnitType:any){
   let {options: rawOptions, allOptions} = card;
   let groupOptiosActive = this.SearchInResponses(rawOptions, ['id'], myUnitID);
 
-  let optionsActive1: any[] = [];
   let optionsActive2: any[] = [];
   // opteniendo todos los types que existen
   let Type: string[] = [];
@@ -686,30 +685,16 @@ desableElements(myUnitID:any,  card:any, myUnitType:any){
       }
     }
 
-    let a = {
-      nameOption: itemType,
-      options: new Set(comb) 
-    };
     let ab: any[] = [ forReverce[i-1], new Set(comb)];
-
-    optionsActive1.push(a);
     optionsActive2.push(ab);
   }
 
-  // console.log(optionsActive1);
-  // console.log(optionsActive2); // el que se usa
   let objOptionsActive = Object.fromEntries(optionsActive2);
-  let k = Object.keys(objOptionsActive);
   let v = Object.values(objOptionsActive) ;
-  let o = JSON.stringify(v);
-
-  console.log(v) 
-
 
   // poblando el campo relOpt en el atributo allOptions del card
   let Opt: any[] = [];
   for (let it of allOptions) {
-    // console.log(it)
     Opt.push(it.options)
   }
   let opt = Opt.reverse();
@@ -723,7 +708,6 @@ desableElements(myUnitID:any,  card:any, myUnitType:any){
     
   hola: for (const IallOptions of allOptions) {
 
-
       if(IallOptions.nameOption == myUnitType){
         for (let h of IallOptions.relOpt) {
           h.desable = true;
@@ -733,7 +717,6 @@ desableElements(myUnitID:any,  card:any, myUnitType:any){
           for (let r of v) {
             for (let t of r) {
               if (unit.id == t){
-                console.log(t)
                 unit.desable = false;
               } 
             }
@@ -741,71 +724,6 @@ desableElements(myUnitID:any,  card:any, myUnitType:any){
         })
         break hola;
       }
-  }
-
-}
-
-desableElements1(myUnitID:any,  card:any, myUnitType:any){
-
-  let myUnit = {
-    type: myUnitType, 
-    value: myUnitID
-  }
-
-  let {options: rawOptions} = card;
-  let groupOptiosActive = this.SearchInResponses(rawOptions, ['id'], myUnit);
-
-  let optionIn: Array<string> = [];
-  let optionFu: Array<string> = [];
-
-  for (let unit of groupOptiosActive){
-    let comp = unit.components;
-    for ( let component of comp){
-      if (myUnit.type === "furnace"){
-        // se va obtener todos los indoors
-        if(component.type === "indoorUnit"){
-          optionIn.push(component.id);
-        }
-      } else {
-        // se va obtener todos los furnace
-        if(component.type === "furnace"){
-          optionFu.push(component.id);
-        }
-      }
-    }
-  }
-
-  // elimiando loa repetidos
-  let myoptionIn = new Set(optionIn); 
-  let myOptionFu = new Set(optionFu);
-
-  // todos se pasan a desable = true, para luego ser pasados a false solo los que son iguales
-  if(myUnit.type == "indoorUnit"){
-    for (const unit of card.furnaceOptions) {
-      unit.desable = true
-    }
-
-    for (const myfurnace of myOptionFu) {
-      card.furnaceOptions.find((unit:any) => {
-        if (unit.id == myfurnace){
-          // console.log(unit.id)
-          unit.desable = false;
-        }
-      })
-    }
-  } else {
-    for (const unit of card.indoorOptions) {
-      unit.desable = true
-    }
-
-    for (const myindoor of myoptionIn) {
-      card.indoorOptions.find((unit:any) => {
-        if (unit.id == myindoor){
-          // console.log(unit.id)
-          unit.desable = false;
-        }
-      })
-    }
   }
 
 }
@@ -841,10 +759,6 @@ SearchInResponses (objectData:Array<any>,  combinations: Array<any>, unit: any) 
   return result;
 }
 
-Reset(myCard:  Card, myType: string){
-
-}
-
 ResetCard(myCard:  Card){
 
   myCard.showResetCard= false
@@ -859,8 +773,6 @@ ResetCard(myCard:  Card){
       element.desable = false
     }
   }
-
-  console.log(allOptions)
 }
 
 
