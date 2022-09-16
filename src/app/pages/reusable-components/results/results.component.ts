@@ -653,8 +653,8 @@ desableElements(myUnitID:any,  card:any, myUnitType:any){
   let {options: rawOptions, allOptions} = card;
   let groupOptiosActive = this.SearchInResponses(rawOptions, ['id'], myUnitID);
 
-  let optionsActive: any[] = [];
-
+  let optionsActive1: any[] = [];
+  let optionsActive2: any[] = [];
   // opteniendo todos los types que existen
   let Type: string[] = [];
   for (const option of allOptions) {
@@ -662,11 +662,19 @@ desableElements(myUnitID:any,  card:any, myUnitType:any){
     Type.push(type);  
   }
   // elimiando los types duplicados
-  let myType = new Set(Type)
+  let myType = new Set(Type);
 
+  // invirtiendo myType
+  let forReverce: string[] = [];
+  for (let iitemType1 of myType) {
+    forReverce.push(iitemType1);
+  }
+  forReverce.reverse();
 
   // asignando a optionsActive lo que corresponde
+  let i = 0;
   for (const itemType of myType) { // indoor y furnace
+    i += 1;
     let comb: string[] = [];
     for (const combinacionAc of groupOptiosActive) {
       
@@ -678,40 +686,62 @@ desableElements(myUnitID:any,  card:any, myUnitType:any){
       }
     }
 
-    // hacer el esquema anotado en goodnotes aqui
     let a = {
       nameOption: itemType,
       options: new Set(comb) 
-    }
-    optionsActive.push(a);
+    };
+    let ab: any[] = [ forReverce[i-1], new Set(comb)];
+
+    optionsActive1.push(a);
+    optionsActive2.push(ab);
   }
 
-  console.log(optionsActive);
+  // console.log(optionsActive1);
+  // console.log(optionsActive2); // el que se usa
+  let objOptionsActive = Object.fromEntries(optionsActive2);
+  let k = Object.keys(objOptionsActive);
+  let v = Object.values(objOptionsActive) ;
+  let o = JSON.stringify(v);
+
+  console.log(v) 
 
 
-  // actibando y desactivando las opciones del dropdown
-  // todos se pasan a desable = true, para luego ser pasados a false solo los que son iguales
-  for (const myOption of allOptions) {
-    for (const itemsOption of myOption.options) {
+  // poblando el campo relOpt en el atributo allOptions del card
+  let Opt: any[] = [];
+  for (let it of allOptions) {
+    // console.log(it)
+    Opt.push(it.options)
+  }
+  let opt = Opt.reverse();
 
-      // pasando todas las opciones a desable = true
-      itemsOption.desable = true;
+  let x = 0;
+    for (let ite of allOptions) {
+      x += 1;
+      ite.relOpt= opt[x-1];
+    }
 
-      // pasando a true los que se encuentran dentro de optionsActive
-      for (const intemAct of optionsActive) {
+    
+  hola: for (const IallOptions of allOptions) {
 
-        for (const ite of intemAct.options) {
-          if (itemsOption.id == ite){
-            console.log(itemsOption.id, ite)
-            itemsOption.desable = false;
-          }
+
+      if(IallOptions.nameOption == myUnitType){
+        for (let h of IallOptions.relOpt) {
+          h.desable = true;
         }
+
+        IallOptions.relOpt.find((unit:any)  => {
+          for (let r of v) {
+            for (let t of r) {
+              if (unit.id == t){
+                console.log(t)
+                unit.desable = false;
+              } 
+            }
+          }
+        })
+        break hola;
       }
-    }
   }
-
-  console.log(allOptions)
-
 
 }
 

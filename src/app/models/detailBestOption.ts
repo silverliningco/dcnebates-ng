@@ -38,7 +38,8 @@ export class ComponentDetail{
 export class OptionsbyType{ 
     constructor(
     public nameOption?: string,
-    public options?:  Array<ComponentDetail> 
+    public options?:  Array<ComponentDetail>,
+    public relOpt?:  any 
     ){}
 }
   
